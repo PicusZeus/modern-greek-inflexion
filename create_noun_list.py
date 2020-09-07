@@ -4,7 +4,7 @@ import pickle
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate,\
     put_accent_on_the_antepenultimate, is_accented, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import vowels
-from modern_greek_stemmer.resources import feminine_os, feminine_h_eis
+from resources import feminine_os, feminine_h_eis
 
 try:
     file = open('modern_greek_stemmer/el_GR.pickle', 'br')
@@ -55,7 +55,7 @@ def add_fem_and_neut():
 def create_all_basic_noun_forms(noun):
     # I need nom sg, nom. pl. gender
     noun_temp ={'nom_sg': noun, 'gen_sg': '', 'nom_pl': '', 'gender': ''}
-    print(noun)
+    print(noun[-3:])
     number_of_syllables = count_syllables(noun, true_syllabification=False)
     accent = where_is_accent(noun, true_syllabification=False)
     ultimate_accent = accent == 'ultimate'
@@ -262,14 +262,17 @@ def create_all_basic_noun_forms(noun):
             noun_temp['nom_pl'] = plural_form_a
             noun_temp['gen_sg'] = gen_form_a
 
-    elif noun[-3:] in ['εύς']:
+    elif noun[-3:] in ['εύς', 'ευς']:
+        print('zeus')
         plural_form = noun[:-3] + 'είς'
         gen_form = noun[:-3] + 'έως'
         noun_temp['gender'] = 'masc'
         if plural_form in greek_corpus and gen_form in greek_corpus:
             noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
-
+        if noun == 'Ζευς':
+            noun_temp['gen_sg'] = 'Διός'
+            noun_temp['nom_pl'] = ''
 
     elif noun[-2:] in ['ώς', 'ως']:
         noun_temp['gender'] = 'neut'
@@ -360,10 +363,6 @@ def create_all_basic_noun_forms(noun):
         plural_form_b = put_accent_on_the_penultimate(noun[:-1] + 'εις', true_syllabification=False)
         plural_form_c = noun + 'δες'
 
-        print('TUTAJ')
-
-
-
         if plural_form_c in greek_corpus:
             noun_temp['nom_pl'] = plural_form_c
 
@@ -381,7 +380,7 @@ def create_all_basic_noun_forms(noun):
                 noun_temp['gender'] = 'neut'
         if noun[-1] == 'α' and noun + 'τος' in greek_corpus:
             # gala, galatos
-            print(noun, "GALA?")
+
             noun_temp['nom_sg'] = noun
             noun_temp['nom_pl'] = noun + 'τα'
             noun_temp['gen_sg'] = noun + 'τος'
@@ -728,10 +727,9 @@ if __name__ == "__main__":
              'τραπέζι', 'μάθημα', 'ρήμα', 'γράψιμο', 'άστυ', 'Κυριακή', 'Χριστούγεννα', 'προπόδες', 'αλεπού', 'αγώνας', 'ταμίας', 'φύλακας',
              'ψαράς', 'ρήγας', 'ναύτης', 'μαθητής', 'φούρναρης', 'μανάβης', 'παπουτσής', 'δουλευτής', 'συγγενής',
              'καφές', 'αντίλαλος', 'άνεμος', 'διάμετρος', 'Φρόσω', 'κυρά', 'κρέας', 'φως', 'γάλα', 'φωνήεν', 'καθήκον',
-             'καθεστώς', 'δάκρυ', 'γεγονός', 'οξύ', 'ον')
+             'καθεστώς', 'δάκρυ', 'γεγονός', 'οξύ', 'ον', 'Ζευς', 'βρώμα')
     for word in words:
         res = create_all_basic_noun_forms(word)
-    #    print(res)
+        print(res)
 
-    create_list_of_all_noun()
-    add_fem_and_neut()
+

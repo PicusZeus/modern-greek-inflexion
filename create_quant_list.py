@@ -1,5 +1,5 @@
 import pickle
-from .create_adj_list import create_all_basic_adj_forms
+from adjective.create_adj_basic import create_all_basic_adj_forms
 from .create_noun_list import create_all_basic_noun_forms
 
 

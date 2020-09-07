@@ -492,7 +492,6 @@ def all_adj_forms(adj):
 
         return forms, alternative_forms
 
-
     elif masc[-2:] == 'ής' and fem[-1] == 'ά' and neut[-1] == 'ί':
         #colors hs, a, i
         forms['sg']['masc']['nom'] = masc
@@ -739,8 +738,10 @@ def comparative_forms(comp_or_super):
     return comp_forms
 
 
+
+
 if __name__ == '__main__':
-    test_adjs = ['ωραίος/ωραία/ωραίο', 'βαθύς/βαθιά/βαθύ', 'σαφής/σαφής/σαφές', 'γκρινιάρης/γκρινιάρα/γκρινιάρικο']
+    test_adjs = ['κακός/κακή,κακιά/κακό', 'βαθύς/βαθιά/βαθύ', 'φτωχός/φτωχή,φτωχιά/φτωχό', 'ων/ούσα/ον']
     for adj in test_adjs:
         res = all_adj_forms(adj)
         print(res)

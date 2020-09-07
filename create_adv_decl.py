@@ -1,0 +1,1 @@
+# add possible comparative adjectives if exists (νωρίτερος, πρωτερος κτλ)

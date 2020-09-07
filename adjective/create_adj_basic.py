@@ -8,7 +8,7 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 
 
-file = open('el_GR.pickle', 'br')
+file = open('../el_GR.pickle', 'br')
 greek_corpus = pickle.load(file)
 file.close()
 
@@ -289,7 +289,8 @@ def create_all_basic_adj_forms(adj):
                               'μεγάλο': 'μεγαλύτερος/μέγιστος',
                               'πολύ': 'περισσότερος/-',
                               'λίγο': 'λιγότερος/ελάχιστος',
-                              'μέγα': 'μεγαλύτερος/μέγιστος'}
+                              'μέγα': 'μεγαλύτερος/μέγιστος',
+                              'πρώτο': 'πρωτύτερος/πρώτιστος'}
 
     if neuter in irregular_comparatives.keys():
         parathetiko = irregular_comparatives[neuter].split('/')[0]
@@ -324,11 +325,13 @@ def create_all_basic_adj_forms(adj):
         alt_adv = neuter[:-2] + 'ά'
         if alt_adv not in greek_corpus:
             alt_adv = None
-    elif neuter[-1:] in ['υ', 'ύ']:
+    elif neuter[-1] in ['υ', 'ύ'] and masc[-1] == 'ς':
+        print(neuter)
         # it should have the ancient form on ews
         adverb = put_accent_on_the_penultimate(neuter[:-1] + 'εως')
         if adverb not in greek_corpus:
             adverb = adj_forms[1]
+        print(adverb)
     elif neuter[-1] == 'ί':
         # colors
         adverb = put_accent_on_the_ultimate(adj_forms[2] + 'α')
@@ -337,34 +340,45 @@ def create_all_basic_adj_forms(adj):
     elif neuter in ['λίγο', 'πολύ', 'ήσσον', 'κάλλιον']:
         adverb = neuter
 
+    elif (masc[-2:] in ['ας', 'άς', 'ων', 'ών'] or masc[-3:] in ['εις', 'είς']) and fem[-2:] == 'σα' and neuter[
+        -1] == 'ν':
+        # ancient adverbs
+        adverb = put_accent_on_the_penultimate(neuter + 'τως')
+        # if adverb not in greek_corpus:
+        #     adverb = None
+
+    else:
+        # for aklita
+        adverb = neuter
+
+
+
+    # special cases
     if neuter in ['μέγα', 'μεγάλο']:
         # special case
         adverb = 'μέγα'
         alt_adv = 'μεγάλως'
+    # if adverb and alt_adv:
+    #     epirrimata = adverb + ',' + alt_adv
+    # elif adverb:
+    #     epirrimata = adverb
+    # elif alt_adv:
+    #     epirrimata = alt_adv
 
-    if adverb and alt_adv:
-        epirrimata = adverb + ',' + alt_adv
-    elif adverb:
-        epirrimata = adverb
-    elif alt_adv:
-        epirrimata = alt_adv
 
-    elif (masc[-2:] in ['ας', 'άς', 'ων', 'ών'] or masc[-3:] in ['εις', 'είς']) and fem[-2:] == 'σα' and neuter[-1] == 'ν':
-        # ancient adverbs
-        epirrimata = put_accent_on_the_penultimate(neuter + 'τως')
-        if epirrimata not in greek_corpus:
-            epirrimata = None
 
     elif (masc[-4:] == 'ονας' or masc[-2:] == 'ων') and fem[-2:] == 'ων':
-        epirrimata = None
+        adverb = None
 
     elif masc in ['άρρην']:
-        epirrimata = None
+        adverb = None
 
-    else:
-        # for aklita
-        epirrimata = neuter
-
+    epirrimata = []
+    if adverb:
+        epirrimata.append(adverb)
+    if alt_adv:
+        epirrimata.append(alt_adv)
+    epirrimata = ','.join(epirrimata)
     if epirrimata:
         adj_temp['adverb'] = epirrimata
 
@@ -395,7 +409,7 @@ def create_all_basic_adj_forms(adj):
         adv_parathetika = alt_adverb_parathetiko + '/' +  alt_adverb_uperthetiko
 
     irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήττον/κάκιστα,ήκιστα',
-                                     'καλό': 'καλύτερα,κάλλιον,κάλλιο/άρσιτα',
+                                     'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
                                     'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
 
     if neuter in irregular_comparative_adverbs.keys():
@@ -414,7 +428,7 @@ def create_all_basic_adj_forms(adj):
 
 if __name__ == '__main__':
 
-    adjs_test = ['καλός', 'ταχύς', 'ενδιαφέρων', 'φτωχός', 'σαφής']
+    adjs_test = ['κακός', 'πλήρης', 'ορθός', 'πορτοκαλής', 'ευχάριστος', 'πρώτος']
     for adj in adjs_test:
         res = create_all_basic_adj_forms(adj)
         print(res)
