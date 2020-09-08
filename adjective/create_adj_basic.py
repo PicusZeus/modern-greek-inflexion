@@ -8,7 +8,7 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 
 
-file = open('../el_GR.pickle', 'br')
+file = open('el_GR.pickle', 'br')
 greek_corpus = pickle.load(file)
 file.close()
 
@@ -326,12 +326,10 @@ def create_all_basic_adj_forms(adj):
         if alt_adv not in greek_corpus:
             alt_adv = None
     elif neuter[-1] in ['υ', 'ύ'] and masc[-1] == 'ς':
-        print(neuter)
         # it should have the ancient form on ews
         adverb = put_accent_on_the_penultimate(neuter[:-1] + 'εως')
         if adverb not in greek_corpus:
             adverb = adj_forms[1]
-        print(adverb)
     elif neuter[-1] == 'ί':
         # colors
         adverb = put_accent_on_the_ultimate(adj_forms[2] + 'α')
@@ -417,7 +415,6 @@ def create_all_basic_adj_forms(adj):
 
     if adv_parathetika:
         adj_temp['adverb_comparative'] = adv_parathetika
-    print(adj_temp)
     assert adj_temp['adj'].split('/')[1] != '-'
 
     if adj in ['είμαι', 'τάχατες', 'βεληνεκές', 'γιαχνί', 'πλακί', 'μύριοι']:

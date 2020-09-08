@@ -307,7 +307,7 @@ def put_accent_on_unaccented_forms(forms):
     return forms
 
 
-def all_adj_forms(adj):
+def create_all_adj_forms(adj):
     """
 
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesnt exist, it should
@@ -558,7 +558,6 @@ def all_adj_forms(adj):
 
     elif masc[-2:] in ['ων', 'ών', 'ας'] and fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων', 'αν']:
         # wn, ousa, on and as, asa, an
-        print('here')
         feminins = fem.split(',')
         fem = feminins[0]
         neuters = neut.split(',')
@@ -731,9 +730,9 @@ def comparative_forms(comp_or_super):
     if comp_or_super[-2:] in ['ών', 'ων']:
         accent = where_is_accent(comp_or_super)
         neuter = put_accent(comp_or_super[:-2] + 'ον', accent)
-        comp_forms, _ = all_adj_forms(f'{comp_or_super}/{comp_or_super}/{neuter}')
+        comp_forms, _ = create_all_adj_forms(f'{comp_or_super}/{comp_or_super}/{neuter}')
     else:
-        comp_forms, _ = all_adj_forms(f'{comp_or_super}/{comp_or_super[:-2]}η/{comp_or_super[:-1]}')
+        comp_forms, _ = create_all_adj_forms(f'{comp_or_super}/{comp_or_super[:-2]}η/{comp_or_super[:-1]}')
 
     return comp_forms
 
@@ -743,7 +742,7 @@ def comparative_forms(comp_or_super):
 if __name__ == '__main__':
     test_adjs = ['κακός/κακή,κακιά/κακό', 'βαθύς/βαθιά/βαθύ', 'φτωχός/φτωχή,φτωχιά/φτωχό', 'ων/ούσα/ον']
     for adj in test_adjs:
-        res = all_adj_forms(adj)
+        res = create_all_adj_forms(adj)
         print(res)
 
 
