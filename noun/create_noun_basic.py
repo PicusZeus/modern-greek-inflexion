@@ -204,6 +204,9 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
         if plural_form_c in greek_corpus and gen_form_c in greek_corpus:
             noun_temp['nom_pl'] = plural_form_c
             noun_temp['gen_sg'] = gen_form_c
+            # but there is possible, that there is also more dimotiki form of gen_sg
+            if gen_form_a in greek_corpus:
+                noun_temp['gen_sg'] = gen_form_c + ',' + gen_form_a
 
         elif (plural_form_b in greek_corpus and gen_form_b in greek_corpus) and noun[-3:] not in ['ίας']:
             # the last condition is to exclude possibility, that it is false positive because of some same sounding

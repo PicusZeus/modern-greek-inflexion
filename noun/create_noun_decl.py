@@ -2,7 +2,7 @@
 import pickle
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 
-with open('../el_GR.pickle', 'rb') as file:
+with open('el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 # noun = {'nom_sg': '', 'gen_sg': '', 'nom_pl': '', 'gender': ''}
@@ -37,12 +37,14 @@ def put_accent_on_unaccented_forms(forms):
     return forms
 
 
+
 def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
     """
     :param nom_sg:
     :param gen_sg:
     :param nom_pl:
-    :param gender: 'fem' or 'masc' or 'neut'
+    :param genders: 'fem' or 'masc' or 'neut', if more than one, than separated with ','
+    :param proper_name: flag useful for creation of vocatives in proper names
     :return: tuple with 3 elements: forms in all cases in dictionary, gender, and alternative forms in dictionary, if exist
     I want to include alternatives in a main dictionary of forms by adding them with a coma separator
     """
@@ -50,33 +52,43 @@ def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
     accent = where_is_accent(nom_sg, true_syllabification=False)
     noun_all = {}
     for gender in genders.split(','):
-        if nom_sg[-2:] in ['ος', 'ός'] and gen_sg[-2:] in ['ου', 'ού']:
-            gens = gen_sg.split(',')
-            thema = nom_sg[:-2]
-            gen_pl = [put_accent(g[:-2] + 'ων', where_is_accent(g, true_syllabification=False),
-                                 true_syllabification=False) for g in gens]
-            gen_pl = ','.join(gen_pl)
-            acc_pl = [put_accent(g[:-2] + 'ους', where_is_accent(g, true_syllabification=False),
-                                 true_syllabification=False) for g in gens]
-            acc_pl = ','.join(acc_pl)
+        print(gender)
+        noun_all[gender] = {}
+        noun_all[gender][sg] = {}
+        noun_all[gender][pl] = {}
+        noun_all[gender][sg][nom] = nom_sg
+        noun_all[gender][sg][gen] = gen_sg
+        noun_all[gender][sg][voc] = nom_sg
+        noun_all[gender][pl][nom] = nom_pl
+        noun_all[gender][pl][acc] = nom_pl
+        noun_all[gender][pl][voc] = nom_pl
 
-            noun_all[gender][sg][nom] = nom_sg
-            noun_all[gender][sg][gen] = gen_sg
+        if nom_sg[-2:] in ['ος', 'ός'] and gen_sg[-2:] in ['ου', 'ού']:
+
             noun_all[gender][sg][acc] = nom_sg[:-1]
+            if nom_sg[:-1] + 'ν' in greek_corpus:
+                noun_all[gender][sg][acc] = nom_sg[:-1] + ',' + nom_sg[:-1] + 'ν'
             noun_all[gender][sg][voc] = put_accent(nom_sg[:-2] + 'ε', accent, true_syllabification=False)
             if proper_name and count_syllables(nom_sg) < 3:
                 noun_all[gender][sg][voc] = nom_sg[:-1]
 
             if nom_pl:
-                noun_all[gender][pl][nom] = put_accent(thema + 'οι', accent, true_syllabification=False)
+                gens = gen_sg.split(',')
+                gen_pl = [put_accent(g[:-2] + 'ων', where_is_accent(g, true_syllabification=False),
+                                     true_syllabification=False) for g in gens]
+                gen_pl = ','.join(gen_pl)
+                acc_pl = [put_accent(g[:-2] + 'ους', where_is_accent(g, true_syllabification=False),
+                                     true_syllabification=False) for g in gens]
+                acc_pl = ','.join(acc_pl)
+
                 noun_all[gender][pl][gen] = gen_pl
                 noun_all[gender][pl][acc] = acc_pl
-                noun_all[gender][pl][voc] = noun_all[gender][pl][nom]
-
 
         elif nom_sg[-1:] == 'ς' and nom_pl and nom_pl[-2:] in ['ές', 'ες'] and gen_sg and \
-                remove_all_diacritics(gen_sg) == remove_all_diacritics(nom_sg[:-1]):
-
+                gen_sg == nom_sg[:-1]:
+            if ',' in nom_pl:
+                print(nom_pl)
+                raise ValueError
             pl_accent = where_is_accent(nom_pl, true_syllabification=False)
             gen_pl = nom_pl[:-2] + 'ων'
             if count_syllables(nom_sg) == count_syllables(nom_pl) and (nom_sg[-2:] in ['ης','ής', 'ας', 'άς']):
@@ -86,24 +98,24 @@ def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             else:
                 gen_pl = put_accent(gen_pl, pl_accent, true_syllabification=False)
 
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = nom_sg[:-1]
-            noun_basic['sg']['acc'] = nom_sg[:-1]
-            noun_basic['sg']['voc'] = gen_sg[:-1]
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = gen_pl
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
 
-            return noun_basic, gender, None
+            voc_on_a = False
+            if nom_sg[-2] == 'ή':
+                if nom_sg[:-2] + 'ά' in greek_corpus:
+                    voc_on_a = nom_sg[:-2] + 'ά'
+
+            noun_all[gender][sg][acc] = nom_sg[:-1]
+            noun_all[gender][sg][voc] = nom_sg[:-1]
+            if voc_on_a:
+                noun_all[gender][sg][voc] = nom_sg[:-1] + ',' + voc_on_a
+            noun_all[gender][sg][gen] = gen_pl
+
 
         elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != 'neut':
 
-            alternatives = None
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
+            noun_all[gender][sg][acc] = nom_sg
+
+            gen_pl = ''
             if nom_pl:
                 if nom_pl[-2:] in ['ες', 'ές'] and count_syllables(nom_sg) == count_syllables(nom_pl):
                     gen_pl = nom_pl[:-2] + 'ων'
@@ -119,301 +131,183 @@ def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                             gen_pl = alt_gen_pl
                 elif nom_pl[-3:] == 'εις':
                     gen_pl = nom_pl[:-3] + 'εων'
-                    alternatives = {'sg': {'gen': ''}}
-                    alternatives['sg']['gen'] = put_accent(nom_sg[:-1] + 'εως', 'antepenultimate')
                 else:
                     pl_accent = where_is_accent(nom_pl, true_syllabification=False)
-                    gen_pl = nom_pl[:-2] + 'ων'
-                    gen_pl = put_accent(gen_pl, pl_accent, true_syllabification=False)
+                    gen_pl_alt = nom_pl[:-2] + 'ων'
+                    gen_pl_alt = put_accent(gen_pl_alt, pl_accent, true_syllabification=False)
+                    if gen_pl_alt in greek_corpus:
+                        gen_pl = gen_pl_alt
 
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = gen_pl
-                noun_basic['pl']['acc'] = nom_pl
-                noun_basic['pl']['voc'] = nom_pl
-
-            return noun_basic, gender, alternatives
+            noun_all[gender][sg][gen] = gen_pl
 
         elif nom_sg[-1:] == 'α' and gender == 'neut':
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = put_accent(nom_pl[:-1] + 'ων', 'penultimate')
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
-
-            return noun_basic, gender, None
+            noun_all[gender][sg][acc] = nom_sg
+            gen_pl = ''
+            if nom_pl:
+                # there can be alternative roots like gala
+                gen_pl = ','.join([put_accent(n_pl[:-1] + 'ων', 'penultimate') for n_pl in nom_pl.split(',')])
+            noun_all[gender][sg][gen] = gen_pl
 
         elif nom_sg[-1:] in ['ς', 'ν'] and gen_sg != nom_sg and gender == 'neut':
             # to filter out aklita
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            gen_pl = put_accent(nom_pl[:-1] + 'ων', 'ultimate')
-            if gen_sg[-2:] in ['ος']:
-                gen_pl = put_accent(gen_pl, 'penultimate')
+            if ',' in nom_pl:
+                print(nom_pl)
+                raise ValueError
+            noun_all[gender][sg][acc] = nom_sg
+            gen_sg_accent = where_is_accent(gen_sg)
+            gen_pl = put_accent(nom_pl[:-1] + 'ων', gen_sg_accent)
+            if gen_sg[-3:] in ['υος']:
+                gen_pl = put_accent(gen_pl, 'ultimate')
             if gen_pl not in greek_corpus:
                 gen_pl_alt = put_accent(gen_pl, 'penultimate')
                 if gen_pl_alt in greek_corpus:
                     gen_pl = gen_pl_alt
-            noun_basic['pl']['gen'] = gen_pl
+            noun_all[gender][sg][gen] = gen_pl
 
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
+        elif nom_sg[-1:] in ['ο', 'ό', 'ί', 'ι', 'ΐ', 'ύ', 'υ'] and gender == 'neut':
 
-            return noun_basic, gender, None
+            noun_all[gender][sg][acc] = nom_sg
+            gs_pl = []
+            if nom_pl:
+                for g_sg in gen_sg.split(','):
+                    gen_accent = where_is_accent(g_sg, true_syllabification=False)
+                    gs_pl.append(put_accent(g_sg[:-2] + 'ων', gen_accent, true_syllabification=False))
+            noun_all[gender][sg][gen] = ','.join(gs_pl)
 
-        elif (nom_sg[-1:] in ['ο', 'ό'] or nom_sg == 'δάκρυ') and gender == 'neut':
-            gen_accent = where_is_accent(gen_sg, true_syllabification=False)
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = put_accent(nom_pl[:-1] + 'ων', gen_accent, true_syllabification=False)
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
-
-            return noun_basic, gender, None
-
-        elif nom_sg[-2:] in ['ού'] and gender == 'fem':
-            pl_accent = where_is_accent(nom_pl, true_syllabification=False)
-
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = put_accent(nom_pl[:-2] + 'ων', pl_accent, true_syllabification=False)
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
-
-            return noun_basic, gender, None
+        elif nom_sg[-2:] in ['ού', 'ου'] and gender == 'fem':
+            noun_all[gender][sg][acc] = nom_sg
+            gen_pl = ''
+            if nom_pl:
+                pl_accent = where_is_accent(nom_pl, true_syllabification=False)
+                gen_pl = put_accent(nom_pl[:-2] + 'ων', pl_accent, true_syllabification=False)
+            noun_all[gender][pl][gen] = gen_pl
 
         elif nom_sg[-3:] == 'έας' and nom_pl[-3:] == 'είς':
 
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg[:-1]
-            noun_basic['sg']['voc'] = nom_sg[:-1]
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = put_accent(nom_pl[:-2] + 'ων', 'penultimate', true_syllabification=False)
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
+            if gender == 'fem':
+                noun_all[gender][sg][gen] = gen_sg + ',' + nom_sg[:-2] + 'ως'
+            noun_all[gender][sg][acc] = nom_sg[:-1]
+            noun_all[gender][sg][voc] = nom_sg[:-1]
 
-            # but only for feminine! so add gender differentiation
-            alternative = {'sg': {'gen': nom_sg[:-2] + 'ως'}}
-
-            return noun_basic, gender, alternative
-
-        elif nom_sg[-1:] in ['ί', 'ι', 'ΐ', 'υ'] and gen_sg[-2:] == 'ού':
-
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = put_accent(nom_pl[:-1] + 'ων', 'ultimate')
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
-
-            return  noun_basic, gender, None
+            gen_pl = ''
+            if nom_pl:
+                gen_pl = nom_sg[:-2] + 'ων'
+            noun_all[gender][sg][gen] = gen_pl
 
         elif nom_sg == nom_pl:
             #aklita
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = nom_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = nom_pl
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
+            noun_all[gender][sg][acc] = nom_sg
+            noun_all[gender][sg][gen] = nom_pl
 
-            return noun_basic, gender, None
-
-        elif nom_sg[-1:] == 'ς':
+        elif nom_sg[-1:] == 'ς' and gender != 'neut':
             # special cases:
-            if nom_sg in ['μυς', 'δρυς']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = nom_sg[:-1]
-                noun_basic['sg']['voc'] = nom_sg[:-1]
-                noun_basic['pl']['nom'] = put_accent(nom_pl, 'penultimate', true_syllabification=False)
-                noun_basic['pl']['gen'] = put_accent(nom_pl[:-2] + 'ών', 'ultimate')
-                noun_basic['pl']['acc'] = nom_sg
-                noun_basic['pl']['voc'] = put_accent(nom_pl, 'penultimate', true_syllabification=False)
+            noun_all[gender][sg][acc] = nom_sg[:-1]
+            if nom_sg[:-1] + 'ν' in greek_corpus:
+                noun_all[gender][sg][acc] = nom_sg[:-1] + ',' + nom_sg[:-1] + 'ν'
+            noun_all[gender][sg][voc] = nom_sg[:-1]
 
-            elif nom_sg in ['ιλύς', 'ισχύς', 'ιχθύς', 'οσφύς']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = nom_sg[:-1]
-                noun_basic['sg']['voc'] = nom_sg[:-1]
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = nom_pl[:-2] + 'ων'
-                noun_basic['pl']['acc'] = nom_sg
-                noun_basic['pl']['voc'] = nom_pl
+            gen_pl = ''
+            if nom_pl:
+                gen_pl = nom_pl[:-2] + 'ων'
+                if not ',' in gen_sg:
+                    accent_gen_sg = where_is_accent(gen_sg, true_syllabification=False)
+                    gen_pl = put_accent(gen_pl, accent_gen_sg, true_syllabification=False)
+                else:
+                    accent_nom_pl = where_is_accent(nom_pl, true_syllabification=False)
+                    if accent_nom_pl != 'antepenultimate':
+                        gen_pl = put_accent(gen_pl, accent_nom_pl, true_syllabification=False)
+                    else:
+                        gen_pl = put_accent(gen_pl, 'penultimate', true_syllabification=False)
+            noun_all[gender][pl][gen] = gen_pl
 
-            elif nom_sg in ['άλως']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = nom_sg[:-1]
-                noun_basic['sg']['acc'] = nom_sg[:-1]
-                noun_basic['sg']['voc'] = nom_sg
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = nom_pl
-                noun_basic['pl']['acc'] = nom_pl
-                noun_basic['pl']['voc'] = nom_pl
+            if remove_all_diacritics(nom_pl[-3:]) in ['δες', 'τες']:
+                accs = []
+                vocs = [nom_sg]
+                acc_1 = nom_sg[:-1]
+                if acc_1 in greek_corpus:
+                    accs.append(acc_1)
+                acc_2 = nom_pl[:-2] + 'α'
+                if acc_2 in greek_corpus:
+                    accs.append(acc_2)
+                voc_2 = nom_sg[:-1]
+                if voc_2 in greek_corpus:
+                    vocs.append(voc_2)
+                noun_all[gender][sg][acc] = ','.join(accs)
+                noun_all[gender][sg][voc] = ','.join(vocs)
 
-            elif nom_sg in ['αιδώς']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = nom_sg[:-1]
-                noun_basic['sg']['voc'] = nom_sg
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = nom_pl
-                noun_basic['pl']['acc'] = nom_pl
-                noun_basic['pl']['voc'] = nom_pl
+                # ['έρπης', 'πατρίς', 'δράστις', 'δεσποινίς', 'καλλιτέχνις']:'βότρυς', 'πέλεκυς'
+            #'ηχώ', 'πειθώ', 'φειδώ', 'βάβω'
+            elif nom_sg[-3:] in ['εύς', 'ευς']:
 
-            elif nom_sg in ['έρπης', 'πατρίς', 'δράστις', 'δεσποινίς', 'καλλιτέχνις']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = gen_sg[:-2] + 'α'
-                noun_basic['sg']['voc'] = nom_sg
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = put_accent(nom_pl[:-2] + 'ων', 'penultimate')
-                noun_basic['pl']['acc'] = nom_pl
-                noun_basic['pl']['voc'] = nom_pl
-
-            elif nom_sg in ['βασιλεύς']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = gen_sg[:-2] + 'α'
-                noun_basic['sg']['voc'] = nom_sg[:-1]
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = gen_sg[:-2] + 'ων'
-                noun_basic['pl']['acc'] = gen_sg[:-2] + 'ας'
-                noun_basic['pl']['voc'] = nom_pl
+                noun_all[gender][sg][acc] = gen_sg[:-2] + 'α'
+                if nom_sg == 'Ζευς':
+                    noun_all[gender][sg][acc] = 'Δία,Διά'
+                noun_all[gender][sg][voc] = nom_sg[:-1]
 
             elif nom_sg[-3:] == 'ους':
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = gen_sg
-                noun_basic['sg']['voc'] = gen_sg
-                noun_basic['pl']['nom'] = nom_sg[:-3] + 'οι'
-                noun_basic['pl']['gen'] = nom_sg[:-3] + 'ων'
-                noun_basic['pl']['acc'] = nom_sg
-                noun_basic['pl']['voc'] = nom_sg[:-3] + 'οι'
+                # contracta on oos
+                print(nom_sg, 'contract on ous')
 
-                if nom_sg == 'νους':
-                    noun_basic['pl']['nom'] = ''
-                    noun_basic['pl']['gen'] = ''
-                    noun_basic['pl']['acc'] = ''
-                    noun_basic['pl']['voc'] = ''
-
-            elif nom_sg in ['όφις', 'όρχις']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = nom_sg[:-1] + 'ν'
-                noun_basic['sg']['voc'] = nom_sg[:-1]
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = nom_pl[:-3] + 'εων'
-                noun_basic['pl']['acc'] = nom_pl
-                noun_basic['pl']['voc'] = nom_pl
-
-            elif nom_sg in ['βότρυς', 'πέλεκυς']:
-                gen_pl =put_accent(nom_pl[:-3] + 'ων', 'penultimate')
-                if nom_sg in ['πέλεκυς']:
-                    gen_pl = nom_pl[:-3] + 'εων'
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = nom_sg[:-1] + 'ν'
-                noun_basic['sg']['voc'] = nom_sg[:-1]
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = gen_pl
-                noun_basic['pl']['acc'] = nom_sg
-                noun_basic['pl']['voc'] = nom_pl
-
-            elif nom_sg in ['ιθαγενής', 'εκατονταετής']:
-                noun_basic['sg']['nom'] = nom_sg
-                noun_basic['sg']['gen'] = gen_sg
-                noun_basic['sg']['acc'] = gen_sg
-                noun_basic['sg']['voc'] = gen_sg
-                noun_basic['pl']['nom'] = nom_pl
-                noun_basic['pl']['gen'] = nom_pl[:-3] + 'ών'
-                noun_basic['pl']['acc'] = nom_pl
-                noun_basic['pl']['voc'] = nom_pl
+            elif nom_sg[-2:] == 'ής' and nom_pl[-3:] == 'είς':
+                noun_all[gender][pl][gen] = nom_pl[:-3] + 'ών'
 
             else:
-                print(noun)
+                print(noun, 'on s, gender not neut, not catched')
 
-            return noun_basic, gender, None
+        elif (nom_sg[-1:] in ['ρ', 'ν', 'ξ', 'ύ']) and (gen_sg[-2:] in ['ος', 'ός']):
 
-        elif nom_sg[-1:] in ['ρ', 'ν', 'ξ', 'ύ'] and gen_sg[-2:] in ['ος', 'ός']:
-
+            if not nom_pl:
+                print(nom_sg, 'no nom_pl error')
+                raise ValueError
+            noun_all[gender][sg][acc] = nom_pl[:-2] + 'α'
             voc_sg = gen_sg[:-2]
             if gen_sg[-4:] in ['ντος', 'κτος'] or count_syllables(nom_sg) == 1:
                 voc_sg = nom_sg
+            noun_all[gender][sg][voc] = voc_sg
 
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_pl[:-2] + 'α'
-            noun_basic['sg']['voc'] = voc_sg
             gen_pl = put_accent(nom_pl[:-2] + 'ων', 'penultimate')
             if where_is_accent(gen_sg) == 'ultimate':
                 gen_pl = put_accent(gen_pl, 'ultimate')
-            if not nom_pl:
-                gen_pl = ''
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = gen_pl
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
-
-            return noun_basic, gender, None
-
-        elif nom_sg in ['ηχώ', 'πειθώ', 'φειδώ', 'βάβω']:
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = nom_pl
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
-
-
-            return noun_basic, gender, None
+            noun_all[gender][pl][gen] = gen_pl
 
 
         elif gen_sg[-3:] == 'εως':
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = nom_pl[:-1] + 'εων'
-            noun_basic['pl']['acc'] = nom_pl
-            noun_basic['pl']['voc'] = nom_pl
+            print(nom_sg, 'uncought nouns with gen on ews')
 
-            return noun_basic, gender, None
+        elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί'] or nom_pl[-1:] in ['α', 'η', 'ά', 'ή']):
 
-        elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι'] or nom_pl[-1:] == 'α'):
-            acc_pl = nom_pl
-            if nom_pl[-2:] == 'οι':
-                acc_pl = put_accent(nom_pl[:-2] + 'ους', 'penultimate')
-            noun_basic['sg']['nom'] = nom_sg
-            noun_basic['sg']['gen'] = gen_sg
-            noun_basic['sg']['acc'] = nom_sg
-            noun_basic['sg']['voc'] = nom_sg
-            noun_basic['pl']['nom'] = nom_pl
-            noun_basic['pl']['gen'] = put_accent(nom_pl[:-2] + 'ων', 'penultimate')
-            noun_basic['pl']['acc'] = acc_pl
-            noun_basic['pl']['voc'] = nom_pl
+            if nom_pl[-2:] in ['οι', 'οί']:
+                accent = where_is_accent(nom_pl, true_syllabification=False)
+                acc_pl = put_accent(nom_pl[:-2] + 'ους', accent, true_syllabification=False)
 
-        return noun_basic, gender, None
+                if accent == 'antepenultimate':
+                    acc_pl_alt = put_accent(acc_pl, 'penultimate', true_syllabification=False)
+                    if acc_pl in greek_corpus and acc_pl_alt in greek_corpus:
+                        acc_pl = acc_pl + ',' + acc_pl_alt
+                    elif acc_pl_alt in greek_corpus:
+                        acc_pl = acc_pl_alt
 
+                noun_all[pl][acc] = acc_pl
+
+            gen_pl = ''
+            thema = nom_pl[:-2]
+            if nom_pl[-1] in ['α', 'η', 'ά', 'ή']:
+                thema = nom_pl[:-1]
+
+                accent = where_is_accent(nom_pl, true_syllabification=False)
+                gen_pl = put_accent(thema + 'ων', accent, true_syllabification=False)
+
+                if accent == 'antepenultimate':
+                    gen_pl_alt = put_accent(gen_pl, 'penultimate', true_syllabification=False)
+                    if gen_pl in greek_corpus and gen_pl_alt in greek_corpus:
+                        gen_pl = gen_pl + ',' + gen_pl_alt
+                    elif gen_pl_alt in greek_corpus:
+                        gen_pl = gen_pl_alt
+
+                noun_all[pl][gen] = gen_pl
+
+
+    return noun_all
 """
 TODO:
 not correctly recognized
