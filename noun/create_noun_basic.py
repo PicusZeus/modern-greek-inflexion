@@ -590,7 +590,9 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             stems.append(noun[:-1] + 'β')
 
         elif noun[-1] == 'ρ':
+
             stems.append(noun)
+            stems.append(noun[:-1] + 'τ')
             if noun[-2:] == 'ωρ':
                 stems.append(noun[:-2] + 'ορ')
                 noun_temp['gender'] = 'masc'
@@ -600,32 +602,41 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             elif noun[-2:] == 'ώρ':
                 stems.append(noun[:-2] + 'όρ')
                 noun_temp['gender'] = 'masc'
+            else:
+                noun_temp['gender'] = 'neut'
+
 
         for stem in stems:
             plural_form = stem + 'ες'
+            plural_form_n = stem + 'α'
             gen_form = stem + 'ος'
             if count_syllables(stem) == 1:
                 plural_form = put_accent_on_the_antepenultimate(plural_form)
+                plural_form_n = put_accent_on_the_antepenultimate(plural_form_n)
                 gen_form = put_accent_on_the_antepenultimate(gen_form)
                 if gen_form not in greek_corpus:
                     gen_form = put_accent_on_the_ultimate(gen_form)
-            if plural_form in greek_corpus:
+            elif where_is_accent(stem) == 'antepenultimate':
+                gen_form = put_accent_on_the_antepenultimate(gen_form)
+                plural_form = put_accent_on_the_antepenultimate(plural_form)
+                plural_form_n = put_accent_on_the_antepenultimate(plural_form_n)
+
+
+            if plural_form in greek_corpus and noun not in ['πυρ']:
                 noun_temp['nom_pl'] = plural_form
                 if gen_form in greek_corpus:
                     noun_temp['gen_sg'] = gen_form
                 noun_temp['gender'] = 'masc'
-                # it's a bit crude way to correct gender but i cannot find a better way
+                # it's a bit crude way to correct gender but i cannot find a better way without a comprehensive list
                 gen_pl = remove_all_diacritics(plural_form[:-2]) + 'ών'
                 if gen_pl in greek_corpus:
                     noun_temp['gender'] = 'fem'
-                return noun_temp
             else:
-                plural_form = stem + 'α'
-                if plural_form in greek_corpus or noun in ['έαρ']:
+                if plural_form_n in greek_corpus or noun in ['έαρ']:
                     noun_temp['gender'] = 'neut'
                     noun_temp['gen_sg'] = gen_form
                     if noun not in ['έαρ']:
-                        noun_temp['nom_pl'] = plural_form
+                        noun_temp['nom_pl'] = plural_form_n
                     return noun_temp
 
         # else it is assumed it's either borrowing or some substantiated other things
@@ -704,18 +715,38 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
         noun_temp['gender'] = 'neut'
         noun_temp['nom_pl'] = noun
         noun_temp['gen_sg'] = noun
-        if noun in ['μαδιάμ']:
-            noun_temp['gender'] = 'fem'
-        if noun in ['μωάμεθ']:
-            noun_temp['gender'] = 'masc'
+        aklita_gender = {'μαδιάμ': 'fem', 'μωάμεθ': 'masc', 'μάνατζερ': 'masc', 'σερ': 'masc', 'σεφ': 'masc',
+                            'ντετέκτιβ': 'masc', 'ντεντέκτιβ': 'masc', 'ρεπόρτερ': 'masc', 'πλαζ': 'fem',
+                         'σεζόν': 'fem', 'σπεσιαλιτέ': 'fem', 'ρεσεψιόν': 'fem'}
+
+        if noun.lower() in aklita_gender.keys():
+            noun_temp['gender'] = aklita_gender[noun.lower()]
+
+
 
     if proper_name_gender:
         noun_temp['gender'] = proper_name_gender
 
-    diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά', 'λόγος': 'λόγοι,λόγια', 'πλούτος': ',πλούτη', 'σανός': ',σανά', 'χρόνος': 'χρόνοι,χρόνια'}
+    irregularities = {'σέβας':{'nom_sg': 'σέβας', 'nom_pl': 'σέβη', 'gen_sg': '', 'gender': 'neut'},
+                      'σέλας':{'nom_sg': 'σέλας', 'nom_pl': 'σέλατα,σέλαα', 'gen_sg': 'σέλατος,σέλαος', 'gender': 'neut'},
+                      'δείλι': {'nom_sg': 'δείλι', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
+                      'Πάσχα': {'nom_sg': 'Πάσχα', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
+                      'δόρυ': {'nom_sg': 'δόρυ', 'nom_pl': 'δόρατα', 'gen_sg': 'δόρατος', 'gender': 'neut'},
+                      'ήμισυ': {'nom_sg': 'ήμισυ', 'nom_pl': '', 'gen_sg': 'ημίσεος', 'gender': 'neut'},
+
+                      }
+
+
+    if noun in irregularities.keys():
+        noun_temp = irregularities[noun]
+
+    diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά',
+                  'λόγος': 'λόγοι,λόγια', 'πλούτος': ',πλούτη',
+                  'σανός': ',σανά', 'χρόνος': 'χρόνοι,χρόνια',
+                  'καπνός': 'καπνοί,καπνά', 'νιότη': ',νιάτα'}
 
     if noun in diploklita.keys():
         noun_temp['nom_pl'] = diploklita[noun]
-
+    print(noun_temp)
     return noun_temp
 
