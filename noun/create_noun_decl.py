@@ -56,9 +56,26 @@ def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
     if in nom_pl.split(',') -oi and -a:
     genders = masc,neuter_alt
     """
+    if ',' in nom_pl:
+        #irregular plural maybe
+        plurals = nom_pl.split(',')
+        if plurals[0][-2:] in ['οι', 'οί'] and plurals[1][-1] in ['α', 'ά']:
+            genders = 'masc,neut_irregular'
+            nom_pl = plurals[0]
+            irregular_nom_pl = plurals[1]
 
     for gender in genders.split(','):
+
+        if gender == 'neut_irregular':
+            # they lack gen pl
+
+            noun_all['neut'][pl][nom] = irregular_nom_pl
+            noun_all['neut'][pl][acc] = irregular_nom_pl
+            noun_all['neut'][pl][voc] = irregular_nom_pl
+
+
         print(gender)
+
         noun_all[gender] = {}
         noun_all[gender][sg] = {}
         noun_all[gender][pl] = {}
@@ -265,7 +282,7 @@ def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 noun_all[gender][pl][gen] = nom_pl[:-3] + 'ών'
 
             else:
-                print(noun, 'on s, gender not neut, not catched')
+                print(nom_sg, 'on s, gender not neut, not catched')
 
         elif (nom_sg[-1:] in ['ρ', 'ν', 'ξ', 'ύ']) and (gen_sg[-2:] in ['ος', 'ός']):
 
@@ -317,10 +334,13 @@ def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 elif gen_pl_alt in greek_corpus:
                     gen_pl = gen_pl_alt
 
-
             noun_all[gender][pl][gen] = gen_pl
 
-
+    """
+    irregularities
+    """
+    if nom_sg == 'χρόνος':
+        noun_all[gender][pl][gen] = 'χρόνων,χρονών,χρόνω,χρονώ'
     return noun_all
 """
 TODO:

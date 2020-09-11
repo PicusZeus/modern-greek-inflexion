@@ -711,5 +711,11 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
 
     if proper_name_gender:
         noun_temp['gender'] = proper_name_gender
+
+    diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά', 'λόγος': 'λόγοι,λόγια', 'πλούτος': ',πλούτη', 'σανός': ',σανά', 'χρόνος': 'χρόνοι,χρόνια'}
+
+    if noun in diploklita.keys():
+        noun_temp['nom_pl'] = diploklita[noun]
+
     return noun_temp
 
