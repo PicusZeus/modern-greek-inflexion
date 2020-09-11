@@ -30,41 +30,32 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
     # on 'os'
     if noun[-2:] in ['ός', 'ος']:
         stem = noun[:-2]
-        plural_form = stem + 'οι'
-        gen_form = put_accent_on_the_penultimate(stem + 'ου', true_syllabification=False)
-        gens = []
+        plural_form = put_accent(stem + 'οι', accent, true_syllabification=False)
+        gen_form = put_accent(stem + 'ου', accent, true_syllabification=False)
+
+        gens_sg = []
+
         noun_temp['gender'] = 'masc'
-        if accent == 'ultimate':
-            plural_form = stem + 'οί'
-            gen_form = stem + 'ού'
+
 
         # the problem is that many long words on -os that are part of some kind of jargon do not have any other form
         # declined in the lexicon, i will assume then that words above 4 syllabes do exist, but only in singular, the
         # same should be the case for neuter long words on -o
         # also some proper names in greek_corpus are, as is proper, capitalized
         if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or number_of_syllables >4:
-            gens.append(gen_form)
+            gens_sg.append(gen_form)
 
+        if accent == 'antepenultimate':
+            gen_form_alt = put_accent(gen_form, 'penultimate', true_syllabification=False)
+            if gen_form_alt in greek_corpus:
+                gens_sg.append(gen_form_alt)
 
-        elif accent == 'antepenultimate':
-            # sometimes in compounds accent does not move (μεγαλέμπορος μεγαλέμπορου)
-            # and sometimes there are both alternatives (κυρίου κύριου, δάκρυου, δακρύου)
-
-
-            gen_alt_form = put_accent(gen_form, accent, true_syllabification=False)
-            if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus:
-                gens.append(gen_form)
-            if gen_alt_form in greek_corpus or gen_alt_form.capitalize() in greek_corpus:
-                gens.append(gen_alt_form)
-            # if there are no forms in the list, default would be gen_alt_form
-            if not gens:
-                gens.append(gen_alt_form)
-
-            noun_temp['gen_sg'] = ','.join(gens)
+        noun_temp['gen_sg'] = ','.join(gens_sg)
 
         if plural_form in greek_corpus or plural_form.capitalize() in greek_corpus or number_of_syllables > 4:
             noun_temp['nom_pl'] = plural_form
-            gens.append(gen_form)
+            if not gens_sg:
+                noun_temp['gen_sg'] = gen_form
 
         if noun in feminine_os:
             noun_temp['gender'] = 'fem'
@@ -73,7 +64,7 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             # especially all kinds of professionals
             noun_temp['gender'] = 'fem,masc'
 
-        if not noun_temp['nom_pl'] and not gens:
+        if not noun_temp['nom_pl'] and not gens_sg:
             # maybe its neuter like lathos
             plural_form = stem + 'η'
             gen_form = stem + 'ους'
@@ -99,8 +90,8 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
                     noun_temp['gen_sg'] = gen_form
                     noun_temp['gender'] = 'neut'
 
-        if gens:
-            noun_temp['gen_sg'] = ','.join(gens)
+
+
 
         # in all other instances probably they are correct masculin words, but dont occur in the corpus
         if not (noun_temp['nom_pl'] or noun_temp['gen_sg']):
@@ -135,6 +126,7 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             plurals.append(plural_form_a)
         if plural_form_b in greek_corpus:
             plurals.append(plural_form_b)
+        plurals = list(set(plurals))
         noun_temp['nom_pl'] = ','.join(plurals)
         gen_form = noun[:-1]
         gen_form_a = put_accent_on_the_penultimate(gen_form)
@@ -149,7 +141,8 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             gens.append(gen_form_a)
         if gen_form_arch in greek_corpus:
             gens.append(gen_form_arch)
-
+        gens = list(set(gens))
+        print(gens, 'GENS')
         noun_temp['gen_sg'] = ','.join(gens)
 
     elif noun[-2:] in ['ές', 'ες']:
@@ -240,7 +233,8 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
         # and again a better test for all -eas, if there is gen sg on ews, this  has certainly femine form, this gen
         # form cannot be added as an alternative, as it occures only for feminines and has to be added in create_all
         # function
-        fem_gen = noun[-3:] + 'έως'
+        fem_gen = noun[:-3] + 'έως'
+
         if noun[-3:] == 'έας' and fem_gen in greek_corpus:
             noun_temp['gender'] = 'masc,fem'
 
@@ -394,7 +388,7 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             # it has to be if, because it can be earlier falsly recognized as a correct form on es, because of som aorists
             # in sec person sg
             noun_temp['nom_pl'] = plural_form_b
-            noun_temp['gen_sg'] = gen_a + ',' + noun[:-1] + 'εως'
+            noun_temp['gen_sg'] = gen_a + ',' + put_accent_on_the_antepenultimate(noun[:-1] + 'εως', true_syllabification=False)
 
     elif noun[-2:] == 'ού':
         noun_temp['gender'] = 'fem'
@@ -408,7 +402,7 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             plural_form = noun[:-1] + 'ατα'
             gen_form = noun[:-1] + 'ατος'
             plural_form = put_accent_on_the_antepenultimate(plural_form)
-            gen_form = put_accent_on_the_antepenultimate(gen_form)
+            gen_form = put_accent_on_the_penultimate(gen_form)
             if plural_form in greek_corpus or gen_form in greek_corpus:
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
