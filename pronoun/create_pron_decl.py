@@ -45,7 +45,7 @@ pron_basic = {'sg':{
 
 
 
-
+'κάνας',
 
 def all_pron_forms(inflected, bas_forms):
     # inflected: boolean

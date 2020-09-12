@@ -211,13 +211,24 @@ def create_all_basic_adj_forms(adj):
         neuter = adj[:-3] + 'έν'
 
     elif adj[-2:] in ['ας', 'άς'] or adj in ['μπελαλού']:
+
+
         # pas, pasa pan and active aorist participles
         # pas pasa pan
         masc = adj
-        if adj[:-1] + 'ντα' in greek_corpus:
+
+
+        pl_nta = adj[:-1] + 'ντα'
+        fem_sa =adj[:-1] + 'σα'
+
+        if count_syllables(adj) == 1:
+            pl_nta = put_accent(pl_nta, 'penultimate')
+            fem_sa = put_accent(fem_sa, 'penultimate')
+        if pl_nta in greek_corpus:
             masc = adj
-            fem = adj[:-1] + 'σα'
+            fem = fem_sa
             neuter = adj[:-1] + 'ν'
+
         elif adj == 'μέγας':
             masc = adj
             fem = 'μαγάλη'
