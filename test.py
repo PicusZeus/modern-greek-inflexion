@@ -1,6 +1,7 @@
 from adjective import adjective
 from noun.create_noun_basic import create_all_basic_noun_forms
 from pronoun import create_pron_basic
+from pronoun import pronoun
 from noun import noun
 if __name__ == '__main__':
     # res = adjective.create_all('ωραίος')
@@ -17,6 +18,8 @@ if __name__ == '__main__':
     # for word in words:
     #     res = noun.create_all(word)
     #     print(res)
-
-    res = create_pron_basic.create_basic_forms('πας')
+    #
+    # res = create_pron_basic.create_basic_forms('πας')
+    # print(res)
+    res = pronoun.create_all('καθένας')
     print(res)
