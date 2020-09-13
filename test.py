@@ -2,6 +2,8 @@ from adjective import adjective
 from noun.create_noun_basic import create_all_basic_noun_forms
 from pronoun import create_pron_basic
 from pronoun import pronoun
+from verb import create_verb_list
+from verb.greek_tables import greek_lemmata
 from noun import noun
 if __name__ == '__main__':
     # res = adjective.create_all('ωραίος')
@@ -21,5 +23,14 @@ if __name__ == '__main__':
     #
     # res = create_pron_basic.create_basic_forms('πας')
     # print(res)
-    res = pronoun.create_all('καθένας')
-    print(res)
+
+
+    for verb in greek_lemmata:
+
+        res = create_verb_list.create_all_basic_forms(verb.strip())
+        print(res)
+    # VERBS #
+    # check correctness of createing εξερράγη απεστάλη, συνέβη, συνελήφθη
+    #     'αντενδείκνυμαι':
+    #    'προτίθεμαι':
+    #

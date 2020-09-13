@@ -3,9 +3,6 @@ import pickle
 
 from adjective.create_adj_decl import create_all_adj_forms
 
-
-
-
 m = 'masc'
 f = 'fem'
 n = 'neut'
@@ -14,8 +11,8 @@ pl = 'pl'
 acc = 'acc'
 nom = 'nom'
 gen = 'gen'
+voc = 'voc'
 
-# 'κάνας',
 
 def create_all_pron_forms(bas_forms):
     # inflected: boolean
@@ -26,7 +23,6 @@ def create_all_pron_forms(bas_forms):
     forms = None
 
     if masc != neut:
-
 
         if masc[-2:] in ['ός', 'ος'] or masc[-3:] == 'πας':
 
@@ -150,6 +146,14 @@ def create_all_pron_forms(bas_forms):
         else:
             print(bas_forms)
             raise ValueError
+
+    # remove vocatives
+    for number in forms:
+        for gender in forms[number]:
+            for case in forms[number][gender]:
+
+                if case == voc:
+                    forms[number][gender][case] = ''
 
     return forms
 
