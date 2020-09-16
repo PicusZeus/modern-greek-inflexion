@@ -188,7 +188,7 @@ conjugations = {
                                                                                  'ter': ['αντο']}},
 
 'imper_act_cont_1': {'sg': {'sec': ['ε']}, 'pl':{ 'sec':['ετε'] }},
-'imper_act_eimai': {'sg': {'sec': ['να είσαι']}, 'pl':{ 'sec':['να είστε'] }}, 
+'imper_act_eimai': {'sg': {'ter': ['έστω']}},
 'imper_act_cont_2a': {'sg': {'sec': ['α', 'αγε']}, 'pl':{ 'sec':['άτε'] }},
 'imper_act_cont_2b': {'sg': {'sec': ['ει']}, 'pl':{ 'sec':['είτε'] }},
 'imper_act_cont_2d': {'sg': {'sec': ['ου']}, 'pl': {'sec':['ούτε', 'οίτε']}},
