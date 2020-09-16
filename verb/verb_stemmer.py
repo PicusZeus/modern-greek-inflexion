@@ -671,4 +671,29 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
     return all_passive_perfect_participles
 
 
+def create_active_aorist_participle(root, act_root):
+    active_aorist_participles = None
+    masc = act_root + 'ας'
+    fem = act_root + 'ασα'
+    neut = act_root + 'αν'
+
+    masc_wn = act_root + 'ών'
+    fem_ousa = act_root + 'ούσα'
+    neut_on = act_root + 'όν'
+
+    if masc in greek_corpus or fem in greek_corpus or root[-3:] == 'ποι':
+        active_aorist_participles = masc + '/' + fem + '/' + neut
+        # on as
+    elif masc_wn in greek_corpus and fem_ousa in greek_corpus:
+        active_aorist_participles = masc_wn + '/' + fem_ousa + '/' + neut_on
+
+    return active_aorist_participles
+
+
+def create_passive_aorist_participle(passive_root):
+    if passive_root + 'είσα' in greek_corpus:
+        return passive_root + 'είς/' + passive_root + 'είσα/' + passive_root + 'έν'
+    else:
+        return None
+
 

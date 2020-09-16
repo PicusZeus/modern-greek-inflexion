@@ -35,7 +35,7 @@ forms_imp = {
 }
 
 
-def create_pers_forms(conjugation_name, root, active_root = None, deaugmented_root = None, simple_aor = False):
+def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_root=None, simple_aor=False):
     forms_ind = {}
 
     if conjugation_name == 'modal':
