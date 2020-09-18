@@ -18,6 +18,7 @@ def create_all_basic_forms(pres_form):
 
     if pres_form[-1] not in ['ω', 'ώ', 'ι', 'α'] or pres_form not in greek_corpus:
         # filter out possible not correct forms
+        print(pres_form, 'error', pres_form[-1] not in ['ω', 'ώ', 'ι', 'α'])
         print('It is not a correct verb form. You have to input 1st person sg present in active voice if possible, or modal form in 3rd person sg, and your input is: ' + pres_form)
         return None
 

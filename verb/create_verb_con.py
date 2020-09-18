@@ -1,4 +1,5 @@
 import pickle
+import sys
 from .verb_stemmer import recognize_active_non_past_conjugation, \
     recognize_passive_present_continuous_conjugation
 from .conjugations import create_imp_pass, recognize_past_conjugation
@@ -9,6 +10,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_antepenulti
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
 from .greek_tables import irregular_passive_perfect_participles
 
+from .greek_tables import irregular_imperative_forms
 
 try:
     file = open('modern_greek_stemmer/el_GR.pickle', 'br')
@@ -123,15 +125,14 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     if count_syllables(form) == 1:
                         forms[number][person][index] = remove_all_diacritics(form)
 
-
-
     elif conjugation_name in ['imper_act_cont_1', 'imper_act_aor_a', 'imper_act_aor_b']:
         forms['sg']['sec'][0] = put_accent_on_the_antepenultimate(forms['sg']['sec'][0])
-
 
     elif conjugation_name in ['imper_pass_aor_a']:
         if active_root and active_root[-1] in ['σ', 'ψ', 'ξ']:
             forms['sg']['sec'][0] = active_root + 'ου'
+            if active_root == 'σηκώσ':
+                forms['sg']['sec'].append('σήκω')
         else:
             forms['sg']['sec'][0] = create_imp_pass(root)
 
@@ -145,13 +146,26 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
         forms['pl']['pri'][0] = put_accent_on_the_antepenultimate(forms['pl']['pri'][0])
         forms['pl']['pri'][1] = put_accent_on_the_antepenultimate(forms['pl']['pri'][1])
         forms['pl']['sec'][1] = put_accent_on_the_penultimate(forms['pl']['sec'][1])
-    elif conjugation_name == 'imper_act_cont_2c':
-        if root == 'ακού':
-            forms['sg']['sec'] = ['άκου']
+    # elif conjugation_name == 'imper_act_cont_2c':
+    #     if root == 'ακού':
+    #         forms['sg']['sec'] = ['άκου']
     elif conjugation_name in ['imper_act_aor_ca', 'imper_act_cont_2b']:
         if root == 'ζ':
             forms['sg']['ter'] = ['ζήτω']
         forms['sg']['sec'][0] = put_accent_on_the_penultimate(forms['sg']['sec'][0])
+
+    #### irregular imperatives
+    if conjugation_name[:5] == 'imper':
+        print(conjugation_name)
+
+        if root in irregular_imperative_forms:
+            for number in irregular_imperative_forms[root]:
+                for person in irregular_imperative_forms[root][number]:
+                    irregular_form = irregular_imperative_forms[root][number][person]
+                    try:
+                        forms[number][person].append(irregular_form)
+                    except:
+                        print(sys.exc_info()[0])
 
     return forms
 

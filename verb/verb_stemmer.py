@@ -4,7 +4,7 @@ from modern_greek_accentuation.accentuation import is_accented, put_accent_on_th
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels
 
-from .greek_tables import irregular_passive_perfect_participles
+from .greek_tables import irregular_passive_perfect_participles, irregular_active_aorists, irregular_passive_aorists
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation
 
 from .conjugations import create_regular_perf_root
@@ -133,10 +133,11 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     syllables = modern_greek_syllabify(active_perf_form)
 
                     if len(syllables) > 1 and not is_accented(syllables[-2]):
-                        active_perf_form = act_root + 'ώ'
-
+                        active_perf_form = stem + 'ώ'
                     act_perf_forms.append(active_perf_form)
                 active_perf_form = ','.join(act_perf_forms)
+
+
             else:
                 active_perf_form = act_root + 'ω'
                 syllables = modern_greek_syllabify(active_perf_form)
@@ -230,46 +231,23 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
 def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False, not_deponens=True, intransitive_active=False, modal_act=False, modal_med=False):
     aorist_basic_forms = None
-    active_aor_forms, passive_aor_form = [], []
+    active_aor_forms, passive_aor_forms = [], []
 
     if not_deponens:
 
-        if intransitive_active:
-            # as there are sometimes difference between fut simple root and aorist root, this has to be added
-            if len(pres_form) >= 5 and pres_form[-5:] == 'βαίνω':
-                active_aor_forms = act_root + 'ηκα'
-                active_aor_forms = add_augment(active_aor_forms)
-                archaic_aor_form = add_augment(act_root + 'η')
-                active_aor_forms.extend(archaic_aor_form)
-            elif len(pres_form) >= 6 and pres_form[-6:] in ['μπαίνω', 'βγαίνω', 'βρίσκω']:
-                act_root = act_root + 'ηκ'
-                # briskw is only found in one form, so no reason to add to code
-            elif len(pres_form) >= 7 and pres_form[-7:] == 'πηγαίνω':
-                act_root = 'πήγ'
+        for ir_verb in irregular_active_aorists:
+            length_ir_verb = len(ir_verb)
+            if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+                active_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb]))
+                if irregular_active_aorists[ir_verb][-4:] == 'βηκα':
+                    # add archaic athematic aorist for compounds with bainw
+                    active_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2]))
+        for ir_verb in irregular_passive_aorists:
+            length_ir_verb = len(ir_verb)
+            if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+                passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
 
         if act_root:
-            # take care of those roots that are irregular in aorist (εχω, είχα κτλ)
-            if len(pres_form) >= 5 and pres_form[-5:] == 'βλέπω':
-                active_aor_forms.extend(add_augment(pres_form[:-5] + 'είδα'))
-                passive_aor_form.extend(add_augment(pres_form[:-5] + 'ειδώθηκα'))
-
-            elif len(pres_form) >= 4 and pres_form[-4:] == 'λέγω':
-                active_aor_forms.extend(add_augment(pres_form[:-4] + 'είπα'))
-                passive_aor_form.extend(add_augment(pres_form[:-4] + 'ειπώθηκα'))
-            elif len(pres_form) >= 3 and pres_form[-3:] == 'λέω':
-                active_aor_forms.extend(add_augment(pres_form[:-3] + 'είπα'))
-                passive_aor_form.extend(add_augment(pres_form[:-3] + 'ειπώθηκα'))
-            elif pres_form[-4:] == 'πίνω':
-                active_aor_forms.extend(add_augment(pres_form[:-4] + 'ήπια'))
-            elif pres_form[-6:] == 'βρίσκω':
-                active_aor_forms.extend(add_augment(pres_form[:-6] + 'βρήκα'))
-                passive_aor_form.extend(add_augment(pres_form[:-6] + 'βρέθηκα'))
-            elif len(pres_form) >= 6 and pres_form[-6:] == 'παίρνω':
-                active_aor_forms.extend(add_augment(pres_form[:-6] + 'πήρα'))
-                passive_aor_form.extend(add_augment(pres_form[:-6] + 'πάρθηκα'))
-            elif pres_form[-4:] == 'τρώω' or pres_form[-5:] == 'τρώγω':
-                active_aor_forms.extend(add_augment(pres_form[:-5] + 'φαγα'))
-                passive_aor_form.extend(add_augment(pres_form[:-5] + 'φαγώθηκα'))
 
             if ',' in act_root:
                 for stem in act_root.split(','):
@@ -283,97 +261,100 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                 active_aor_forms.extend(archaic_aor_form)
 
             # filter_out
-
             active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
 
-            active_aor_forms = list(set(active_aor_forms))
+            # there are at least two instances where this algorithm can be confused by irregular imperative forms
+            irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα')
+
+
+            active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
 
             # special case for poiw
             if 'ποιήσ' in act_root:
                 active_aor_forms.append(put_accent_on_the_antepenultimate(act_root + 'α', true_syllabification=False))
 
-        if passive_root or passive_aor_form:
+        if passive_root or passive_aor_forms:
             if passive_root and ',' in passive_root:
 
                 for stem in passive_root.split(','):
                     pass_aor_form = stem + 'ηκα'
 
-                    passive_aor_form.append(put_accent_on_the_antepenultimate(pass_aor_form))
+                    passive_aor_forms.append(put_accent_on_the_antepenultimate(pass_aor_form))
                     # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in corpus
                     archaic_passive_aor = stem + 'η'
                     archaic_passive_aor = add_augment(archaic_passive_aor)
-                    passive_aor_form.extend(archaic_passive_aor)
+                    passive_aor_forms.extend(archaic_passive_aor)
 
             elif passive_root:
                 pass_aor_form = passive_root + 'ηκα'
                 pass_aor_form = put_accent_on_the_antepenultimate(pass_aor_form)
-                passive_aor_form.append(pass_aor_form)
+                passive_aor_forms.append(pass_aor_form)
                 # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in corpus
                 archaic_passive_aor = passive_root + 'η'
                 archaic_passive_aor = add_augment(archaic_passive_aor)
-                passive_aor_form.extend(archaic_passive_aor)
+                passive_aor_forms.extend(archaic_passive_aor)
 
                 if 'ποιηθ' in passive_root:
-                    passive_aor_form.append(
+                    passive_aor_forms.append(
                         put_accent_on_the_antepenultimate(passive_root + 'ηκα', true_syllabification=False))
             # filter out
 
-            passive_aor_form = [f for f in passive_aor_form if f in greek_corpus]
+            passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus]
 
         # if active_aor_forms:
         active_aor_forms = list(set(active_aor_forms))
         active_aor_forms = ','.join(active_aor_forms)
         # if passive_aor_form:
-        passive_aor_form = list(set(passive_aor_form))
-        passive_aor_form = ','.join(passive_aor_form)
+        passive_aor_forms = list(set(passive_aor_forms))
+        passive_aor_forms = ','.join(passive_aor_forms)
 
-        aorist_basic_forms = '/'.join([active_aor_forms, passive_aor_form])
+        aorist_basic_forms = '/'.join([active_aor_forms, passive_aor_forms])
 
     elif deponens:
 
         if passive_root:
 
             if ',' in passive_root:
-                passive_aor_form = []
+                passive_aor_forms = []
                 for stem in passive_root.split(','):
                     pass_aor_form = stem + 'ηκα'
-                    passive_aor_form.extend(put_accent_on_the_antepenultimate(pass_aor_form))
+                    passive_aor_forms.extend(put_accent_on_the_antepenultimate(pass_aor_form))
 
                     # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in
                     # corpus
                     archaic_passive_aor = stem + 'η'
                     archaic_passive_aor = add_augment(archaic_passive_aor)
-                    passive_aor_form.extend(archaic_passive_aor)
+                    passive_aor_forms.extend(archaic_passive_aor)
 
             else:
-                passive_aor_form = passive_root + 'ηκα'
+                passive_aor_forms = passive_root + 'ηκα'
 
-                passive_aor_form = [put_accent_on_the_antepenultimate(passive_aor_form)]
+                passive_aor_forms = [put_accent_on_the_antepenultimate(passive_aor_forms)]
                 # archaic passive
                 archaic_passive_aor = passive_root + 'ην'
                 archaic_passive_aor = add_augment(archaic_passive_aor)
-                passive_aor_form.extend(archaic_passive_aor)
+                passive_aor_forms.extend(archaic_passive_aor)
             # filter out
 
-            passive_aor_form = [f for f in passive_aor_form if f in greek_corpus]
-            passive_aor_form = ','.join(passive_aor_form)
+            passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus]
+            passive_aor_forms = ','.join(passive_aor_forms)
 
             # ginomai, erxomai, kathomai
 
             if pres_form[-7:] in ['γίνομαι', 'έρχομαι', 'κάθομαι']:
                 if ',' in passive_root:
-                    passive_aor_form = []
+                    passive_aor_forms = []
                     for stem in passive_root.split(','):
                         pass_aor_form = stem + 'α'
-                        passive_aor_form.extend(add_augment(pass_aor_form))
+                        passive_aor_forms.extend(add_augment(pass_aor_form))
                 else:
-                    passive_aor_form = passive_root + 'α'
-                    passive_aor_form = add_augment(passive_aor_form)
-                passive_aor_form = [form for form in passive_aor_form if form in greek_corpus]
-                passive_aor_form = ','.join(passive_aor_form)
+                    passive_aor_forms = passive_root + 'α'
+                    passive_aor_forms = add_augment(passive_aor_forms)
+                passive_aor_forms = [form for form in passive_aor_forms if form in greek_corpus]
+                passive_aor_forms = ','.join(passive_aor_forms)
             if 'ποιηθ' in passive_root:
-                passive_aor_form = (passive_root + 'ηκα')
-            aorist_basic_forms = passive_aor_form
+                passive_aor_forms = (passive_root + 'ηκα')
+            aorist_basic_forms = passive_aor_forms
     elif modal_act or modal_med:
         mod_root = None
         if act_root:
