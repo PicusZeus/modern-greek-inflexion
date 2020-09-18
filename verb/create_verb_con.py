@@ -1,32 +1,19 @@
 import pickle
 import sys
-from .verb_stemmer import recognize_active_non_past_conjugation, \
-    recognize_passive_present_continuous_conjugation
+
 from .conjugations import create_imp_pass, recognize_past_conjugation
 from .conjugations import conjugations
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
-    where_is_accent, count_syllables, remove_all_diacritics
+    count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
-from .greek_tables import irregular_passive_perfect_participles
 
 from .greek_tables import irregular_imperative_forms
 
-try:
-    file = open('modern_greek_stemmer/el_GR.pickle', 'br')
-except FileNotFoundError:
-    file = open('el_GR.pickle', 'br')
-greek_corpus = pickle.load(file)
-
-
-
-
-ex = {'': '', 'czas teraźniejszy': 'τσινάω', 'znaczenie': '', 'czas przyszły (θα), tryb zależny prosty (να)': 'τσινήσω', 'aoryst': 'τσίνησα/', 'paratatikos': 'τσινούσα/', 'act_pres_participle': 'τσινώντας'}
-ex_2 = {'': '', 'czas teraźniejszy': 'γράφω/γράφομαι', 'znaczenie': '', 'czas przyszły (θα), tryb zależny prosty (να)': 'γράψω/γραφώ,γραφτώ', 'aoryst': 'έγραψα/γράφηκα,εγράφη,γράφτηκα,εγράφτη', 'paratatikos': 'έγραφα/γραφόμουν', 'act_pres_participle': 'γράφοντας', 'arch_act_pres_participle': 'γράφων,γράφουσα,γράφον', 'pass_pres_participle': 'γραφόμενος', 'active_aorist_participle': 'γράψας,γράψασα,γράψαν'}
+with open('el_GR.pickle', 'rb') as file:
+    greek_corpus = pickle.load(file)
 
 #print([verbs[i] for i in range(333,355)])
-
-
 
 forms_imp = {
     'sg': {
@@ -37,12 +24,9 @@ forms_imp = {
     }
 }
 
-
 def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_root=None, simple_aor=False):
 
-
     """
-
     :param conjugation_name:
     :param root:
     :param active_root:
@@ -125,14 +109,12 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     if count_syllables(form) == 1:
                         forms[number][person][index] = remove_all_diacritics(form)
 
-    elif conjugation_name in ['imper_act_cont_1', 'imper_act_aor_a', 'imper_act_aor_b']:
+    elif conjugation_name in ['imper_act_cont_1', 'imper_act_cont_2c', 'imper_act_aor_a', 'imper_act_aor_b']:
         forms['sg']['sec'][0] = put_accent_on_the_antepenultimate(forms['sg']['sec'][0])
 
     elif conjugation_name in ['imper_pass_aor_a']:
         if active_root and active_root[-1] in ['σ', 'ψ', 'ξ']:
             forms['sg']['sec'][0] = active_root + 'ου'
-            if active_root == 'σηκώσ':
-                forms['sg']['sec'].append('σήκω')
         else:
             forms['sg']['sec'][0] = create_imp_pass(root)
 
@@ -146,9 +128,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
         forms['pl']['pri'][0] = put_accent_on_the_antepenultimate(forms['pl']['pri'][0])
         forms['pl']['pri'][1] = put_accent_on_the_antepenultimate(forms['pl']['pri'][1])
         forms['pl']['sec'][1] = put_accent_on_the_penultimate(forms['pl']['sec'][1])
-    # elif conjugation_name == 'imper_act_cont_2c':
-    #     if root == 'ακού':
-    #         forms['sg']['sec'] = ['άκου']
     elif conjugation_name in ['imper_act_aor_ca', 'imper_act_cont_2b']:
         if root == 'ζ':
             forms['sg']['ter'] = ['ζήτω']
@@ -164,28 +143,12 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     irregular_form = irregular_imperative_forms[root][number][person]
                     try:
                         forms[number][person].append(irregular_form)
+                        # in this case check validity of all imperative forms
+                        forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:
                         print(sys.exc_info()[0])
 
     return forms
-
-
-# def create_participle_forms(conjugation_name, root):
-#     endings = conjugations[conjugation_name]
-#     if 'nd' in endings.keys():
-#         form = root + endings['nd']['nd'][0]
-#         if where_is_accent(form) in ['incorrect_accent', None]:
-#             form = put_accent_on_the_antepenultimate(form)
-#
-#     else:
-#         nom_sg = root + endings['sg']['nd'][0]
-#         nom_sg = put_accent_on_the_antepenultimate(nom_sg)
-#         root_part = nom_sg[:-2]
-#         fem_sg = root_part + 'η'
-#         neuter = root_part + 'ο'
-#         form = nom_sg + '/' + fem_sg + '/' + neuter
-#
-#     return form
 
 
 def create_roots_from_past(verb, lemma):
@@ -236,7 +199,6 @@ def create_all_past_forms(verb, lemma, aspect, deponens=False):
 
             stem = data['root']
             deaugmented_stem = create_roots_from_past(v, lemma)
-
 
             forms_ind = create_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
             forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})

@@ -3,7 +3,6 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 
-from .greek_tables import irregular_imperative_forms
 
 def create_all_imperfect_non_passive_personal_forms(verb):
     """

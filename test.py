@@ -44,5 +44,5 @@ if __name__ == '__main__':
     #
     # zw = create_all_perf_non_past_personal_forms('ανεβώ')
     # print(zw)
-    perf_forms_pres = create_all_imperfect_non_passive_personal_forms('ακούω')
+    perf_forms_pres = create_all_perf_non_past_personal_forms('σηκώσω/σηκωθώ')
     print(perf_forms_pres)

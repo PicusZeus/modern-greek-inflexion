@@ -2,11 +2,11 @@ import pickle
 from .greek_tables import irregular_active_roots, irregular_passive_roots
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from modern_greek_accentuation.resources import prefixes_list_that_allow_augmentaion
-from resources import *
+from .greek_tables import conjugations
 
-file = open('el_GR.pickle', 'br')
-greek_corpus = pickle.load(file)
+
+with open('el_GR.pickle', 'rb') as file:
+    greek_corpus = pickle.load(file)
 
 
 def find_alternative_roots(ending, stem):
