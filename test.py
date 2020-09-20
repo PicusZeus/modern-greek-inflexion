@@ -6,6 +6,8 @@ from verb import create_verb_list
 from verb.greek_tables import greek_lemmata
 from noun import noun
 from verb.create_verb_forms import create_all_imperfect_non_passive_personal_forms, create_all_perf_non_past_personal_forms, create_all_past_personal_forms
+from quantitative import create_quant_list
+from quantitative import create_quant_decl
 if __name__ == '__main__':
     # res = adjective.create_all('ωραίος')
     # print(res)
@@ -44,5 +46,11 @@ if __name__ == '__main__':
     #
     # zw = create_all_perf_non_past_personal_forms('ανεβώ')
     # print(zw)
-    perf_forms_pres = create_all_perf_non_past_personal_forms('σηκώσω/σηκωθώ')
-    print(perf_forms_pres)
+    # perf_forms_pres = create_all_perf_non_past_personal_forms('σηκώσω/σηκωθώ')
+    # print(perf_forms_pres)
+    res = create_quant_list.create_quant_adj('τετρακόσια', ordinal=False)
+    res_2 = create_quant_list.create_quant_noun('εκατομμύριο')
+    print(res, 'εκατομμύριο')
+    bas_forms = res['adj']
+    all = create_quant_decl.creat_all_quant_adj_forms(bas_forms)
+    print(all)

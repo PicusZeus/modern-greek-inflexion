@@ -1,29 +1,56 @@
 import pickle
 from adjective.create_adj_basic import create_all_basic_adj_forms
 from noun.create_noun_basic import create_all_basic_noun_forms
-
+from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 with open('el_GR.pickle', 'br') as file:
     greek_corpus = pickle.load(file)
 
 
-def create_quant_adj():
-    all_quant_adj = []
-    for qa in quant_adj:
-        temp = create_all_basic_adj_forms(qa)
-        adverb = qa[:-1] + 'ν'
-        if adverb in greek_corpus:
-            temp['adverb'] = adverb
+def create_quant_adj(quant, ordinal=False):
+    """
+    :param quant:
+    :param ordinal:
+    :return:
+    """
 
-        all_quant_adj.append(temp)
+    if ordinal:
+        forms = create_all_basic_adj_forms(quant)
+        adverb = ''
+        adverb_ordinal = quant[:-1] + 'ν'
+        if adverb_ordinal in greek_corpus:
+            if forms['adverb'] == 'πρώτα':
+                adverb = 'πρώτα,πρώτον'
+            else:
+                adverb = adverb_ordinal
+        forms['adverb'] = adverb
+    else:
+        if quant[-5:] in ['κόσια', 'χίλια']:
+            masc = quant[:-1] + 'οι'
+            fem = quant[:-1] + 'ες'
+            neut = quant
+        elif quant[-4:] == 'τρία':
+            masc = fem = quant[:-4] + 'τρείς'
+            if count_syllables(masc) == 1:
+                masc = fem = remove_all_diacritics(masc)
+            neut = quant
+        elif quant[-7:] == 'τέσσερα':
+            masc = fem = quant[:-1] + 'ις'
+            neut = quant
 
-    return all_quant_adj
+        else:
+            masc = fem = neut = quant
+        forms = {'adj': masc + '/' + fem + '/' + neut}
 
-def create_quant_noun():
-    all_quant_noun = []
-    for qn in quant_noun:
-        temp = create_all_basic_noun_forms(qn)
-        all_quant_noun.append(temp)
-    return all_quant_noun
+    return forms
+
+
+def create_quant_noun(quant):
+    """
+    :param quant:
+    :return:
+    """
+    forms = create_all_basic_noun_forms(quant)
+    return forms
 
 
 
