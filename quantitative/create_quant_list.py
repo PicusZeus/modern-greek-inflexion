@@ -2,13 +2,8 @@ import pickle
 from adjective.create_adj_basic import create_all_basic_adj_forms
 from noun.create_noun_basic import create_all_basic_noun_forms
 
-
-
-file = open('modern_greek_stemmer/el_GR.pickle', 'br')
-
-greek_corpus = pickle.load(file)
-file.close()
-
+with open('el_GR.pickle', 'br') as file:
+    greek_corpus = pickle.load(file)
 
 
 def create_quant_adj():
