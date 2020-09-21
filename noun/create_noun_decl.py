@@ -38,7 +38,7 @@ def put_accent_on_unaccented_forms(forms):
 
 
 
-def all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
+def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
     """
     :param nom_sg:
     :param gen_sg:
@@ -383,7 +383,7 @@ if __name__ == '__main__':
 
 
     for noun in nouns:
-        res = all_noun_forms(noun['nom_sg'], noun['gen_sg'], noun['nom_pl'], noun['gender'])
+        res = create_all_noun_forms(noun['nom_sg'], noun['gen_sg'], noun['nom_pl'], noun['gender'])
         if res:
             if res[0]['sg']['nom'][-3:] == 'έας':
                 #print(res)

@@ -5,6 +5,8 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate
 from adjective.create_adj_decl import create_all_adj_forms
 from adjective.create_adj_decl import adj_basic
 
+from noun.create_noun_decl import create_all_noun_forms
+
 aklita_quant_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
                                      'δεκαοχτώ': 'δεκαοκτώ', 'δεκαεννιά': 'δεκαεννέα', 'δεκαεφτά': 'δεκαεπτά'}
 
@@ -39,6 +41,8 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
                 print(accs_masc, gens_pl)
                 gen_pl = ','.join([g for g in gens_pl if g in greek_corpus])
                 acc_masc = ','.join([a for a in accs_masc if a in greek_corpus])
+
+
 
         elif neut[-4:] == 'τρία':
             gen_pl = neut[:-4] + 'τριών'
@@ -87,6 +91,25 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
             forms['sg']['neut']['voc'] = neut
 
             return forms, None
+
+        elif neut == 'μηδέν':
+            masc = 'μηδείς'
+            fem = 'μηδεμία'
+
+            forms['sg']['masc']['nom'] = masc
+            forms['sg']['masc']['acc'] = 'μηδένα'
+
+            forms['sg']['masc']['gen'] = 'μηδενός'
+
+            forms['sg']['neut']['nom'] = neut
+            forms['sg']['neut']['gen'] = 'μηδενός'
+            forms['sg']['neut']['acc'] = neut
+
+            forms['sg']['fem']['nom'] = fem
+            forms['sg']['fem']['acc'] = fem + ',μηδεμίαν'
+            forms['sg']['fem']['gen'] = 'μηδεμίας'
+            forms['sg']['fem']['voc'] = fem
+
         else:
             masc, fem, neut, acc_masc, gen_pl = neut
 
@@ -105,74 +128,26 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
         forms['pl']['neut']['gen'] = gen_pl
         forms['pl']['neut']['voc'] = neut
 
+        if masc[:4] == 'οχτα':
+            alt = 'οκτα'
+            for number in forms:
+                for gender in forms[number]:
+                    for case in forms[number][gender]:
+                        forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:4], alt)
+        elif masc[:4] == 'εφτα':
+            alt = 'επτα'
+            for number in forms:
+                for gender in forms[number]:
+                    for case in forms[number][gender]:
+                        forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:4], alt)
+        elif masc[:5] == 'εννια':
+            alt = 'εννεα'
+            for number in forms:
+                for gender in forms[number]:
+                    for case in forms[number][gender]:
+                        forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:5], alt)
+
         return forms, None
 
+def create_all_quant_noun_forms(basic_forms):
 
-
-#     elif neut == 'μηδέν':
-#
-#         forms['neut']['nom'] = neut
-#         forms['neut']['gen'] = neut
-#         forms['neut']['acc'] = neut
-#         forms['neut']['voc'] = neut
-#
-#     elif neut == 'δεκαέξι':
-#         alt = 'δεκάξι'
-#         forms['masc']['nom'] = masc + ',' + alt
-#         forms['masc']['gen'] = masc + ',' + alt
-#         forms['masc']['acc'] = masc + ',' + alt
-#         forms['masc']['voc'] = masc + ',' + alt
-#         forms['fem']['nom'] = masc + ',' + alt
-#         forms['fem']['gen'] = masc + ',' + alt
-#         forms['fem']['acc'] = masc + ',' + alt
-#         forms['fem']['voc'] = masc + ',' + alt
-#         forms['neut']['nom'] = masc + ',' + alt
-#         forms['neut']['gen'] = masc + ',' + alt
-#         forms['neut']['acc'] = masc + ',' + alt
-#         forms['neut']['voc'] = masc + ',' + alt
-#
-#     elif masc[-2:] == 'οι':
-#         forms['masc']['nom'] = masc
-#         forms['masc']['gen'] = masc[:-2] + 'ων' + ',' + put_accent_on_the_penultimate(masc[:-2] + 'ων', true_syllabification=False)
-#         forms['masc']['acc'] = masc[:-2] + 'ους' + ',' + put_accent_on_the_penultimate(masc[:-2] + 'ους', true_syllabification=False)
-#         forms['masc']['voc'] = masc
-#         forms['fem']['nom'] = fem
-#         forms['fem']['gen'] = masc[:-2] + 'ων' + ',' + put_accent_on_the_penultimate(masc[:-2] + 'ων', true_syllabification=False)
-#         forms['fem']['acc'] = fem
-#         forms['fem']['voc'] = fem
-#         forms['neut']['nom'] = neut
-#         forms['neut']['gen'] = masc[:-2] + 'ων' + ',' + put_accent_on_the_penultimate(masc[:-2] + 'ων', true_syllabification=False)
-#         forms['neut']['acc'] = neut
-#         forms['neut']['voc'] = neut
-#
-#         if masc[:4] == 'οχτα':
-#             alt = 'οκτα'
-#             for gender in forms:
-#                 for case in forms[gender]:
-#                     forms[gender][case] += ',' + forms[gender][case].replace(masc[:4], alt)
-#         elif masc[:4] == 'εφτα':
-#             alt = 'επτα'
-#             for gender in forms:
-#                 for case in forms[gender]:
-#                     forms[gender][case] += ',' + forms[gender][case].replace(masc[:4], alt)
-#         elif masc[:5] == 'εννια':
-#             alt = 'εννεα'
-#             for gender in forms:
-#                 for case in forms[gender]:
-#                     forms[gender][case] += ',' + forms[gender][case].replace(masc[:5], alt)
-#
-#     else:
-#         forms['masc']['nom'] = masc
-#         forms['masc']['gen'] = masc
-#         forms['masc']['acc'] = masc
-#         forms['masc']['voc'] = masc
-#         forms['fem']['nom'] = fem
-#         forms['fem']['gen'] = fem
-#         forms['fem']['acc'] = fem
-#         forms['fem']['voc'] = fem
-#         forms['neut']['nom'] = neut
-#         forms['neut']['gen'] = neut
-#         forms['neut']['acc'] = neut
-#         forms['neut']['voc'] = neut
-#
-#     return forms
