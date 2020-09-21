@@ -48,8 +48,8 @@ if __name__ == '__main__':
     # print(zw)
     # perf_forms_pres = create_all_perf_non_past_personal_forms('σηκώσω/σηκωθώ')
     # print(perf_forms_pres)
-    res = create_quant_list.create_quant_adj('τετρακόσια', ordinal=False)
-    res_2 = create_quant_list.create_quant_noun('εκατομμύριο')
+    res = create_quant_list.create_quant_adj('δύο', ordinal=False)
+    res_2 = create_quant_list.create_quant_noun('χιλιάδες')
     print(res, 'εκατομμύριο')
     bas_forms = res['adj']
     all = create_quant_decl.creat_all_quant_adj_forms(bas_forms)

@@ -369,23 +369,7 @@ def create_all_adj_forms(adj):
 
         return forms, alt_forms
 
-    elif masc[-2:] in ['οι', 'οί'] and fem[-2:] in ['ες', 'ές'] and neut[-1] in ['α', 'ά']:
-        # exclusively for quantifiers, as there are for obvious reasons only in plural
 
-        forms['pl']['masc']['nom'] = masc
-        forms['pl']['masc']['acc'] = masc[:-2] + 'ους'
-        forms['pl']['masc']['gen'] = masc[:-2] + 'ων'
-        forms['pl']['masc']['voc'] = masc
-
-        forms['pl']['fem']['nom'] = fem
-        forms['pl']['fem']['acc'] = fem
-        forms['pl']['fem']['gen'] = fem[:-2] + 'ων'
-        forms['pl']['fem']['voc'] = fem
-
-        forms['pl']['neut']['nom'] = neut
-        forms['pl']['neut']['acc'] = neut
-        forms['pl']['neut']['gen'] = neut[:-1] + 'ων'
-        forms['pl']['neut']['voc'] = neut
 
     elif (masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == 'ultimate') or masc == 'μέγας':
         # add alternativeσ, bathys
