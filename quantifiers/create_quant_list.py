@@ -22,6 +22,8 @@ def create_quant_adj(quant, ordinal=False):
                 adverb = 'πρώτα,πρώτον'
             else:
                 adverb = adverb_ordinal
+        elif quant[-4:] != 'στός':
+            adverb = forms['adverb']
         forms['adverb'] = adverb
     else:
         if quant[-5:] in ['κόσια', 'χίλια']:

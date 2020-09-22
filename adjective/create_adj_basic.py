@@ -313,6 +313,7 @@ def create_all_basic_adj_forms(adj):
         adj_temp['comparative'] = parathetika
 
 # επιρρήματα
+    adverbs = []
     adverb = None
     alt_adv = None
 
@@ -321,12 +322,10 @@ def create_all_basic_adj_forms(adj):
         if accent != 'ultimate':
             adverb = neuter[:-1] + 'α'
             alt_adv = put_accent_on_the_penultimate(neuter[:-1] + 'ως', true_syllabification=False)
-
         else:
             adverb = neuter[:-1] + 'ά'
             alt_adv = neuter[:-1] + 'ώς'
-        if alt_adv not in greek_corpus:
-            alt_adv = None
+
 
     elif masc[-2:] in ['ής', 'ης'] and neuter[-2:] in ['ές', 'ες']:
 
@@ -334,8 +333,7 @@ def create_all_basic_adj_forms(adj):
         if adverb not in greek_corpus and neuter[:-2] + 'ως' in greek_corpus:
             adverb = neuter[:-2] + 'ως'
         alt_adv = neuter[:-2] + 'ά'
-        if alt_adv not in greek_corpus:
-            alt_adv = None
+
     elif neuter[-1] in ['υ', 'ύ'] and masc[-1] == 'ς':
         # it should have the ancient form on ews
         adverb = put_accent_on_the_penultimate(neuter[:-1] + 'εως')
@@ -344,10 +342,6 @@ def create_all_basic_adj_forms(adj):
     elif neuter[-1] == 'ί':
         # colors
         adverb = put_accent_on_the_ultimate(adj_forms[2] + 'α')
-        if adverb not in greek_corpus:
-            adverb = None
-    elif neuter in ['λίγο', 'πολύ', 'ήσσον', 'κάλλιον']:
-        adverb = neuter
 
     elif (masc[-2:] in ['ας', 'άς', 'ων', 'ών'] or masc[-3:] in ['εις', 'είς']) and fem[-2:] == 'σα' and neuter[
         -1] == 'ν':
@@ -355,26 +349,18 @@ def create_all_basic_adj_forms(adj):
         adverb = put_accent_on_the_penultimate(neuter + 'τως')
         # if adverb not in greek_corpus:
         #     adverb = None
-
     else:
         # for aklita
         adverb = neuter
 
-
+    if neuter in ['λίγο', 'πολύ', 'ήσσον', 'κάλλιον']:
+        adverb = neuter
 
     # special cases
     if neuter in ['μέγα', 'μεγάλο']:
         # special case
         adverb = 'μέγα'
         alt_adv = 'μεγάλως'
-    # if adverb and alt_adv:
-    #     epirrimata = adverb + ',' + alt_adv
-    # elif adverb:
-    #     epirrimata = adverb
-    # elif alt_adv:
-    #     epirrimata = alt_adv
-
-
 
     elif (masc[-4:] == 'ονας' or masc[-2:] == 'ων') and fem[-2:] == 'ων':
         adverb = None
@@ -382,11 +368,8 @@ def create_all_basic_adj_forms(adj):
     elif masc in ['άρρην']:
         adverb = None
 
-    epirrimata = []
-    if adverb:
-        epirrimata.append(adverb)
-    if alt_adv:
-        epirrimata.append(alt_adv)
+    epirrimata = [e for e in [adverb, alt_adv] if e and e in greek_corpus]
+
     epirrimata = ','.join(epirrimata)
     if epirrimata:
         adj_temp['adverb'] = epirrimata

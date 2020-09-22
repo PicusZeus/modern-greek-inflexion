@@ -4,25 +4,25 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate
 
 from adjective.create_adj_decl import create_all_adj_forms
 from adjective.create_adj_decl import adj_basic
-
+from adjective import adjective
 from noun.create_noun_decl import create_all_noun_forms
 
 aklita_quant_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
                                      'δεκαοχτώ': 'δεκαοκτώ', 'δεκαεννιά': 'δεκαεννέα', 'δεκαεφτά': 'δεκαεπτά'}
 
-with open('el_GR.pickle') as file:
+with open('el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 
 def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
     """
     :param quant_base_forms:
-    :return:
+    :return: a dictionary of forms (like adj)
     """
     if ordinal:
         all_forms = create_all_adj_forms(quant_base_forms)
 
-        return all_forms
+        return all_forms[0]
     else:
         masc, fem, neut = quant_base_forms.split('/')
         forms = copy.deepcopy(adj_basic)
@@ -42,8 +42,6 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
                 gen_pl = ','.join([g for g in gens_pl if g in greek_corpus])
                 acc_masc = ','.join([a for a in accs_masc if a in greek_corpus])
 
-
-
         elif neut[-4:] == 'τρία':
             gen_pl = neut[:-4] + 'τριών'
             acc_masc = masc
@@ -52,7 +50,7 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
             gen_pl = 'τεσσάρων'
             acc_masc = masc
         elif neut in aklita_quant_alternatives:
-            masc, fem, neut, acc_masc, gen_pl = neut + ',' + aklita_quant_alternatives[neut]
+            masc = fem = neut = acc_masc = gen_pl = neut + ',' + aklita_quant_alternatives[neut]
 
         elif neut == 'ένα':
 
@@ -71,7 +69,7 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
             forms['sg']['neut']['acc'] = neut
             forms['sg']['neut']['voc'] = neut
 
-            return forms, None
+            return forms
 
         elif masc == 'ενάμισης':
 
@@ -90,7 +88,7 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
             forms['sg']['neut']['acc'] = neut
             forms['sg']['neut']['voc'] = neut
 
-            return forms, None
+            return forms
 
         elif neut == 'μηδέν':
             masc = 'μηδείς'
@@ -98,7 +96,6 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
 
             forms['sg']['masc']['nom'] = masc
             forms['sg']['masc']['acc'] = 'μηδένα'
-
             forms['sg']['masc']['gen'] = 'μηδενός'
 
             forms['sg']['neut']['nom'] = neut
@@ -110,8 +107,10 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
             forms['sg']['fem']['gen'] = 'μηδεμίας'
             forms['sg']['fem']['voc'] = fem
 
+            return forms
+
         else:
-            masc, fem, neut, acc_masc, gen_pl = neut
+            masc = fem = neut = acc_masc = gen_pl = neut
 
         forms['pl']['masc']['nom'] = masc
         forms['pl']['masc']['acc'] = acc_masc
@@ -147,7 +146,7 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
                     for case in forms[number][gender]:
                         forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:5], alt)
 
-        return forms, None
+        return forms
 
 def create_all_quant_noun_forms(basic_forms):
-
+    pass
