@@ -3,7 +3,7 @@ import pickle
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate,\
     put_accent_on_the_antepenultimate, is_accented, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics, \
-    put_accent
+    put_accent, remove_diaer, modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 from resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut
 
@@ -14,7 +14,7 @@ greek_corpus = pickle.load(file)
 file.close()
 
 
-def create_all_basic_noun_forms(noun, proper_name_gender=False):
+def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=False):
     """
 
     :param noun: must be nom sg
@@ -26,17 +26,25 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
     accent = where_is_accent(noun, true_syllabification=False)
     ultimate_accent = accent == 'ultimate'
 
-
+    capital = noun[0].isupper()
+    noun = noun.lower()
     # on 'os'
+
     if noun[-2:] in ['ός', 'ος']:
         stem = noun[:-2]
         plural_form = put_accent(stem + 'οι', accent, true_syllabification=False)
         gen_form = put_accent(stem + 'ου', accent, true_syllabification=False)
+        if remove_diaer(plural_form) == put_accent(stem + 'οι', accent):
+            plural_form = remove_diaer(plural_form)
+        print(remove_diaer(gen_form),  stem + 'ου', modern_greek_syllabify(stem + 'ου'), put_accent(stem + 'ου', accent), accent, stem, 'ηερε')
+        if remove_diaer(gen_form) == put_accent(stem + 'ου', accent):
+            print('baiou')
+
+            gen_form = remove_diaer(gen_form)
 
         gens_sg = []
 
         noun_temp['gender'] = 'masc'
-
 
         # the problem is that many long words on -os that are part of some kind of jargon do not have any other form
         # declined in the lexicon, i will assume then that words above 4 syllabes do exist, but only in singular, the
@@ -90,9 +98,6 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
                     noun_temp['gen_sg'] = gen_form
                     noun_temp['gender'] = 'neut'
 
-
-
-
         # in all other instances probably they are correct masculin words, but dont occur in the corpus
         if not (noun_temp['nom_pl'] or noun_temp['gen_sg']):
             stem = noun[:-2]
@@ -102,8 +107,8 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             if accent == 'ultimate':
                 plural_form = stem + 'οί'
                 gen_form = stem + 'ού'
-
-            noun_temp['nom_pl'] = plural_form
+            if not proper_name:
+                noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
             noun_temp['gender'] = 'masc'
 
@@ -111,6 +116,7 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
             ((noun[:-1] + 'δες' in greek_corpus) or (put_accent_on_the_antepenultimate(noun[:-1] + 'δες') in greek_corpus)
              or (put_accent_on_the_penultimate(noun[:-1] + 'δες') in greek_corpus)) and noun[-2:] != 'ις':
         #imparisyllaba on des, archaic and modern
+        print('giannides')
 
         noun_temp['gender'] = 'masc'
         noun_temp['gen_sg'] = noun[:-1]
@@ -407,6 +413,7 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
                 noun_temp['gender'] = 'neut'
+
                 return noun_temp
 
         noun_temp['gender'] = 'neut'
@@ -722,8 +729,6 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
         if noun.lower() in aklita_gender.keys():
             noun_temp['gender'] = aklita_gender[noun.lower()]
 
-
-
     if proper_name_gender:
         noun_temp['gender'] = proper_name_gender
 
@@ -747,6 +752,15 @@ def create_all_basic_noun_forms(noun, proper_name_gender=False):
 
     if noun in diploklita.keys():
         noun_temp['nom_pl'] = diploklita[noun]
-    print(noun_temp)
+
+    if capital:
+        noun_temp = capitalize_basic_forms(noun_temp)
+
     return noun_temp
 
+
+def capitalize_basic_forms(noun_temp):
+    for key in noun_temp:
+        if key != 'gender':
+            noun_temp[key] = noun_temp[key].capitalize()
+    return noun_temp

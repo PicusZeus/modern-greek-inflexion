@@ -46,13 +46,6 @@ def create_quant_adj(quant, ordinal=False):
     return forms
 
 
-def create_quant_noun(quant):
-    """
-    :param quant:
-    :return:
-    """
-    forms = create_all_basic_noun_forms(quant)
-    return forms
 
 
 

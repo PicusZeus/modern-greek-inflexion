@@ -97,6 +97,10 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             noun_all[gender][pl][acc] = nom_pl
             noun_all[gender][pl][voc] = nom_pl
 
+            if gender in ['fem', 'neut']:
+                noun_all[gender][sg][acc] = nom_sg
+                noun_all[gender][pl][acc] = nom_pl
+
             if nom_sg[-2:] in ['ος', 'ός'] and gen_sg[-2:] in ['ου', 'ού']:
 
                 noun_all[gender][sg][acc] = nom_sg[:-1]
@@ -105,16 +109,20 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                     noun_all[gender][sg][acc] = nom_sg[:-1] + ',' + nom_sg[:-1] + 'ν'
                 noun_all[gender][sg][voc] = put_accent(nom_sg[:-2] + 'ε', accent, true_syllabification=False)
                 if proper_name and count_syllables(nom_sg) < 3:
-                    noun_all[gender][sg][voc] = nom_sg[:-1]
+                    if accent != 'ultimate':
+                        noun_all[gender][sg][voc] = nom_sg[:-1]
 
                 if nom_pl:
                     gens = gen_sg.split(',')
                     accent_pl = where_is_accent(nom_pl, true_syllabification=False)
+                    print(accent_pl, 'pl accent')
                     if accent_pl == 'antepenultimate' and (len(gens) > 1 or
                                                            where_is_accent(gen_sg, true_syllabification=False) == 'penultimate'):
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', 'penultimate', true_syllabification=False)
                     else:
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', accent_pl, true_syllabification=False)
+
+
 
                     acc_pl = [put_accent(g[:-2] + 'ους', where_is_accent(g, true_syllabification=False),
                                          true_syllabification=False) for g in gens]

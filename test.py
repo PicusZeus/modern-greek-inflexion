@@ -9,6 +9,7 @@ from verb.create_verb_forms import create_all_imperfect_non_passive_personal_for
 from quantifiers import create_quant_list
 from quantifiers import create_quant_decl
 from quantifiers import quantifiers
+from adverb import adverb
 if __name__ == '__main__':
     # res = adjective.create_all('ωραίος')
     # print(res)
@@ -50,5 +51,8 @@ if __name__ == '__main__':
     # perf_forms_pres = create_all_perf_non_past_personal_forms('σηκώσω/σηκωθώ')
     # print(perf_forms_pres)
 
-    res = quantifiers.create_all_adj_quant('εννιακόσια')
+    # res = quantifiers.create_all_adj_quant('εννιακόσια')
+    # print(res)
+    res = noun.create_all('Βάιος', proper_name=True)
+    # res = noun.create_all('Χριστός', proper_name=True)
     print(res)

@@ -1,9 +1,7 @@
 from .create_quant_decl import creat_all_quant_adj_forms
 from adjective import adjective
-from .create_quant_list import create_quant_adj, create_quant_noun
-
-
-
+from .create_quant_list import create_quant_adj
+from noun import noun
 
 def create_all_adj_quant(base_form):
 
@@ -31,3 +29,11 @@ def create_all_adj_quant(base_form):
         forms = {'adj': [forms_adj]}
 
     return forms
+
+def create_all_noun_quant(base_form):
+    """
+    There is no real difference between noun and quant noun, so noun logic employed
+    :param base_form:
+    :return:
+    """
+    return noun.create_all(base_form)

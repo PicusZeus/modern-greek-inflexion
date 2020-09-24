@@ -4,8 +4,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate
 
 from adjective.create_adj_decl import create_all_adj_forms
 from adjective.create_adj_decl import adj_basic
-from adjective import adjective
-from noun.create_noun_decl import create_all_noun_forms
+
 
 aklita_quant_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
                                      'δεκαοχτώ': 'δεκαοκτώ', 'δεκαεννιά': 'δεκαεννέα', 'δεκαεφτά': 'δεκαεπτά'}
@@ -148,5 +147,3 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
 
         return forms
 
-def create_all_quant_noun_forms(basic_forms):
-    pass
