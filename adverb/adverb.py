@@ -6,6 +6,16 @@ irregular_comp = {
 'νωρίς': {'comp_adv': 'νωρίτερα/'}, 'άνω': {'comp_adv': 'ανώτερα/ανώτατα', 'comp': 'ανώτερος/ανώτατος'}, 'κάτω': {'comp_adv': 'κατώτεαρα/κατώτατα', 'comp': 'κατώτερος/κατώτατος'}}
 
 def create_all(adverb):
+    """
+    :param adverb:
+    :return: returns a dictionary:
+    'adv' the same adverb
+    'comp_adv' if exists is given in an array
+    'superl_adv' if exists is given in an array
+    'comp' if exists adj comp created from a given adverb, dictionary is given in an array
+    'superl' if exists adj superl created from a given adverb, dictionary is given in an array
+
+    """
     if adverb in irregular_comp:
         result = {'adv': [adverb]}
         comp_adv, superl_adv = irregular_comp[adverb]['comp_adv'].split('/')

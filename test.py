@@ -53,6 +53,6 @@ if __name__ == '__main__':
 
     # res = quantifiers.create_all_adj_quant('εννιακόσια')
     # print(res)
-    res = noun.create_all('Βάιος', proper_name=True)
+    res = adjective.create_all('ωραίος')
     # res = noun.create_all('Χριστός', proper_name=True)
     print(res)

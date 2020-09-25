@@ -9,7 +9,6 @@ with open('el_GR.pickle', 'rb') as file:
 
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά', 'adverb_comparative': 'ωμότερα/ωμότατα'}
 
-
 adj_basic = {'sg':{
                     'masc':{
                         'nom': '',
@@ -309,7 +308,6 @@ def put_accent_on_unaccented_forms(forms):
 
 def create_all_adj_forms(adj):
     """
-
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesnt exist, it should
     be replaced with dash '-'
     :return: two element array, first is a dictionary with all primary forms (forms[number][gender][case], the second
@@ -738,13 +736,5 @@ def comparative_forms(comp_or_super):
 
     return comp_forms
 
-
-
-
-if __name__ == '__main__':
-    test_adjs = ['κακός/κακή,κακιά/κακό', 'βαθύς/βαθιά/βαθύ', 'φτωχός/φτωχή,φτωχιά/φτωχό', 'ων/ούσα/ον']
-    for adj in test_adjs:
-        res = create_all_adj_forms(adj)
-        print(res)
 
 

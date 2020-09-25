@@ -102,22 +102,6 @@ def create_all_perf_non_past_personal_forms(verb, deponens=False):
                 con_imp = con['conjugation_imp']
                 forms_imp = create_all_pers_forms(con_imp, root)
 
-            ### irregular imper
-
-
-            """
-            if v in irregular:
-                for number in irregular[v]:
-                    for person in irregular[v][number]:
-                        irregular form = irregular[v][number][person]
-                        try:
-                            forms_imp[number][person].append(irregular form)
-                        except error as e:
-                            print(error)
-                            
-                forms
-            """
-
             forms.append({'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp})
 
     if pass_verbs:
@@ -138,11 +122,7 @@ def create_all_perf_non_past_personal_forms(verb, deponens=False):
                 con_imp = con['conjugation_imp']
                 forms_imp = create_all_pers_forms(con_imp, root, active_root=active_root)
 
-
             forms.append({'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp})
-
-    elif not act_verbs:
-        print('No perfects for ' + verb)
 
     return forms
 
@@ -196,8 +176,6 @@ def create_all_past_personal_forms(verb, lemma, aspect, deponens=False):
             data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
             conjugation = data['conjugation_ind']
             stem = data['root']
-            print(aspect)
-            print(conjugation)
 
             not_paratatikos = aspect != 'imperf'
 

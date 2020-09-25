@@ -14,7 +14,6 @@ with open('el_GR.pickle', 'rb') as file:
 
 
 def create_basic_present_forms(base_form, deponens=False, not_deponens=True, intransitive_active=False, modal_act=False, modal_med=False):
-    pres_conjugation = 'con1_act'
 
     if deponens:
         passive_conjugation = recognize_passive_present_continuous_conjugation(base_form)

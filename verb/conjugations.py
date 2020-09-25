@@ -38,7 +38,6 @@ def find_alternative_roots(ending, stem):
             alternative_roots.extend(augmented_roots)
         else:
             # internal augment
-            
             # move accent
             accented_syllable = put_accent_on_syllable(syllables[-2])
             syllables[-2] = accented_syllable
@@ -72,7 +71,7 @@ def augment_prefixed_stem(stem):
 
     for pref in dict_of_augmented_prefixes.keys():
         
-        if len(stem)>len(pref) and pref == stem[:len(pref)]:
+        if len(stem) > len(pref) and pref == stem[:len(pref)]:
             
             res.append(dict_of_augmented_prefixes[pref] + stem[len(pref):])
     
@@ -527,7 +526,6 @@ def stemmer(root, con_type, lemma='', root2='', sqlalchemy=True):
                     ending_inst = Ending(number, person, ending)
                     endings.append(ending_inst)
 
-
     for ending in endings:
         # fix bug with imperative passive
         # accentuation
@@ -586,12 +584,9 @@ def stemmer(root, con_type, lemma='', root2='', sqlalchemy=True):
             form = remove_all_diacritics(form)
             form = put_accent_on_the_antepenultimate(form)
 
-
         forms[number][person].append(form)
 
     return forms
-
-
 
 
 def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', voice='active'):
@@ -705,13 +700,6 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
                     'conjugation_imp': conjugation_imp,
                     'conjugation_part': conjugation_part}
 
-def recognize_aorist_conjugation(aorist):
-    """
-    returns 2 roots, one augmented and one not,
-    and conjugation (there are more than one, as we take into consideration
-    also rare ancient types)
-    """
-
 
 def recognize_passive_present_continuous_conjugation(verb):
 
@@ -809,11 +797,8 @@ def recognize_past_conjugation(verb, lemma, aspect='imperf', voice='active'):
         conjugation_ind = 'modal'
         root = verb
 
-
     if voice == 'passive' and aspect == 'imperf':
         root, conjugation_ind = recognize_passive_past_continuous_conjugation(lemma, verb)
-
-
 
     return {'aspect': aspect, 'voice': voice, 'tense': 'past', 'root': root,
             'conjugation_ind': conjugation_ind}
@@ -839,7 +824,6 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
             root = verb[:-6]
         conjugation_ind = 'parat1_pass'
         # if koimamai
-
         if lemma[-4:] == 'άμαι':
             conjugation_ind = 'parat2c_pass'
             root = verb[:-5]
@@ -885,10 +869,3 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
     else:
         print(verb)
         raise AssertionError
-
-
-
-if __name__ == '__main__':
-
-    res = recognize_past_conjugation('παριστάμην', 'παρίσταμαι', aspect='imperf', voice='passive')
-    print(res)

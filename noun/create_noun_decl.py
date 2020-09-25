@@ -5,21 +5,6 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent, 
 with open('el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
-# noun = {'nom_sg': '', 'gen_sg': '', 'nom_pl': '', 'gender': ''}
-
-# noun_basic = {'gender':{'sg':{
-#                         'nom': '',
-#                         'gen': '',
-#                         'acc': '',
-#                         'voc': ''
-#                     },
-#               'pl': {
-#                       'nom': '',
-#                       'gen': '',
-#                       'acc': '',
-#                       'voc': ''
-#                   }
-#               }}
 sg = 'sg'
 pl = 'pl'
 nom = 'nom'
@@ -64,8 +49,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             nom_pl = plurals[0]
             irregular_nom_pl = plurals[1]
 
-
-
     for gender in genders.split(','):
 
         if gender == 'neut_irregular':
@@ -86,7 +69,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                         noun_all['neut'][pl][gen] = gen_pl
 
         else:
-
             noun_all[gender] = {}
             noun_all[gender][sg] = {}
             noun_all[gender][pl] = {}
@@ -121,8 +103,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', 'penultimate', true_syllabification=False)
                     else:
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', accent_pl, true_syllabification=False)
-
-
 
                     acc_pl = [put_accent(g[:-2] + 'ους', where_is_accent(g, true_syllabification=False),
                                          true_syllabification=False) for g in gens]
@@ -199,7 +179,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
 
             elif nom_sg[-1:] in ['ς', 'ν'] and gen_sg != nom_sg and gender == 'neut':
                 # to filter out aklita
-
 
                 noun_all[gender][sg][acc] = nom_sg
                 gen_sg_accent = where_is_accent(gen_sg.split(',')[0])
@@ -289,8 +268,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                     noun_all[gender][sg][acc] = ','.join(accs)
                     noun_all[gender][sg][voc] = ','.join(vocs)
 
-                    # ['έρπης', 'πατρίς', 'δράστις', 'δεσποινίς', 'καλλιτέχνις']:'βότρυς', 'πέλεκυς'
-                #'ηχώ', 'πειθώ', 'φειδώ', 'βάβω'
                 elif nom_sg[-3:] in ['εύς', 'ευς']:
 
                     noun_all[gender][sg][acc] = gen_sg[:-2] + 'α'
@@ -298,15 +275,8 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                         noun_all[gender][sg][acc] = 'Δία,Διά'
                     noun_all[gender][sg][voc] = nom_sg[:-1]
 
-                elif nom_sg[-3:] == 'ους':
-                    # contracta on oos
-                    print(nom_sg, 'contract on ous')
-
                 elif nom_sg[-2:] == 'ής' and nom_pl[-3:] == 'είς':
                     noun_all[gender][pl][gen] = nom_pl[:-3] + 'ών'
-
-                else:
-                    print(nom_sg, 'on s, gender not neut, not catched')
 
             elif (nom_sg[-1:] in ['ρ', 'ν', 'ξ', 'ύ', 'υ']) and (gen_sg[-2:] in ['ος', 'ός']):
                 if gender != 'neut':
@@ -328,9 +298,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                     gen_pl = put_accent(nom_pl[:-1] + 'ων', 'penultimate')
                     noun_all[gender][pl][gen] = gen_pl
 
-            elif gen_sg[-3:] == 'εως':
-                print(nom_sg, 'uncought nouns with gen on ews')
-
             elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί'] or nom_pl[-1:] in ['α', 'η', 'ά', 'ή']):
 
                 if nom_pl[-2:] in ['οι', 'οί']:
@@ -346,7 +313,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
 
                     noun_all[gender][pl][acc] = acc_pl
 
-                gen_pl = ''
                 thema = nom_pl[:-2]
                 if nom_pl[-1] in ['α', 'η', 'ά', 'ή']:
                     thema = nom_pl[:-1]
@@ -370,33 +336,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 noun_all[gender][pl][gen] = 'χρόνων,χρονών,χρόνω,χρονώ'
 
     return noun_all
-"""
-TODO:
-not correctly recognized
-{'sg': {'nom': 'ους', 'gen': 'ωτός', 'acc': 'ους', 'voc': 'ους'}, 'pl': {'nom': 'ώτα', 'gen': 'ωτών', 'acc': 'ώτα', 'voc': 'ώτα'}}
-{'sg': {'nom': 'ημίφως', 'gen': 'ημίφωτος', 'acc': 'ημίφως', 'voc': 'ημίφως'}, 'pl': {'nom': 'ημίφωτα', 'gen': 'ημιφωτών', 'acc': 'ημίφωτα', 'voc': 'ημίφωτα'}}
-{'sg': {'nom': 'ντορός', 'gen': 'ντορούς', 'acc': 'ντορός', 'voc': 'ντορός'}, 'pl': {'nom': 'ντορή', 'gen': 'ντορών', 'acc': 'ντορή', 'voc': 'ντορή'}}
-{'sg': {'nom': 'σύμπαν', 'gen': 'σύμπαντος', 'acc': 'σύμπαν', 'voc': 'σύμπαν'}, 'pl': {'nom': 'σύμπαντα', 'gen': 'συμπαντών', 'acc': 'σύμπαντα', 'voc': 'σύμπαντα'}}
-{'sg': {'nom': 'λυκόφως', 'gen': 'λυκόφωτος', 'acc': 'λυκόφως', 'voc': 'λυκόφως'}, 'pl': {'nom': 'λυκόφωτα', 'gen': 'λυκοφωτών', 'acc': 'λυκόφωτα', 'voc': 'λυκόφωτα'}}
-{'sg': {'nom': 'σκιόφως', 'gen': 'σκιόφωτος', 'acc': 'σκιόφως', 'voc': 'σκιόφως'}, 'pl': {'nom': 'σκιόφωτα', 'gen': 'σκιοφωτών', 'acc': 'σκιόφωτα', 'voc': 'σκιόφωτα'}}
-{'sg': {'nom': 'αρειανός', 'gen': 'αρειανούς', 'acc': 'αρειανός', 'voc': 'αρειανός'}, 'pl': {'nom': 'αρειανή', 'gen': 'αρειανών', 'acc': 'αρειανή', 'voc': 'αρειανή'}}
-{'sg': {'nom': 'υπεζωκώς', 'gen': 'υπεζωκότος', 'acc': 'υπεζωκώς', 'voc': 'υπεζωκώς'}, 'pl': {'nom': 'υπεζωκότα', 'gen': 'υπεζωκοτών', 'acc': 'υπεζωκότα', 'voc': 'υπεζωκότα'}}
-{'sg': {'nom': 'σεληνόφως', 'gen': 'σεληνόφωτος', 'acc': 'σεληνόφως', 'voc': 'σεληνόφως'}, 'pl': {'nom': 'σεληνόφωτα', 'gen': 'σεληνοφωτών', 'acc': 'σεληνόφωτα', 'voc': 'σεληνόφωτα'}}
-{'sg': {'nom': 'επιπεφυκώς', 'gen': 'επιπεφυκότος', 'acc': 'επιπεφυκώς', 'voc': 'επιπεφυκώς'}, 'pl': {'nom': 'επιπεφυκότα', 'gen': 'επιπεφυκοτών', 'acc': 'επιπεφυκότα', 'voc': 'επιπεφυκότα'}}
-
-"""
-
-if __name__ == '__main__':
-
-
-
-    for noun in nouns:
-        res = create_all_noun_forms(noun['nom_sg'], noun['gen_sg'], noun['nom_pl'], noun['gender'])
-        if res:
-            if res[0]['sg']['nom'][-3:] == 'έας':
-                #print(res)
-                pass
-
 
 
 

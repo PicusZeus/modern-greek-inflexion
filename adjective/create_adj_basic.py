@@ -8,14 +8,24 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 
 
-file = open('el_GR.pickle', 'br')
-greek_corpus = pickle.load(file)
-file.close()
+with open('el_GR.pickle', 'br') as file:
+    greek_corpus = pickle.load(file)
 
+irregular_comparatives = {'καλό': 'καλύτερος,καλλίων/άριστος',
+                          'κακό': 'χειρότερος,ήσσων/χείριστος,ήκιστος',
+                          'απλό': 'απλούστερος/απλούστατος',
+                          'μεγάλο': 'μεγαλύτερος/μέγιστος',
+                          'πολύ': 'περισσότερος/-',
+                          'λίγο': 'λιγότερος/ελάχιστος',
+                          'μέγα': 'μεγαλύτερος/μέγιστος',
+                          'πρώτο': 'πρωτύτερος/πρώτιστος'}
+
+irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήττον/κάκιστα,ήκιστα',
+                                 'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
+                                 'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
 
 def create_all_basic_adj_forms(adj):
     """
-
     :param adj: masc nom sg form (`ωραίος`)
     :return: dictionary with keys:
     'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
@@ -49,7 +59,6 @@ def create_all_basic_adj_forms(adj):
     adj_forms = []
     # most basic case -os
 
-
     if adj[-2:] in ['ός', 'ος']:
         masc = adj
         adj_forms.append(masc)
@@ -78,7 +87,6 @@ def create_all_basic_adj_forms(adj):
                 fem_alt = adj[:-2] + 'ιά'
             else:
                 fem_alt = adj[:-2] + 'ια'
-
 
         if fem in greek_corpus and fem_alt in greek_corpus:
             fem = fem + ',' + fem_alt
@@ -168,6 +176,8 @@ def create_all_basic_adj_forms(adj):
     elif adj[-2:] in ['ων', 'ών']:
         stem = adj[:-2]
         masc = adj
+        fem = None
+        neuter = None
         if accent == 'penultimate' or not accent:
             fem = stem + 'ουσα'
             if not accent:
@@ -203,20 +213,23 @@ def create_all_basic_adj_forms(adj):
             masc, fem = adj, adj
             neuter = adj[:-2] + 'ον'
 
+        if not fem:
+            print(adj)
+            raise AssertionError
+
     elif adj[-3:] == 'είς':
         # passive aorist participles
-        assert adj[:-3] + 'έντα' in greek_corpus
+        if not adj[:-3] + 'έντα' in greek_corpus:
+            print(adj)
+            raise AssertionError
         masc = adj
         fem = adj[:-1] + 'σα'
         neuter = adj[:-3] + 'έν'
 
-    elif adj[-2:] in ['ας', 'άς'] or adj in ['μπελαλού']:
-
+    elif adj[-2:] in ['ας', 'άς']:
 
         # pas, pasa pan and active aorist participles
         # pas pasa pan
-        masc = adj
-
 
         pl_nta = adj[:-1] + 'ντα'
         fem_sa =adj[:-1] + 'σα'
@@ -233,14 +246,13 @@ def create_all_basic_adj_forms(adj):
             masc = adj
             fem = 'μαγάλη'
             neuter = 'μέγα'
-        elif adj[:-2] + 'ού' in greek_corpus:
-            masc = adj[:-2] + 'άς'
-            fem = adj[:-2] + 'ού'
-            neuter = adj[:-1] + 'δικο'
+
         elif adj[-4:] == 'ονας':
             masc = adj
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
+        else:
+            raise AssertionError
 
     elif adj in ['άρρην']:
         # so rare that it can be solved like that
@@ -252,8 +264,6 @@ def create_all_basic_adj_forms(adj):
         masc, fem, neuter = adj, adj, adj
 
     adj_forms = [masc, fem, neuter]
-
-
 
     adj_temp['adj'] = '/'.join(adj_forms)
 # παραθετικά
@@ -294,15 +304,6 @@ def create_all_basic_adj_forms(adj):
     elif alt_parathetiko and alt_uperthetiko:
         parathetika = alt_parathetiko + '/' + alt_uperthetiko
 
-    irregular_comparatives = {'καλό': 'καλύτερος,καλλίων/άριστος',
-                              'κακό': 'χειρότερος,ήσσων/χείριστος,ήκιστος',
-                              'απλό': 'απλούστερος/απλούστατος',
-                              'μεγάλο': 'μεγαλύτερος/μέγιστος',
-                              'πολύ': 'περισσότερος/-',
-                              'λίγο': 'λιγότερος/ελάχιστος',
-                              'μέγα': 'μεγαλύτερος/μέγιστος',
-                              'πρώτο': 'πρωτύτερος/πρώτιστος'}
-
     if neuter in irregular_comparatives.keys():
         parathetiko = irregular_comparatives[neuter].split('/')[0]
         uperthetiko = irregular_comparatives[neuter].split('/')[1]
@@ -312,9 +313,8 @@ def create_all_basic_adj_forms(adj):
     if parathetika:
         adj_temp['comparative'] = parathetika
 
-# επιρρήματα
-    adverbs = []
-    adverb = None
+    # επιρρήματα
+
     alt_adv = None
 
     if neuter[-1] in ['ο', 'ό']:
@@ -325,7 +325,6 @@ def create_all_basic_adj_forms(adj):
         else:
             adverb = neuter[:-1] + 'ά'
             alt_adv = neuter[:-1] + 'ώς'
-
 
     elif masc[-2:] in ['ής', 'ης'] and neuter[-2:] in ['ές', 'ες']:
 
@@ -347,8 +346,6 @@ def create_all_basic_adj_forms(adj):
         -1] == 'ν':
         # ancient adverbs
         adverb = put_accent_on_the_penultimate(neuter + 'τως')
-        # if adverb not in greek_corpus:
-        #     adverb = None
     else:
         # for aklita
         adverb = neuter
@@ -377,6 +374,8 @@ def create_all_basic_adj_forms(adj):
 # comparative epirrimata
     adv_parathetika = None
 
+    adverb_parathetiko = alt_adverb_parathetiko =adverb_uperthetiko = alt_adverb_uperthetiko = ''
+
     if parathetiko:
         adverb_parathetiko = parathetiko[:-2] + 'α'
         if uperthetiko != '-':
@@ -396,13 +395,9 @@ def create_all_basic_adj_forms(adj):
         adv_parathetika = adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
 
     elif parathetiko:
-        adv_parathetika = adverb_parathetiko +'/' + adverb_uperthetiko
+        adv_parathetika = adverb_parathetiko + '/' + adverb_uperthetiko
     elif alt_parathetiko:
-        adv_parathetika = alt_adverb_parathetiko + '/' +  alt_adverb_uperthetiko
-
-    irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήττον/κάκιστα,ήκιστα',
-                                     'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
-                                    'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
+        adv_parathetika = alt_adverb_parathetiko + '/' + alt_adverb_uperthetiko
 
     if neuter in irregular_comparative_adverbs.keys():
         adv_parathetika = irregular_comparative_adverbs[neuter]
@@ -412,14 +407,6 @@ def create_all_basic_adj_forms(adj):
     assert adj_temp['adj'].split('/')[1] != '-'
 
     if adj in ['είμαι', 'τάχατες', 'βεληνεκές', 'γιαχνί', 'πλακί', 'μύριοι']:
-        # in the list there are some strange errors which have to be filtered out
+        # in my adjective list there are some strange errors which have to be filtered out
         return None
     return adj_temp
-
-
-if __name__ == '__main__':
-
-    adjs_test = ['κακός', 'πλήρης', 'ορθός', 'πορτοκαλής', 'ευχάριστος', 'πρώτος']
-    for adj in adjs_test:
-        res = create_all_basic_adj_forms(adj)
-        print(res)

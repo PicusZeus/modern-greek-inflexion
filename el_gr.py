@@ -1,33 +1,20 @@
 import pickle
 "create a list of all Greek words in a pickled set"
 
-import re
-
 # there are sometimes flags on the words i dont understand, and probably I dont need them
 
+def create_picle_el_gr(*files):
+
+    lists_of_words = [open(l, 'r').read().splitlines() for l in files]
+    all_words = []
+    for list_of_words in lists_of_words:
+        words = set(word.split('/')[0].lower() for word in list_of_words)
+        all_words.append(words)
+
+    all_words = set(all_words)
+    file = open('el_GR.pickle', 'bw')
+    pickle.dump(all_words, file)
+    file.close()
+    print('list created')
 
 
-
-file = open('el_GR.dic.txt', 'r')
-
-file2 = open('el_GR.dic', 'r')
-
-list_of_words = list(file.read().splitlines())
-
-set_of_words = set(word.split('/')[0].lower() for word in list_of_words)
-
-list_of_words_2 = list(file2.read().splitlines())
-
-set_of_words_2 = set(word.split('/')[0].lower() for word in list_of_words_2)
-
-set_of_words = set_of_words.union(set_of_words_2)
-
-print(len(set_of_words))
-
-file.close()
-
-file = open('el_GR.pickle', 'bw')
-
-pickle.dump(set_of_words, file)
-
-file.close()

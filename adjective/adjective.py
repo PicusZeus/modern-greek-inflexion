@@ -3,11 +3,15 @@ from .create_adj_decl import create_all_adj_forms
 
 def create_all(adj):
     """
-
     :param adj: masc sg nom form
-    :return: tuple with 1: array with dictionaries of forms and alternatives, array with dictionaries of all comparative
-     forms and alternatives, array with dictionaries of all superlative forms and alternatives, array with comparative adverbs,
-     array with superlative adverbs
+    :return: dictionary with keys:
+    'adj': array with dictionaries of forms and alternative forms
+    'comp'. array with dictionaries of all comparative forms and alternative forms (if exists monolektik type)
+    'superl': array with dictionaries of all superlative forms and alternative forms (if exists)
+    'adv': array of all possible adverbs
+    'comp_adv': array of all possible comparative adverbs (if exists)
+    'comp_superl': array of all possible superlative adverbs (if exists)
+
     """
     forms = []
     comp_forms = []

@@ -7,12 +7,25 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from modern_greek_accentuation.resources import vowels
 from resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut
 
+with open('el_GR.pickle', 'br') as file:
+    greek_corpus = pickle.load(file)
 
+aklita_gender = {'μαδιάμ': 'fem', 'μωάμεθ': 'masc', 'μάνατζερ': 'masc', 'σερ': 'masc', 'σεφ': 'masc',
+                 'ντετέκτιβ': 'masc', 'ντεντέκτιβ': 'masc', 'ρεπόρτερ': 'masc', 'πλαζ': 'fem',
+                 'σεζόν': 'fem', 'σπεσιαλιτέ': 'fem', 'ρεσεψιόν': 'fem'}
 
-file = open('el_GR.pickle', 'br')
-greek_corpus = pickle.load(file)
-file.close()
+irregularities = {'σέβας': {'nom_sg': 'σέβας', 'nom_pl': 'σέβη', 'gen_sg': '', 'gender': 'neut'},
+                  'σέλας': {'nom_sg': 'σέλας', 'nom_pl': 'σέλατα,σέλαα', 'gen_sg': 'σέλατος,σέλαος', 'gender': 'neut'},
+                  'δείλι': {'nom_sg': 'δείλι', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
+                  'Πάσχα': {'nom_sg': 'Πάσχα', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
+                  'δόρυ': {'nom_sg': 'δόρυ', 'nom_pl': 'δόρατα', 'gen_sg': 'δόρατος', 'gender': 'neut'},
+                  'ήμισυ': {'nom_sg': 'ήμισυ', 'nom_pl': '', 'gen_sg': 'ημίσεος', 'gender': 'neut'},
+                  }
 
+diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά',
+              'λόγος': 'λόγοι,λόγια', 'πλούτος': ',πλούτη',
+              'σανός': ',σανά', 'χρόνος': 'χρόνοι,χρόνια',
+              'καπνός': 'καπνοί,καπνά', 'νιότη': ',νιάτα'}
 
 def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=False):
     """
@@ -36,18 +49,16 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
         gen_form = put_accent(stem + 'ου', accent, true_syllabification=False)
         if remove_diaer(plural_form) == put_accent(stem + 'οι', accent):
             plural_form = remove_diaer(plural_form)
-        print(remove_diaer(gen_form),  stem + 'ου', modern_greek_syllabify(stem + 'ου'), put_accent(stem + 'ου', accent), accent, stem, 'ηερε')
-        if remove_diaer(gen_form) == put_accent(stem + 'ου', accent):
-            print('baiou')
 
+        if remove_diaer(gen_form) == put_accent(stem + 'ου', accent):
             gen_form = remove_diaer(gen_form)
 
         gens_sg = []
 
         noun_temp['gender'] = 'masc'
 
-        # the problem is that many long words on -os that are part of some kind of jargon do not have any other form
-        # declined in the lexicon, i will assume then that words above 4 syllabes do exist, but only in singular, the
+        # the problem is that many long words on -os that are part of some kind of jargon and do not have any other form
+        # declined in the corpus, i will assume then that words above 4 syllabes do exist, but only in singular, the
         # same should be the case for neuter long words on -o
         # also some proper names in greek_corpus are, as is proper, capitalized
         if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or number_of_syllables >4:
@@ -98,8 +109,10 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
                     noun_temp['gen_sg'] = gen_form
                     noun_temp['gender'] = 'neut'
 
-        # in all other instances probably they are correct masculin words, but dont occur in the corpus
+        # in all other instances probably they are correct masculin words, but dont occur in the corpus, still for
+        # proper name dont add plural if it doesnt exist in the corpus
         if not (noun_temp['nom_pl'] or noun_temp['gen_sg']):
+
             stem = noun[:-2]
             plural_form = stem + 'οι'
             gen_form = put_accent(stem + 'ου', accent, true_syllabification=False)
@@ -116,7 +129,6 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
             ((noun[:-1] + 'δες' in greek_corpus) or (put_accent_on_the_antepenultimate(noun[:-1] + 'δες') in greek_corpus)
              or (put_accent_on_the_penultimate(noun[:-1] + 'δες') in greek_corpus)) and noun[-2:] != 'ις':
         #imparisyllaba on des, archaic and modern
-        print('giannides')
 
         noun_temp['gender'] = 'masc'
         noun_temp['gen_sg'] = noun[:-1]
@@ -148,7 +160,6 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
         if gen_form_arch in greek_corpus:
             gens.append(gen_form_arch)
         gens = list(set(gens))
-        print(gens, 'GENS')
         noun_temp['gen_sg'] = ','.join(gens)
 
     elif noun[-2:] in ['ές', 'ες']:
@@ -333,9 +344,9 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
     elif noun[-2:] in ['υς', 'ύς']:
         noun_temp['gender'] = 'fem'
         gen_form = noun[:-1] + 'ος'
+        thema = put_accent_on_the_ultimate(noun)
         if count_syllables(noun) == 1:
             gen_form = put_accent_on_the_ultimate(gen_form)
-            thema = put_accent_on_the_ultimate(noun)
         plur_form = thema[:-1] + 'ες'
         if noun in ['βοτρύς','ιχθύς','πέλεκυς', 'μυς']:
             noun_temp['gender'] = 'masc'
@@ -722,9 +733,6 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
         noun_temp['gender'] = 'neut'
         noun_temp['nom_pl'] = noun
         noun_temp['gen_sg'] = noun
-        aklita_gender = {'μαδιάμ': 'fem', 'μωάμεθ': 'masc', 'μάνατζερ': 'masc', 'σερ': 'masc', 'σεφ': 'masc',
-                            'ντετέκτιβ': 'masc', 'ντεντέκτιβ': 'masc', 'ρεπόρτερ': 'masc', 'πλαζ': 'fem',
-                         'σεζόν': 'fem', 'σπεσιαλιτέ': 'fem', 'ρεσεψιόν': 'fem'}
 
         if noun.lower() in aklita_gender.keys():
             noun_temp['gender'] = aklita_gender[noun.lower()]
@@ -732,23 +740,9 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
     if proper_name_gender:
         noun_temp['gender'] = proper_name_gender
 
-    irregularities = {'σέβας':{'nom_sg': 'σέβας', 'nom_pl': 'σέβη', 'gen_sg': '', 'gender': 'neut'},
-                      'σέλας':{'nom_sg': 'σέλας', 'nom_pl': 'σέλατα,σέλαα', 'gen_sg': 'σέλατος,σέλαος', 'gender': 'neut'},
-                      'δείλι': {'nom_sg': 'δείλι', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
-                      'Πάσχα': {'nom_sg': 'Πάσχα', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
-                      'δόρυ': {'nom_sg': 'δόρυ', 'nom_pl': 'δόρατα', 'gen_sg': 'δόρατος', 'gender': 'neut'},
-                      'ήμισυ': {'nom_sg': 'ήμισυ', 'nom_pl': '', 'gen_sg': 'ημίσεος', 'gender': 'neut'},
-
-                      }
-
-
     if noun in irregularities.keys():
         noun_temp = irregularities[noun]
 
-    diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά',
-                  'λόγος': 'λόγοι,λόγια', 'πλούτος': ',πλούτη',
-                  'σανός': ',σανά', 'χρόνος': 'χρόνοι,χρόνια',
-                  'καπνός': 'καπνοί,καπνά', 'νιότη': ',νιάτα'}
 
     if noun in diploklita.keys():
         noun_temp['nom_pl'] = diploklita[noun]

@@ -13,8 +13,6 @@ from .greek_tables import irregular_imperative_forms
 with open('el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
-#print([verbs[i] for i in range(333,355)])
-
 forms_imp = {
     'sg': {
         'sec': [],
@@ -135,7 +133,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
 
     #### irregular imperatives
     if conjugation_name[:5] == 'imper':
-        print(conjugation_name)
 
         if root in irregular_imperative_forms:
             for number in irregular_imperative_forms[root]:
@@ -149,7 +146,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         print(sys.exc_info()[0])
 
     return forms
-
 
 def create_roots_from_past(verb, lemma):
     # argument only in 1st person
@@ -200,7 +196,7 @@ def create_all_past_forms(verb, lemma, aspect, deponens=False):
             stem = data['root']
             deaugmented_stem = create_roots_from_past(v, lemma)
 
-            forms_ind = create_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
+            forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
             forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})
 
     if pass_verbs:
@@ -215,7 +211,7 @@ def create_all_past_forms(verb, lemma, aspect, deponens=False):
 
             not_paratatikos = aspect != 'imperf'
 
-            forms_ind = create_pers_forms(conjugation, stem, simple_aor=not_paratatikos)
+            forms_ind = create_all_pers_forms(conjugation, stem, simple_aor=not_paratatikos)
             forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})
 
     return forms
