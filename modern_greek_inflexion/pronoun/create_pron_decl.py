@@ -1,7 +1,4 @@
-import pickle
-
-
-from adjective.create_adj_decl import create_all_adj_forms
+from modern_greek_inflexion.adjective.create_adj_decl import create_all_adj_forms
 
 m = 'masc'
 f = 'fem'
@@ -93,7 +90,7 @@ def create_all_pron_forms(bas_forms):
             forms['sg']['neut']['gen'] = prefix_mn + 'ενός'
 
         elif masc == 'τις':
-            from resources import TIS
+            from modern_greek_inflexion.resources import TIS
             forms = TIS
 
 
@@ -109,10 +106,10 @@ def create_all_pron_forms(bas_forms):
 
                             forms[number][gender][case] = ''
         elif masc == 'εγώ':
-            from resources import EGO_STRONG
+            from modern_greek_inflexion.resources import EGO_STRONG
             forms = EGO_STRONG
         elif masc == 'εσύ':
-            from resources import ESU_STRONG
+            from modern_greek_inflexion.resources import ESU_STRONG
             forms = ESU_STRONG
 
         elif masc == 'αλλήλων':

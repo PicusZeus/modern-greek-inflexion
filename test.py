@@ -1,15 +1,5 @@
-from adjective import adjective
-from noun.create_noun_basic import create_all_basic_noun_forms
-from pronoun import create_pron_basic
-from pronoun import pronoun
-from verb import create_verb_list
-from verb.greek_tables import greek_lemmata
-from noun import noun
-from verb.create_verb_forms import create_all_imperfect_non_passive_personal_forms, create_all_perf_non_past_personal_forms, create_all_past_personal_forms
-from quantifiers import create_quant_list
-from quantifiers import create_quant_decl
-from quantifiers import quantifiers
-from adverb import adverb
+from modern_greek_inflexion.adjective import adjective
+f
 if __name__ == '__main__':
     # res = adjective.create_all('ωραίος')
     # print(res)

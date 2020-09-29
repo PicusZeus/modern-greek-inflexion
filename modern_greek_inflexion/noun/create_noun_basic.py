@@ -3,9 +3,9 @@ import pickle
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate,\
     put_accent_on_the_antepenultimate, is_accented, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics, \
-    put_accent, remove_diaer, modern_greek_syllabify
+    put_accent, remove_diaer
 from modern_greek_accentuation.resources import vowels
-from resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut
+from modern_greek_inflexion.resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut
 
 with open('el_GR.pickle', 'br') as file:
     greek_corpus = pickle.load(file)

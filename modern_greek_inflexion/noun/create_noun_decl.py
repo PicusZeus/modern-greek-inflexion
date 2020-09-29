@@ -58,16 +58,18 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             noun_all['neut'][pl][nom] = irregular_nom_pl
             noun_all['neut'][pl][acc] = irregular_nom_pl
             noun_all['neut'][pl][voc] = irregular_nom_pl
-            if irregular_nom_pl[-2:] != 'ια':
-                accent = where_is_accent(irregular_nom_pl)
-                gen_pl = irregular_nom_pl[:-1] + 'ων'
-                if gen_pl in greek_corpus:
-                    noun_all['neut'][pl][gen] = gen_pl
-                else:
-                    gen_pl = put_accent(gen_pl, 'ultimate')
-                    if gen_pl in greek_corpus:
-                        noun_all['neut'][pl][gen] = gen_pl
 
+            accent = where_is_accent(irregular_nom_pl)
+            gen_pl = irregular_nom_pl[:-1] + 'ων'
+            if irregular_nom_pl[-1] == 'η':
+                gen_pl = put_accent(gen_pl, 'ultimate')
+
+            if gen_pl in greek_corpus:
+                noun_all['neut'][pl][gen] = gen_pl
+
+            if irregular_nom_pl == 'χρόνια':
+                gen_pl = 'χρόνω,χρόνων,χρονώ,χρονών'
+                noun_all['neut'][pl][gen] = gen_pl
         else:
             noun_all[gender] = {}
             noun_all[gender][sg] = {}
@@ -97,7 +99,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 if nom_pl:
                     gens = gen_sg.split(',')
                     accent_pl = where_is_accent(nom_pl, true_syllabification=False)
-                    print(accent_pl, 'pl accent')
                     if accent_pl == 'antepenultimate' and (len(gens) > 1 or
                                                            where_is_accent(gen_sg, true_syllabification=False) == 'penultimate'):
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', 'penultimate', true_syllabification=False)
@@ -185,9 +186,9 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 if gen_sg_accent == 'antepenultimate':
                     gen_sg_accent = 'penultimate'
                 gen_pl = put_accent(nom_pl.split(',')[0][:-1] + 'ων', gen_sg_accent)
-                print(gen_pl, 'gen_pl')
-                if gen_sg[-3:] in ['υος']:
+                if nom_pl[-1] in ['η', 'ή']:
                     gen_pl = put_accent(gen_pl, 'ultimate')
+
                 if gen_pl not in greek_corpus:
                     gen_pl_alt = put_accent(gen_pl, 'penultimate')
                     if gen_pl_alt in greek_corpus:

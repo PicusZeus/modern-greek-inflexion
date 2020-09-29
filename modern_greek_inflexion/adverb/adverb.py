@@ -1,6 +1,5 @@
 # add possible comparative adjectives if exists (νωρίτερος κτλ)
-from adjective import adjective
-
+from modern_greek_inflexion.adjective import adjective
 
 irregular_comp = {
 'νωρίς': {'comp_adv': 'νωρίτερα/'}, 'άνω': {'comp_adv': 'ανώτερα/ανώτατα', 'comp': 'ανώτερος/ανώτατος'}, 'κάτω': {'comp_adv': 'κατώτεαρα/κατώτατα', 'comp': 'κατώτερος/κατώτατος'}}

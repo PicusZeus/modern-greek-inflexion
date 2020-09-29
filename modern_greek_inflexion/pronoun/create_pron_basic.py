@@ -1,6 +1,7 @@
 import pickle
-from modern_greek_accentuation.accentuation import is_vowel, where_is_accent, put_accent_on_the_ultimate
-from adjective import adjective
+from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate
+from modern_greek_inflexion.adjective import adjective
+
 file = open('el_GR.pickle', 'br')
 greek_corpus = pickle.load(file)
 file.close()

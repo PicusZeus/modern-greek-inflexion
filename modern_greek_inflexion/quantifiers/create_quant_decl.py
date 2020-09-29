@@ -2,8 +2,8 @@ import copy
 import pickle
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, where_is_accent, put_accent_on_the_ultimate
 
-from adjective.create_adj_decl import create_all_adj_forms
-from adjective.create_adj_decl import adj_basic
+from modern_greek_inflexion.adjective.create_adj_decl import create_all_adj_forms
+from modern_greek_inflexion.adjective.create_adj_decl import adj_basic
 
 
 aklita_quant_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
