@@ -177,6 +177,7 @@ def create_regular_perf_root(verb, voice='active'):
     multiple_stems = None
     if verb[-1] in ['ω', 'ώ'] or verb[-2:] in ['ει', 'εί'] or verb[-5:] == 'είμαι':
         res = recognize_active_non_past_conjugation(verb)
+        # print(res, 'tutaj', verb)
 
     else:
         res = recognize_passive_present_continuous_conjugation(verb)
@@ -317,11 +318,12 @@ def create_regular_perf_root(verb, voice='active'):
             not perf_root:
 
         perf_root = root + 'ήσ'
+
         # εξαιρέσεις
-        if root[-2:] == 'χν' and conjugation in ['con2a_act', 'con2a_pass']:
+        if root[-2:] == 'χν' and conjugation in ['con2a_act', 'con2a_pass'] and perf_root + 'ω' not in greek_corpus:
             perf_root = root[:-1] + 'άσ'
 
-        elif root[-2:] == 'ρν' and conjugation in ['con2a_act', 'con2a_pass']:
+        elif root[-2:] == 'ρν' and conjugation in ['con2a_act', 'con2a_pass'] and perf_root + 'ω' not in greek_corpus:
             perf_root = root[:-1] + 'άσ'
         elif conjugation in ['con2b_act', 'con2a_act']:
             perf_root = root + 'ίσ'
@@ -331,7 +333,6 @@ def create_regular_perf_root(verb, voice='active'):
 
         if not ((perf_root + 'ω' in greek_corpus) or (perf_root + 'ου' in greek_corpus) or
                 (perf_root + 'ει' in greek_corpus)):
-
             perf_root = root + 'άσ'
 
             if not (perf_root + 'ω' in greek_corpus or
@@ -488,6 +489,8 @@ def create_regular_perf_root(verb, voice='active'):
          (perf_root + 'εί' in greek_corpus))) or\
             root[-3:] == 'ποι' or\
             multiple_stems:
+
+
 
         return perf_root
     else:

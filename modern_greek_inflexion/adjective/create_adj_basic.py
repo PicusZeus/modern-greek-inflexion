@@ -11,7 +11,7 @@ from modern_greek_accentuation.resources import vowels
 with open('el_GR.pickle', 'br') as file:
     greek_corpus = pickle.load(file)
 
-irregular_comparatives = {'καλό': 'καλύτερος,καλλίων/άριστος',
+irregular_comparatives = {'καλό': 'καλύτερος/άριστος',
                           'κακό': 'χειρότερος,ήσσων/χείριστος,ήκιστος',
                           'απλό': 'απλούστερος/απλούστατος',
                           'μεγάλο': 'μεγαλύτερος/μέγιστος',

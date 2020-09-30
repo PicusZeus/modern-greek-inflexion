@@ -39,13 +39,20 @@ def create_all(adj):
         if compars != '-':
             for compar in compars.split(','):
                 base = create_all_basic_adj_forms(compar)
-                all_inf_comp_forms = create_all_adj_forms(base['adj'])
-                comp_forms.append(all_inf_comp_forms)
+                all_inf_comp_forms, alternatives = create_all_adj_forms(base['adj'])
+
+                if all_inf_comp_forms:
+                    comp_forms.append(all_inf_comp_forms)
+                if alternatives:
+                    comp_forms.append(alternatives)
         if superlatives:
             for superlative in superlatives.split(','):
                 base = create_all_basic_adj_forms(superlative)
-                all_inf_superl_forms = create_all_adj_forms(base['adj'])
-                super_forms.append(all_inf_superl_forms)
+                all_inf_superl_forms, alternatives = create_all_adj_forms(base['adj'])
+                if all_inf_superl_forms:
+                    super_forms.append(all_inf_superl_forms)
+                if alternatives:
+                    super_forms.append(alternatives)
 
     if all_basic_adj_forms['adverb']:
         for adverb in all_basic_adj_forms['adverb'].split(','):

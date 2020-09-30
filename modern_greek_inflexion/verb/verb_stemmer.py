@@ -118,6 +118,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         perf_forms = []
         act_root = create_regular_perf_root(pres_form)
+        # print(act_root, pres_form)
 
         if not intransitive_active:
             passive_root = create_regular_perf_root(pres_form, voice="passive")
