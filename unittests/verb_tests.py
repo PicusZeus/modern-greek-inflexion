@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
 
-print(verb.create_basic_forms('πρόκειται'))
+print(verb.create_all_forms('βλέπω'))
 class VerbTestBasic(TestCase):
     def test_verb_tragoudo(self):
         self.assertEqual(

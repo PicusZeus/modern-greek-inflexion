@@ -4,32 +4,34 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 
 
-def create_all_imperfect_non_passive_personal_forms(verb):
+def create_all_imperfect_personal_forms(verb, voice):
     """
-    :param verb: it can be a single verb or active and passive forms divided by '/'. There can also be alternative forms
-    for both voices separated by coma
-    :return:
+    :param verb: it needs to be an array or set of alternative forms, active or passive,
+    :param voice: voice has to be active or passive.
+    :return: a dictionary {'voice': voice, 'sec_pos': secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary, 'forms_imp': all imper forms in a dictionary}
     """
-    deponens = False
-    verb = verb.split('/')
-    if len(verb) > 1:
-        act_verbs, pass_verbs = verb
+
+    act_verbs = pass_verbs = None
+
+    if voice == 'active':
+        act_verbs = verb
+    elif voice == 'passive':
+        pass_verbs = verb
     else:
-        act_verbs = verb[0]
-        pass_verbs = None
-        # depoonens are dealt with later
+        print('voice can be only passive or active')
+        raise ValueError
 
     sec_pos = 'ind'
-    forms = []
+    forms = None
     if act_verbs:
         voice = 'active'
         sec_pos = 'ind'
-        for v in act_verbs.split(','):
+        for v in act_verbs:
             v = v.strip()
             # to be safe, sometimes list, especially if created manually, can have some white spaces
             if v[-3:] == 'μαι' and v != 'είμαι':
                 voice = 'passive'
-                deponens = True
+
                 con = recognize_passive_present_continuous_conjugation(v)
             else:
                 con = recognize_active_non_past_conjugation(v, voice=voice)
@@ -46,11 +48,11 @@ def create_all_imperfect_non_passive_personal_forms(verb):
                 con_imp = con['conjugation_imp']
                 forms_imp = create_all_pers_forms(con_imp, root)
 
-            forms.append({'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp})
+            forms = {'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp}
 
     if pass_verbs:
         voice = 'passive'
-        for v in pass_verbs.split(','):
+        for v in pass_verbs:
             con = recognize_passive_present_continuous_conjugation(v)
             root = con['root']
             con_ind = con['conjugation_ind']
@@ -60,9 +62,9 @@ def create_all_imperfect_non_passive_personal_forms(verb):
             con_imp = con['conjugation_imp']
             forms_imps_pass = create_all_pers_forms(con_imp, root)
 
-            forms.append({'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind_pass, 'forms_imp': forms_imps_pass})
+            forms = {'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind_pass, 'forms_imp': forms_imps_pass}
 
-    return forms, deponens
+    return forms
 
 
 def create_all_perf_non_past_personal_forms(verb, deponens=False):
