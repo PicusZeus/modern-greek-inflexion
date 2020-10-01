@@ -4,7 +4,7 @@ from modern_greek_accentuation.accentuation import is_accented, put_accent_on_th
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels
 
-from .greek_tables import irregular_passive_perfect_participles, irregular_active_aorists, irregular_passive_aorists
+from .greek_tables import irregular_passive_perfect_participles, irregular_active_aorists, irregular_passive_aorists, deponens_with_active_perf_forms
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation
 
 from .conjugations import create_regular_perf_root
@@ -14,6 +14,7 @@ with open('el_GR.pickle', 'rb') as file:
 
 
 def create_basic_present_forms(base_form, deponens=False, not_deponens=True, intransitive_active=False, modal_act=False, modal_med=False):
+
 
     if deponens:
         passive_conjugation = recognize_passive_present_continuous_conjugation(base_form)
@@ -103,7 +104,6 @@ def create_basic_present_forms(base_form, deponens=False, not_deponens=True, int
 
     else:
         return False
-
     return present_basic_forms, pres_conjugation, root, intransitive_active
 
 
@@ -187,7 +187,9 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                 if is_accented(passive_root):
                     passive_perf_form = passive_root + 'ω'
 
-            conjunctive_basic_forms = passive_perf_form
+            conjunctive_basic_forms = '/' + passive_perf_form
+            if pres_form in deponens_with_active_perf_forms:
+                conjunctive_basic_forms = passive_perf_form + '/'
 
     elif modal_act:
         if pres_conjugation == 'con1_act_modal':
@@ -203,7 +205,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
             if len(syllables) > 1 and not is_accented(syllables[-2]):
                 active_perf_form = act_root + 'εί'
 
-        conjunctive_basic_forms = active_perf_form
+        conjunctive_basic_forms = active_perf_form + '/'
 
     elif modal_med:
         perf_root = None
@@ -224,7 +226,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
         passive_root = perf_root
 
         if perf_root:
-            conjunctive_basic_forms = passive_root + 'εί'
+            conjunctive_basic_forms = '/' + passive_root + 'εί'
 
     return conjunctive_basic_forms, perf_root, act_root, passive_root
 

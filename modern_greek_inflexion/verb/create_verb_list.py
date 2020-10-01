@@ -51,7 +51,6 @@ def create_all_basic_forms(pres_form):
     # presens
 
     present_basic, pres_conjugation, root, intransitive_active = create_basic_present_forms(pres_form, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
-    print(present_basic)
     pres_act = pres_pass = None
     try:
         pres_act, pres_pass = present_basic.split('/')
@@ -60,7 +59,7 @@ def create_all_basic_forms(pres_form):
     except ValueError:
         if present_basic[-1] in ['ω', 'ώ'] or present_basic[-2:] in ['ει', 'εί']:
             pres_act = present_basic.split(',')
-        elif present_basic[-3:] == 'ται':
+        elif present_basic[-3:] in ['μαι', 'ται']:
             pres_pass = present_basic.split(',')
 
     verb_temp['present'] = {}
@@ -73,18 +72,18 @@ def create_all_basic_forms(pres_form):
 
     conjunctive_basic_forms, perf_root, act_root, passive_root = create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
 
-
     # print(conjunctive_basic_forms, perf_root, act_root, passive_root, pres_form, pres_conjugation)
-
-
-
+    print(conjunctive_basic_forms, "HHHHH")
     if conjunctive_basic_forms:
         verb_temp['conjunctive'] = {}
         conjunctive_act = conjunctive_pass = None
         try:
+            print('TRYUY', conjunctive_basic_forms.split('/'))
             conjunctive_act, conjunctive_pass = conjunctive_basic_forms.split('/')
+
             conjunctive_act = conjunctive_act.split(',')
             conjunctive_pass = conjunctive_pass.split(',')
+            print(conjunctive_act, conjunctive_pass)
         except ValueError:
             if pres_act:
                 conjunctive_act = conjunctive_basic_forms.split(',')

@@ -4,6 +4,47 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 
 
+def compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp):
+    """
+    compuond all alternative forms into a set
+    :return:
+    """
+    if not forms:
+
+        forms = {'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp}
+    else:
+        # print(forms_ind, forms, 'TUTAJ' )
+        # print(forms, forms_ind)
+        # then add alternative forms
+        for number in forms['forms_ind']:
+            for person in forms['forms_ind'][number]:
+                old = forms['forms_ind'][number][person]
+                new = forms_ind[number][person]
+                new.extend(old)
+                forms['forms_ind'][number][person] = new
+        if forms_imp:
+            for number in forms['forms_imp']:
+                for person in forms['forms_imp'][number]:
+                    old = forms['forms_imp'][number][person]
+                    new = forms_imp[number][person]
+                    new.extend(old)
+                    forms['forms_imp'][number][person] = new
+
+    # change lists to sets
+    for number in forms['forms_ind']:
+        for person in forms['forms_ind'][number]:
+            old = forms['forms_ind'][number][person]
+            new = set(old)
+            forms['forms_ind'][number][person] = new
+    if forms_imp:
+        for number in forms['forms_imp']:
+            for person in forms['forms_imp'][number]:
+                old = forms['forms_imp'][number][person]
+                new = set(old)
+                forms['forms_imp'][number][person] = new
+
+    return forms
+
 def create_all_imperfect_personal_forms(verb, voice):
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
@@ -23,109 +64,97 @@ def create_all_imperfect_personal_forms(verb, voice):
 
     sec_pos = 'ind'
     forms = None
-    if act_verbs:
-        voice = 'active'
-        sec_pos = 'ind'
-        for v in act_verbs:
+
+    for v in verb:
+
+        if act_verbs:
+            voice = 'active'
+            sec_pos = 'ind'
             v = v.strip()
             # to be safe, sometimes list, especially if created manually, can have some white spaces
-            if v[-3:] == 'μαι' and v != 'είμαι':
-                voice = 'passive'
-
-                con = recognize_passive_present_continuous_conjugation(v)
-            else:
-                con = recognize_active_non_past_conjugation(v, voice=voice)
+            con = recognize_active_non_past_conjugation(v, voice=voice)
 
             root = con['root']
             con_ind = con['conjugation_ind']
-            if con_ind in ['con1_act_modal', 'modal']:
-                sec_pos = 'modal'
-                forms_ind = {'sg': {'ter': [v]}}
-                forms_imp = {}
-            else:
-                forms_ind = create_all_pers_forms(con_ind, root)
 
-                con_imp = con['conjugation_imp']
-                forms_imp = create_all_pers_forms(con_imp, root)
+            forms_ind = create_all_pers_forms(con_ind, root)
 
-            forms = {'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp}
+            con_imp = con['conjugation_imp']
+            forms_imp = create_all_pers_forms(con_imp, root)
 
-    if pass_verbs:
-        voice = 'passive'
-        for v in pass_verbs:
+        elif pass_verbs:
             con = recognize_passive_present_continuous_conjugation(v)
             root = con['root']
             con_ind = con['conjugation_ind']
 
-            forms_ind_pass = create_all_pers_forms(con_ind, root)
+            forms_ind = create_all_pers_forms(con_ind, root)
 
             con_imp = con['conjugation_imp']
-            forms_imps_pass = create_all_pers_forms(con_imp, root)
+            forms_imp = create_all_pers_forms(con_imp, root)
+        else:
+            raise ValueError
+        # print(v, forms, forms_ind)
 
-            forms = {'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind_pass, 'forms_imp': forms_imps_pass}
+        forms = compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp)
 
     return forms
 
 
-def create_all_perf_non_past_personal_forms(verb, deponens=False):
+def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=None, deponens=False):
     """
-    :param verb: verb in subjunctive mode, active and passive separated by '/', alternatives separated by ','
+    :param verb: an array of forms
     :param deponens:
     :return:
     """
-    verb = verb.split('/')
+    input(voice)
+    act_verb = pass_verb = None
 
-    if len(verb) > 1:
-        act_verbs, pass_verbs = verb
-    else:
-        act_verbs = verb[0]
-        pass_verbs = None
+
     sec_pos = 'ind'
-    forms = []
+    forms = {}
     root = None
-    if act_verbs:
-        voice = 'active'
-        for v in act_verbs.split(','):
-            v = v.strip()
-            if deponens:
-                voice = 'passive'
-                con = recognize_active_non_past_conjugation(v, aspect='perf', tense='fin', voice='passive')
-            else:
-                con = recognize_active_non_past_conjugation(v, aspect='perf', tense='fin', voice='active')
+
+
+    for v in verb:
+        v = v.strip()
+        if voice == 'active' and v:
+            act_verb = v
+        elif voice == 'passive' and v:
+            # print(v, 'PASS')
+            pass_verb = v
+        if act_verb:
+            # if deponens:
+            #     voice = 'passive'
+            #     con = recognize_active_non_past_conjugation(v, aspect='perf', tense='fin', voice='passive')
+
+            con = recognize_active_non_past_conjugation(act_verb, aspect='perf', tense='fin', voice='active')
             root = con['root']
             con_ind = con['conjugation_ind']
             if con_ind in ['con1_act_modal', 'modal', 'con2_act_modal']:
-                sec_pos = 'modal'
                 forms_ind = {'sg': {'ter': [v]}}
-                forms_imp = {}
+                forms_imp = None
             else:
                 forms_ind = create_all_pers_forms(con_ind, root)
-
                 con_imp = con['conjugation_imp']
                 forms_imp = create_all_pers_forms(con_imp, root)
 
-            forms.append({'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp})
-
-    if pass_verbs:
-        active_root = root
-        voice = 'passive'
-        for v in pass_verbs.split(','):
-            v = v.strip()
-            con = recognize_active_non_past_conjugation(v, aspect='perf', tense='fin', voice=voice)
+        elif pass_verb:
+            con = recognize_active_non_past_conjugation(pass_verb, aspect='perf', tense='fin', voice=voice)
             root = con['root']
             con_ind = con['conjugation_ind']
             if con_ind in ['con1_act_modal', 'modal']:
-                sec_pos = 'modal'
                 forms_ind = {'sg': {'ter': [v]}}
-                forms_imp = {}
+                forms_imp = None
             else:
                 forms_ind = create_all_pers_forms(con_ind, root)
-
                 con_imp = con['conjugation_imp']
-                forms_imp = create_all_pers_forms(con_imp, root, active_root=active_root)
+                forms_imp = create_all_pers_forms(con_imp, root, active_root=active_root_for_imp)
 
-            forms.append({'voice': voice, 'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp})
+        else:
+            # print(voice, v)
+            raise ValueError
 
+        forms = compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp)
     return forms
 
 

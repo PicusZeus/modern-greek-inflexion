@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
 
-print(verb.create_all_forms('βλέπω'))
+print(verb.create_all_forms('έρχομαι'))
 class VerbTestBasic(TestCase):
     def test_verb_tragoudo(self):
         self.assertEqual(
@@ -24,7 +24,6 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'κυβέρναγα', 'κυβερνούσα'}, 'passive': {'κυβερνιόμουν'}},
              'act_pres_participle': {'κυβερνώντας'}, 'arch_act_pres_participle': {'κυβερνών/κυβερνώσα/κυβερνών'},
              'pass_pres_participle': {'κυβερνώμενος'}, 'passive_perfect_participle': {'κυβερνημένος'}}
-
         )
 
     def test_verb_douleuo(self):
@@ -35,7 +34,6 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'δούλευσα', 'δούλεψα'}, 'passive': {'δουλεύτηκα'}},
              'paratatikos': {'active': {'δούλευα'}, 'passive': {'δουλευόμουν'}}, 'act_pres_participle': {'δουλεύοντας'},
              'passive_perfect_participle': {'δουλευμένος', 'δεδουλευμένος'}}
-
         )
 
     def test_verb_blepo(self):
@@ -46,10 +44,7 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'είδα'}, 'passive': {'ειδώθηκα'}},
              'paratatikos': {'active': {'έβλεπα'}, 'passive': {'βλεπόμουν'}}, 'act_pres_participle': {'βλέποντας'},
              'arch_act_pres_participle': {'βλέπων/βλέπουσα/βλέπον'}, 'passive_perfect_participle': {'ιδωμένος'}}
-
         )
-
-
 
     def test_verb_syllambano(self):
         self.assertEqual(
@@ -60,7 +55,6 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'συλλάμβανα', 'συνελάμβανα'}, 'passive': {'συλλαμβανόμουν'}},
              'act_pres_participle': {'συλλαμβάνοντας'}, 'pass_pres_participle': {'συλλαμβανόμενος'},
              'passive_aorist_participle': {'συλληφθείς/συλληφθείσα/συλληφθέν'}}
-
         )
 
     def test_verb_phgainvo(self):
@@ -69,7 +63,6 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'πηγαίνω'}}, 'conjunctive': {'active': {'πάω'}},
              'aorist': {'active': {'πήγα'}, 'passive': {''}}, 'paratatikos': {'active': {'πήγαινα'}, 'passive': {''}},
              'act_pres_participle': {'πηγαίνοντας'}}
-
         )
 
     def test_verb_nothing(self):
@@ -77,7 +70,6 @@ class VerbTestBasic(TestCase):
             verb.create_basic_forms(''),
             {
                 'error': 'It is not a correct verb form. You have to input 1st person sg present in active voice if possible, or modal form in 3rd person sg, and your input is: '}
-
         )
 
     def test_verb_gibberish(self):

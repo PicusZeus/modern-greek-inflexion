@@ -49,6 +49,29 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     form = put_accent_on_the_antepenultimate(form)
                 forms[number][person].append(form)
 
+    # check if a verb in 2nd conjugation active has alternative endings belonging to other type of the 2nd con
+
+    if conjugation_name in ['con2a_act', 'imper_act_cont_2a']:
+        if root + 'είς' in greek_corpus and root + 'εί' in greek_corpus:
+            endings = conjugations['con2b_act']
+            if conjugation_name == 'imper_act_cont_2a':
+                endings = conjugations['imper_act_cont_2b']
+            for number in endings:
+                for person in endings[number]:
+                    for alt_ending in endings[number][person]:
+                        forms[number][person].append(root + alt_ending)
+
+    if conjugation_name in ['con2b_act', 'imper_act_cont_2b']:
+        if root + 'άς' in greek_corpus and root + 'άει' in greek_corpus:
+            endings = conjugations['con2a_act']
+            if conjugation_name == 'imper_act_cont_2b':
+                endings = conjugations['imper_act_cont_2a']
+            for number in endings:
+                for person in endings[number]:
+                    for alt_ending in endings[number][person]:
+                        forms[number][person].append(root + alt_ending)
+
+
     if simple_aor:
         for number in endings.keys():
             forms[number] = {}
@@ -119,6 +142,9 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     elif conjugation_name in ['imper_act_cont_2a']:
         forms['sg']['sec'][0] = put_accent_on_the_penultimate(forms['sg']['sec'][0])
         forms['sg']['sec'][1] = put_accent_on_the_antepenultimate(forms['sg']['sec'][1])
+        if len(forms['sg']['sec']) == 3:
+            forms['sg']['sec'][2] = put_accent_on_the_penultimate(forms['sg']['sec'][2])
+        #accent
         if forms['sg']['sec'][0] != put_accent_on_the_penultimate(forms['sg']['sec'][0], true_syllabification=False):
             forms['sg']['sec'].append(put_accent_on_the_penultimate(forms['sg']['sec'][0], true_syllabification=False))
 
@@ -130,6 +156,9 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
         if root == 'ζ':
             forms['sg']['ter'] = ['ζήτω']
         forms['sg']['sec'][0] = put_accent_on_the_penultimate(forms['sg']['sec'][0])
+        if len(forms['sg']['sec']) == 3:
+            forms['sg']['sec'][1] = put_accent_on_the_penultimate(forms['sg']['sec'])
+            forms['sg']['sec'][2] = put_accent_on_the_antepenultimate(forms['sg']['sec'])
 
     #### irregular imperatives
     if conjugation_name[:5] == 'imper':
@@ -144,7 +173,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:
                         print(sys.exc_info()[0])
-
+    print(forms, "RETURN", conjugation_name)
     return forms
 
 def create_roots_from_past(verb, lemma):
