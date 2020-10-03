@@ -1,5 +1,6 @@
 from .create_verb_list import create_all_basic_forms
 from .create_verb_forms import create_all_imperfect_personal_forms, create_all_perf_non_past_personal_forms
+from .greek_tables import deponens_with_active_perf_forms
 
 def create_basic_forms(verb):
     return create_all_basic_forms(verb)
@@ -30,6 +31,7 @@ def create_all_forms(verb):
     'conjunctive'
     # try:
     conjunctive_basic_forms = basic_forms['conjunctive']
+    # print(conjunctive_basic_forms, 'SYNERXOMAI')
     conjunctive = {}
     active_root = None
     if 'active' in conjunctive_basic_forms:
@@ -39,7 +41,13 @@ def create_all_forms(verb):
     if 'passive' in conjunctive_basic_forms:
 
         con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms['passive'], 'passive', active_root_for_imp=active_root, deponens=deponens)
-        conjunctive['passive'] = con_passive_forms
+
+        if verb in deponens_with_active_perf_forms:
+            conjunctive['active'] = con_passive_forms
+            print(con_passive_forms)
+        else:
+            conjunctive['passive'] = con_passive_forms
+
     all_forms['conjunctive'] = conjunctive
     # except Exception as e:
     #     print(e)

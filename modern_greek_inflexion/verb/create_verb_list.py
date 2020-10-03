@@ -18,7 +18,6 @@ def create_all_basic_forms(pres_form):
 
         return {'error': 'It is not a correct verb form. You have to input 1st person sg present in active voice if possible, or modal form in 3rd person sg, and your input is: ' + pres_form}
 
-
     verb_temp = {}
 
     not_deponens = True
@@ -71,28 +70,16 @@ def create_all_basic_forms(pres_form):
     # μέλλοντας και υποτακτική
 
     conjunctive_basic_forms, perf_root, act_root, passive_root = create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
-
-    # print(conjunctive_basic_forms, perf_root, act_root, passive_root, pres_form, pres_conjugation)
-    # print(conjunctive_basic_forms, "HHHHH")
     if conjunctive_basic_forms:
         verb_temp['conjunctive'] = {}
-        conjunctive_act = conjunctive_pass = None
-        try:
-            # print('TRYUY', conjunctive_basic_forms.split('/'))
-            conjunctive_act, conjunctive_pass = conjunctive_basic_forms.split('/')
+        conjunctive_act, conjunctive_pass = conjunctive_basic_forms.split('/')
 
-            conjunctive_act = conjunctive_act.split(',')
-            conjunctive_pass = conjunctive_pass.split(',')
-            # print(conjunctive_act, conjunctive_pass)
-        except ValueError:
-            if pres_act:
-                conjunctive_act = conjunctive_basic_forms.split(',')
-            if pres_pass:
-                conjunctive_pass = conjunctive_basic_forms.split(',')
+        conjunctive_act = conjunctive_act.split(',')
+        conjunctive_pass = conjunctive_pass.split(',')
 
-        if conjunctive_act:
+        if conjunctive_act and conjunctive_act[0]:
             verb_temp['conjunctive']['active'] = set(conjunctive_act)
-        if conjunctive_pass:
+        if conjunctive_pass and conjunctive_pass[0]:
             verb_temp['conjunctive']['passive'] = set(conjunctive_pass)
 
     # aorist
@@ -101,19 +88,12 @@ def create_all_basic_forms(pres_form):
 
     if aorist_basic_forms:
         verb_temp['aorist'] = {}
-        aorist_passive = aorist_active = None
-        try:
-            aorist_active, aorist_passive = aorist_basic_forms.split('/')
-            aorist_active = aorist_active.split(',')
-            aorist_passive = aorist_passive.split(',')
-        except ValueError:
-            if pres_act:
-                aorist_active = aorist_basic_forms.split(',')
-            if pres_pass:
-                aorist_passive = aorist_basic_forms.split(',')
-        if aorist_active:
+        aorist_active, aorist_passive = aorist_basic_forms.split('/')
+        aorist_active = aorist_active.split(',')
+        aorist_passive = aorist_passive.split(',')
+        if aorist_active and aorist_active[0]:
             verb_temp['aorist']['active'] = set(aorist_active)
-        if aorist_passive:
+        if aorist_passive and aorist_passive[0]:
             verb_temp['aorist']['passive'] = set(aorist_passive)
 
     # paratatikos
@@ -121,21 +101,14 @@ def create_all_basic_forms(pres_form):
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens, not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
 
     if paratatikos_basic_forms:
-        paratatikos_passive = paratatikos_active = None
-        try:
-            paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')
-            paratatikos_active = paratatikos_active.split(',')
-            paratatikos_passive = paratatikos_passive.split(',')
-        except ValueError:
-            if pres_act:
-                paratatikos_active = paratatikos_basic_forms.split(',')
-            if pres_pass:
-                paratatikos_passive = paratatikos_basic_forms.split(',')
+        paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')
+        paratatikos_active = paratatikos_active.split(',')
+        paratatikos_passive = paratatikos_passive.split(',')
 
         verb_temp['paratatikos'] = {}
-        if paratatikos_active:
+        if paratatikos_active and paratatikos_active[0]:
             verb_temp['paratatikos']['active'] = set(paratatikos_active)
-        if paratatikos_passive:
+        if paratatikos_passive and paratatikos_passive[0]:
             verb_temp['paratatikos']['passive'] = set(paratatikos_passive)
 
     # pres_part_act

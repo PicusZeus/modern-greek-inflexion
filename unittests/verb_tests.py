@@ -2,7 +2,8 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
 
-print(verb.create_basic_forms('έρχομαι'))
+res = verb.create_basic_forms('γίνομαι')
+print(res)
 class VerbTestBasic(TestCase):
     def test_verb_tragoudo(self):
         self.assertEqual(
@@ -30,10 +31,11 @@ class VerbTestBasic(TestCase):
         self.assertEqual(
             verb.create_basic_forms('δουλεύω'),
             {'present': {'active': {'δουλεύω'}, 'passive': {'δουλεύομαι'}},
-             'conjunctive': {'active': {'δουλέψω', 'δουλεύσω'}, 'passive': {'δουλευτώ'}},
-             'aorist': {'active': {'δούλευσα', 'δούλεψα'}, 'passive': {'δουλεύτηκα'}},
+             'conjunctive': {'active': {'δουλεύσω', 'δουλέψω'}, 'passive': {'δουλευτώ'}},
+             'aorist': {'active': {'δούλεψα', 'δούλευσα'}, 'passive': {'δουλεύτηκα'}},
              'paratatikos': {'active': {'δούλευα'}, 'passive': {'δουλευόμουν'}}, 'act_pres_participle': {'δουλεύοντας'},
-             'passive_perfect_participle': {'δουλευμένος', 'δεδουλευμένος'}}
+             'passive_perfect_participle': {'δεδουλευμένος', 'δουλευμένος'},
+             'active_aorist_participle': {'δουλεύσας/δουλεύσασα/δουλεύσαν'}}
         )
 
     def test_verb_blepo(self):
@@ -61,7 +63,7 @@ class VerbTestBasic(TestCase):
         self.assertEqual(
             verb.create_basic_forms('πηγαίνω'),
             {'present': {'active': {'πηγαίνω'}}, 'conjunctive': {'active': {'πάω'}},
-             'aorist': {'active': {'πήγα'}, 'passive': {''}}, 'paratatikos': {'active': {'πήγαινα'}, 'passive': {''}},
+             'aorist': {'active': {'πήγα'}}, 'paratatikos': {'active': {'πήγαινα'}},
              'act_pres_participle': {'πηγαίνοντας'}}
         )
 
@@ -95,6 +97,24 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'ήλθα', 'ήρθα'}},
              'paratatikos': {'passive': {'ερχόμουν'}},
              'pass_pres_participle': {'ερχόμενος'}}
+
+        )
+
+    def test_verb_synerxomai(self):
+        self.assertEqual(
+            verb.create_basic_forms('συνέρχομαι'),
+            {'present': {'passive': {'συνέρχομαι'}}, 'conjunctive': {'active': {'συνέλθω', 'συνέρθω'}},
+             'aorist': {'active': {'συνήρθα', 'συνήλθα'}}, 'paratatikos': {'passive': {'συνερχόμουν'}},
+             'pass_pres_participle': {'συνερχόμενος'}, 'active_aorist_participle': {'συνελθών/συνελθούσα/συνέλθον'}}
+
+        )
+
+    def test_verb_katebainw(self):
+        self.assertEqual(
+            verb.create_basic_forms('κατεβαίνω'),
+            {'present': {'active': {'κατεβαίνω'}}, 'conjunctive': {'active': {'κατέβω', 'κατεβώ'}},
+             'aorist': {'active': {'κατέβηκα', 'κατέβη'}}, 'paratatikos': {'active': {'κατέβαινα'}},
+             'act_pres_participle': {'κατεβαίνοντας'}}
 
         )
 

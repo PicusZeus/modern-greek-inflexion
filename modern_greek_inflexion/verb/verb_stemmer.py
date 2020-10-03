@@ -109,21 +109,16 @@ def create_basic_present_forms(base_form, deponens=False, not_deponens=True, int
 
 def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=False, not_deponens=True, intransitive_active=False, modal_act=False, modal_med=False):
     act_root, passive_root = None, None
-    active_perf_form, passive_perf_form = '', ''
+    active_perf_form = passive_perf_form = ''
 
     conjunctive_basic_forms = None
     perf_root = None
-
     if not_deponens:
 
-        perf_forms = []
         act_root = create_regular_perf_root(pres_form)
-        # print(act_root, pres_form)
 
         if not intransitive_active:
             passive_root = create_regular_perf_root(pres_form, voice="passive")
-        # check for accent in root
-
         if act_root:
 
             if ',' in act_root:
@@ -137,7 +132,6 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     act_perf_forms.append(active_perf_form)
                 active_perf_form = ','.join(act_perf_forms)
 
-
             else:
                 active_perf_form = act_root + 'ω'
                 syllables = modern_greek_syllabify(active_perf_form)
@@ -147,8 +141,6 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                 # check for exv
                 if pres_form[-3:] == 'έχω' and act_root + 'ει' not in greek_corpus:
                     active_perf_form = pres_form
-
-            perf_forms.append(active_perf_form)
 
         if not intransitive_active:
 
@@ -162,8 +154,8 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     passive_perf_form = ','.join(passive_perf_forms)
                 else:
                     passive_perf_form = passive_root + 'ώ'
-                perf_forms.append(passive_perf_form)
-        conjunctive_basic_forms = '/'.join(perf_forms)
+
+        conjunctive_basic_forms = active_perf_form + '/' + passive_perf_form
 
     elif deponens:
         passive_root = create_regular_perf_root(pres_form, voice="passive")
@@ -188,7 +180,9 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     passive_perf_form = passive_root + 'ω'
 
             conjunctive_basic_forms = '/' + passive_perf_form
-            if pres_form in deponens_with_active_perf_forms:
+            if pres_form[-7:] in deponens_with_active_perf_forms:
+                act_root = passive_root
+                passive_root = None
                 conjunctive_basic_forms = passive_perf_form + '/'
 
     elif modal_act:
@@ -266,8 +260,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
 
             # there are at least two instances where this algorithm can be confused by irregular imperative forms
-            irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα')
-
+            irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα', 'τρέχα', 'φεύγα')
 
             active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
 
@@ -313,7 +306,8 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
         aorist_basic_forms = '/'.join([active_aor_forms, passive_aor_forms])
 
     elif deponens:
-
+        if pres_form[-7:] in deponens_with_active_perf_forms:
+            passive_root = act_root
         if passive_root:
 
             if ',' in passive_root:
@@ -343,7 +337,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
 
             # ginomai, erxomai, kathomai
 
-            if pres_form[-7:] in ['γίνομαι', 'έρχομαι', 'κάθομαι']:
+            if pres_form[-7:] in deponens_with_active_perf_forms:
                 if ',' in passive_root:
                     passive_aor_forms = []
                     for stem in passive_root.split(','):
@@ -356,7 +350,9 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                 passive_aor_forms = ','.join(passive_aor_forms)
             if 'ποιηθ' in passive_root:
                 passive_aor_forms = (passive_root + 'ηκα')
-            aorist_basic_forms = passive_aor_forms
+            aorist_basic_forms = '/' + passive_aor_forms
+            if pres_form[-7:] in deponens_with_active_perf_forms:
+                aorist_basic_forms = passive_aor_forms + '/'
     elif modal_act or modal_med:
         mod_root = None
         if act_root:
@@ -418,7 +414,7 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
 
         pass_par = [f for f in pass_par if f in greek_corpus]
         act_par = ','.join(act_par_all)
-        pass_par = '.'.join(pass_par)
+        pass_par = ','.join(pass_par)
 
         paratatikos = '/'.join([act_par, pass_par])
         if root[-3:] == 'ποι':
@@ -447,7 +443,7 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
         pass_par = ','.join(pass_par)
         if root[-3:] == 'ποι':
             pass_par = root + 'ούμουν,' + root + 'όμουν'
-        paratatikos_basic_forms = pass_par
+        paratatikos_basic_forms = '/' + pass_par
 
     elif modal_act:
         parat_act_forms = []
@@ -465,7 +461,7 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
         parat_act_forms = [f for f in parat_act_forms if f in greek_corpus]
         parat_act_forms = ','.join(parat_act_forms)
 
-        paratatikos_basic_forms = parat_act_forms
+        paratatikos_basic_forms = parat_act_forms + '/'
 
     elif modal_med:
         parat_med_forms = ''
@@ -486,8 +482,8 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
             parat_med_forms.extend(add_augment(parat_med_forms[0]))
 
         parat_med_forms = [f for f in parat_med_forms if f in greek_corpus]
-        parat_med_forms = '.'.join(parat_med_forms)
-        paratatikos_basic_forms = parat_med_forms
+        parat_med_forms = ','.join(parat_med_forms)
+        paratatikos_basic_forms = '/' + parat_med_forms
 
     return paratatikos_basic_forms
 
@@ -654,23 +650,33 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
     return all_passive_perfect_participles
 
 
-def create_active_aorist_participle(root, act_root):
-    active_aorist_participles = None
-    masc = act_root + 'ας'
-    fem = act_root + 'ασα'
-    neut = act_root + 'αν'
+def create_active_aorist_participle(root, act_roots):
+    """
 
-    masc_wn = act_root + 'ών'
-    fem_ousa = act_root + 'ούσα'
-    neut_on = act_root + 'όν'
+    :param root:
+    :param act_roots: can be multiple alternative forms separated by ','
+    :return:
+    """
+    result = []
+    for act_root in act_roots.split(','):
+        active_aorist_participles = None
+        masc = act_root + 'ας'
+        fem = act_root + 'ασα'
+        neut = act_root + 'αν'
 
-    if masc in greek_corpus or fem in greek_corpus or root[-3:] == 'ποι':
-        active_aorist_participles = masc + '/' + fem + '/' + neut
-        # on as
-    elif masc_wn in greek_corpus and fem_ousa in greek_corpus:
-        active_aorist_participles = masc_wn + '/' + fem_ousa + '/' + neut_on
+        masc_wn = put_accent_on_the_ultimate(act_root + 'ων')
+        fem_ousa = put_accent_on_the_penultimate(act_root + 'ουσα')
+        neut_on = put_accent_on_the_penultimate(act_root + 'ον')
+        if masc in greek_corpus and fem in greek_corpus:
+            active_aorist_participles = masc + '/' + fem + '/' + neut
+            # on as
+        elif masc_wn in greek_corpus and fem_ousa in greek_corpus:
+            active_aorist_participles = masc_wn + '/' + fem_ousa + '/' + neut_on
 
-    return active_aorist_participles
+        if active_aorist_participles:
+            result.append(active_aorist_participles)
+
+    return ','.join(result)
 
 
 def create_passive_aorist_participle(passive_root):
