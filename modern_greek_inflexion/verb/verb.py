@@ -7,7 +7,7 @@ def create_basic_forms(verb):
 
 def create_all_forms(verb):
     basic_forms = create_all_basic_forms(verb)
-    print(basic_forms)
+    # print(basic_forms)
     deponens = False
 
     all_forms = {}
@@ -16,7 +16,7 @@ def create_all_forms(verb):
     present = {}
 
     present_basic_forms = basic_forms['present']
-    print(present_basic_forms)
+    # print(present_basic_forms)
     if 'active' in present_basic_forms:
         pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms['active'], 'active')
         present['active'] = pres_act_forms

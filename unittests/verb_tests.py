@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
 
-print(verb.create_all_forms('έρχομαι'))
+print(verb.create_basic_forms('έρχομαι'))
 class VerbTestBasic(TestCase):
     def test_verb_tragoudo(self):
         self.assertEqual(
@@ -84,6 +84,17 @@ class VerbTestBasic(TestCase):
         self.assertEqual(
             verb.create_basic_forms('πρόκειται'),
             {'present': {'passive': {'πρόκειται'}}, 'paratatikos': {'passive': {'επρόκειτο'}}}
+
+        )
+
+    def test_verb_erxomai(self):
+        self.assertEqual(
+            verb.create_basic_forms('έρχομαι'),
+            {'present': {'passive': {'έρχομαι'}},
+             'conjunctive': {'active': {'έλθω', 'έρθω'}},
+             'aorist': {'active': {'ήλθα', 'ήρθα'}},
+             'paratatikos': {'passive': {'ερχόμουν'}},
+             'pass_pres_participle': {'ερχόμενος'}}
 
         )
 

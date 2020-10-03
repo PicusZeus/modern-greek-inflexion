@@ -73,17 +73,17 @@ def create_all_basic_forms(pres_form):
     conjunctive_basic_forms, perf_root, act_root, passive_root = create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
 
     # print(conjunctive_basic_forms, perf_root, act_root, passive_root, pres_form, pres_conjugation)
-    print(conjunctive_basic_forms, "HHHHH")
+    # print(conjunctive_basic_forms, "HHHHH")
     if conjunctive_basic_forms:
         verb_temp['conjunctive'] = {}
         conjunctive_act = conjunctive_pass = None
         try:
-            print('TRYUY', conjunctive_basic_forms.split('/'))
+            # print('TRYUY', conjunctive_basic_forms.split('/'))
             conjunctive_act, conjunctive_pass = conjunctive_basic_forms.split('/')
 
             conjunctive_act = conjunctive_act.split(',')
             conjunctive_pass = conjunctive_pass.split(',')
-            print(conjunctive_act, conjunctive_pass)
+            # print(conjunctive_act, conjunctive_pass)
         except ValueError:
             if pres_act:
                 conjunctive_act = conjunctive_basic_forms.split(',')
