@@ -371,6 +371,10 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             aor_forms = [f for f in aor_forms if f in greek_corpus]
 
             aorist_basic_forms = ','.join(aor_forms)
+            if modal_act:
+                aorist_basic_forms = aorist_basic_forms + '/'
+            elif modal_med:
+                aorist_basic_forms = '/' + aorist_basic_forms
 
     return aorist_basic_forms
 
@@ -541,36 +545,34 @@ def create_present_active_participle_arch(_, root, pres_conjugation):
 
 
 def create_present_passive_participle(_, root, pres_conjugation):
-    pres_part_pass = ''
+    pres_part_pass = []
     present_passive_participle = ''
     part_root = remove_all_diacritics(root)
 
     if pres_conjugation in ['con1_act', 'con1_pass']:
-        pres_part_pass = part_root + 'όμενος'
+        pres_part_pass = [part_root + 'όμενος']
 
     elif pres_conjugation in ['con2a_act', 'con2ab_pass', 'con2a_pass']:
-        pres_part_pass = part_root + 'ώμενος'
+        pres_part_pass = [part_root + 'ώμενος', part_root + 'ούμενος']
 
     elif pres_conjugation == 'con2c_act':
-        pres_part_pass = part_root + 'γόμενος'
+        pres_part_pass = [part_root + 'γόμενος']
 
     elif pres_conjugation in ['con2b_act', 'con2b_pass', 'con2c_pass', 'con2d_act']:
 
-        pres_part_pass = part_root + 'ούμενος'
+        pres_part_pass = [part_root + 'ούμενος']
     elif pres_conjugation == 'con2e_pass':
-        pres_part_pass = part_root + 'άμενος'
+        pres_part_pass = [part_root + 'άμενος']
     elif pres_conjugation == 'con2d_pass':
-        pres_part_pass = put_accent_on_the_antepenultimate(root + 'μενος')
+        pres_part_pass = [put_accent_on_the_antepenultimate(root + 'μενος')]
 
     # special case for xairomai
     if part_root == 'χαιρ':
-        pres_part_pass = 'χαρούμενος'
+        pres_part_pass = ['χαρούμενος']
 
-    if pres_part_pass and pres_part_pass in greek_corpus or root[-3:] == 'ποι':
+    present_passive_participle = [part for part in pres_part_pass if part in greek_corpus]
 
-        present_passive_participle = pres_part_pass
-
-    return present_passive_participle
+    return ','.join(present_passive_participle)
 
 
 def create_passive_perfect_participle(pres_form, root, act_root, passive_root):

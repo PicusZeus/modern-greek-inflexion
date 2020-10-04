@@ -16,7 +16,6 @@ def create_all_pron_forms(bas_forms):
     # forms: dic 'fem', 'masc', neut', if not inflected forms is a string
 
     masc, fem, neut = bas_forms.split('/')
-    print(masc)
     forms = None
 
     if masc != neut:
@@ -50,7 +49,6 @@ def create_all_pron_forms(bas_forms):
             bas_forms = bas_forms.replace('δήποτε', '')
 
             forms = create_all_pron_forms(bas_forms)
-            print(forms)
             for number in forms:
                 for gender in forms[number]:
                     for case in forms[number][gender]:
@@ -95,7 +93,6 @@ def create_all_pron_forms(bas_forms):
 
 
     else:
-        print(masc)
         if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'οτιδήποτε']:
             forms, _ = create_all_adj_forms(bas_forms)
             for number in forms:
@@ -141,7 +138,6 @@ def create_all_pron_forms(bas_forms):
                         }}}
 
         else:
-            print(bas_forms)
             raise ValueError
 
     # remove vocatives

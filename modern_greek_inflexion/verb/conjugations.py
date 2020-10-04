@@ -164,7 +164,10 @@ def create_imp_pass(perf_pass_root):
     if form:
         form = remove_all_diacritics(form)
         form = put_accent_on_the_penultimate(form)
-    return form
+    if form in greek_corpus:
+        return form
+    else:
+        return ''
 
 
 def create_regular_perf_root(verb, voice='active'):
@@ -177,7 +180,6 @@ def create_regular_perf_root(verb, voice='active'):
     multiple_stems = None
     if verb[-1] in ['ω', 'ώ'] or verb[-2:] in ['ει', 'εί'] or verb[-5:] == 'είμαι':
         res = recognize_active_non_past_conjugation(verb)
-        # print(res, 'tutaj', verb)
 
     else:
         res = recognize_passive_present_continuous_conjugation(verb)
@@ -595,8 +597,7 @@ def stemmer(root, con_type, lemma='', root2='', sqlalchemy=True):
 def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', voice='active'):
     # can be used for aspects: 'continuous', 'simple', 'simple_passive' 
     # verb is expected to be in 1st person sg, else it's assumed it's modal verb
-    
-    verb = verb.strip() 
+    verb = verb.strip()
     root = ''
     conjugation_ind = ''
     conjugation_imp = ''
@@ -696,7 +697,6 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
         conjugation_part = ''
 
         conjugation_imp = 'imper_pass_aor_a'
-
     return {'aspect': aspect, 'voice': voice, 'tense': tense,
                     'root': root,
                     'conjugation_ind': conjugation_ind,

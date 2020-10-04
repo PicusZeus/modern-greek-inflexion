@@ -37,7 +37,6 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
             elif accent == 'antepenultimate':
                 accs_masc = [acc_masc, put_accent_on_the_penultimate(acc_masc, true_syllabification=False)]
                 gens_pl = [gen_pl, put_accent_on_the_penultimate(gen_pl, true_syllabification=False)]
-                print(accs_masc, gens_pl)
                 gen_pl = ','.join([g for g in gens_pl if g in greek_corpus])
                 acc_masc = ','.join([a for a in accs_masc if a in greek_corpus])
 

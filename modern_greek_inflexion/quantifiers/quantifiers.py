@@ -11,7 +11,6 @@ def create_all_adj_quant(base_form):
         # true ordinals
         if base_form in ['δεύτερος', 'τρίτος', 'τέταρτος', 'πέμπτος', 'έκτος', 'έβδομος', 'όγδοος', 'ένατος', 'δέκατος'] or base_form[-4:] == 'στός':
             base_adj = create_quant_adj(base_form, ordinal=True)
-            print(base_adj)
             forms_adj = [creat_all_quant_adj_forms(base_adj['adj'], ordinal=True)]
             adverbs = [adv for adv in base_adj['adverb'].split(',')]
             forms = {'adj': forms_adj, 'adverb': adverbs}
@@ -21,7 +20,6 @@ def create_all_adj_quant(base_form):
 
             if base_form == 'πρώτος':
                 forms['adverb'] = ['πρώτον', 'πρώτα']
-            print(forms)
     else:
         base_adj = create_quant_adj(base_form)
 

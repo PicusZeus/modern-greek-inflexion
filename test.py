@@ -25,9 +25,3 @@ if __name__ == '__main__':
     # print(zw)
     # perf_forms_pres = create_all_perf_non_past_personal_forms('σηκώσω/σηκωθώ')
     # print(perf_forms_pres)
-
-    # res = quantifiers.create_all_adj_quant('εννιακόσια')
-    # print(res)
-    res = adjective.create_all('ωραίος')
-    # res = noun.create_all('Χριστός', proper_name=True)
-    print(res)

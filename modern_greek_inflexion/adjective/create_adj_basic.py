@@ -220,7 +220,6 @@ def create_all_basic_adj_forms(adj):
     elif adj[-3:] == 'είς':
         # passive aorist participles
         if not adj[:-3] + 'έντα' in greek_corpus:
-            print(adj)
             raise AssertionError
         masc = adj
         fem = adj[:-1] + 'σα'

@@ -34,9 +34,8 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     """
     forms = {}
 
-    if conjugation_name == 'modal':
-        return None
-
+    if not conjugation_name or conjugation_name in ['modal', 'con1_pass_modal']:
+        return 'modal'
     endings = conjugations[conjugation_name]
 
     for number in endings.keys():
@@ -137,7 +136,9 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
         if active_root and active_root[-1] in ['σ', 'ψ', 'ξ']:
             forms['sg']['sec'][0] = active_root + 'ου'
         else:
-            forms['sg']['sec'][0] = create_imp_pass(root)
+            passive_aorist_recreated = create_imp_pass(root)
+            forms['sg']['sec'][0] = passive_aorist_recreated
+
 
     elif conjugation_name in ['imper_act_cont_2a']:
         forms['sg']['sec'][0] = put_accent_on_the_penultimate(forms['sg']['sec'][0])
@@ -173,7 +174,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:
                         print(sys.exc_info()[0])
-    print(forms, "RETURN", conjugation_name)
+    # print(forms, "RETURN", conjugation_name)
     return forms
 
 def create_roots_from_past(verb, lemma):
@@ -246,7 +247,3 @@ def create_all_past_forms(verb, lemma, aspect, deponens=False):
     return forms
 
 
-if __name__ == '__main__':
-    res = create_all_past_forms('σήκωσα/σηκώθηκα', 'σηκώνω', 'perf',deponens=False)
-    #res = create_all_present_ind_forms('αγονίζομαι')
-    print(res)

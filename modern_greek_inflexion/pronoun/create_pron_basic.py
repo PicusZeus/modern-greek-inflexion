@@ -26,8 +26,6 @@ def create_basic_forms(pron):
 
         if pron_r[-2:] == 'οσ':
             bas_forms_r = adjective.create_all_basic_adj_forms(pron_r[:-1] + 'ς')['adj']
-            print(bas_forms_r)
-            bas_forms = []
             fem = bas_forms_r.split('/')[1]
             neut = bas_forms_r.split('/')[2]
             bas_forms = pron + '/' + fem + suffix+ '/' + neut+ suffix
