@@ -5,27 +5,12 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
     put_accent_on_the_antepenultimate, is_accented, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics, \
     put_accent, remove_diaer
 from modern_greek_accentuation.resources import vowels
-from modern_greek_inflexion.resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut
+from .resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut, aklita_gender, irregularities, diploklita
 
 with open('el_GR.pickle', 'br') as file:
     greek_corpus = pickle.load(file)
 
-aklita_gender = {'μαδιάμ': 'fem', 'μωάμεθ': 'masc', 'μάνατζερ': 'masc', 'σερ': 'masc', 'σεφ': 'masc',
-                 'ντετέκτιβ': 'masc', 'ντεντέκτιβ': 'masc', 'ρεπόρτερ': 'masc', 'πλαζ': 'fem',
-                 'σεζόν': 'fem', 'σπεσιαλιτέ': 'fem', 'ρεσεψιόν': 'fem'}
 
-irregularities = {'σέβας': {'nom_sg': 'σέβας', 'nom_pl': 'σέβη', 'gen_sg': '', 'gender': 'neut'},
-                  'σέλας': {'nom_sg': 'σέλας', 'nom_pl': 'σέλατα,σέλαα', 'gen_sg': 'σέλατος,σέλαος', 'gender': 'neut'},
-                  'δείλι': {'nom_sg': 'δείλι', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
-                  'Πάσχα': {'nom_sg': 'Πάσχα', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
-                  'δόρυ': {'nom_sg': 'δόρυ', 'nom_pl': 'δόρατα', 'gen_sg': 'δόρατος', 'gender': 'neut'},
-                  'ήμισυ': {'nom_sg': 'ήμισυ', 'nom_pl': '', 'gen_sg': 'ημίσεος', 'gender': 'neut'},
-                  }
-
-diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά',
-              'λόγος': 'λόγοι,λόγια', 'πλούτος': ',πλούτη',
-              'σανός': ',σανά', 'χρόνος': 'χρόνοι,χρόνια',
-              'καπνός': 'καπνοί,καπνά', 'νιότη': ',νιάτα'}
 
 def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=False):
     """

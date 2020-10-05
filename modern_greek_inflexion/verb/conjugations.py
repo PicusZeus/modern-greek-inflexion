@@ -1,8 +1,8 @@
 import pickle
-from .greek_tables import irregular_active_roots, irregular_passive_roots
+from .resources import irregular_active_roots, irregular_passive_roots
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from .greek_tables import conjugations
+from .resources import conjugations
 
 
 with open('el_GR.pickle', 'rb') as file:
@@ -799,6 +799,9 @@ def recognize_past_conjugation(verb, lemma, aspect='imperf', voice='active'):
     elif verb[-1] != 'α':
         conjugation_ind = 'modal'
         root = verb
+        if verb[-1] == 'ε':
+            conjugation_ind = 'parat_act_modal'
+            root = verb[:-1]
 
     if voice == 'passive' and aspect == 'imperf':
         root, conjugation_ind = recognize_passive_past_continuous_conjugation(lemma, verb)

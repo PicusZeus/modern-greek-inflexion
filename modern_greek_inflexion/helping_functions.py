@@ -4,10 +4,15 @@ def dict_of_dicts_merge(x, y):
 
     z = {}
     if isinstance(x, set):
-        x.update(y)
-        return x
+        if isinstance(y, set):
+
+            x.update(y)
+            return x
+        elif isinstance(y, str):
+            y = {y}
+            x.update(y)
     elif isinstance(x, str):
-        return x + ',' + y
+        return {x, y}
     overlapping_keys = x.keys() & y.keys()
     for key in overlapping_keys:
         z[key] = dict_of_dicts_merge(x[key], y[key])

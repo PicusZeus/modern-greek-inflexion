@@ -88,8 +88,8 @@ def create_all_imperfect_personal_forms(verb, voice):
             if forms_ind == 'modal':
                 forms_ind = {'sg': {'ter': [v]}}
                 forms_imp = None
-
-
+            if forms_imp == 'modal':
+                forms_imp = None
 
         elif pass_verbs:
 
@@ -134,13 +134,15 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
             con = recognize_active_non_past_conjugation(act_verb, aspect='perf', tense='fin', voice='active')
             root = con['root']
             con_ind = con['conjugation_ind']
+            con_imp = con['conjugation_imp']
             if con_ind in ['con1_act_modal', 'modal', 'con2_act_modal']:
-                forms_ind = {'sg': {'ter': [v]}}
+                # print(con_ind, con_imp, verb)
+                # forms_ind = {'sg': {'ter': [v]}}
                 forms_imp = None
             else:
-                forms_ind = create_all_pers_forms(con_ind, root)
                 con_imp = con['conjugation_imp']
                 forms_imp = create_all_pers_forms(con_imp, root)
+            forms_ind = create_all_pers_forms(con_ind, root)
 
         elif pass_verb:
             con = recognize_active_non_past_conjugation(pass_verb, aspect='perf', tense='fin', voice=voice)
@@ -156,7 +158,6 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
 
         else:
             raise ValueError
-
         forms = compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp)
     return forms
 
@@ -185,7 +186,8 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
             simple_aor = False
         stem = data['root']
         deaugmented_stem = create_roots_from_past(v, lemma)
-
+        # if aspect == 'imperf':
+            # print(conjugation, verb, 'PAEATR')
         forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
         if forms_ind == 'modal':
             forms_ind = {'sg': {'ter': [v]}}

@@ -11,7 +11,7 @@ gen = 'gen'
 voc = 'voc'
 
 
-def create_all_pron_forms(bas_forms):
+def create_all_pron_forms(bas_forms, strong=True):
     # inflected: boolean
     # forms: dic 'fem', 'masc', neut', if not inflected forms is a string
 
@@ -30,6 +30,14 @@ def create_all_pron_forms(bas_forms):
             if acc_masc_sg[-1] in ['ο', 'ό']:
                 forms[sg][m][acc] = acc_masc_sg + ',' + acc_masc_sg + 'ν'
             forms[sg][f][acc] = acc_fem_sg + ',' + acc_fem_sg + 'ν'
+
+            if masc == 'αυτός':
+                if strong:
+                    from .resources import AUTOS_STRONG
+                    forms = AUTOS_STRONG
+                else:
+                    from .resources import AUTOS_WEAK
+                    forms = AUTOS_WEAK
 
             if masc == 'ποιος':
 
@@ -53,12 +61,14 @@ def create_all_pron_forms(bas_forms):
                 for gender in forms[number]:
                     for case in forms[number][gender]:
                         form = forms[number][gender][case]
+
                         forms_for_case = []
                         for s_f in form.split(','):
-                            if s_f[-1] == 'ς':
-                                s_f = s_f[:-1] + 'σ'
-                            r = s_f + suffix
-                            forms_for_case.append(r)
+                            if s_f:
+                                if s_f[-1] == 'ς':
+                                    s_f = s_f[:-1] + 'σ'
+                                r = s_f + suffix
+                                forms_for_case.append(r)
 
                         forms[number][gender][case] = ','.join(forms_for_case)
         # ενας, μια, ενα
@@ -75,7 +85,7 @@ def create_all_pron_forms(bas_forms):
 
             forms['sg']['masc']['nom'] = prefix_mn + 'ένας' + ',' + prefix_mn + 'είς'
             if masc in ['κανείς', 'κανένας']:
-                forms[sg][masc][nom] = forms[sg][masc][nom] + ',' + 'κάνας'
+                forms['sg']['masc']['nom'] = 'κανείς,κανένας,' + 'κάνας'
             forms['sg']['masc']['acc'] = prefix_mn + 'ένα' + ',' + prefix_mn + 'έναν'
             forms['sg']['masc']['gen'] = prefix_mn + 'ενός'
 
@@ -103,11 +113,19 @@ def create_all_pron_forms(bas_forms):
 
                             forms[number][gender][case] = ''
         elif masc == 'εγώ':
-            from modern_greek_inflexion.resources import EGO_STRONG
-            forms = EGO_STRONG
+            if strong:
+                from .resources import EGO_STRONG
+                forms = EGO_STRONG
+            else:
+                from .resources import EGO_WEAK
+                forms = EGO_WEAK
         elif masc == 'εσύ':
-            from modern_greek_inflexion.resources import ESU_STRONG
-            forms = ESU_STRONG
+            if strong:
+                from .resources import ESU_STRONG
+                forms = ESU_STRONG
+            else:
+                from .resources import ESU_WEAK
+                forms = ESU_WEAK
 
         elif masc == 'αλλήλων':
             forms = {'pl': {

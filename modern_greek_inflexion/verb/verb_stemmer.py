@@ -4,7 +4,7 @@ from modern_greek_accentuation.accentuation import is_accented, put_accent_on_th
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels
 
-from .greek_tables import irregular_passive_perfect_participles, irregular_active_aorists, irregular_passive_aorists, deponens_with_active_perf_forms
+from .resources import irregular_passive_perfect_participles, irregular_active_aorists, irregular_passive_aorists, deponens_with_active_perf_forms
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation
 
 from .conjugations import create_regular_perf_root

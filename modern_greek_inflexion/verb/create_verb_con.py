@@ -8,7 +8,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_antepenulti
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
 
-from .greek_tables import irregular_imperative_forms
+from .resources import irregular_imperative_forms
 
 with open('el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
