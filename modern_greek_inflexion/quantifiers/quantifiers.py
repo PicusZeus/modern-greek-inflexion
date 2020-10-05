@@ -3,8 +3,8 @@ from modern_greek_inflexion.adjective import adjective
 from .create_quant_list import create_quant_adj
 from modern_greek_inflexion.noun import noun
 
-def create_all_adj_quant(base_form):
 
+def create_all_adj_quant(base_form):
     # ordinal or not, it should be assumed, as I don't know about any exception, that ordinals and alike have bese_form
     # that ends on os
     if base_form[-2:] in ['ος', 'ός']:

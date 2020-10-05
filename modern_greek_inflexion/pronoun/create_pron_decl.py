@@ -98,12 +98,12 @@ def create_all_pron_forms(bas_forms, strong=True):
             forms['sg']['neut']['gen'] = prefix_mn + 'ενός'
 
         elif masc == 'τις':
-            from modern_greek_inflexion.resources import TIS
+            from .resources import TIS
             forms = TIS
 
 
     else:
-        if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'οτιδήποτε']:
+        if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε']:
             forms, _ = create_all_adj_forms(bas_forms)
             for number in forms:
                 for gender in forms[number]:

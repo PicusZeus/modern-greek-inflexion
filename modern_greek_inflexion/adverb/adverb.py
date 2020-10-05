@@ -4,6 +4,8 @@ from modern_greek_inflexion.adjective import adjective
 irregular_comp = {
 'νωρίς': {'comp_adv': 'νωρίτερα/'}, 'άνω': {'comp_adv': 'ανώτερα/ανώτατα', 'comp': 'ανώτερος/ανώτατος'}, 'κάτω': {'comp_adv': 'κατώτεαρα/κατώτατα', 'comp': 'κατώτερος/κατώτατος'}}
 
+
+
 def create_all(adverb):
     """
     :param adverb:
@@ -28,4 +30,5 @@ def create_all(adverb):
             result['superl'] = superl
         return result
     else:
+
         return {'adv': [adverb]}
