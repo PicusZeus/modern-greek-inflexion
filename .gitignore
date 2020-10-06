@@ -252,6 +252,11 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# files from which corpus of Greek words is created
+el_gr.py
+el_GR.dic
+el_GR.dic.txt
+
 ### VirtualEnv ###
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
