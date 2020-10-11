@@ -209,3 +209,59 @@ Adverb(s) are given under the "adv" key. Adverbs for comparative and superlative
 ['τάχιστα', 'ταχύτατα']
 
 
+NOUN
+======
+
+>>> from modern_greek_inflexion.noun import noun
+
+The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be nom sg of a given noun (or pluralis if its pluralis tantum)
+They return dictionaries with forms.
+
+BASIC NOUN
++++++++++++++++
+
+If you want to recognize only gender and declination type, use 'create_all_basic_forms' method. Instead of giving a name of declination type, it returns gender, genitive singular and nom_plural.
+
+>>> noun.create_all_basic_forms('οδός')
+{'nom_sg': 'οδός', 'gen_sg': 'οδού', 'nom_pl': 'οδοί', 'gender': 'fem'}
+
+ALL FORMS
+++++++++++++
+
+If you want to return all forms, use ``create_all`` method. It also takes as an argument a noun sg (or plural if its pluralis tantum).
+
+STRUCTURE
++++++++++++
+
+It returns a dictionary structured a bit differently than adjectives, because here the first layer of keys indicate gender:
+
+>>> list(noun.create_all('γυναίκα').keys())
+['fem']
+
+It is done so, because some nouns can be in different genders, and so it is the basic differentiation for them (like diplokilta or profession names).
+
+>>> [gender for gender in ['masc', 'neut'] if gender in noun.create_all('χρόνος').keys()]
+['masc', 'neut']
+
+The next layer of keys are those indicating number ('sg', 'pl')
+
+>>> [number for number in ['sg', 'pl'] if number in noun.create_all('γυναίκα')['fem']]
+['sg', 'pl']
+
+And at the end there are cases: nominative ('nom'), genitive ('gen'), accusative ('acc'), vocative ('voc')
+
+>>> [case for case in ['nom', 'gen', 'acc', 'voc'] if case in noun.create_all('άντρας')['masc']['sg']]
+['nom', 'gen', 'acc', 'voc']
+
+And in the end you have a form (or forms if there are multiple options) in a set
+
+>>> noun.create_all('παιδί')['neut']['sg']['gen']
+{'παιδιού'}
+
+>>> [form for form in ['τάξης', 'τάξεως'] if form in noun.create_all('τάξη')['fem']['sg']['gen']]
+['τάξης', 'τάξεως']
+
+If a paradigm is defective, that is if a noun do not create some form or can be found only in plural or singular, then structure of the dictionary exists, but the sets include empty string
+
+>>> noun.create_all('νους')['masc']['pl']['nom']
+{''}
