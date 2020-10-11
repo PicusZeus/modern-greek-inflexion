@@ -4,6 +4,8 @@ from .resources import deponens_with_active_perf_forms
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..adjective import adjective
 from ..helping_functions import merging_all_dictionaries
+
+
 def create_basic_forms(verb):
     return create_all_basic_forms(verb)
 
@@ -98,7 +100,7 @@ def create_all_forms(verb):
         if participle_type in basic_forms:
             all_possible_infl_forms = []
             for participle in basic_forms[participle_type]:
-                res = adjective.create_all(participle)['adj'][0]
+                res = adjective.create_all(participle)['adj']
                 all_possible_infl_forms.append(res)
             all_forms[participle_type] = merging_all_dictionaries(*all_possible_infl_forms)
 

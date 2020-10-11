@@ -77,21 +77,15 @@ def alternative_forms_us(adj):
     # only for the us, ia, y type
     alt_forms = {'sg':{
                     'masc':{
-                        'gen': '',
-                        'acc': ''
                     },
+                    'fem': {},
                     'neut':{
-                        'gen': '',
                     }
                     },
               'pl': {
-                  'masc': {
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''},
+                  'masc': {},
+                  'fem': {},
                   'neut': {
-                      'gen': '',
                   }
               }}
 
@@ -100,17 +94,45 @@ def alternative_forms_us(adj):
     if masc:
 
         alt_forms['sg']['masc']['gen'] = masc[:-1]
-        alt_forms['sg']['masc']['acc'] = masc[:-1] + 'ν'
+        acc_sg = masc[:-1] + 'ν'
+        if acc_sg in greek_corpus:
+            alt_forms['sg']['masc']['acc'] = acc_sg
+        gen_sg = masc[:-2] + 'έος'
+        if gen_sg in greek_corpus:
+            alt_forms['sg']['masc']['gen'] = masc[:-1] + ',' + gen_sg
+
 
     if neut:
         alt_forms['sg']['neut']['gen'] = neut
+        gen_sg = masc[:-2] + 'έος'
+        if gen_sg in greek_corpus:
+            alt_forms['sg']['neut']['gen'] = neut + ',' + gen_sg
 
-    if masc not in ['πολύς', 'μέγας']:
+    if masc not in ['πολύς', 'μέγας'] and masc[:-2] + 'είς' in greek_corpus:
         alt_forms['pl']['masc']['nom'] = masc[:-2] + 'είς'
         alt_forms['pl']['masc']['acc'] = masc[:-2] + 'είς'
         alt_forms['pl']['masc']['gen'] = masc[:-2] + 'έων'
         alt_forms['pl']['masc']['voc'] = masc[:-2] + 'είς'
+        alt_forms['pl']['neut']['nom'] = neut[:-1] + 'έα'
+        alt_forms['pl']['neut']['acc'] = neut[:-1] + 'έα'
+        alt_forms['pl']['neut']['voc'] = neut[:-1] + 'έα'
         alt_forms['pl']['neut']['gen'] = neut[:-1] + 'έων'
+
+    if fem[:-2] + 'εία' in greek_corpus:
+        fem_alt_stem = fem[:-2] + 'εία'
+        fem_alt_plur = fem[:-2] + 'είες'
+        alt_forms['sg']['fem']['nom'] = fem_alt_stem
+        alt_forms['sg']['fem']['acc'] = fem_alt_stem + ',' + fem_alt_stem + 'ν'
+        alt_forms['sg']['fem']['gen'] = fem_alt_stem + 'ς'
+        alt_forms['sg']['fem']['voc'] = fem_alt_stem
+        alt_forms['pl']['fem']['nom'] = fem_alt_plur
+        alt_forms['pl']['fem']['acc'] = fem_alt_plur
+        alt_forms['pl']['fem']['voc'] = fem_alt_plur
+        alt_forms['pl']['fem']['gen'] = fem[:-2] + 'ειών'
+
+
+
+
 
     if masc in ['πολύς', 'μέγας']:
         alt_forms.pop('pl')
@@ -377,25 +399,25 @@ def create_all_adj_forms(adj):
 
         forms['sg']['masc']['voc'] = masc[:-1]
 
-        if fem != '-':
-            forms['sg']['masc']['gen'] = fem[:-1] + 'ου'
-            forms['sg']['fem']['nom'] = fem
-            forms['sg']['fem']['acc'] = fem
-            forms['sg']['fem']['gen'] = fem + 'ς'
-            forms['sg']['fem']['voc'] = fem
-            forms['sg']['neut']['gen'] = fem[:-1] + 'ου'
-            forms['pl']['masc']['nom'] = fem[:-1] + 'οι'
-            forms['pl']['masc']['acc'] = fem[:1] + 'ους'
-            forms['pl']['masc']['gen'] = fem[:-1] + 'ων'
-            forms['pl']['masc']['voc'] = fem[:-1] + 'οι'
-            forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['gen'] = fem[:-1] + 'ων'
-            forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
-            forms['pl']['neut']['nom'] = fem[:-1] + 'α'
-            forms['pl']['neut']['acc'] = fem[:-1] + 'α'
-            forms['pl']['neut']['gen'] = fem[:-1] + 'ων'
-            forms['pl']['neut']['voc'] = fem[:-1] + 'α'
+        # if fem != '-':
+        forms['sg']['masc']['gen'] = fem[:-1] + 'ου'
+        forms['sg']['fem']['nom'] = fem
+        forms['sg']['fem']['acc'] = fem
+        forms['sg']['fem']['gen'] = fem + 'ς'
+        forms['sg']['fem']['voc'] = fem
+        forms['sg']['neut']['gen'] = fem[:-1] + 'ου'
+        forms['pl']['masc']['nom'] = fem[:-1] + 'οι'
+        forms['pl']['masc']['acc'] = fem[:-1] + 'ους'
+        forms['pl']['masc']['gen'] = fem[:-1] + 'ων'
+        forms['pl']['masc']['voc'] = fem[:-1] + 'οι'
+        forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
+        forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
+        forms['pl']['fem']['gen'] = fem[:-1] + 'ων'
+        forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
+        forms['pl']['neut']['nom'] = fem[:-1] + 'α'
+        forms['pl']['neut']['acc'] = fem[:-1] + 'α'
+        forms['pl']['neut']['gen'] = fem[:-1] + 'ων'
+        forms['pl']['neut']['voc'] = fem[:-1] + 'α'
 
 
         forms['sg']['neut']['nom'] = neut

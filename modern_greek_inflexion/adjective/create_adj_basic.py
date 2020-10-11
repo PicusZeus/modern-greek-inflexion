@@ -18,7 +18,8 @@ irregular_comparatives = {'καλό': 'καλύτερος/άριστος',
                           'πολύ': 'περισσότερος/-',
                           'λίγο': 'λιγότερος/ελάχιστος',
                           'μέγα': 'μεγαλύτερος/μέγιστος',
-                          'πρώτο': 'πρωτύτερος/πρώτιστος'}
+                          'πρώτο': 'πρωτύτερος/πρώτιστος',
+                        'ταχύ': 'ταχύτερος/ταχύτατος,τάχιστος'}
 
 irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήττον/κάκιστα,ήκιστα',
                                  'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
@@ -166,12 +167,15 @@ def create_all_basic_adj_forms(adj):
 
         adj_forms.append(masc)
 
-        fem = stem + 'εία'
+        fem = stem + 'ιά'
 
-        if fem not in greek_corpus:
-            fem = stem + 'ιά'
+        if fem + 'ς' not in greek_corpus:
+            # look for gen because nom fem can be mistaken for acc pl
+            fem = stem + 'εία'
             if fem not in greek_corpus and adj[-5:] == 'πολύς':
                 fem = adj[:-5] + 'πολλή'
+
+
 
     elif adj[-2:] in ['ων', 'ών']:
         stem = adj[:-2]
@@ -378,7 +382,7 @@ def create_all_basic_adj_forms(adj):
     if parathetiko:
         adverb_parathetiko = parathetiko[:-2] + 'α'
         if uperthetiko != '-':
-            adverb_uperthetiko = uperthetiko[:-2] + 'α'
+            adverb_uperthetiko = ','.join([yp[:-2] + 'α' for yp in uperthetiko.split(',')])
         else:
             adverb_uperthetiko = '-'
 

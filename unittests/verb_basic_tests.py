@@ -2,8 +2,8 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
 
-
-
+r = verb.create_basic_forms('γράφω')
+print(r)
 
 class VerbTestBasic(TestCase):
     def test_verb_tragoudo(self):
@@ -107,7 +107,7 @@ class VerbTestBasic(TestCase):
             verb.create_basic_forms('συνέρχομαι'),
             {'present': {'passive': {'συνέρχομαι'}}, 'conjunctive': {'active': {'συνέλθω', 'συνέρθω'}},
              'aorist': {'active': {'συνήρθα', 'συνήλθα'}}, 'paratatikos': {'passive': {'συνερχόμουν'}},
-             'pass_pres_participle': {'συνερχόμενος'}, 'active_aorist_participle': {'συνελθών/συνελθούσα/συνέλθον'}}
+             'pass_pres_participle': {'συνερχόμενος'}, 'active_aorist_participle': {'συνελθών/συνελθούσα/συνελθόν'}}
 
         )
 

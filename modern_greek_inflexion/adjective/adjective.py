@@ -1,6 +1,11 @@
 from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
 
+from ..helping_functions import merging_all_dictionaries
+
+def create_all_basic_forms(adj):
+    return create_all_basic_adj_forms(adj)
+
 def create_all(adj):
     """
     :param adj: masc sg nom form
@@ -66,9 +71,31 @@ def create_all(adj):
         if adv_superlatives != '-':
             for adv_superlative in adv_superlatives.split(','):
                 super_adv.append(adv_superlative)
+    # print(forms)
+    result = {}
 
-    result = {'adj': forms, 'comp': comp_forms,
-              'superl': super_forms, 'adv': adverbs,
-              'comp_adv': comp_adv, 'superl_adv': super_adv}
+    forms = merging_all_dictionaries(*forms)
+    result['adj'] = forms
+    if comp_forms:
+
+        comp_forms = merging_all_dictionaries(*comp_forms)
+        # print(comp_forms, 'AFTER')
+        if not comp_forms:
+            raise ValueError
+        result['comp'] = comp_forms
+    if super_forms:
+
+        super_forms = merging_all_dictionaries(*super_forms)
+        result['superl'] = super_forms
+    adverbs = set(adverbs)
+    result['adv'] = adverbs
+    if comp_adv:
+        comp_adv = set(comp_adv)
+        result['comp_adv'] = comp_adv
+    if super_adv:
+        super_adv = set(super_adv)
+        result['superl_adv'] = super_adv
+
+
 
     return result

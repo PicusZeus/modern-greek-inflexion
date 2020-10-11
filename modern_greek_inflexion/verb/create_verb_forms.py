@@ -4,49 +4,52 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 
 
-def compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp):
+def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
     """
     compuond all alternative forms into a set
     :return:
     """
     if not forms:
         if forms_imp:
-            forms = {'sec_pos': sec_pos, 'forms_ind': forms_ind, 'forms_imp': forms_imp}
+            forms = {sec_pos: forms_ind_or_con, 'imp': forms_imp}
         else:
-            forms = {'sec_pos': sec_pos, 'forms_ind': forms_ind}
+            forms = {sec_pos: forms_ind_or_con}
     else:
-        for number in forms['forms_ind']:
-            for person in forms['forms_ind'][number]:
-                old = forms['forms_ind'][number][person]
-                new = forms_ind[number][person]
-                new.extend(old)
-                forms['forms_ind'][number][person] = new
-        if forms_imp:
-            for number in forms['forms_imp']:
-                for person in forms['forms_imp'][number]:
-                    old = forms['forms_imp'][number][person]
-                    new = forms_imp[number][person]
+        for pos in forms:
+            for number in forms[pos]:
+                for person in forms[pos][number]:
+                    old = forms[pos][number][person]
+                    new = forms_ind_or_con[number][person]
                     new.extend(old)
-                    forms['forms_imp'][number][person] = new
+                    forms[pos][number][person] = new
+        # if forms_imp:
+        #     for number in forms['forms_imp']:
+        #         for person in forms['forms_imp'][number]:
+        #             old = forms['forms_imp'][number][person]
+        #             new = forms_imp[number][person]
+        #             new.extend(old)
+        #             forms['forms_imp'][number][person] = new
 
     # change lists to sets
     # print(forms, 'HERE')
 
-    if forms_ind == 'modal':
+    if forms_ind_or_con == 'modal':
         return forms
     if forms_imp == 'modal':
         forms_imp = None
-    for number in forms['forms_ind']:
-        for person in forms['forms_ind'][number]:
-            old = forms['forms_ind'][number][person]
-            new = set(old)
-            forms['forms_ind'][number][person] = new
-    if forms_imp:
-        for number in forms['forms_imp']:
-            for person in forms['forms_imp'][number]:
-                old = forms['forms_imp'][number][person]
+
+    for pos in forms:
+        for number in forms[pos]:
+            for person in forms[pos][number]:
+                old = forms[pos][number][person]
                 new = set(old)
-                forms['forms_imp'][number][person] = new
+                forms[pos][number][person] = new
+    # if forms_imp:
+    #     for number in forms['forms_imp']:
+    #         for person in forms['forms_imp'][number]:
+    #             old = forms['forms_imp'][number][person]
+    #             new = set(old)
+    #             forms['forms_imp'][number][person] = new
 
     return forms
 

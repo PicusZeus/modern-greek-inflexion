@@ -576,6 +576,8 @@ def create_present_passive_participle(_, root, pres_conjugation):
 
 
 def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
+
+
     all_passive_perfect_participles = ''
     passive_perfect_participles = []
 
@@ -586,12 +588,14 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
 
             part = pres_form[:-len(pr_f)] + irregular_passive_perfect_participles[pr_f]
             part_aug = add_augment(part)
+            # print(part_aug)
             if part in greek_corpus:
                 passive_perfect_participles = [part]
             for p in part_aug:
                 if p in greek_corpus:
                     passive_perfect_participles.append(p)
-                break
+
+    # print(passive_perfect_participles)
 
     if passive_root and not passive_perfect_participles:
 
@@ -668,7 +672,7 @@ def create_active_aorist_participle(root, act_roots):
 
         masc_wn = put_accent_on_the_ultimate(act_root + 'ων')
         fem_ousa = put_accent_on_the_penultimate(act_root + 'ουσα')
-        neut_on = put_accent_on_the_penultimate(act_root + 'ον')
+        neut_on = put_accent_on_the_ultimate(act_root + 'ον')
         if masc in greek_corpus and fem in greek_corpus:
             active_aorist_participles = masc + '/' + fem + '/' + neut
             # on as
