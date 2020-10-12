@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('χρόνος')
+res = noun.create_all('γυμνασιάρχης')
 print(res)
 
 class NounTests(TestCase):
@@ -12,6 +12,16 @@ class NounTests(TestCase):
             noun.create_all('γυναίκα'),
             {'fem': {'sg': {'nom': {'γυναίκα'}, 'gen': {'γυναίκας'}, 'voc': {'γυναίκα'}, 'acc': {'γυναίκα'}},
                      'pl': {'nom': {'γυναίκες'}, 'gen': {'γυναικών'}, 'voc': {'γυναίκες'}, 'acc': {'γυναίκες'}}}}
+
+        )
+
+    def test_noun_gymnasiarxhs(self):
+        self.assertEqual(
+            noun.create_all('γυμνασιάρχης'),
+            {'masc': {
+                'sg': {'acc': {'γυμνασιάρχη'}, 'gen': {'γυμνασιάρχη'}, 'voc': {'γυμνασιάρχα'}, 'nom': {'γυμνασιάρχης'}},
+                'pl': {'acc': {'γυμνασιάρχες'}, 'gen': {'γυμνασιαρχών'}, 'voc': {'γυμνασιάρχες'},
+                       'nom': {'γυμνασιάρχες'}}}}
 
         )
 

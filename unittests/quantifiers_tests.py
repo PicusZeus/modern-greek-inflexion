@@ -11,10 +11,9 @@ class QuntifiersNounTest(TestCase):
     def test_noun_xiliades(self):
         self.assertEqual(
             quantifiers.create_all_noun_quant('χιλιάδες'),
-            {'fem': {'sg': {'nom': '', 'gen': '', 'voc': '', 'acc': ''},
-                     'pl': {'nom': 'χιλιάδες', 'acc': 'χιλιάδες', 'voc': 'χιλιάδες', 'gen': 'χιλιάδων'}}}
+            {'fem': {'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}},
+                     'pl': {'voc': {'χιλιάδες'}, 'acc': {'χιλιάδες'}, 'gen': {'χιλιάδων'}, 'nom': {'χιλιάδες'}}}}
         )
-
 
 
 class QuantifiersAdjectiveTest(TestCase):
@@ -22,36 +21,40 @@ class QuantifiersAdjectiveTest(TestCase):
     def test_quant_diakosia(self):
         self.assertEqual(
             quantifiers.create_all_adj_quant('διακόσια'),
-            {'adj': [{'sg': {'masc': {'nom': '', 'gen': '', 'acc': '', 'voc': ''},
-                             'fem': {'nom': '', 'gen': '', 'acc': '', 'voc': ''},
-                             'neut': {'nom': '', 'gen': '', 'acc': '', 'voc': ''}},
-                      'pl': {'masc': {'nom': 'διακόσιοι', 'gen': 'διακοσίων', 'acc': 'διακόσιους', 'voc': 'διακόσιοι'},
-                             'fem': {'nom': 'διακόσιες', 'gen': 'διακοσίων', 'acc': 'διακόσιες', 'voc': 'διακόσιες'},
-                             'neut': {'nom': 'διακόσια', 'gen': 'διακοσίων', 'acc': 'διακόσια', 'voc': 'διακόσια'}}}]}
+            {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
+                            'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
+                            'neut': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}}}, 'pl': {
+                'fem': {'gen': {'διακοσίων'}, 'acc': {'διακόσιες'}, 'voc': {'διακόσιες'}, 'nom': {'διακόσιες'}},
+                'masc': {'gen': {'διακοσίων'}, 'acc': {'διακόσιους'}, 'voc': {'διακόσιοι'}, 'nom': {'διακόσιοι'}},
+                'neut': {'gen': {'διακοσίων'}, 'acc': {'διακόσια'}, 'voc': {'διακόσια'}, 'nom': {'διακόσια'}}}}}
+
         )
 
     def test_quant_dekatria(self):
         self.assertEqual(
             quantifiers.create_all_adj_quant('δεκατρία'),
-            {'adj': [{'sg': {'masc': {'nom': '', 'gen': '', 'acc': '', 'voc': ''},
-                             'fem': {'nom': '', 'gen': '', 'acc': '', 'voc': ''},
-                             'neut': {'nom': '', 'gen': '', 'acc': '', 'voc': ''}},
-                      'pl': {'masc': {'nom': 'δεκατρείς', 'gen': 'δεκατριών', 'acc': 'δεκατρείς', 'voc': 'δεκατρείς'},
-                             'fem': {'nom': 'δεκατρείς', 'gen': 'δεκατριών', 'acc': 'δεκατρείς', 'voc': 'δεκατρείς'},
-                             'neut': {'nom': 'δεκατρία', 'gen': 'δεκατριών', 'acc': 'δεκατρία', 'voc': 'δεκατρία'}}}]}
+            {'adj': {
+                'pl': {'masc': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
+                       'fem': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
+                       'neut': {'voc': {'δεκατρία'}, 'acc': {'δεκατρία'}, 'nom': {'δεκατρία'}, 'gen': {'δεκατριών'}}},
+                'sg': {'masc': {'voc': {''}, 'acc': {''}, 'nom': {''}, 'gen': {''}},
+                       'fem': {'voc': {''}, 'acc': {''}, 'nom': {''}, 'gen': {''}},
+                       'neut': {'voc': {''}, 'acc': {''}, 'nom': {''}, 'gen': {''}}}}}
+
         )
 
     def test_quant_oxto(self):
         self.assertEqual(
             quantifiers.create_all_adj_quant('οχτώ'),
-            {'adj': [{'sg': {'masc': {'nom': '', 'gen': '', 'acc': '', 'voc': ''},
-                             'fem': {'nom': '', 'gen': '', 'acc': '', 'voc': ''},
-                             'neut': {'nom': '', 'gen': '', 'acc': '', 'voc': ''}},
-                      'pl': {'masc': {'nom': 'οχτώ,οκτώ', 'gen': 'οχτώ,οκτώ', 'acc': 'οχτώ,οκτώ', 'voc': 'οχτώ,οκτώ'},
-                             'fem': {'nom': 'οχτώ,οκτώ', 'gen': 'οχτώ,οκτώ', 'acc': 'οχτώ,οκτώ', 'voc': 'οχτώ,οκτώ'},
-                             'neut': {'nom': 'οχτώ,οκτώ', 'gen': 'οχτώ,οκτώ', 'acc': 'οχτώ,οκτώ',
-                                      'voc': 'οχτώ,οκτώ'}}}]}
-
+            {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
+                            'neut': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
+                            'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}}}, 'pl': {
+                'fem': {'gen': {'οχτώ', 'οκτώ'}, 'acc': {'οχτώ', 'οκτώ'}, 'voc': {'οχτώ', 'οκτώ'},
+                        'nom': {'οχτώ', 'οκτώ'}},
+                'neut': {'gen': {'οχτώ', 'οκτώ'}, 'acc': {'οχτώ', 'οκτώ'}, 'voc': {'οχτώ', 'οκτώ'},
+                         'nom': {'οχτώ', 'οκτώ'}},
+                'masc': {'gen': {'οχτώ', 'οκτώ'}, 'acc': {'οχτώ', 'οκτώ'}, 'voc': {'οχτώ', 'οκτώ'},
+                         'nom': {'οχτώ', 'οκτώ'}}}}}
         )
 
 

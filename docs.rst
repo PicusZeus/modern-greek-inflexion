@@ -265,3 +265,45 @@ If a paradigm is defective, that is if a noun do not create some form or can be 
 
 >>> noun.create_all('νους')['masc']['pl']['nom']
 {''}
+
+PROPER NOUN
+==============
+
+Proper nouns behave mostly in the same way as nouns, but since in this group there are many exceptions in gender endings as well as many aklita, if you can use flags: ``proper_noun`` and ``proper_noun_gender``. The first one is boolean, and can help especially in vocatives. The second one helps with indeclinable words borrowed from other languages and with common exceptions like names of islands.
+
+>>> list(noun.create_all('Μύκονος').keys())
+['masc']
+
+which is of course incorrect, so in such cases use poroper_name_gender flag
+
+>>> list(noun.create_all('Μύκονος', proper_name_gender='fem').keys())
+['fem']
+
+Also proper masc names on os can have a different vocative then normal nouns
+
+>>> noun.create_all('Γιώργος')['masc']['sg']['voc']
+{'Γιώργε'}
+
+which is incorrect, so in such cases use proper_name flag
+
+>>> noun.create_all('Γιώργος', proper_name=True)['masc']['sg']['voc']
+{'Γιώργο'}
+
+The two flags can be used independently
+
+QUANTIFIERS
+==================
+
+>>> from modern_greek_inflexion.quantifiers import quantifiers
+
+Among quantifiers there are adjectival quantifiers ('ένας') and noun quantifiers ('δεκάδα'), and so this module has two function for those two groups, as logic that would be able to recognize to which group a quantifier belongs, though possible, does not really offer much advantage to anyone. If I am wrong, it can always be added.
+
+NOUN QUANTIFIERS
+++++++++++++++++++
+
+These are simply nouns and so the resulting dictionary with forms will be analogous to that of nouns
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are a bit different

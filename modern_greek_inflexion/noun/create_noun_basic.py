@@ -357,7 +357,9 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
         if plural_form_c in greek_corpus:
             noun_temp['nom_pl'] = plural_form_c
 
-        else:
+        elif plural_form_a in greek_corpus and plural_form_a not in ['γες']:
+            # unfortunetly for some very short words it can fail, ad hoc solution is to implement some kind of a list
+            # print(plural_form_a in greek_corpus, plural_form_a)
             noun_temp['nom_pl'] = plural_form_a
 
         # special case for neuter on ma
@@ -656,14 +658,14 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
 
     elif noun[-1] in ['ώ', 'ω']:
 
-        if noun in ['ηχώ','πειθώ','φειδώ', 'βάβω']:
+        if noun in ['ηχώ', 'πειθώ', 'φειδώ', 'βάβω']:
             # ancient feminin
             noun_temp['gender'] = 'fem'
 
             noun_temp['gen_sg'] = noun[:-1] + 'ούς'
             if noun in ['βάβω']:
                 noun_temp['gen_sg'] = noun
-        elif noun.capitalize() == noun:
+        elif capital or proper_name:
             # feminine proper name
             noun_temp['gender'] = 'fem'
             noun_temp['gen_sg'] = noun + 'ς'
@@ -741,5 +743,5 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
 def capitalize_basic_forms(noun_temp):
     for key in noun_temp:
         if key != 'gender':
-            noun_temp[key] = noun_temp[key].capitalize()
+            noun_temp[key] = ','.join([f.capitalize() for f in noun_temp[key].split(',')])
     return noun_temp

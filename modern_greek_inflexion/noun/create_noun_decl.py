@@ -131,14 +131,15 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                         g_pl.append(gen_pl)
 
                 voc_on_a = False
-                if nom_sg[-2] == 'ή':
-                    if nom_sg[:-2] + 'ά' in greek_corpus:
-                        voc_on_a = nom_sg[:-2] + 'ά'
+                if nom_sg[-3:] in ['τής', 'χης']:
+                    voc_a = put_accent(nom_sg[:-2] + 'ά', accent)
+                    if voc_a in greek_corpus :
+                        voc_on_a = voc_a
 
                 noun_all[gender][sg][acc] = nom_sg[:-1]
                 noun_all[gender][sg][voc] = nom_sg[:-1]
                 if voc_on_a:
-                    noun_all[gender][sg][voc] = nom_sg[:-1] + ',' + voc_on_a
+                    noun_all[gender][sg][voc] = voc_on_a
                 noun_all[gender][pl][gen] = ','.join(g_pl)
 
             elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != 'neut':
