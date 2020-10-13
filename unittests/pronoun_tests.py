@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.pronoun import pronoun
 
-res = pronoun.create_all('οποιοσδήποτε')
+res = pronoun.create_all('εγώ', strong=False)
 print(res)
 
 
@@ -22,16 +22,16 @@ class PronounTestAll(TestCase):
     def test_pron_ego(self):
         self.assertEqual(
             pronoun.create_all('εγώ'),
-            {'nd': {'pl': {'nom': {'εμείς'}, 'gen': {'εμάς', 'ημών'}, 'acc': {'εμάς', 'μας'}},
-                    'sg': {'nom': {'εγώ'}, 'gen': {'εμένα'}, 'acc': {'μένα', 'εμένα'}}}}
+            {'sg': {'nd': {'gen': {'εμένα'}, 'acc': {'εμένα', 'μένα'}, 'nom': {'εγώ'}}},
+             'pl': {'nd': {'gen': {'εμάς', 'ημών'}, 'acc': {'εμάς', 'μας'}, 'nom': {'εμείς'}}}}
 
         )
 
     def test_pron_ego_weak(self):
         self.assertEqual(
             pronoun.create_all('εγώ', strong=False),
-            {'nd': {'pl': {'acc': {'μας'}, 'nom': {''}, 'gen': {'μας'}},
-                    'sg': {'acc': {'με'}, 'nom': {''}, 'gen': {'μου'}}}}
+            {'sg': {'nd': {'acc': {'με'}, 'nom': {''}, 'gen': {'μου'}}},
+             'pl': {'nd': {'acc': {'μας'}, 'nom': {''}, 'gen': {'μας'}}}}
 
         )
 

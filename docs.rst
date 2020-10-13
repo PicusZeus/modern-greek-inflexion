@@ -306,4 +306,60 @@ These are simply nouns and so the resulting dictionary with forms will be analog
 >>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
 {'χιλιάδες'}
 
-Adjectival quantifiers are a bit different
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+PRONOUNS
++++++++++++++
+
+>>> from modern_greek_inflexion.pronoun import pronoun
+
+There is wide variety of pronoun inflexions and they are quite different from adjectives. There is only ``create_all`` module available, as there is no point in some "basic" forms for them. Structure of a resulting dictionary is analogous to that of the ``adjective.create_all`` method, but is one layer more shallow.
+
+>>> pronoun.create_all('οποίος')['sg']['fem']['gen']
+{'οποίας'}
+
+PERSONAL PRONOUNS
+=====================
+
+These forms are highly irregular and possess differentiation on weak and strong versions, and so if you want to get weak pronouns, use ``strong`` flag, which is ``True`` by default.
+
+>>> pronoun.create_all('εσύ')['sg']['nd']['gen']
+{'εσένα'}
+
+>>> pronoun.create_all('εσύ', strong=False)['sg']['nd']['gen']
+{'σου'}
+
+
+ADVERBS
++++++++
+
+>>> from modern_greek_inflexion.adverb import adverb
+
+Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other adverbs. Method used to give all forms is as always ``create_all``, but most of the time it will be only the given adverb itself.
+
+>>> adverb.create_all('ποτέ')
+{'adv': {'ποτέ'}}
+
+In few cases when adverb forms comparatives or even superlatives
+
+>>> adverb.create_all('κάτω')['comp']['sg']['fem']['gen']
+{'κατώτερης'}
+
+
+OTHER POSES
+++++++++++
+
+Other poses such as conjunctions, particles, prepositions and so forth do not need any kind of stemmer, but maybe it would be a good idea, to add a funcionality, that would provide alternative forms for these kind of words (ακόμη/ακόμα κτλ), and in case of prepositions information on the case it requires, and also maybe a list of conjunctions that consists of two or more words?

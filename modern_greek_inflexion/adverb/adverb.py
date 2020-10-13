@@ -18,17 +18,18 @@ def create_all(adverb):
 
     """
     if adverb in irregular_comp:
-        result = {'adv': [adverb]}
+        result = {'adv': {adverb}}
         comp_adv, superl_adv = irregular_comp[adverb]['comp_adv'].split('/')
-        result['comp_adv'] = [comp_adv]
-        result['superl_adv'] = [superl_adv]
+        result['comp_adv'] = {comp_adv}
+        result['superl_adv'] = {superl_adv}
         if 'comp' in irregular_comp[adverb]:
             comp_base, superl_base = irregular_comp[adverb]['comp'].split('/')
             comp = adjective.create_all(comp_base)['adj']
             superl = adjective.create_all(superl_base)['adj']
             result['comp'] = comp
             result['superl'] = superl
+
         return result
     else:
 
-        return {'adv': [adverb]}
+        return {'adv': {adverb}}
