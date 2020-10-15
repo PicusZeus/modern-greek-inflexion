@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('γη')
+res = noun.create_all('Βάιος', proper_name=True)
 # res = noun.create_all_basic_forms('Φρόσω', proper_name=True)
 print(res)
 
@@ -20,8 +20,8 @@ class ProperNounTests(TestCase):
     def test_Baios(self):
         self.assertEqual(
             noun.create_all('Βάιος', proper_name=True),
-            {'masc': {'sg': {'voc': {'Βάιο'}, 'gen': {'Βάιου'}, 'nom': {'Βάιος'}, 'acc': {'Βάιο'}},
-                      'pl': {'voc': {''}, 'acc': {''}, 'nom': {''}}}}
+            {'masc': {'pl': {'voc': {''}, 'acc': {''}, 'nom': {''}},
+                      'sg': {'voc': {'Βάιε', 'Βάιο'}, 'acc': {'Βάιο'}, 'nom': {'Βάιος'}, 'gen': {'Βαΐου', 'Βάιου'}}}}
 
         )
 

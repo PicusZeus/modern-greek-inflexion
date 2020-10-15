@@ -5,7 +5,7 @@ with open("README.md", 'r') as fh:
 
 setup(
     name="modern-greek-inflexion",
-    version="0.1.1",
+    version="0.1.2",
     description="Python 3 library for creating inflected forms for Modern Greek words",
     long_description_content_type="text/markdown",
     long_description=long_description,

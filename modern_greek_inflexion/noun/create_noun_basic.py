@@ -46,6 +46,7 @@ def create_all_basic_noun_forms(noun, proper_name=False, proper_name_gender=Fals
         # declined in the corpus, i will assume then that words above 4 syllabes do exist, but only in singular, the
         # same should be the case for neuter long words on -o
         # also some proper names in greek_corpus are, as is proper, capitalized
+        # print(gen_form, gen_form in greek_corpus)
         if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or number_of_syllables >4:
             gens_sg.append(gen_form)
 

@@ -91,10 +91,19 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
 
                 if nom_sg[:-1] + 'ν' in greek_corpus:
                     noun_all[gender][sg][acc] = nom_sg[:-1] + ',' + nom_sg[:-1] + 'ν'
-                noun_all[gender][sg][voc] = put_accent(nom_sg[:-2] + 'ε', accent, true_syllabification=False)
+                masc_voc = put_accent(nom_sg[:-2] + 'ε', accent, true_syllabification=False)
+                noun_all[gender][sg][voc] = masc_voc
+
                 if proper_name and count_syllables(nom_sg) < 3:
                     if accent != 'ultimate':
-                        noun_all[gender][sg][voc] = nom_sg[:-1]
+                        properN_masc_voc = nom_sg[:-1]
+                        noun_all[gender][sg][voc] = properN_masc_voc
+                        # but this rule is not always used (Παύλο και Παύλε) and sometimes voc on e is still in usage
+                        # print(masc_voc.lower() in greek_corpus, masc_voc)
+                        if masc_voc.lower() in greek_corpus:
+                            noun_all[gender][sg][voc] = properN_masc_voc + ',' + masc_voc
+
+
 
                 if nom_pl:
                     gens = gen_sg.split(',')

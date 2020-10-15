@@ -12,8 +12,6 @@ def create_basic_forms(verb):
 
 def create_all_forms(verb):
     basic_forms = create_all_basic_forms(verb)
-    # print(basic_forms)
-    deponens = False
 
     all_forms = {}
 
