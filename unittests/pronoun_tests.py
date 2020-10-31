@@ -19,6 +19,26 @@ class PronounTestAll(TestCase):
 
         )
 
+    def test_pron_ostis(self):
+        self.assertEqual(
+            pronoun.create_all('όστις'),
+
+
+        )
+    def test_pron_osper(self):
+        self.assertEqual(
+            pronoun.create_all('όσπερ'),
+
+
+        )
+    def test_pron_amfoteroi(self):
+        self.assertEqual(
+            pronoun.create_all('αμφότεροι'),
+
+
+
+        )
+
     def test_pron_ego(self):
         self.assertEqual(
             pronoun.create_all('εγώ'),

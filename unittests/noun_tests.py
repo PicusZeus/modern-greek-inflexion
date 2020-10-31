@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('γυμνασιάρχης')
+res = noun.create_all('καστανομάλλης')
 print(res)
 
 class NounTests(TestCase):
@@ -12,6 +12,37 @@ class NounTests(TestCase):
             noun.create_all('γυναίκα'),
             {'fem': {'sg': {'nom': {'γυναίκα'}, 'gen': {'γυναίκας'}, 'voc': {'γυναίκα'}, 'acc': {'γυναίκα'}},
                      'pl': {'nom': {'γυναίκες'}, 'gen': {'γυναικών'}, 'voc': {'γυναίκες'}, 'acc': {'γυναίκες'}}}}
+
+        )
+
+    def test_noun_nown(self):
+        self.assertEqual(
+            noun.create_all('νοών'),
+
+        )
+
+    def test_noun_kontes(self):
+        self.assertEqual(
+            noun.create_all('κόντες'),
+            {'masc': {'sg': {'nom': {'κόντες'}, 'gen': {'γυναίκας'}, 'voc': {'γυναίκα'}, 'acc': {'γυναίκα'}},
+                     'pl': {'nom': {'κόντηδες'}, 'gen': {'γυναικών'}, 'voc': {'γυναίκες'}, 'acc': {'γυναίκες'}}}}
+        )
+    def test_noun_belhnekes(self):
+        self.assertEqual(
+            noun.create_all('βεληνεκές'),
+
+        )
+    def test_noun_epizhsas(self):
+        self.assertEqual(
+            noun.create_all('επιζήσας'),
+
+        )
+
+    def test_noun_asthenhs(self):
+        self.assertEqual(
+            noun.create_all('ασθενής'),
+            {'masc': {'sg': {'gen': {'ασθενή'}, 'acc': {'ασθενή'}, 'nom': {'ασθενής'}, 'voc': {'ασθενή'}},
+                      'pl': {'gen': {'ασθενών'}, 'acc': {'ασθενείς'}, 'nom': {'ασθενείς'}, 'voc': {'ασθενείς'}}}}
 
         )
 

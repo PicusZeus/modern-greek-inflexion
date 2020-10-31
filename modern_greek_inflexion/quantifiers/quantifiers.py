@@ -5,6 +5,8 @@ from ..noun import noun
 from ..helping_functions import merging_all_dictionaries
 
 
+
+
 def create_all_adj_quant(base_form):
     # ordinal or not, it should be assumed, as I don't know about any exception, that ordinals and alike have base_form that ends on os
     if base_form[-2:] in ['ος', 'ός']:
@@ -29,9 +31,8 @@ def create_all_adj_quant(base_form):
         forms = {'adj': forms_adj}
         forms = merging_all_dictionaries(forms)
 
-
-
     return forms
+
 
 def create_all_noun_quant(base_form):
     """
@@ -40,3 +41,5 @@ def create_all_noun_quant(base_form):
     :return:
     """
     return noun.create_all(base_form)
+
+

@@ -186,4 +186,78 @@ TIS = {
                 acc: 'τίνα'
             }
         }
-        }
+        }ο
+        
+eauto = {
+    'sg': {'gen': 'εαυτού',
+           'acc': 'εαυτόν'},
+    'pl': {
+     'gen': 'εαυτών',
+     'acc': 'εαυτούς'
+    }
+}
+
+
+greek_pers_pronouns = [
+
+    ['εγώ', ['εγώ', 'ppron12:sg:nom:m.f.n:pri:akc']],
+    ['μου', ['εγώ', 'ppron12:sg:gen:m.f.n:pri:nakc:npraep']],
+    ['εμένα', ['εγώ', 'ppron12:sg:gen.acc:m.f.n:pri:akc:npraep']],
+    ['μένα', ['εγώ', 'ppron12:sg:acc:m.f.n:pri:akc:praep']],
+    ['με', ['εγώ', 'ppron12:sg:acc:m.f.n:pri:nakc:npraep']],
+    ['εμείς', ['εμείς', 'ppron12:pl:nom:m.f.n:pri:akc']],
+    ['εμάς', ['εμείς', 'ppron12:pl:gen.acc:m.f.n:pri:akc:npraep']],
+    ['μας', ['εμείς', 'ppron12:pl:gen.acc:m.f.n:pri:akc:praep']],
+    ['μας', ['εμείς', 'ppron12:pl:gen.acc:m.f.n:pri:nakc:npraep']],
+
+    ['εσύ', ['εσύ', 'ppron12:sg:nom:m.f.n:sec:akc']],
+    ['σου', ['εσύ', 'ppron12:sg:gen:m.f.n:sec:nakc:npraep']],
+    ['εσένα', ['εσύ', 'ppron12:sg:gen.acc:m.f.n:sec:akc:npraep']],
+    ['σένα', ['εσύ', 'ppron12:sg:acc:m.f.n:sec:akc:praep']],
+    ['σε', ['εσύ', 'ppron12:sg:acc:m.f.n:sec:nakc:npraep']],
+
+    ['εσείς', ['εσείς', 'ppron12:pl:nom:m.f.n:sec:akc']],
+    ['εσάς', ['εσείς', 'ppron12:pl:gen.acc:m.f.n:sec:akc:npraep']],
+
+    ['σας', ['εσείς', 'ppron12:pl:acc:m.f.n:sec:akc:praep']],
+
+    ['σας', ['εσείς', 'ppron12:pl:gen.acc:m.f.n:sec:nakc:npraep']],
+
+    # nom
+    ['αυτός', ['αυτός', 'ppron3:sg:nom:m:ter:akc']],
+    ['τoς', ['αυτός', 'ppron3:sg:nom:m:ter:nakc']],
+    ['το', ['αυτός', 'ppron3:sg:nom.acc:n:ter:nakc:npraep']],
+    ['αυτό', ['αυτός', 'ppron3:sg:nom.acc:n:ter:akc']],
+    ['αυτή', ['αυτός', 'ppron3:sg:nom.acc:f:ter:akc']],
+    ['τή', ['αυτός', 'ppron3:sg:nom.acc:f:ter:nakc']],
+    # gen
+    ['αυτού', ['αυτός', 'ppron3:pl:gen:n.m:ter:akc:praep:npraep']],
+    ['του', ['αυτός', 'ppron3:sg:gen:n.m:ter:nakc:npraep']],
+
+    ['αυτής', ['αυτός', 'ppron3:sg:gen:f:ter:akc']],
+    ['της', ['αυτός', 'ppron3:sg:gen:f:ter:nakc:npraep']],
+    # acc
+    ['αυτόν', ['αυτός', 'ppron3:sg:acc:m:ter:akc:npraep:praep']],
+    ['αυτήν', ['αυτός', 'ppron3:sg:acc:f:ter:akc']],
+    ['τήν', ['αυτός', 'ppron3:sg:acc:f:ter:nakc:npraep']],
+    ['τον', ['αυτός', 'ppron3:sg:gen:n:ter:nakc:npraep']],
+
+    # nom
+    ['αυτοί', ['αυτός', 'ppron3:pl:nom:m:ter:akc']],
+    ['αυτές', ['αυτός', 'ppron3:pl:nom.acc:f:ter:akc']],
+    ['τοι', ['αυτός', 'ppron3:pl:nom:m:ter:nakc']],
+    ['τες', ['αυτός', 'ppron3:pl:nom:f:ter:nakc']],
+    ['τα', ['αυτός', 'ppron3:pl:nom.acc:n:ter:nakc:npraep']],
+    ['αυτά', ['αυτός', 'ppron3:pl:nom.acc:n:ter:akc']],
+
+    # gen
+    ['αυτών', ['αυτός', 'ppron3:pl:gen:m.f.n:ter:akc']],
+    ['τους', ['αυτός', 'ppron3:pl:gen:m.f.n:ter:nakc:npraep']],
+
+    # acc
+    ['τους', ['αυτός', 'ppron3:pl:acc:m:ter:nakc:npraep']],
+    ['αυτούς', ['αυτός', 'ppron3:pl:acc:m:ter:akc']],
+    ['τις', ['αυτός', 'ppron3:pl:acc:f:ter:nakc:npraep']],
+    ['τες', ['αυτός', 'ppron3:pl:acc:f:ter:nakc:npraep']],
+
+]

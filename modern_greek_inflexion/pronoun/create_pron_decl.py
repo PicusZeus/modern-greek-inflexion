@@ -103,7 +103,7 @@ def create_all_pron_forms(bas_forms, strong=True):
 
 
     else:
-        if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε']:
+        if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε', 'ίντα', 'ό,τι']:
             forms, _ = create_all_adj_forms(bas_forms)
             for number in forms:
                 for gender in forms[number]:
@@ -139,14 +139,15 @@ def create_all_pron_forms(bas_forms, strong=True):
                         },
                     }}
 
-        elif masc == 'όπερ':
+        elif masc in ['όπερ', 'τουθόπερ']:
 
-                forms = {'sg':{
+            forms = {'sg':{
                         'neut':{
                             'nom': masc,
                             'acc': masc
                         }}}
-                return forms
+            return forms
+
 
         elif masc == 'ταύτα':
             forms = {'pl':{
@@ -154,6 +155,27 @@ def create_all_pron_forms(bas_forms, strong=True):
                                 'nom': masc,
                                 'acc': masc
                         }}}
+            return forms
+
+        elif masc == 'εαυτός':
+            forms = {'sg':{
+                        'masc':{
+                                'nom': masc,
+                                'acc': 'εαυτό,εαυτόν',
+                                'gen': 'εαυτού'
+                        },
+                    'pl': {
+                        'masc':{
+                            'nom': 'εαυτοί',
+                            'acc': 'εαυτούς',
+                            'gen': 'ευτών'
+                        }
+                    }}
+
+
+            }
+            return forms
+
 
         else:
             raise ValueError

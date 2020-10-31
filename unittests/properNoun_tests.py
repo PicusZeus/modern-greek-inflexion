@@ -7,6 +7,10 @@ res = noun.create_all('Βάιος', proper_name=True)
 print(res)
 
 
+
+
+
+
 class ProperNounTests(TestCase):
     def test_Nikos(self):
         self.assertEqual(
@@ -15,6 +19,23 @@ class ProperNounTests(TestCase):
                       'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}}
 
         )
+
+    def test_Bandaloi(self):
+        self.assertEqual(
+            noun.create_all('Βάνδαλοι', proper_name=True),
+
+
+        )
+
+    def test_Ghis(self):
+        self.assertEqual(
+            noun.create_all('Γης', proper_name=True),
+
+
+
+        )
+
+
 
 
     def test_Baios(self):
