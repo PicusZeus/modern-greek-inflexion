@@ -276,7 +276,7 @@ Proper nouns behave mostly in the same way as nouns, but since in this group the
 
 which is of course incorrect, so in such cases use poroper_name_gender flag
 
->>> list(noun.create_all('Μύκονος', proper_name_gender='fem').keys())
+>>> list(noun.create_all('Μύκονος', gender='fem').keys())
 ['fem']
 
 Also proper masc names on os can have a different vocative then normal nouns
