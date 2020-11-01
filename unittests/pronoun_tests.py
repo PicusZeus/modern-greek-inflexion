@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.pronoun import pronoun
 
-res = pronoun.create_all('εγώ', strong=False)
+res = pronoun.create_all('όσπερ', strong=False)
 print(res)
 
 
@@ -22,20 +22,32 @@ class PronounTestAll(TestCase):
     def test_pron_ostis(self):
         self.assertEqual(
             pronoun.create_all('όστις'),
-
+            {'sg': {'masc': {'nom': {'όστις'}, 'gen': {'ούτινος', 'ότου'}, 'acc': {'όντινα'}},
+                    'neut': {'nom': {'ότι'}, 'gen': {'ούτινος', 'ότου'}, 'acc': {'ότι'}},
+                    'fem': {'nom': {'ήτις'}, 'gen': {'ήστινος'}, 'acc': {'ήντίνα'}}},
+             'pl': {'masc': {'nom': {'οίτινες'}, 'gen': {'ώντινων'}, 'acc': {'ούστινας'}},
+                    'neut': {'nom': {'άτινα', 'άττα'}, 'gen': {'ώντινων'}, 'acc': {'άτινα', 'άττα'}},
+                    'fem': {'nom': {'αίτινες'}, 'gen': {'ώντινων'}, 'acc': {'άστινας'}}}}
 
         )
     def test_pron_osper(self):
         self.assertEqual(
             pronoun.create_all('όσπερ'),
-
+            {'sg': {'neut': {'gen': {'ούπερ'}, 'acc': {'όπερ'}, 'nom': {'όπερ'}},
+                    'fem': {'gen': {'ήσπερ'}, 'acc': {'ήνπερ'}, 'nom': {'ήπερ'}},
+                    'masc': {'gen': {'ούπερ'}, 'acc': {'όνπερ'}, 'nom': {'όσπερ'}}},
+             'pl': {'neut': {'gen': {'ώνπερ'}, 'acc': {'άπερ'}, 'nom': {'άπερ'}},
+                    'fem': {'gen': {'ώνπερ'}, 'acc': {'άσπερ'}, 'nom': {'αίπερ'}},
+                    'masc': {'gen': {'ώνπερ'}, 'acc': {'ούσπερ'}, 'nom': {'οίπερ'}}}}
 
         )
     def test_pron_amfoteroi(self):
         self.assertEqual(
             pronoun.create_all('αμφότεροι'),
 
-
+            {'pl': {'neut': {'acc': {'αμφότερα'}, 'nom': {'αμφότερα'}, 'voc': {''}, 'gen': {'αμφότερων'}},
+                    'fem': {'acc': {'αμφότερες'}, 'nom': {'αμφότερες'}, 'voc': {''}, 'gen': {'αμφότερων'}},
+                    'masc': {'acc': {'αμφότερους'}, 'nom': {'αμφότεροι'}, 'voc': {''}, 'gen': {'αμφότερων'}}}}
 
         )
 

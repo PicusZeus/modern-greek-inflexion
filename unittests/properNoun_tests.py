@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('Βάιος', proper_name=True)
+res = noun.create_all('Γης', proper_name=True, gender='fem')
 # res = noun.create_all_basic_forms('Φρόσω', proper_name=True)
 print(res)
 
@@ -23,7 +23,8 @@ class ProperNounTests(TestCase):
     def test_Bandaloi(self):
         self.assertEqual(
             noun.create_all('Βάνδαλοι', proper_name=True),
-
+            {'masc': {'pl': {'nom': {'Βάνδαλοι'}, 'gen': {'Βάνδαλων'}, 'voc': {'Βάνδαλοι'}, 'acc': {'Βάνδαλους'}},
+                      'sg': {'nom': {''}, 'gen': {''}, 'voc': {''}, 'acc': {''}}}}
 
         )
 
@@ -31,7 +32,8 @@ class ProperNounTests(TestCase):
         self.assertEqual(
             noun.create_all('Γης', proper_name=True),
 
-
+            {'fem': {'pl': {'nom': {'Γαίες'}, 'gen': {'Γαίων'}, 'voc': {'Γαίες'}, 'acc': {'Γαίες'}},
+                     'sg': {'nom': {'Γης'}, 'gen': {'Γης'}, 'voc': {'Γη'}, 'acc': {'Γη'}}}}
 
         )
 
@@ -73,7 +75,7 @@ class ProperNounTests(TestCase):
 
     def test_Paolo(self):
         self.assertEqual(
-            noun.create_all('Μύκονος', proper_name=True, proper_name_gender='fem'),
+            noun.create_all('Μύκονος', proper_name=True, gender='fem'),
             {'fem': {'sg': {'voc': {'Μύκονε'}, 'gen': {'Μύκονου', 'Μυκόνου'}, 'nom': {'Μύκονος'}, 'acc': {'Μύκονο'}},
                      'pl': {'voc': {''}, 'nom': {''}, 'acc': {''}}}}
 

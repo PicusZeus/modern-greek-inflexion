@@ -1,4 +1,5 @@
 from modern_greek_inflexion.adjective.create_adj_decl import create_all_adj_forms
+from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
 m = 'masc'
 f = 'fem'
@@ -100,6 +101,32 @@ def create_all_pron_forms(bas_forms, strong=True):
         elif masc == 'τις':
             from .resources import TIS
             forms = TIS
+
+        elif masc == 'όστις':
+            from .resources import OSTIS
+            forms = OSTIS
+        elif masc == 'όσπερ':
+            from .resources import OSPER
+            forms = OSPER
+        elif masc[-2:] in ['οι', 'οί']:
+            forms = {'pl': {'masc': {}, 'fem': {}, 'neut': {}}}
+            thema = masc[:-2]
+            accent = where_is_accent(masc)
+
+            forms[pl][m][nom] = masc
+            forms[pl][m][gen] = put_accent(thema + 'ων', accent)
+            forms[pl][m][acc] = put_accent(thema + 'ους', accent)
+            forms[pl][m][voc] = masc
+
+            forms[pl][f][nom] = fem
+            forms[pl][f][gen] = put_accent(thema + 'ων', accent)
+            forms[pl][f][acc] = fem
+            forms[pl][f][voc] = fem
+
+            forms[pl][n][nom] = neut
+            forms[pl][n][gen] = put_accent(thema + 'ων', accent)
+            forms[pl][n][acc] = neut
+            forms[pl][n][voc] = neut
 
 
     else:

@@ -41,6 +41,8 @@ irregularities = {'σέβας': {'nom_sg': 'σέβας', 'nom_pl': 'σέβη', '
                   'Πάσχα': {'nom_sg': 'Πάσχα', 'nom_pl': '', 'gen_sg': '', 'gender': 'neut'},
                   'δόρυ': {'nom_sg': 'δόρυ', 'nom_pl': 'δόρατα', 'gen_sg': 'δόρατος', 'gender': 'neut'},
                   'ήμισυ': {'nom_sg': 'ήμισυ', 'nom_pl': '', 'gen_sg': 'ημίσεος', 'gender': 'neut'},
+                  'γης': {'nom_sg': 'γης', 'nom_pl': 'γαίες', 'gen_sg': 'γης', 'gender': 'fem'},
+                  'γη': {'nom_sg': 'γη', 'nom_pl': 'γαίες', 'gen_sg': 'γης', 'gender': 'fem'}
                   }
 
 diploklita = {'βράχος': 'βράχοι,βράχια', 'λαιμός': 'λαιμοί,λαιμά',

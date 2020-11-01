@@ -85,6 +85,9 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 noun_all[gender][sg][acc] = nom_sg
                 noun_all[gender][pl][acc] = nom_pl
 
+            elif gender == 'masc' and nom_sg == gen_sg:
+                noun_all[gender][sg][acc] = nom_sg
+
             if nom_sg[-2:] in ['ος', 'ός'] and gen_sg[-2:] in ['ου', 'ού']:
 
                 noun_all[gender][sg][acc] = nom_sg[:-1]
@@ -169,6 +172,8 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                                 gen_pl = alt_gen_pl
                             elif alt_gen_pl_b in greek_corpus:
                                 gen_pl = alt_gen_pl
+                            else:
+                                gen_pl = ''
                     elif nom_pl[-3:] == 'εις':
                         gen_pl = nom_pl[:-3] + 'εων'
                     else:
@@ -337,6 +342,11 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                         gen_pl = gen_pl + ',' + gen_pl_alt
                     elif gen_pl_alt in greek_corpus:
                         gen_pl = gen_pl_alt
+
+                if nom_pl[-2:] in ['ες', 'ές']:
+                    if nom_pl[-4:-2] not in ['άδ', 'ήτ']:
+
+                        gen_pl = put_accent(gen_pl, 'ultimate')
 
                 noun_all[gender][pl][gen] = gen_pl
 

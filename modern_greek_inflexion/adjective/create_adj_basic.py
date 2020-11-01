@@ -25,7 +25,7 @@ irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήτ
                                  'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
                                  'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
 
-def create_all_basic_adj_forms(adj):
+def create_all_basic_adj_forms(adj, inflection=None):
     """
     :param adj: masc nom sg form (`ωραίος`)
     :return: dictionary with keys:
@@ -262,6 +262,9 @@ def create_all_basic_adj_forms(adj):
         masc = adj
         fem = adj
         neuter = masc[:-2] + 'εν'
+
+    elif inflection == 'aklito':
+        masc, fem, neuter = adj, adj, adj
 
     else:
         masc, fem, neuter = adj, adj, adj

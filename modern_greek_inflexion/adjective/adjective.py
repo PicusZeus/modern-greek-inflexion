@@ -6,7 +6,7 @@ from ..helping_functions import merging_all_dictionaries
 def create_all_basic_forms(adj):
     return create_all_basic_adj_forms(adj)
 
-def create_all(adj):
+def create_all(adj, inflection=None):
     """
     :param adj: masc sg nom form
     :return: dictionary with keys:
@@ -25,7 +25,7 @@ def create_all(adj):
     comp_adv = []
     super_adv = []
 
-    all_basic_adj_forms = create_all_basic_adj_forms(adj)
+    all_basic_adj_forms = create_all_basic_adj_forms(adj, inflection=inflection)
     # 'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
     # separated with a coma
     # 'comparative': if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with

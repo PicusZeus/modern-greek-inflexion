@@ -1,5 +1,5 @@
 import pickle
-from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate
+from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent
 from modern_greek_inflexion.adjective import adjective
 
 file = open('el_GR.pickle', 'br')
@@ -14,12 +14,16 @@ def create_basic_forms(pron):
     """
 
     #pronoun = {gender:{number}}
-    forms = {}
+
 
     if pron[-2:] in ['ος', 'ός'] or pron[-3:] in ['πας'] and pron != 'τίνος':
         # like poios
         bas_forms = adjective.create_all_basic_adj_forms(pron)['adj']
-
+    elif pron[-2:] in ['οι', 'οί']:
+        accent = where_is_accent(pron)
+        fem = put_accent(pron[:-2] + 'ες', accent, true_syllabification=False)
+        neut = put_accent(pron[:-2] + 'α', accent, true_syllabification=False)
+        bas_forms = pron + '/' + fem + '/' + neut
     elif 'δήποτε' in pron:
         suffix = 'δήποτε'
         pron_r = pron[:-6]
@@ -53,6 +57,13 @@ def create_basic_forms(pron):
     elif pron == 'τις':
 
         bas_forms = 'τις/τις/τι'
+    elif pron == 'όστις':
+
+        bas_forms = 'όστις/ήτις/ότι'
+
+    elif pron == 'όσπερ':
+
+        bas_forms = 'όσπερ/ήπερ/όπερ'
 
     elif pron[-1] in ['η', 'ὴ'] or pron in ['μηδεμία', 'μερικοί', 'μου', 'πάσα', 'παν', 'όσο',  'τίνος']:
         # there are some random fem nine forms in the list, should be filter out
