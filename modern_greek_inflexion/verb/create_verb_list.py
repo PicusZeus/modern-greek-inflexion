@@ -2,7 +2,7 @@ import pickle
 
 from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, create_passive_aorist_participle
 
-with open('el_GR.pickle', 'rb') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 

@@ -1,11 +1,14 @@
+
 import pickle
+from modern_greek_accentuation.augmentify import deaugment_prefixed_stem, put_accent_on_past_tense
+
 from .resources import irregular_active_roots, irregular_passive_roots
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from .resources import conjugations
 
 
-with open('el_GR.pickle', 'rb') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 
@@ -348,7 +351,7 @@ def create_regular_perf_root(verb, voice='active'):
                     perf_root = root + 'άξ'
                     if not ((perf_root + 'ω' in greek_corpus) or
                             (perf_root + 'ου' in greek_corpus) or
-                            perf_root + 'ει'  in greek_corpus):
+                            perf_root + 'ει' in greek_corpus):
                         perf_root = root + 'έξ'
                         if not ((perf_root + 'ω' in greek_corpus) or
                                 (perf_root + 'ου' in greek_corpus) or
@@ -497,101 +500,7 @@ def create_regular_perf_root(verb, voice='active'):
         return perf_root
     else:
         return None
-
-
-def stemmer(root, con_type, lemma='', root2='', sqlalchemy=True):
-    # lemma is always pres
-    # in modals root equals to the single form
-    # designed to use with sql, but with a different flag it
-    # will use as source dict from resources
-
-    # returns all personal forms for a given con_type
-    # endings is a list of instances of a ending class
-
-    forms = {'sg': {'pri': [], 'sec': [], 'ter': []}, 'pl': {'pri': [], 'sec': [], 'ter': []}}
-    if con_type == 'modal':
-
-        verb = root
-        
-        forms['sg']['ter'].append(verb)
-        return forms
-
-    if sqlalchemy:
-        endings = ModernGreekConjugationModel.query.filter_by(
-            conjugation_name=con_type).first().endings
-
-    else:
-        # mimicking sqlalchemy classes
-        endings = []
-        all_endings = conjugations[con_type]
-        for number in all_endings.keys():
-            for person in all_endings[number].keys():
-                for single_ending in all_endings[number][person]:
-                    ending = single_ending
-                    ending_inst = Ending(number, person, ending)
-                    endings.append(ending_inst)
-
-    for ending in endings:
-        # fix bug with imperative passive
-        # accentuation
-        number = ending.number.number
-        person = ending.person.person
-        form = root + ending.ending
-        # special case for pass_imp
-        if con_type == 'imper_pass_aor_a' and number == 'sg':
-        # this logic should cover most instances of pass imper
-            if root2:
-                if root2[-1] == 'σ':
-                    form = root2 + 'ου'
-                    form = remove_all_diacritics(form)
-                    form = put_accent_on_the_penultimate(form)
-
-                else:
-                    form = ''
-            else:
-                form = create_imp_pass(root)
-                # in some cases of irregular verb it returns None
-
-                continue
-
-        length_of_ending = count_syllables(ending.ending)
-        # some verbs have irregular accent in aorist (υπήρξα)
-
-        if count_syllables(form) == 1:
-            form = remove_all_diacritics(form)
-
-        elif con_type == 'aor_act' and length_of_ending > 1:
-
-            pres_form = lemma
-
-            form = remove_all_diacritics(form)
-
-            form = deaugment_prefixed_stem(form)
-
-            form = put_accent_on_past_tense(form, pres_form)
-
-        elif con_type == 'con1_pass' and number == 'pl' and person in ['pri', 'sec']:
-            form = remove_all_diacritics(form)
-            form = put_accent_on_the_antepenultimate(form)
-
-        elif con_type == 'parat1_pass' and number == 'pl' and person == 'ter':
-
-            form = remove_all_diacritics(form)
-            form = put_accent_on_the_antepenultimate(form)
-        elif con_type == 'parat1_pass':
-            # in the rest cases it's best to simply add endings to unaccented root
-            # it's only needed in the first con
-            root = remove_all_diacritics(root)
-            form = root + ending.ending
-
-        elif con_type == 'imper_act_aor_b' or (con_type in ['imper_act_aor_a', 'imper_act_cont_1', 'imper_act_cont_2c',
-                                                            ] and number == 'sg'):
-            form = remove_all_diacritics(form)
-            form = put_accent_on_the_antepenultimate(form)
-
-        forms[number][person].append(form)
-
-    return forms
+#
 
 
 def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', voice='active'):

@@ -1,7 +1,7 @@
 import pickle
 from modern_greek_inflexion.adjective.create_adj_basic import create_all_basic_adj_forms
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
-with open('el_GR.pickle', 'br') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'br') as file:
     greek_corpus = pickle.load(file)
 
 

@@ -4,7 +4,7 @@ import copy
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables
 
-with open('el_GR.pickle', 'rb') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά', 'adverb_comparative': 'ωμότερα/ωμότατα'}

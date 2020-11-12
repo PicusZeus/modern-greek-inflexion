@@ -3,6 +3,8 @@ from setuptools import setup, find_packages
 with open("README.md", 'r') as fh:
     long_description = fh.read()
 
+REQUIREMENTS = [i.strip() for i in open('requirements.txt').readlines()]
+
 setup(
     name="modern-greek-inflexion",
     version="0.1.3",
@@ -18,5 +20,6 @@ setup(
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"],
-    python_requires=">+3.6"
+    python_requires=">+3.6",
+    install_requires=REQUIREMENTS
 )

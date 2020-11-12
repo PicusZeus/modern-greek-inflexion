@@ -2,7 +2,7 @@
 import pickle
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 
-with open('el_GR.pickle', 'rb') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 sg = 'sg'

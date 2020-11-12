@@ -7,7 +7,7 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from modern_greek_accentuation.resources import vowels
 from .resources import feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut, aklita_gender, irregularities, diploklita
 
-with open('el_GR.pickle', 'br') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'br') as file:
     greek_corpus = pickle.load(file)
 
 

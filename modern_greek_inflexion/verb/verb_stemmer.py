@@ -9,7 +9,7 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 
 from .conjugations import create_regular_perf_root
 
-with open('el_GR.pickle', 'rb') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 

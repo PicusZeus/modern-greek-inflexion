@@ -1,6 +1,6 @@
 from .create_verb_list import create_all_basic_forms
-from .create_verb_forms import create_all_imperfect_personal_forms, create_all_perf_non_past_personal_forms, create_all_past_personal_forms
-from .resources import deponens_with_active_perf_forms
+from .create_verb_forms import create_all_imperfect_personal_forms, create_all_perf_non_past_personal_forms, \
+    create_all_past_personal_forms
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..adjective import adjective
 from ..helping_functions import merging_all_dictionaries
@@ -102,7 +102,4 @@ def create_all_forms(verb):
                 all_possible_infl_forms.append(res)
             all_forms[participle_type] = merging_all_dictionaries(*all_possible_infl_forms)
 
-
-
     return all_forms
-

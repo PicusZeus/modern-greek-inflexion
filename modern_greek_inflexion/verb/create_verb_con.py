@@ -10,7 +10,7 @@ from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, de
 
 from .resources import irregular_imperative_forms
 
-with open('el_GR.pickle', 'rb') as file:
+with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
     greek_corpus = pickle.load(file)
 
 forms_imp = {
