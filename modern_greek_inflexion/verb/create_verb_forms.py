@@ -1,5 +1,6 @@
 
-from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, recognize_past_conjugation
+from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation,\
+    recognize_past_conjugation
 
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 

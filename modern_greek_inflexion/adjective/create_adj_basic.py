@@ -1,29 +1,12 @@
-# from a list of adj in masc forms creates all three basic forms plus comparative and superlative (if exist) and
-# adverb
-import pickle
+
 
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables,\
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 
+from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
 
-with open('modern_greek_inflexion/el_GR.pickle', 'br') as file:
-    greek_corpus = pickle.load(file)
-
-irregular_comparatives = {'καλό': 'καλύτερος/άριστος',
-                          'κακό': 'χειρότερος,ήσσων/χείριστος,ήκιστος',
-                          'απλό': 'απλούστερος/απλούστατος',
-                          'μεγάλο': 'μεγαλύτερος/μέγιστος',
-                          'πολύ': 'περισσότερος/-',
-                          'λίγο': 'λιγότερος/ελάχιστος',
-                          'μέγα': 'μεγαλύτερος/μέγιστος',
-                          'πρώτο': 'πρωτύτερος/πρώτιστος',
-                        'ταχύ': 'ταχύτερος/ταχύτατος,τάχιστος'}
-
-irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήττον/κάκιστα,ήκιστα',
-                                 'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
-                                 'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
 
 def create_all_basic_adj_forms(adj, inflection=None):
     """

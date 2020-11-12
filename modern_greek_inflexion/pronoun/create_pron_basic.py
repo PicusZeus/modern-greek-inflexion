@@ -1,10 +1,6 @@
-import pickle
+
 from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent
 from modern_greek_inflexion.adjective import adjective
-
-file = open('modern_greek_inflexion/el_GR.pickle', 'br')
-greek_corpus = pickle.load(file)
-file.close()
 
 
 def create_basic_forms(pron):

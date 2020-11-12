@@ -1,51 +1,12 @@
 
-import pickle
+
 import copy
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables
 
-with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
-    greek_corpus = pickle.load(file)
+from ..resources import greek_corpus, adj_basic_template
 
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά', 'adverb_comparative': 'ωμότερα/ωμότατα'}
-
-adj_basic = {'sg':{
-                    'masc':{
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''
-                    },
-                    'fem':{
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''},
-                    'neut':{
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''}
-                    },
-              'pl': {
-                  'masc': {
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''},
-                  'fem': {
-                      'nom': '',
-                      'gen': '',
-                      'acc': '',
-                      'voc': ''
-                  },
-                  'neut': {
-                      'nom': '',
-                      'gen': '',
-                      'acc': '',
-                      'voc': ''
-                  }
-              }}
 
 
 def alternative_forms_kxth(fem):
@@ -163,46 +124,7 @@ def alternative_forms_us2(adj):
 
 def alternative_forms_wn(adj):
     # wn, ousa on
-    alt_forms = {'sg':{
-                    'masc':{
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''
-                    },
-                    'fem':{
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''},
-                    'neut':{
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''}
-                    },
-              'pl': {
-                  'masc': {
-                        'nom': '',
-                        'gen': '',
-                        'acc': '',
-                        'voc': ''},
-                  'fem': {
-                      'nom': '',
-                      'gen': '',
-                      'acc': '',
-                      'voc': ''
-                  },
-                  'neut': {
-                      'nom': '',
-                      'gen': '',
-                      'acc': '',
-                      'voc': ''
-                  }
-              }}
-
-
-
+    alt_forms = copy.deepcopy(adj_basic_template)
 
     masc, fem, neut = adj.split('/')
 
@@ -335,7 +257,7 @@ def create_all_adj_forms(adj):
     :return: two element array, first is a dictionary with all primary forms (forms[number][gender][case], the second
     one is a dictionary with alternative forms, if exists it has the same structure
     """
-    forms = copy.deepcopy(adj_basic)
+    forms = copy.deepcopy(adj_basic_template)
 
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')

@@ -1,15 +1,7 @@
 from modern_greek_inflexion.adjective.create_adj_decl import create_all_adj_forms
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
-m = 'masc'
-f = 'fem'
-n = 'neut'
-sg = 'sg'
-pl = 'pl'
-acc = 'acc'
-nom = 'nom'
-gen = 'gen'
-voc = 'voc'
+from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
 
 
 def create_all_pron_forms(bas_forms, strong=True):
@@ -26,18 +18,18 @@ def create_all_pron_forms(bas_forms, strong=True):
             forms, _ = create_all_adj_forms(bas_forms)
 
             # acc masc
-            acc_masc_sg = forms[sg][m][acc]
-            acc_fem_sg = forms[sg][f][acc]
+            acc_masc_sg = forms[SG][MASC][ACC]
+            acc_fem_sg = forms[SG][FEM][ACC]
             if acc_masc_sg[-1] in ['ο', 'ό']:
-                forms[sg][m][acc] = acc_masc_sg + ',' + acc_masc_sg + 'ν'
-            forms[sg][f][acc] = acc_fem_sg + ',' + acc_fem_sg + 'ν'
+                forms[SG][MASC][ACC] = acc_masc_sg + ',' + acc_masc_sg + 'ν'
+            forms[SG][FEM][ACC] = acc_fem_sg + ',' + acc_fem_sg + 'ν'
 
             if masc == 'αυτός':
                 if strong:
-                    from .resources import AUTOS_STRONG
+                    from ..resources import AUTOS_STRONG
                     forms = AUTOS_STRONG
                 else:
-                    from .resources import AUTOS_WEAK
+                    from ..resources import AUTOS_WEAK
                     forms = AUTOS_WEAK
 
             if masc == 'ποιος':
@@ -45,12 +37,12 @@ def create_all_pron_forms(bas_forms, strong=True):
                 gen_fem_sg = 'ποιας,ποιανάς,τίνος'
                 gen_neut_sg = gen_masc_sg = 'ποιου,ποιανού,τίνος'
                 gen_pl = 'ποιων,ποιανών,τίνων'
-                forms[sg][m][gen] = gen_masc_sg
-                forms[sg][f][gen] = gen_fem_sg
-                forms[sg][n][gen] = gen_neut_sg
-                forms[pl][m][gen] = gen_pl
-                forms[pl][f][gen] = gen_pl
-                forms[pl][n][gen] = gen_pl
+                forms[SG][MASC][GEN] = gen_masc_sg
+                forms[SG][FEM][GEN] = gen_fem_sg
+                forms[SG][NEUT][GEN] = gen_neut_sg
+                forms[PL][MASC][GEN] = gen_pl
+                forms[PL][FEM][GEN] = gen_pl
+                forms[PL][NEUT][GEN] = gen_pl
 
         elif masc[-6:] == 'δήποτε':
             suffix = 'δήποτε'
@@ -99,34 +91,34 @@ def create_all_pron_forms(bas_forms, strong=True):
             forms['sg']['neut']['gen'] = prefix_mn + 'ενός'
 
         elif masc == 'τις':
-            from .resources import TIS
+            from ..resources import TIS
             forms = TIS
 
         elif masc == 'όστις':
-            from .resources import OSTIS
+            from ..resources import OSTIS
             forms = OSTIS
         elif masc == 'όσπερ':
-            from .resources import OSPER
+            from ..resources import OSPER
             forms = OSPER
         elif masc[-2:] in ['οι', 'οί']:
             forms = {'pl': {'masc': {}, 'fem': {}, 'neut': {}}}
             thema = masc[:-2]
             accent = where_is_accent(masc)
 
-            forms[pl][m][nom] = masc
-            forms[pl][m][gen] = put_accent(thema + 'ων', accent)
-            forms[pl][m][acc] = put_accent(thema + 'ους', accent)
-            forms[pl][m][voc] = masc
+            forms[PL][MASC][NOM] = masc
+            forms[PL][MASC][GEN] = put_accent(thema + 'ων', accent)
+            forms[PL][MASC][ACC] = put_accent(thema + 'ους', accent)
+            forms[PL][MASC][VOC] = masc
 
-            forms[pl][f][nom] = fem
-            forms[pl][f][gen] = put_accent(thema + 'ων', accent)
-            forms[pl][f][acc] = fem
-            forms[pl][f][voc] = fem
+            forms[PL][FEM][NOM] = fem
+            forms[PL][FEM][GEN] = put_accent(thema + 'ων', accent)
+            forms[PL][FEM][ACC] = fem
+            forms[PL][FEM][VOC] = fem
 
-            forms[pl][n][nom] = neut
-            forms[pl][n][gen] = put_accent(thema + 'ων', accent)
-            forms[pl][n][acc] = neut
-            forms[pl][n][voc] = neut
+            forms[PL][NEUT][NOM] = neut
+            forms[PL][NEUT][GEN] = put_accent(thema + 'ων', accent)
+            forms[PL][NEUT][ACC] = neut
+            forms[PL][NEUT][VOC] = neut
 
 
     else:
@@ -136,22 +128,22 @@ def create_all_pron_forms(bas_forms, strong=True):
                 for gender in forms[number]:
                     for case in forms[number][gender]:
 
-                        if gender != n or case not in [nom, acc]:
+                        if gender != NEUT or case not in [NOM, ACC]:
 
                             forms[number][gender][case] = ''
         elif masc == 'εγώ':
             if strong:
-                from .resources import EGO_STRONG
+                from ..resources import EGO_STRONG
                 forms = EGO_STRONG
             else:
-                from .resources import EGO_WEAK
+                from ..resources import EGO_WEAK
                 forms = EGO_WEAK
         elif masc == 'εσύ':
             if strong:
-                from .resources import ESU_STRONG
+                from ..resources import ESU_STRONG
                 forms = ESU_STRONG
             else:
-                from .resources import ESU_WEAK
+                from ..resources import ESU_WEAK
                 forms = ESU_WEAK
 
         elif masc == 'αλλήλων':
@@ -212,7 +204,7 @@ def create_all_pron_forms(bas_forms, strong=True):
         for gender in forms[number]:
             for case in forms[number][gender]:
 
-                if case == voc:
+                if case == VOC:
                     forms[number][gender][case] = ''
 
     return forms

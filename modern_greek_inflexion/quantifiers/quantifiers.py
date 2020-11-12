@@ -1,10 +1,9 @@
+
 from .create_quant_decl import creat_all_quant_adj_forms
 from ..adjective import adjective
 from .create_quant_list import create_quant_adj
 from ..noun import noun
 from ..helping_functions import merging_all_dictionaries
-
-
 
 
 def create_all_adj_quant(base_form):

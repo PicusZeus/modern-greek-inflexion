@@ -1,17 +1,11 @@
-import pickle
 import sys
-
 from .conjugations import create_imp_pass, recognize_past_conjugation
-from .conjugations import conjugations
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
 
-from .resources import irregular_imperative_forms
-
-with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
-    greek_corpus = pickle.load(file)
+from ..resources import greek_corpus, irregular_imperative_forms, conjugations
 
 forms_imp = {
     'sg': {
@@ -21,6 +15,7 @@ forms_imp = {
         'sec': [],
     }
 }
+
 
 def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_root=None, simple_aor=False):
 

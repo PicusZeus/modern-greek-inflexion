@@ -22,7 +22,7 @@ Please make sure to update tests as appropriate.
 
 ## Change Log
 
-
+ * 0.1.4 Fixed issue with dependencies, fixed path to greek_corpus db.
  * 0.1.3 Added es, ous neutral nouns, fixed issue with hs, eis nouns, added new pronoun paradigms, added flag 'aklito' for nouns and adjectives.
  * 0.1.2 Fixed issue with double vocatives in some two syllable proper masculine names
  * 0.1.1 Initial release

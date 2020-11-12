@@ -1,16 +1,12 @@
+
 import copy
-import pickle
+
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, where_is_accent, put_accent_on_the_ultimate
 
 from modern_greek_inflexion.adjective.create_adj_decl import create_all_adj_forms
-from modern_greek_inflexion.adjective.create_adj_decl import adj_basic
+from modern_greek_inflexion.adjective.create_adj_decl import adj_basic_template
 
-
-aklita_quant_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
-                                     'δεκαοχτώ': 'δεκαοκτώ', 'δεκαεννιά': 'δεκαεννέα', 'δεκαεφτά': 'δεκαεπτά'}
-
-with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
-    greek_corpus = pickle.load(file)
+from ..resources import greek_corpus, aklita_num_alternatives
 
 
 def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
@@ -24,7 +20,7 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
         return all_forms[0]
     else:
         masc, fem, neut = quant_base_forms.split('/')
-        forms = copy.deepcopy(adj_basic)
+        forms = copy.deepcopy(adj_basic_template)
 
         if masc[-2:] in ['οι', 'οί'] and fem[-2:] in ['ες', 'ές'] and neut[-1] in ['α', 'ά']:
             # exclusively for quantifiers, as there are for obvious reasons only in plural
@@ -47,8 +43,8 @@ def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
         elif neut[-7:] == 'τέσσερα':
             gen_pl = 'τεσσάρων'
             acc_masc = masc
-        elif neut in aklita_quant_alternatives:
-            masc = fem = neut = acc_masc = gen_pl = neut + ',' + aklita_quant_alternatives[neut]
+        elif neut in aklita_num_alternatives:
+            masc = fem = neut = acc_masc = gen_pl = neut + ',' + aklita_num_alternatives[neut]
 
         elif neut == 'ένα':
 

@@ -1,15 +1,8 @@
 
-import pickle
-from modern_greek_accentuation.augmentify import deaugment_prefixed_stem, put_accent_on_past_tense
-
-from .resources import irregular_active_roots, irregular_passive_roots
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from .resources import conjugations
 
-
-with open('modern_greek_inflexion/el_GR.pickle', 'rb') as file:
-    greek_corpus = pickle.load(file)
+from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
 
 
 def find_alternative_roots(ending, stem):
