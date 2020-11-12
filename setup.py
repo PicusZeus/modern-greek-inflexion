@@ -7,7 +7,7 @@ REQUIREMENTS = [i.strip() for i in open('requirements.txt').readlines()]
 
 setup(
     name="modern-greek-inflexion",
-    version="0.1.4",
+    version="0.1.6",
     description="Python 3 library for creating inflected forms for Modern Greek words",
     long_description_content_type="text/markdown",
     long_description=long_description,
@@ -21,5 +21,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"],
     python_requires=">+3.6",
+    include_package_data=True,
+    package_data={"": ["*.pickle"]},
     install_requires=REQUIREMENTS
 )
