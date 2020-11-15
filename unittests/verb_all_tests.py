@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
 
-res = verb.create_all_forms('τελειώνω')
+res = verb.create_all_forms('μουζώνομαι')
 print(res)
 
 class VerbTestAll(TestCase):

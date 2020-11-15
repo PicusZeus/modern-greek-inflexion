@@ -17,7 +17,8 @@ def create_all_forms(verb):
 
     "present"
     present = {}
-
+    if 'error' in basic_forms:
+        return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
     # print(present_basic_forms)
     if 'active' in present_basic_forms:

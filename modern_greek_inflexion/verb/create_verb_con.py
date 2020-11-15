@@ -153,8 +153,8 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
             forms['sg']['ter'] = ['ζήτω']
         forms['sg']['sec'][0] = put_accent_on_the_penultimate(forms['sg']['sec'][0])
         if len(forms['sg']['sec']) == 3:
-            forms['sg']['sec'][1] = put_accent_on_the_penultimate(forms['sg']['sec'])
-            forms['sg']['sec'][2] = put_accent_on_the_antepenultimate(forms['sg']['sec'])
+            forms['sg']['sec'][1] = put_accent_on_the_penultimate(forms['sg']['sec'][1])
+            forms['sg']['sec'][2] = put_accent_on_the_antepenultimate(forms['sg']['sec'][2])
 
     #### irregular imperatives
     if conjugation_name[:5] == 'imper':

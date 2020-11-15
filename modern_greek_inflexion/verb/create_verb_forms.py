@@ -20,7 +20,10 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
             for number in forms[pos]:
                 for person in forms[pos][number]:
                     old = forms[pos][number][person]
-                    new = forms_ind_or_con[number][person]
+                    try:
+                        new = forms_ind_or_con[number][person]
+                    except KeyError:
+                        new = []
                     new.extend(old)
                     forms[pos][number][person] = new
         # if forms_imp:

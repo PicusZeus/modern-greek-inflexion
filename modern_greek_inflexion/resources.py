@@ -1,7 +1,7 @@
 import pickle
 import os
 
-this_dir, this_filename = os.path.abspath(__name__).split('.')
+this_dir, this_filename = os.path.split(__file__)
 data_path = os.path.join(this_dir, 'el_GR.pickle')
 
 

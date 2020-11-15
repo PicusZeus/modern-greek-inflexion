@@ -610,7 +610,7 @@ def recognize_passive_present_continuous_conjugation(verb):
 
     verb = verb.strip()
 
-    if len(verb) < 6:
+    if verb != 'είμαι' and len(verb) < 6:
         # maybe unnecessary, but one more way to catch problematic input
         print(verb + ' doesnt seem to be a correct verb form')
         raise ValueError

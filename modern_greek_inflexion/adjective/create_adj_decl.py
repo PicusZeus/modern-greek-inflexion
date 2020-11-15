@@ -251,6 +251,7 @@ def put_accent_on_unaccented_forms(forms):
 
 
 def create_all_adj_forms(adj):
+
     """
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesnt exist, it should
     be replaced with dash '-'
@@ -465,6 +466,36 @@ def create_all_adj_forms(adj):
 
         return forms, None
 
+    elif masc[-2:] == 'ώς' and fem[-1] == 'α' and neut[-1] == 'ς':
+        #archaic participles, not sure which endings to choose, as it seems both are used, ancient and modern (especially in fem),
+        # for now I will settle with modernized
+        thema = masc[:-1] + 'τ'
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = thema + 'α'
+        forms['sg']['masc']['gen'] = thema + 'ος'
+        forms['sg']['masc']['voc'] = masc
+        forms['sg']['fem']['nom'] = fem
+        forms['sg']['fem']['acc'] = fem
+        forms['sg']['fem']['gen'] = fem + 'ς'
+        forms['sg']['fem']['voc'] = fem
+        forms['sg']['neut']['nom'] = neut
+        forms['sg']['neut']['gen'] = thema + 'ος'
+        forms['sg']['neut']['acc'] = neut
+        forms['sg']['neut']['voc'] = neut
+        forms['pl']['masc']['nom'] = thema + 'ες'
+        forms['pl']['masc']['acc'] = thema + 'ες'
+        forms['pl']['masc']['gen'] = thema + 'ων'
+        forms['pl']['masc']['voc'] = thema + 'ες'
+        forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
+        forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
+        forms['pl']['fem']['gen'] = fem[:-1] + 'ων'
+        forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
+        forms['pl']['neut']['nom'] = thema + 'α'
+        forms['pl']['neut']['acc'] = thema + 'α'
+        forms['pl']['neut']['gen'] = thema + 'ων'
+        forms['pl']['neut']['voc'] = thema + 'α'
+
+        return forms, None
     elif masc[-2:] in ['ης', 'ής'] and fem[-2:] in ['ής', 'ης'] and neut[-2:] in ['ες', 'ές']:
         forms['sg']['masc']['nom'] = masc
         forms['sg']['masc']['gen'] = masc[:-2] + 'ους'

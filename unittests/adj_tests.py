@@ -3,7 +3,7 @@ from unittest import TestCase, main
 from modern_greek_inflexion.adjective import adjective
 
 
-r = adjective.create_all_basic_forms('ταχύς')
+r = adjective.create_all('τεθνεώς')
 print(r)
 
 class AdjectiveTests(TestCase):
@@ -26,7 +26,8 @@ class AdjectiveTests(TestCase):
                              'masc': {'gen': {'ωραιότερου'}, 'acc': {'ωραιότερο'}, 'voc': {'ωραιότερε'},
                                       'nom': {'ωραιότερος'}},
                              'neut': {'gen': {'ωραιότερου'}, 'acc': {'ωραιότερο'}, 'voc': {'ωραιότερο'},
-                                      'nom': {'ωραιότερο'}}}}, 'superl': {'pl': {
+                                      'nom': {'ωραιότερο'}}}},
+             'superl': {'pl': {
                 'fem': {'gen': {'ωραιότατων'}, 'acc': {'ωραιότατες'}, 'voc': {'ωραιότατες'}, 'nom': {'ωραιότατες'}},
                 'masc': {'gen': {'ωραιότατων'}, 'acc': {'ωραιότατους'}, 'voc': {'ωραιότατοι'}, 'nom': {'ωραιότατοι'}},
                 'neut': {'gen': {'ωραιότατων'}, 'acc': {'ωραιότατα'}, 'voc': {'ωραιότατα'}, 'nom': {'ωραιότατα'}}},
@@ -42,7 +43,9 @@ class AdjectiveTests(TestCase):
                                                                                           'acc': {'ωραιότατο'},
                                                                                           'voc': {'ωραιότατο'},
                                                                                           'nom': {'ωραιότατο'}}}},
-             'adv': {'ωραία'}, 'comp_adv': {'ωραιότερα'}, 'superl_adv': {'ωραιότατα'}}
+             'adv': {'ωραία'},
+             'comp_adv': {'ωραιότερα'},
+             'superl_adv': {'ωραιότατα'}}
 
         )
 

@@ -240,6 +240,13 @@ def create_all_basic_adj_forms(adj, inflection=None):
         else:
             raise AssertionError
 
+    elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς']:
+        masc = adj
+        fem = adj[:-1] + 'σα'
+        neuter = adj
+        # rare but sometimes ancient perf participle
+
+
     elif adj in ['άρρην']:
         # so rare that it can be solved like that
         masc = adj

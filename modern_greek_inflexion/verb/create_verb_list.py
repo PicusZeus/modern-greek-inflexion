@@ -10,6 +10,7 @@ def create_all_basic_forms(pres_form):
    :return: a dictionary {'present': '', 'conjunctive': '', 'aorist': '', 'paratatikos': ''} and others, for times it gives active and medio-passive (if exists) divided by '/'. Modals are given in 3rd person, alternative formse are separated by coma, passive participles on menos are given only in masc separated by coma
    if there are alternatives
     """
+    print(pres_form in greek_corpus)
 
     if not pres_form or pres_form[-1] not in ['ω', 'ώ', 'ι', 'α'] or pres_form not in greek_corpus:
 
