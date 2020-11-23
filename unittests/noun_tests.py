@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('ασθενής')
+res = noun.create_all('υπέρθημα', gender='neut')
 print(res)
 
 class NounTests(TestCase):
@@ -15,7 +15,22 @@ class NounTests(TestCase):
 
         )
 
+    def test_noun_alytarchos(self):
+        self.assertEqual(
+            noun.create_all('αλύταρχος', gender='masc'),
+            {'masc': {'sg': {'nom': {'αλύταρχος'}, 'acc': {'αλύταρχο'}, 'voc': {'αλύταρχε'}, 'gen': {'αλύταρχου'}},
+                      'pl': {'nom': {'αλύταρχοι'}, 'acc': {'αλύταρχους'}, 'voc': {'αλύταρχοι'}, 'gen': {'αλύταρχων'}}}}
 
+        )
+
+    def test_noun_estiator(self):
+        self.assertEqual(
+            noun.create_all('εστιάτωρ'),
+            {'masc': {'sg': {'gen': {'εστιάτορος'}, 'acc': {'εστιάτορα'}, 'voc': {'εστιάτορ'}, 'nom': {'εστιάτωρ'}},
+                      'pl': {'gen': {'εστιατόρων'}, 'acc': {'εστιάτορες'}, 'voc': {'εστιάτορες'},
+                             'nom': {'εστιάτορες'}}}}
+
+        )
 
     def test_noun_kontes(self):
         self.assertEqual(
@@ -81,6 +96,18 @@ class NounTests(TestCase):
             noun.create_all('μάθημα'),
             {'neut': {'sg': {'gen': {'μαθήματος'}, 'acc': {'μάθημα'}, 'nom': {'μάθημα'}, 'voc': {'μάθημα'}},
                       'pl': {'gen': {'μαθημάτων'}, 'acc': {'μαθήματα'}, 'nom': {'μαθήματα'}, 'voc': {'μαθήματα'}}}}
+
+        )
+        # sometimes there are no inflected form in our greek_corpus, in this situation gender info is required in order
+        # generate correct forms
+    def test_noun_yperthima(self):
+        self.maxDiff = None
+
+        self.assertEqual(
+            noun.create_all('υπέρθημα', gender='neut'),
+            {'neut': {'sg': {'nom': {'υπέρθημα'}, 'gen': {'υπερθήματος'}, 'voc': {'υπέρθημα'}, 'acc': {'υπέρθημα'}},
+                      'pl': {'nom': {'υπερθήματα'}, 'gen': {'υπερθημάτων'}, 'acc': {'υπερθήματα'},
+                             'voc': {'υπερθήματα'}}}}
 
         )
 

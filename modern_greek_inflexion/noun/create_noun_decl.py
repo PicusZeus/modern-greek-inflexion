@@ -38,7 +38,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             genders = genders + ',neut_irregular'
             nom_pl = plurals[0]
             irregular_nom_pl = plurals[1]
-
     for gender in genders.split(','):
 
         if gender == 'neut_irregular':

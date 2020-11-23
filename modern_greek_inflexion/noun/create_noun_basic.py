@@ -47,8 +47,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         # declined in the corpus, i will assume then that words above 4 syllabes do exist, but only in singular, the
         # same should be the case for neuter long words on -o
         # also some proper names in greek_corpus are, as is proper, capitalized
-        # print(gen_form, gen_form in greek_corpus)
-        if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or number_of_syllables >4:
+        if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or gender == 'masc' or number_of_syllables >4:
             gens_sg.append(gen_form)
 
         if accent == 'antepenultimate':
@@ -58,7 +57,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         noun_temp['gen_sg'] = ','.join(gens_sg)
 
-        if plural_form in greek_corpus or plural_form.capitalize() in greek_corpus or number_of_syllables > 4:
+        if plural_form in greek_corpus or plural_form.capitalize() in greek_corpus or number_of_syllables > 4 or gender == 'masc':
             noun_temp['nom_pl'] = plural_form
             if not gens_sg:
                 noun_temp['gen_sg'] = gen_form
@@ -365,29 +364,34 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             plural_form_a = noun[:-1] + 'ές'
         plural_form_b = put_accent_on_the_penultimate(noun[:-1] + 'εις', true_syllabification=False)
         plural_form_c = noun + 'δες'
-
+        print(plural_form_a, plural_form_a in greek_corpus)
         if plural_form_c in greek_corpus:
             noun_temp['nom_pl'] = plural_form_c
 
         elif plural_form_a in greek_corpus and plural_form_a not in ['γες']:
             # unfortunetly for some very short words it can fail, ad hoc solution is to implement some kind of a list
-            # print(plural_form_a in greek_corpus, plural_form_a)
             noun_temp['nom_pl'] = plural_form_a
 
         # special case for neuter on ma
-        if noun[-2:] == 'μα' and (plural_form_a not in greek_corpus or plural_form_b not in greek_corpus or plural_form_c not in greek_corpus or put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False) in greek_corpus):
+        if noun[-2:] == 'μα' and (plural_form_a not in greek_corpus or
+                                  plural_form_b not in greek_corpus or
+                                  plural_form_c not in greek_corpus or
+                                gender == 'neut' or
+                                  put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False) in greek_corpus):
+            # print('YPER', noun)
             plural_form = put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False)
             gen_form = put_accent_on_the_antepenultimate(noun + 'τος', true_syllabification=False)
-            if plural_form in greek_corpus or gen_form in greek_corpus:
-                noun_temp['nom_pl'] = plural_form
-                noun_temp['gen_sg'] = gen_form
-                noun_temp['gender'] = 'neut'
-        if noun[-1] == 'α' and noun + 'τος' in greek_corpus and noun + 'τα' in greek_corpus:
+            # if plural_form in greek_corpus or gen_form in greek_corpus or gender == 'neut':
+            noun_temp['nom_pl'] = plural_form
+            noun_temp['gen_sg'] = gen_form
+            noun_temp['gender'] = 'neut'
+            # print(noun_temp, "TUTUTUTU")
+        elif noun[-1] == 'α' and noun + 'τος' in greek_corpus and noun + 'τα' in greek_corpus or gender == 'neut':
             # gala, galatos
 
             noun_temp['nom_sg'] = noun
-            noun_temp['nom_pl'] = noun + 'τα'
-            noun_temp['gen_sg'] = noun + 'τος'
+            noun_temp['nom_pl'] = put_accent_on_the_antepenultimate(noun + 'τα')
+            noun_temp['gen_sg'] = put_accent_on_the_antepenultimate(noun + 'τος')
             noun_temp['gender'] = 'neut'
             if 'γάλα' in noun:
                 noun_temp['nom_pl'] = noun + 'τα' + ',' + noun + 'κτα'
@@ -623,8 +627,10 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                 noun_temp['gender'] = 'neut'
 
 
+
         for stem in stems:
             plural_form = stem + 'ες'
+            modern_form = stem + 'ας'
             plural_form_n = stem + 'α'
             gen_form = stem + 'ος'
             if count_syllables(stem) == 1:
@@ -639,15 +645,17 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                 plural_form_n = put_accent_on_the_antepenultimate(plural_form_n)
 
 
-            if plural_form in greek_corpus and noun not in ['πυρ']:
+            if (plural_form in greek_corpus or modern_form in greek_corpus) and noun not in ['πυρ']:
                 noun_temp['nom_pl'] = plural_form
-                if gen_form in greek_corpus:
+                if gen_form in greek_corpus or modern_form in greek_corpus:
                     noun_temp['gen_sg'] = gen_form
-                noun_temp['gender'] = 'masc'
+                if gender:
+                    noun_temp['gender'] = gender
                 # it's a bit crude way to correct gender but i cannot find a better way without a comprehensive list
-                gen_pl = remove_all_diacritics(plural_form[:-2]) + 'ών'
-                if gen_pl in greek_corpus:
-                    noun_temp['gender'] = 'fem'
+                # gen_pl = remove_all_diacritics(plural_form[:-2]) + 'ών'
+                # if gen_pl in greek_corpus:
+                #     noun_temp['gender'] = 'fem'
+                return noun_temp
             else:
                 if plural_form_n in greek_corpus or noun in ['έαρ']:
                     noun_temp['gender'] = 'neut'
