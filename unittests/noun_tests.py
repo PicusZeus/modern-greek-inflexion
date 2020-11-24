@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('υπέρθημα', gender='neut')
+res = noun.create_all('βασιλιάς')
 print(res)
 
 class NounTests(TestCase):
@@ -12,6 +12,24 @@ class NounTests(TestCase):
             noun.create_all('γυναίκα'),
             {'fem': {'sg': {'nom': {'γυναίκα'}, 'gen': {'γυναίκας'}, 'voc': {'γυναίκα'}, 'acc': {'γυναίκα'}},
                      'pl': {'nom': {'γυναίκες'}, 'gen': {'γυναικών'}, 'voc': {'γυναίκες'}, 'acc': {'γυναίκες'}}}}
+
+        )
+
+    def test_noun_mpousi(self):
+        self.assertEqual(
+            noun.create_all('μπούσι'),
+            {'neut': {'pl': {'voc': {'μπούσια'}, 'acc': {'μπούσια'}, 'gen': {''}, 'nom': {'μπούσια'}},
+                      'sg': {'voc': {'μπούσι'}, 'acc': {'μπούσι'}, 'gen': {''}, 'nom': {'μπούσι'}}}}
+
+        )
+
+    def test_noun_thyronoiksia(self):
+        """with pluralia tantum you have to say it explicitly"""
+        self.assertEqual(
+            noun.create_all('θυρανοίξια', gender='neut_pl'),
+            {'neut': {
+                'pl': {'voc': {'θυρανοίξια'}, 'acc': {'θυρανοίξια'}, 'gen': {'θυρανοιξίων'}, 'nom': {'θυρανοίξια'}},
+                'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}}}}
 
         )
 
