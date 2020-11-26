@@ -230,9 +230,10 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             nom_pl = plural_form_ba
             gen_sg = gen_form_ba
 
-        elif plural_form_a in greek_corpus or gen_form_a in greek_corpus:
+        elif plural_form_a in greek_corpus:
 
             nom_pl = plural_form_a
+
             gen_sg = gen_form_a
 
         elif plural_form_c_neut in greek_corpus and gen_form_c in greek_corpus:
@@ -255,7 +256,10 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             # there are many professions that are rarely in plural, but which do have gen, and almost all of them
             # create gen by subtracting s
         else:
+
             noun_temp['nom_pl'] = plural_form_a
+            if noun[-3:] == 'έας':
+                noun_temp['nom_pl'] = plural_form_b
             noun_temp['gen_sg'] = gen_form_a
 
         # lastly check maybe there are professions which can be feminine
