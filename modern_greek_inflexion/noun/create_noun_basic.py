@@ -27,6 +27,10 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     capital = noun[0].isupper()
     noun = noun.lower()
+
+    prefixes = ['νανο', 'μικρο', 'σκατο', 'παλιο']
+
+
     # on 'os'
 
     if noun[-2:] in ['ός', 'ος']:
@@ -523,7 +527,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         gen_form_a = ''
 
         if noun[-2:] in ['ον', 'όν']:
-
             plural_form_a = noun[:-2] + 'ά'
             gen_form_a = noun[:-2] + 'ού'
 
@@ -759,6 +762,18 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     if not noun_temp['nom_pl'] and not noun_temp['gen_sg']:
 
         # aklita
+
+        # # but in this case check, maybe there is prefix
+        #
+        # for prefix in prefixes:
+        #     l = len(prefix)
+        #     print(noun)
+        #     if prefix in noun and prefix == noun[:l]:
+        #         print(prefix)
+        #
+        # #
+
+
         noun_temp['gender'] = 'neut'
         noun_temp['nom_pl'] = noun
         noun_temp['gen_sg'] = noun
@@ -801,6 +816,21 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['nom_pl'] = ''
         noun_temp['gen_sg'] = noun
 
+
+    # check one more time these, that do not have flag aklito, but are surmised to be, maybe removing a prefix we will
+    # be able to find out the correct declesion type
+    if inflection != "aklito" and noun_temp['nom_pl'] == noun_temp['nom_sg']:
+        for prefix in prefixes:
+            pr_l = len(prefix)
+            if prefix in noun and prefix == noun[:pr_l]:
+                res = create_all_basic_noun_forms(noun[pr_l:])
+                new_res = {}
+                for key in res.keys():
+                    if key != 'gender':
+                        new_res[key] = prefix + res[key]
+                new_res['gender'] = res['gender']
+                noun_temp = new_res
+                break
 
     if capital:
         noun_temp = capitalize_basic_forms(noun_temp)
