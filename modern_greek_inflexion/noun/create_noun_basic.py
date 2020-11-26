@@ -70,7 +70,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gender'] = 'fem,masc'
 
         if not noun_temp['nom_pl'] and not gens_sg or gender == 'neut':
-            print('HERE')
             # maybe its neuter like lathos
             plural_form = stem + 'η'
             gen_form = stem + 'ους'
@@ -377,7 +376,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             plural_form_a = noun[:-1] + 'ές'
         plural_form_b = put_accent_on_the_penultimate(noun[:-1] + 'εις', true_syllabification=False)
         plural_form_c = noun + 'δες'
-        print(plural_form_a, plural_form_a in greek_corpus)
+        # print(plural_form_a, plural_form_a in greek_corpus)
         if plural_form_c in greek_corpus:
             noun_temp['nom_pl'] = plural_form_c
 
@@ -391,14 +390,12 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                                   plural_form_c not in greek_corpus or
                                 gender == 'neut' or
                                   put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False) in greek_corpus):
-            # print('YPER', noun)
             plural_form = put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False)
             gen_form = put_accent_on_the_antepenultimate(noun + 'τος', true_syllabification=False)
             # if plural_form in greek_corpus or gen_form in greek_corpus or gender == 'neut':
             noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
             noun_temp['gender'] = 'neut'
-            # print(noun_temp, "TUTUTUTU")
         elif noun[-1] == 'α' and noun + 'τος' in greek_corpus and noun + 'τα' in greek_corpus or gender == 'neut':
             # gala, galatos
 
