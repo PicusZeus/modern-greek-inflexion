@@ -313,6 +313,1878 @@ Adjectival quantifiers are actually adjectives, but some additional logic had to
 
 Some of these quantifiers, especially ordinal numbers have also adverb
 
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_num('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
+>>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
+{'δεύτερον'}
+
+and sometimes even comparatives
+
+>>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+{'πρωτύτερος'}
+
+>>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+{'χιλιάδες'}
+
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+
+>>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
+['οχτακόσιους', 'οκτακόσιους']
+
+Some of these quantifiers, especially ordinal numbers have also adverb
+
 >>> quantifiers.create_all_adj_quant('δεύτερος')['adv']
 {'δεύτερον'}
 

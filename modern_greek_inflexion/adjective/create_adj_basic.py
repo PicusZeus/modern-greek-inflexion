@@ -72,31 +72,28 @@ def create_all_basic_adj_forms(adj, inflection=None):
             else:
                 fem_alt = adj[:-2] + 'ια'
 
-        if fem in greek_corpus and fem_alt in greek_corpus:
-            fem = fem + ',' + fem_alt
+            if fem in greek_corpus and fem_alt in greek_corpus:
+                fem = fem + ',' + fem_alt
 
-        elif fem not in greek_corpus and fem_alt in greek_corpus:
-            fem = fem_alt
+            elif fem not in greek_corpus and fem_alt in greek_corpus:
+                fem = fem_alt
 
-        elif fem in greek_corpus and fem_alt not in greek_corpus:
-            fem = fem
-        else:
-            # for the most part forms on h should be correct, but adj is not very common, so is lacking from db
-            # check for -a by looking for genetive on as in db
-            if accent == 'ultimate':
-                gen = adj[:-2] + 'άς'
-                beta_fem = adj[:-2] + 'ά'
+            elif fem in greek_corpus and fem_alt not in greek_corpus:
+                fem = fem
             else:
-                gen = adj[:-2] + 'ας'
-                beta_fem = adj[:-2] + 'α'
+                # for the most part forms on h should be correct, but adj is not very common, so is lacking from db
+                # check for -a by looking for genetive on as in db
+                if accent == 'ultimate':
+                    gen = adj[:-2] + 'άς'
+                    beta_fem = adj[:-2] + 'ά'
+                else:
+                    gen = adj[:-2] + 'ας'
+                    beta_fem = adj[:-2] + 'α'
 
-            if gen in greek_corpus:
-                fem = beta_fem
+                if gen in greek_corpus:
+                    fem = beta_fem
 
-            elif adj[-5:] in ['μένος', 'μενος']:
-                fem = adj[:-2] + 'η'
-
-            # if its lacking from the db, still the best shot is to leave the supposed femine form
+            # if its lacking from the db, still the best guess is to leave the form on -h
 
         adj_forms.append(fem)
 
@@ -129,7 +126,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
                 neuter = put_accent(stem + 'ες', 'antepenultimate', true_syllabification=False)
 
         elif stem + 'ού' in greek_corpus:
-            # type kafetzhs kafetzou, only masc and fem
+            # type kafetzhs kafetzou, but is it a adj?
             masc = adj
             fem = adj[:-2] + 'ού'
             neuter = adj[:-1] + 'δικο'
@@ -138,6 +135,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
             raise AssertionError
 
     elif adj[-2:] in ['υς', 'ύς'] or adj in ['γλυκύ']:
+        # my database is far from greate
         stem = adj[:-2]
         masc = adj
         neuter = adj[:-1]
@@ -148,17 +146,15 @@ def create_all_basic_adj_forms(adj, inflection=None):
             masc = adj + 'ς'
             neuter = adj
 
-        adj_forms.append(masc)
-
         fem = stem + 'ιά'
 
         if fem + 'ς' not in greek_corpus:
             # look for gen because nom fem can be mistaken for acc pl
-            fem = stem + 'εία'
-            if fem not in greek_corpus and adj[-5:] == 'πολύς':
+            fem_eia = stem + 'εία'
+            if fem_eia in greek_corpus:
+                fem = fem_eia
+            if adj[-5:] == 'πολύς':
                 fem = adj[:-5] + 'πολλή'
-
-
 
     elif adj[-2:] in ['ων', 'ών']:
         stem = adj[:-2]
@@ -167,8 +163,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
         neuter = None
         if accent == 'penultimate' or not accent:
             fem = stem + 'ουσα'
-            if not accent:
-                fem = put_accent_on_the_penultimate(fem)
+            # if not accent:
+            #     fem = put_accent_on_the_penultimate(fem)
 
             neuter = stem + 'ον'
 
@@ -179,7 +175,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
             neuter_alt_2 = stem + 'ούν'
             if neuter + 'τα' in greek_corpus or neuter + 'τες' in greek_corpus:
                 fem = stem + 'ούσα'
-            elif neuter_alt_1 + 'τα' in greek_corpus or neuter_alt_1 + 'τες' in greek_corpus:
+            elif neuter_alt_1 + 'τα' in greek_corpus or neuter_alt_1 + 'τες' in greek_corpus or adj in ['ζων', 'κυβερνών', 'επιζών']:
+
                 fem = stem + 'ώσα'
                 neuter = neuter_alt_1
             elif neuter_alt_2 + 'τα' in greek_corpus or neuter_alt_2 + 'τες' in greek_corpus or neuter_alt_2 + 'των' in greek_corpus:
@@ -188,21 +185,12 @@ def create_all_basic_adj_forms(adj, inflection=None):
             if not accent:
                 neuter = remove_all_diacritics(neuter)
 
-            if not neuter:
-                neuter = '-'
-            if adj in ['ζων', 'κυβερνών', 'επιζών']:
-                # if adj are the old present participles contracted on a and
-                neuter = adj
-                fem = stem + 'ώσα'
 
         # it is also possible, that there are wn, onos
         if adj[:-2] + 'ονος' in greek_corpus:
             masc, fem = adj, adj
             neuter = adj[:-2] + 'ον'
 
-        if not fem:
-            print(adj)
-            raise AssertionError
 
     elif adj[-3:] == 'είς':
         # passive aorist participles

@@ -1,30 +1,26 @@
 from unittest import TestCase, main
 
-from modern_greek_inflexion.quantifiers import quantifiers
+from modern_greek_inflexion.numerals import numerals
 
-qa = quantifiers.create_all_adj_quant('δεύτερος')
-qn = quantifiers.create_all_noun_quant('χιλιάδες')
-print(qa)
-
+qa = numerals.create_all_adj_num('δεύτερος')
+qn = numerals.create_all_noun_num('χιλιάδες')
 
 
-
-class QuntifiersNounTest(TestCase):
+class NumeralsNounTest(TestCase):
 
     def test_noun_xiliades(self):
         self.assertEqual(
-            quantifiers.create_all_noun_quant('χιλιάδες'),
+            numerals.create_all_noun_num('χιλιάδες'),
             {'fem': {'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}},
                      'pl': {'voc': {'χιλιάδες'}, 'acc': {'χιλιάδες'}, 'gen': {'χιλιάδων'}, 'nom': {'χιλιάδες'}}}}
         )
 
 
+class NumeralsAdjectiveTest(TestCase):
 
-class QuantifiersAdjectiveTest(TestCase):
-
-    def test_quant_diakosia(self):
+    def test_num_diakosia(self):
         self.assertEqual(
-            quantifiers.create_all_adj_quant('διακόσια'),
+            numerals.create_all_adj_num('διακόσια'),
             {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'neut': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}}}, 'pl': {
@@ -34,9 +30,9 @@ class QuantifiersAdjectiveTest(TestCase):
 
         )
 
-    def test_quant_deuteros(self):
+    def test_num_deuteros(self):
         self.assertEqual(
-            quantifiers.create_all_adj_quant('δεύτερος'),
+            numerals.create_all_adj_num('δεύτερος'),
             {'adj': {'sg': {'masc': {'nom': {'δεύτερος'}, 'acc': {'δεύτερο'}, 'gen': {'δεύτερου'}, 'voc': {'δεύτερε'}},
                             'fem': {'nom': {'δεύτερη'}, 'acc': {'δεύτερη'}, 'gen': {'δεύτερης'}, 'voc': {'δεύτερη'}},
                             'neut': {'nom': {'δεύτερο'}, 'acc': {'δεύτερο'}, 'gen': {'δεύτερου'}, 'voc': {'δεύτερο'}}},
@@ -48,10 +44,10 @@ class QuantifiersAdjectiveTest(TestCase):
 
         )
 
-    def test_quant_protos(self):
+    def test_num_protos(self):
         self.maxDiff = None
         self.assertEqual(
-            quantifiers.create_all_adj_quant('πρώτος'),
+            numerals.create_all_adj_num('πρώτος'),
             {'adv': {'πρώτον', 'πρώτα'}, 'comp': {'sg': {
                 'neut': {'voc': {'πρωτύτερο'}, 'nom': {'πρωτύτερο'}, 'gen': {'πρωτύτερου'}, 'acc': {'πρωτύτερο'}},
                 'masc': {'voc': {'πρωτύτερε'}, 'nom': {'πρωτύτερος'}, 'gen': {'πρωτύτερου'}, 'acc': {'πρωτύτερο'}},
@@ -86,9 +82,9 @@ class QuantifiersAdjectiveTest(TestCase):
 
         )
 
-    def test_quant_dekatria(self):
+    def test_num_dekatria(self):
         self.assertEqual(
-            quantifiers.create_all_adj_quant('δεκατρία'),
+            numerals.create_all_adj_num('δεκατρία'),
             {'adj': {
                 'pl': {'masc': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
                        'fem': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
@@ -99,9 +95,9 @@ class QuantifiersAdjectiveTest(TestCase):
 
         )
 
-    def test_quant_oxto(self):
+    def test_num_oxto(self):
         self.assertEqual(
-            quantifiers.create_all_adj_quant('οχτώ'),
+            numerals.create_all_adj_num('οχτώ'),
             {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'neut': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}}}, 'pl': {

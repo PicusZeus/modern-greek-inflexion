@@ -3,41 +3,41 @@ from modern_greek_accentuation.accentuation import count_syllables, remove_all_d
 from ..resources import greek_corpus
 
 
-def create_quant_adj(quant, ordinal=False):
+def create_num_adj(numeral, ordinal=False):
     """
-    :param quant:
+    :param numeral:
     :param ordinal:
     :return:
     """
 
     if ordinal:
-        forms = create_all_basic_adj_forms(quant)
+        forms = create_all_basic_adj_forms(numeral)
         adverb = ''
-        adverb_ordinal = quant[:-1] + 'ν'
+        adverb_ordinal = numeral[:-1] + 'ν'
         if adverb_ordinal in greek_corpus:
             if forms['adverb'] == 'πρώτα':
                 adverb = 'πρώτα,πρώτον'
             else:
                 adverb = adverb_ordinal
-        elif quant[-4:] != 'στός':
+        elif numeral[-4:] != 'στός':
             adverb = forms['adverb']
         forms['adverb'] = adverb
     else:
-        if quant[-5:] in ['κόσια', 'χίλια']:
-            masc = quant[:-1] + 'οι'
-            fem = quant[:-1] + 'ες'
-            neut = quant
-        elif quant[-4:] == 'τρία':
-            masc = fem = quant[:-4] + 'τρείς'
+        if numeral[-5:] in ['κόσια', 'χίλια']:
+            masc = numeral[:-1] + 'οι'
+            fem = numeral[:-1] + 'ες'
+            neut = numeral
+        elif numeral[-4:] == 'τρία':
+            masc = fem = numeral[:-4] + 'τρείς'
             if count_syllables(masc) == 1:
                 masc = fem = remove_all_diacritics(masc)
-            neut = quant
-        elif quant[-7:] == 'τέσσερα':
-            masc = fem = quant[:-1] + 'ις'
-            neut = quant
+            neut = numeral
+        elif numeral[-7:] == 'τέσσερα':
+            masc = fem = numeral[:-1] + 'ις'
+            neut = numeral
 
         else:
-            masc = fem = neut = quant
+            masc = fem = neut = numeral
         forms = {'adj': masc + '/' + fem + '/' + neut}
 
     return forms

@@ -9,21 +9,21 @@ from modern_greek_inflexion.adjective.create_adj_decl import adj_basic_template
 from ..resources import greek_corpus, aklita_num_alternatives
 
 
-def creat_all_quant_adj_forms(quant_base_forms, ordinal=False):
+def creat_all_num_adj_forms(num_base_forms, ordinal=False):
     """
-    :param quant_base_forms:
+    :param num_base_forms:
     :return: a dictionary of forms (like adj)
     """
     if ordinal:
-        all_forms = create_all_adj_forms(quant_base_forms)
+        all_forms = create_all_adj_forms(num_base_forms)
 
         return all_forms[0]
     else:
-        masc, fem, neut = quant_base_forms.split('/')
+        masc, fem, neut = num_base_forms.split('/')
         forms = copy.deepcopy(adj_basic_template)
 
         if masc[-2:] in ['οι', 'οί'] and fem[-2:] in ['ες', 'ές'] and neut[-1] in ['α', 'ά']:
-            # exclusively for quantifiers, as there are for obvious reasons only in plural
+            # exclusively for numerals, as there are for obvious reasons only in plural
             accent = where_is_accent(masc, true_syllabification=False)
             acc_masc = masc[:-2] + 'ους'
             gen_pl = masc[:-2] + 'ων'
