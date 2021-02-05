@@ -2,8 +2,8 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('δολιοφθορέας', inflection='agnosto')
-print(res)
+# res = noun.create_all('δολιοφθορέας', inflection='agnosto')
+# print(res)
 
 class NounTests(TestCase):
     def test_noun_gynaika(self):

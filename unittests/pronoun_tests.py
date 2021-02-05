@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.pronoun import pronoun
 
-res = pronoun.create_all('όσπερ', strong=False)
+res = pronoun.create_all('εγώ', strong=False)
 print(res)
 
 
