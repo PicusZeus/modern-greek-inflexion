@@ -35,11 +35,18 @@ def create_num_adj(numeral, ordinal=False):
         elif numeral[-7:] == 'τέσσερα':
             masc = fem = numeral[:-1] + 'ις'
             neut = numeral
+        elif numeral == 'ένα':
+            masc = 'ένας'
+            fem = 'μία'
+            neut = 'ένα'
+        elif numeral == 'ενάμισι':
+            masc = 'ενάμισης'
+            fem = 'μιάμιση'
+            neut = 'ενάμισι'
 
         else:
             masc = fem = neut = numeral
         forms = {'adj': masc + '/' + fem + '/' + neut}
-
     return forms
 
 

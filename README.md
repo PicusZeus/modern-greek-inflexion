@@ -21,6 +21,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.1.10 Fixes to numerals, now doesn't return alternative forms
  * 0.1.9 Refactored numerals, minor fixes in noun and adj
  * 0.1.8 Minor fixes in noun, now works better with additional info on gender and inflection.
  * 0.1.6 Fixed issue with path to pickled db, db included in package

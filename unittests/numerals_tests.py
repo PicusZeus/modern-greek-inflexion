@@ -2,7 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.numerals import numerals
 
-qa = numerals.create_all_adj_num('δεύτερος')
+qa = numerals.create_all_adj_num('οχτώ')
 qn = numerals.create_all_noun_num('χιλιάδες')
 
 
@@ -98,17 +98,25 @@ class NumeralsAdjectiveTest(TestCase):
     def test_num_oxto(self):
         self.assertEqual(
             numerals.create_all_adj_num('οχτώ'),
-            {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
-                            'neut': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
-                            'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}}}, 'pl': {
-                'fem': {'gen': {'οχτώ', 'οκτώ'}, 'acc': {'οχτώ', 'οκτώ'}, 'voc': {'οχτώ', 'οκτώ'},
-                        'nom': {'οχτώ', 'οκτώ'}},
-                'neut': {'gen': {'οχτώ', 'οκτώ'}, 'acc': {'οχτώ', 'οκτώ'}, 'voc': {'οχτώ', 'οκτώ'},
-                         'nom': {'οχτώ', 'οκτώ'}},
-                'masc': {'gen': {'οχτώ', 'οκτώ'}, 'acc': {'οχτώ', 'οκτώ'}, 'voc': {'οχτώ', 'οκτώ'},
-                         'nom': {'οχτώ', 'οκτώ'}}}}}
+            {'adj': {'pl': {'masc': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}},
+                            'fem': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}},
+                            'neut': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}}},
+                     'sg': {'masc': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}},
+                            'fem': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}},
+                            'neut': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}}}}}
+
         )
 
+    def test_num_enamisi(self):
+        self.assertEqual(
+            numerals.create_all_adj_num('ενάμισι'),
+            {'adj': {'sg': {'masc': {'gen': {'ενάμιση'}, 'nom': {'ενάμισης'}, 'acc': {'ενάμιση'}, 'voc': {'ενάμιση'}},
+                            'neut': {'gen': {'ενάμισι'}, 'nom': {'ενάμισι'}, 'acc': {'ενάμισι'}, 'voc': {'ενάμισι'}},
+                            'fem': {'gen': {'μιάμισης'}, 'nom': {'μιάμιση'}, 'acc': {'μιάμιση'}, 'voc': {'μιάμιση'}}},
+                     'pl': {'masc': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
+                            'neut': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
+                            'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}}
 
+        )
 if __name__ == '__main__':
     main()

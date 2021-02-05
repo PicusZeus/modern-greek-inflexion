@@ -9,9 +9,10 @@ from modern_greek_inflexion.adjective.create_adj_decl import adj_basic_template
 from ..resources import greek_corpus, aklita_num_alternatives
 
 
-def creat_all_num_adj_forms(num_base_forms, ordinal=False):
+def create_all_num_adj_forms(num_base_forms, ordinal=False):
+
     """
-    :param num_base_forms:
+    :param num_base_forms masc/fem/neut:
     :return: a dictionary of forms (like adj)
     """
     if ordinal:
@@ -43,8 +44,8 @@ def creat_all_num_adj_forms(num_base_forms, ordinal=False):
         elif neut[-7:] == 'τέσσερα':
             gen_pl = 'τεσσάρων'
             acc_masc = masc
-        elif neut in aklita_num_alternatives:
-            masc = fem = neut = acc_masc = gen_pl = neut + ',' + aklita_num_alternatives[neut]
+        # elif neut in aklita_num_alternatives:
+        #     masc = fem = neut = acc_masc = gen_pl = neut + ',' + aklita_num_alternatives[neut]
 
         elif neut == 'ένα':
 
@@ -120,25 +121,6 @@ def creat_all_num_adj_forms(num_base_forms, ordinal=False):
         forms['pl']['neut']['acc'] = neut
         forms['pl']['neut']['gen'] = gen_pl
         forms['pl']['neut']['voc'] = neut
-
-        if masc[:4] == 'οχτα':
-            alt = 'οκτα'
-            for number in forms:
-                for gender in forms[number]:
-                    for case in forms[number][gender]:
-                        forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:4], alt)
-        elif masc[:4] == 'εφτα':
-            alt = 'επτα'
-            for number in forms:
-                for gender in forms[number]:
-                    for case in forms[number][gender]:
-                        forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:4], alt)
-        elif masc[:5] == 'εννια':
-            alt = 'εννεα'
-            for number in forms:
-                for gender in forms[number]:
-                    for case in forms[number][gender]:
-                        forms[number][gender][case] += ',' + forms[number][gender][case].replace(masc[:5], alt)
 
         return forms
 
