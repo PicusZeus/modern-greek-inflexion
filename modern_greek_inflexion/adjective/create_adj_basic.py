@@ -20,6 +20,9 @@ def create_all_basic_adj_forms(adj, inflection=None):
     'adverb_comparative': if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
     """
     # correct possible errors in the list
+
+    print(adj)
+
     if adj[-2:] == 'ον' and adj + 'τα' in greek_corpus:
         adj = adj[:-2] + 'ων'
 

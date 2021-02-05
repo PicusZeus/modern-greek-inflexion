@@ -3,8 +3,8 @@ from unittest import TestCase, main
 from modern_greek_inflexion.adjective import adjective
 
 
-r = adjective.create_all('τεθνεώς')
-print(r)
+
+
 
 class AdjectiveTests(TestCase):
 
@@ -46,6 +46,26 @@ class AdjectiveTests(TestCase):
              'adv': {'ωραία'},
              'comp_adv': {'ωραιότερα'},
              'superl_adv': {'ωραιότατα'}}
+
+        )
+
+    def test_adj_argos(self):
+        self.assertEqual(
+            adjective.create_all('αργός'),
+            {'adj': {'pl': {'fem': {'gen': {'αργών'}, 'nom': {'αργές'}, 'acc': {'αργές'}, 'voc': {'αργές'}},
+                            'masc': {'gen': {'αργών'}, 'nom': {'αργοί'}, 'acc': {'αργούς'}, 'voc': {'αργοί'}},
+                            'neut': {'gen': {'αργών'}, 'nom': {'αργά'}, 'acc': {'αργά'}, 'voc': {'αργά'}}},
+                     'sg': {'fem': {'gen': {'αργής'}, 'nom': {'αργή'}, 'acc': {'αργή'}, 'voc': {'αργή'}},
+                            'masc': {'gen': {'αργού'}, 'nom': {'αργός'}, 'acc': {'αργό'}, 'voc': {'αργέ'}},
+                            'neut': {'gen': {'αργού'}, 'nom': {'αργό'}, 'acc': {'αργό'}, 'voc': {'αργό'}}}}, 'comp': {
+                'pl': {'fem': {'gen': {'αργότερων'}, 'nom': {'αργότερες'}, 'acc': {'αργότερες'}, 'voc': {'αργότερες'}},
+                       'masc': {'gen': {'αργότερων'}, 'nom': {'αργότεροι'}, 'acc': {'αργότερους'},
+                                'voc': {'αργότεροι'}},
+                       'neut': {'gen': {'αργότερων'}, 'nom': {'αργότερα'}, 'acc': {'αργότερα'}, 'voc': {'αργότερα'}}},
+                'sg': {'fem': {'gen': {'αργότερης'}, 'nom': {'αργότερη'}, 'acc': {'αργότερη'}, 'voc': {'αργότερη'}},
+                       'masc': {'gen': {'αργότερου'}, 'nom': {'αργότερος'}, 'acc': {'αργότερο'}, 'voc': {'αργότερε'}},
+                       'neut': {'gen': {'αργότερου'}, 'nom': {'αργότερο'}, 'acc': {'αργότερο'}, 'voc': {'αργότερο'}}}},
+             'adv': {'αργά'}, 'comp_adv': {'αργότερα'}}
 
         )
 

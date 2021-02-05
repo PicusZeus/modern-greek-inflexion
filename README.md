@@ -21,6 +21,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.1.11 Fixed bug in adjectives, where not existent superlative would lead to a crash
  * 0.1.10 Fixes to numerals, now doesn't return alternative forms
  * 0.1.9 Refactored numerals, minor fixes in noun and adj
  * 0.1.8 Minor fixes in noun, now works better with additional info on gender and inflection.

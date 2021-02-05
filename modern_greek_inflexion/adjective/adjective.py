@@ -4,6 +4,7 @@ from .create_adj_decl import create_all_adj_forms
 from ..helping_functions import merging_all_dictionaries
 
 def create_all_basic_forms(adj):
+
     return create_all_basic_adj_forms(adj)
 
 def create_all(adj, inflection=None):
@@ -50,7 +51,7 @@ def create_all(adj, inflection=None):
                     comp_forms.append(all_inf_comp_forms)
                 if alternatives:
                     comp_forms.append(alternatives)
-        if superlatives:
+        if superlatives and superlatives != '-':
             for superlative in superlatives.split(','):
                 base = create_all_basic_adj_forms(superlative)
                 all_inf_superl_forms, alternatives = create_all_adj_forms(base['adj'])
