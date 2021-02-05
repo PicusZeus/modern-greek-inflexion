@@ -112,6 +112,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
             # type hs, a, iko, here accent is always on the last syllable of the stem
             masc = adj
             fem = stem + 'α'
+            if stem + 'ισσα' in greek_corpus:
+                fem = stem + 'ισσα'
             neuter = stem + 'ικο'
 
         elif put_accent(stem + 'ι', accent) in greek_corpus:

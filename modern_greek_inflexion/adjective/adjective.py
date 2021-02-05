@@ -27,6 +27,7 @@ def create_all(adj, inflection=None):
     super_adv = []
 
     all_basic_adj_forms = create_all_basic_adj_forms(adj, inflection=inflection)
+
     # 'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
     # separated with a coma
     # 'comparative': if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
@@ -88,8 +89,9 @@ def create_all(adj, inflection=None):
 
         super_forms = merging_all_dictionaries(*super_forms)
         result['superl'] = super_forms
-    adverbs = set(adverbs)
-    result['adv'] = adverbs
+    if adverbs:
+        adverbs = set(adverbs)
+        result['adv'] = adverbs
     if comp_adv:
         comp_adv = set(comp_adv)
         result['comp_adv'] = comp_adv

@@ -3,8 +3,8 @@ from unittest import TestCase, main
 from modern_greek_inflexion.adjective import adjective
 
 
-
-
+r = adjective.create_all('ακαμάτης')
+print(r)
 
 class AdjectiveTests(TestCase):
 
@@ -46,6 +46,23 @@ class AdjectiveTests(TestCase):
              'adv': {'ωραία'},
              'comp_adv': {'ωραιότερα'},
              'superl_adv': {'ωραιότατα'}}
+
+        )
+
+
+    def test_adj_akamatis(self):
+        # self.maxDiff = None
+        self.assertEqual(
+            adjective.create_all('ακαμάτης'),
+            {'adj': {'pl': {
+                'fem': {'gen': {'ακαμάτισων'}, 'nom': {'ακαμάτισσες'}, 'voc': {'ακαμάτισσες'}, 'acc': {'ακαμάτισσες'}},
+                'neut': {'gen': {'ακαμάτικων'}, 'nom': {'ακαμάτικα'}, 'voc': {'ακαμάτικα'}, 'acc': {'ακαμάτικα'}},
+                'masc': {'gen': {'ακαμάτηδων'}, 'nom': {'ακαμάτηδες'}, 'voc': {'ακαμάτδες'}, 'acc': {'ακαμάτηδες'}}},
+                     'sg': {'fem': {'gen': {'ακαμάτισσας'}, 'nom': {'ακαμάτισσα'}, 'voc': {'ακαμάτισσα'},
+                                    'acc': {'ακαμάτισσα'}},
+                            'neut': {'gen': {'ακαμάτικου'}, 'nom': {'ακαμάτικο'}, 'voc': {'ακαμάτικο'},
+                                     'acc': {'ακαμάτικο'}},
+                            'masc': {'gen': {'ακαμάτη'}, 'nom': {'ακαμάτης'}, 'voc': {'ακαμάτη'}, 'acc': {'ακαμάτη'}}}}}
 
         )
 
