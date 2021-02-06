@@ -684,7 +684,7 @@ def create_all_adj_forms(adj):
 
         return forms, alternative_forms
 
-    elif masc in ['άρρην'] or (masc[-2:] in ['ων', 'ας'] and neut[-2:] in ['ον', 'αν']):
+    elif masc in ['άρρην'] or (masc[-2:] in ['ων'] and neut[-2:] in ['ον']):
         # ancient 3rd declesion
 
         thema = neut
@@ -710,6 +710,40 @@ def create_all_adj_forms(adj):
         forms['pl']['fem']['acc'] = thema + 'ες'
         forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
         forms['pl']['fem']['voc'] = thema + 'ες'
+        forms['pl']['neut']['nom'] = thema + 'α'
+        forms['pl']['neut']['acc'] = thema + 'α'
+        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
+        forms['pl']['neut']['voc'] = thema + 'α'
+
+        return forms, None
+
+    elif masc[-2:] == 'ας' and fem[-2:] == 'να' and neut[-2:] == 'αν':
+        """
+        not a very often occurence: ancient type of melas, melaina, melan
+        """
+        thema = neut
+        fem_thema = fem[:-1]
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = thema + 'α'
+        forms['sg']['masc']['gen'] = thema + 'ος'
+        forms['sg']['masc']['voc'] = neut
+        forms['sg']['fem']['nom'] = fem
+        forms['sg']['fem']['acc'] = fem
+        forms['sg']['fem']['gen'] = fem + 'ς'
+        forms['sg']['fem']['voc'] = fem
+        forms['sg']['neut']['nom'] = neut
+        forms['sg']['neut']['gen'] = thema + 'ος'
+        forms['sg']['neut']['acc'] = neut
+        forms['sg']['neut']['voc'] = neut
+
+        forms['pl']['masc']['nom'] = thema + 'ες'
+        forms['pl']['masc']['acc'] = thema + 'ες'
+        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
+        forms['pl']['masc']['voc'] = thema + 'ες'
+        forms['pl']['fem']['nom'] = fem_thema + 'ες'
+        forms['pl']['fem']['acc'] = fem_thema + 'ες'
+        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem_thema + 'ων')
+        forms['pl']['fem']['voc'] = fem_thema + 'ες'
         forms['pl']['neut']['nom'] = thema + 'α'
         forms['pl']['neut']['acc'] = thema + 'α'
         forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
