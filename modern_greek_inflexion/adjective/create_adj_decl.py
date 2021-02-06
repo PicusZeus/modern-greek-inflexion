@@ -412,7 +412,7 @@ def create_all_adj_forms(adj):
         forms['pl']['masc']['nom'] = masc[:-1] + 'δες'
         forms['pl']['masc']['acc'] = masc[:-1] + 'δες'
         forms['pl']['masc']['gen'] = masc[:-1] + 'δων'
-        forms['pl']['masc']['voc'] = masc[:-2] + 'δες'
+        forms['pl']['masc']['voc'] = masc[:-1] + 'δες'
         if fem[-2:] == 'ού':
             forms['pl']['fem']['nom'] = fem + 'δες'
             forms['pl']['fem']['acc'] = fem + 'δες'

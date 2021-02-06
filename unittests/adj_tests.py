@@ -3,7 +3,7 @@ from unittest import TestCase, main
 from modern_greek_inflexion.adjective import adjective
 
 
-r = adjective.create_all('ακαμάτης')
+r = adjective.create_all('ιογενής')
 print(r)
 
 class AdjectiveTests(TestCase):
@@ -50,6 +50,19 @@ class AdjectiveTests(TestCase):
         )
 
 
+    def test_adj_rodis(self):
+        self.assertEqual(
+            adjective.create_all('ροδής'),
+            {'adj': {'sg': {'fem': {'nom': {'ροδιά'}, 'voc': {'ροδιά'}, 'gen': {'ροδιάς'}, 'acc': {'ροδιά'}},
+                            'masc': {'nom': {'ροδής'}, 'voc': {'ροδή'}, 'gen': {'ροδή'}, 'acc': {'ροδή'}},
+                            'neut': {'nom': {'ροδί'}, 'voc': {'ροδί'}, 'gen': {'ροδιού'}, 'acc': {'ροδί'}}},
+                     'pl': {'fem': {'nom': {'ροδιές'}, 'voc': {'ροδιές'}, 'gen': {'ροδιών'}, 'acc': {'ροδιές'}},
+                            'masc': {'nom': {'ροδιοί'}, 'voc': {'ροδιοί'}, 'gen': {'ροδιών'}, 'acc': {'ροδιούς'}},
+                            'neut': {'nom': {'ροδιά'}, 'voc': {'ροδιά'}, 'gen': {'ροδιών'}, 'acc': {'ροδιά'}}}},
+             'adv': {'ροδιά'}}
+
+        )
+
     def test_adj_akamatis(self):
         # self.maxDiff = None
         self.assertEqual(
@@ -57,7 +70,7 @@ class AdjectiveTests(TestCase):
             {'adj': {'pl': {
                 'fem': {'gen': {'ακαμάτισων'}, 'nom': {'ακαμάτισσες'}, 'voc': {'ακαμάτισσες'}, 'acc': {'ακαμάτισσες'}},
                 'neut': {'gen': {'ακαμάτικων'}, 'nom': {'ακαμάτικα'}, 'voc': {'ακαμάτικα'}, 'acc': {'ακαμάτικα'}},
-                'masc': {'gen': {'ακαμάτηδων'}, 'nom': {'ακαμάτηδες'}, 'voc': {'ακαμάτδες'}, 'acc': {'ακαμάτηδες'}}},
+                'masc': {'gen': {'ακαμάτηδων'}, 'nom': {'ακαμάτηδες'}, 'voc': {'ακαμάτηδες'}, 'acc': {'ακαμάτηδες'}}},
                      'sg': {'fem': {'gen': {'ακαμάτισσας'}, 'nom': {'ακαμάτισσα'}, 'voc': {'ακαμάτισσα'},
                                     'acc': {'ακαμάτισσα'}},
                             'neut': {'gen': {'ακαμάτικου'}, 'nom': {'ακαμάτικο'}, 'voc': {'ακαμάτικο'},
@@ -141,6 +154,7 @@ class AdjectiveTests(TestCase):
         )
 
     def test_adj_safis(self):
+        self.maxDiff = None
         self.assertEqual(
             adjective.create_all('σαφής'),
             {'adj': {'pl': {'fem': {'acc': {'σαφείς'}, 'gen': {'σαφών'}, 'nom': {'σαφείς'}, 'voc': {'σαφείς'}},
@@ -182,7 +196,7 @@ class AdjectiveTests(TestCase):
         self.assertEqual(
             adjective.create_all('τεμπέλης'),
             {'adj': {'pl': {
-                'masc': {'gen': {'τεμπέληδων'}, 'nom': {'τεμπέληδες'}, 'acc': {'τεμπέληδες'}, 'voc': {'τεμπέλδες'}},
+                'masc': {'gen': {'τεμπέληδων'}, 'nom': {'τεμπέληδες'}, 'acc': {'τεμπέληδες'}, 'voc': {'τεμπέληδες'}},
                 'neut': {'gen': {'τεμπέλικων'}, 'nom': {'τεμπέλικα'}, 'acc': {'τεμπέλικα'}, 'voc': {'τεμπέλικα'}},
                 'fem': {'gen': {'τεμπέων'}, 'nom': {'τεμπέλες'}, 'acc': {'τεμπέλες'}, 'voc': {'τεμπέλες'}}},
                      'sg': {'masc': {'gen': {'τεμπέλη'}, 'nom': {'τεμπέλης'}, 'acc': {'τεμπέλη'}, 'voc': {'τεμπέλη'}},

@@ -21,7 +21,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
- * 0.1.12 Fixed issue with adj on hs with feminin on issa, and error which occured if an adj doesnt have an adverb
+ * 0.1.13 Added logic for resolving inflexion type of adjective that cannot be helped by corpus
+ * 0.1.12 Fixed issue with adj on hs with feminine on issa, and error which occurred if an adj doesnt have an adverb
  * 0.1.11 Fixed bug in adjectives, where not existent superlative would lead to a crash
  * 0.1.10 Fixes to numerals, now doesn't return alternative forms
  * 0.1.9 Refactored numerals, minor fixes in noun and adj

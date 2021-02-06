@@ -116,7 +116,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
                 fem = stem + 'ισσα'
             neuter = stem + 'ικο'
 
-        elif put_accent(stem + 'ι', accent) in greek_corpus:
+        elif where_is_accent(adj) == 'ultimate' and (stem + 'ὶ' in greek_corpus or stem + 'ιά' in greek_corpus):
             # type, hs, ia, i, mostly colors
 
             masc = adj
@@ -137,7 +137,20 @@ def create_all_basic_adj_forms(adj, inflection=None):
             neuter = adj[:-1] + 'δικο'
 
         else:
-            raise AssertionError
+            """
+            In cases where my corpus cant help me, I will surmise that it's hs, a (or issa), iko
+            """
+
+            if accent == 'penultimate':
+                masc = adj
+                fem = stem + 'α'
+                if stem + 'ισσα' in greek_corpus:
+                    fem = stem + 'ισσα'
+                neuter = stem + 'ικο'
+            elif accent == 'ultimate':
+                masc, fem = adj, adj
+                neuter = stem + 'ές'
+            # raise AssertionError
 
     elif adj[-2:] in ['υς', 'ύς'] or adj in ['γλυκύ']:
         # my database is far from greate
@@ -230,6 +243,11 @@ def create_all_basic_adj_forms(adj, inflection=None):
             masc = adj
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
+
+        elif adj[:-1] + 'δες' in greek_corpus and where_is_accent(adj) == 'ultimate':
+            masc = adj
+            fem = adj[:-2] + 'ού'
+            neuter = adj[:-1] + 'δικο'
         else:
             raise AssertionError
 
