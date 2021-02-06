@@ -251,6 +251,7 @@ def put_accent_on_unaccented_forms(forms):
 
 
 def create_all_adj_forms(adj):
+    # print(adj)
 
     """
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesnt exist, it should
@@ -259,9 +260,11 @@ def create_all_adj_forms(adj):
     one is a dictionary with alternative forms, if exists it has the same structure
     """
     forms = copy.deepcopy(adj_basic_template)
-
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
+
+
+
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
         fem = fem.split(',')[0] # because in the list there are given alternatives, which i dont need
         if fem == '-':
@@ -312,7 +315,34 @@ def create_all_adj_forms(adj):
 
         return forms, alt_forms
 
+    elif masc[-3:] == 'ους' and neut[-3:] == 'ουν':
 
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = masc[:-1]
+        forms['sg']['masc']['gen'] = masc[:-1] + 'ν'
+        forms['sg']['masc']['voc'] = masc
+        forms['sg']['fem']['nom'] = masc
+        forms['sg']['fem']['acc'] = masc[:-1]
+        forms['sg']['fem']['gen'] = masc[:-1] + 'ν'
+        forms['sg']['fem']['voc'] = masc
+        forms['sg']['neut']['nom'] = neut
+        forms['sg']['neut']['gen'] = neut[:-1]
+        forms['sg']['neut']['acc'] = neut
+        forms['sg']['neut']['voc'] = neut
+        forms['pl']['masc']['nom'] = masc[:-3] + 'οι'
+        forms['pl']['masc']['acc'] = masc
+        forms['pl']['masc']['gen'] = masc[:-3] + 'ων'
+        forms['pl']['masc']['voc'] = masc[:-3] + 'οι'
+        forms['pl']['fem']['nom'] = masc[:-3] + 'οι'
+        forms['pl']['fem']['acc'] = masc
+        forms['pl']['fem']['gen'] = masc[:-3] + 'ων'
+        forms['pl']['fem']['voc'] = masc[:-3] + 'οι'
+        forms['pl']['neut']['nom'] = masc[:-3] + 'οα'
+        forms['pl']['neut']['acc'] = masc[:-3] + 'οα'
+        forms['pl']['neut']['gen'] = masc[:-3] + 'ων'
+        forms['pl']['neut']['voc'] = masc[:-3] + 'οα'
+
+        return forms, None
 
     elif (masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == 'ultimate') or masc == 'μέγας':
         # add alternativeσ, bathys
@@ -654,7 +684,7 @@ def create_all_adj_forms(adj):
 
         return forms, alternative_forms
 
-    elif masc in ['άρρην'] or (masc[-2:] == 'ων' and neut[-2:] == 'ον'):
+    elif masc in ['άρρην'] or (masc[-2:] in ['ων', 'ας'] and neut[-2:] in ['ον', 'αν']):
         # ancient 3rd declesion
 
         thema = neut

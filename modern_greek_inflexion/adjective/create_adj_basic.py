@@ -21,7 +21,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
     """
     # correct possible errors in the list
 
-    print(adj)
+    # print(adj)
 
     if adj[-2:] == 'ον' and adj + 'τα' in greek_corpus:
         adj = adj[:-2] + 'ων'
@@ -152,6 +152,11 @@ def create_all_basic_adj_forms(adj, inflection=None):
                 neuter = stem + 'ές'
             # raise AssertionError
 
+    elif adj[-3:] == 'ους':
+        masc, fem = adj, adj
+        neuter = adj[:-1] + 'ν'
+
+
     elif adj[-2:] in ['υς', 'ύς'] or adj in ['γλυκύ']:
         # my database is far from greate
         stem = adj[:-2]
@@ -234,6 +239,11 @@ def create_all_basic_adj_forms(adj, inflection=None):
             fem = fem_sa
             neuter = adj[:-1] + 'ν'
 
+        elif adj in ['μέλας']:
+            masc = adj
+            fem = adj[:-2] + 'αινα'
+            neuter = adj[:-1] + 'ν'
+
         elif adj == 'μέγας':
             masc = adj
             fem = 'μαγάλη'
@@ -244,7 +254,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
 
-        elif adj[:-1] + 'δες' in greek_corpus and where_is_accent(adj) == 'ultimate':
+        elif where_is_accent(adj) == 'ultimate':
             masc = adj
             fem = adj[:-2] + 'ού'
             neuter = adj[:-1] + 'δικο'
@@ -273,6 +283,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
     adj_forms = [masc, fem, neuter]
 
     adj_temp['adj'] = '/'.join(adj_forms)
+
 # παραθετικά
 
     stem = neuter

@@ -27,7 +27,7 @@ def create_all(adj, inflection=None):
     super_adv = []
 
     all_basic_adj_forms = create_all_basic_adj_forms(adj, inflection=inflection)
-
+    # print(all_basic_adj_forms)
     # 'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
     # separated with a coma
     # 'comparative': if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
@@ -36,6 +36,9 @@ def create_all(adj, inflection=None):
     # 'adverb_comparative': if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
 
     all_adj_infl_forms = create_all_adj_forms(all_basic_adj_forms['adj'])
+    # print(all_adj_infl_forms)
+
+    # print(all_basic_adj_forms['adj'])
     forms.append(all_adj_infl_forms[0])
     if all_adj_infl_forms[1]:
         forms.append(all_adj_infl_forms[1])

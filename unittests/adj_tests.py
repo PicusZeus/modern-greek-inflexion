@@ -3,7 +3,7 @@ from unittest import TestCase, main
 from modern_greek_inflexion.adjective import adjective
 
 
-r = adjective.create_all('ιογενής')
+r = adjective.create_all('βιλλαράς')
 print(r)
 
 class AdjectiveTests(TestCase):
@@ -49,6 +49,36 @@ class AdjectiveTests(TestCase):
 
         )
 
+
+    def test_adj_porfyroxrous(self):
+        self.assertEqual(
+            adjective.create_all('πορφυρόχρους'),
+            {'adj': {'pl': {'fem': {'acc': {'πορφυρόχρους'}, 'gen': {'πορφυρόχρων'}, 'nom': {'πορφυρόχροι'},
+                                    'voc': {'πορφυρόχροι'}},
+                            'masc': {'acc': {'πορφυρόχρους'}, 'gen': {'πορφυρόχρων'}, 'nom': {'πορφυρόχροι'},
+                                     'voc': {'πορφυρόχροι'}},
+                            'neut': {'acc': {'πορφυρόχροα'}, 'gen': {'πορφυρόχρων'}, 'nom': {'πορφυρόχροα'},
+                                     'voc': {'πορφυρόχροα'}}}, 'sg': {
+                'fem': {'acc': {'πορφυρόχρου'}, 'gen': {'πορφυρόχρουν'}, 'nom': {'πορφυρόχρους'},
+                        'voc': {'πορφυρόχρους'}},
+                'masc': {'acc': {'πορφυρόχρου'}, 'gen': {'πορφυρόχρουν'}, 'nom': {'πορφυρόχρους'},
+                         'voc': {'πορφυρόχρους'}},
+                'neut': {'acc': {'πορφυρόχρουν'}, 'gen': {'πορφυρόχρου'}, 'nom': {'πορφυρόχρουν'},
+                         'voc': {'πορφυρόχρουν'}}}}}
+
+        )
+
+    def test_adj_melas(self):
+        self.assertEqual(
+            adjective.create_all('μέλας'),
+            {'adj': {'sg': {'fem': {'voc': {'μέλαν'}, 'gen': {'μέλανος'}, 'acc': {'μέλανα'}, 'nom': {'μέλαινα'}},
+                            'masc': {'voc': {'μέλαν'}, 'gen': {'μέλανος'}, 'acc': {'μέλανα'}, 'nom': {'μέλας'}},
+                            'neut': {'voc': {'μέλαν'}, 'gen': {'μέλανος'}, 'acc': {'μέλαν'}, 'nom': {'μέλαν'}}},
+                     'pl': {'fem': {'voc': {'μέλανες'}, 'gen': {'μελαινών'}, 'acc': {'μέλανες'}, 'nom': {'μέλανες'}},
+                            'masc': {'voc': {'μέλανες'}, 'gen': {'μελάνων'}, 'acc': {'μέλανες'}, 'nom': {'μέλανες'}},
+                            'neut': {'voc': {'μέλανα'}, 'gen': {'μελάνων'}, 'acc': {'μέλανα'}, 'nom': {'μέλανα'}}}}}
+
+        )
 
     def test_adj_rodis(self):
         self.assertEqual(
