@@ -4,19 +4,11 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..adjective import adjective
 from ..helping_functions import merging_all_dictionaries
-from exceptions import NotInGreekException
-import re
-greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
 def create_basic_forms(verb):
-    if not greek_pattern.match(verb):
-        raise NotInGreekException
+
     return create_all_basic_forms(verb)
-
-
-
-
 
 
 def create_all_forms(verb):
@@ -50,7 +42,6 @@ def create_all_forms(verb):
     # try:
     if 'conjunctive' in basic_forms:
         conjunctive_basic_forms = basic_forms['conjunctive']
-        # print(conjunctive_basic_forms, 'SYNERXOMAI')
         conjunctive = {}
         active_root = None
         if 'active' in conjunctive_basic_forms:

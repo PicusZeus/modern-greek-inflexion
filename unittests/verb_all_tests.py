@@ -1,14 +1,12 @@
 from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
-from exceptions import NotLegalVerbException, NotInGreekException
+from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 
-res = verb.create_all_forms('συμβαίνω')
+res = verb.create_all_forms('πλέω')
 print(res)
 """
 to do:
-
-
 
 przy modalnych błędnie tworzy się liczbę mnogą, niepotrzebnie imieslowy i blednie tryb rozkazujacy
 
@@ -25,7 +23,6 @@ class VerbTestAll(TestCase):
     def test_not_legal_verb_exception(self):
         self.assertRaises(NotLegalVerbException, verb.create_all_forms, 'βλέπουμε')
 
-
     def test_verb_modal_pass_fainetai(self):
         self.assertEqual(
             verb.create_all_forms('φαίνεται'),
@@ -33,7 +30,6 @@ class VerbTestAll(TestCase):
              'conjunctive': {'passive': {'ind': {'sg': {'ter': {'φανεί'}}}}},
              'aorist': {'passive': {'ind': {'sg': {'ter': {'φάνηκε'}}}}},
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'φαινόταν'}}}}}}
-
         )
 
     def test_verb_modal_brexei(self):
@@ -56,27 +52,38 @@ class VerbTestAll(TestCase):
     def test_verb_erxomai(self):
         self.assertEqual(
             verb.create_all_forms('έρχομαι'),
-            {'present': {'passive': {'ind': {'sg': {'pri': {'έρχομαι'}, 'sec': {'έρχεσαι'}, 'ter': {'έρχεται'}},
-                                             'pl': {'pri': {'ερχόμαστε'}, 'sec': {'έρχεστε', 'ερχόσαστε'},
-                                                    'ter': {'έρχονται'}}}, 'imp': {'pl': {'sec': {'έρχεστε'}}}}},
-             'conjunctive': {'active': {
-                 'ind': {'sg': {'pri': {'έρθω', 'έλθω'}, 'sec': {'έλα', 'έρθεις', 'έλθεις'}, 'ter': {'έλθει', 'έρθει'}},
+            {'present':
+                 {'passive':
+                      {'ind': {
+                          'sg':
+                              {'pri': {'έρχομαι'}, 'sec': {'έρχεσαι'}, 'ter': {'έρχεται'}},
+                            'pl': {'pri': {'ερχόμαστε'}, 'sec': {'έρχεστε', 'ερχόσαστε'},
+                                                    'ter': {'έρχονται'}}},
+                        'imp': {'pl': {'sec': {'έρχεστε'}}}}},
+             'conjunctive': {
+                 'active': {
+                    'ind': {
+                        'sg': {'pri': {'έρθω', 'έλθω'}, 'sec': {'έλα', 'έρθεις', 'έλθεις'}, 'ter': {'έλθει', 'έρθει'}},
                          'pl': {'pri': {'έρθουμε', 'έλθουμε'}, 'sec': {'έρθετε', 'έλθετε', 'ελάτε'},
                                 'ter': {'έρθουνε', 'έρθουν', 'έλθουν', 'έλθουνε'}}},
-                 'imp': {'sg': {'sec': {'έλα', 'έρθεις', 'έλθεις'}}, 'pl': {'sec': {'έρθετε', 'έλθετε', 'ελάτε'}}}}},
-             'aorist': {'active': {
-                 'ind': {'sg': {'pri': {'ήρθα', 'ήλθα'}, 'sec': {'ήλθες', 'ήρθες'}, 'ter': {'ήλθε', 'ήρθε'}},
-                         'pl': {'pri': {'ήλθαμε', 'ήρθαμε'}, 'sec': {'ήλθατε', 'ήρθατε'},
-                                'ter': {'ήρθανε', 'ήρθαν', 'ήλθαν', 'ήλθανε'}}}}}, 'paratatikos': {'passive': {'ind': {
-                'sg': {'pri': {'ερχόμουνα', 'ερχόμουν'}, 'sec': {'ερχόσουνα', 'ερχόσουν'},
+                    'imp': {'sg': {'sec': {'έλα', 'έρθεις', 'έλθεις'}}, 'pl': {'sec': {'έρθετε', 'έλθετε', 'ελάτε'}}}}},
+             'aorist': {
+                 'active': {
+                    'ind': {'sg': {'pri': {'ήρθα', 'ήλθα'}, 'sec': {'ήλθες', 'ήρθες'}, 'ter': {'ήλθε', 'ήρθε'}},
+                            'pl': {'pri': {'ήλθαμε', 'ήρθαμε'}, 'sec': {'ήλθατε', 'ήρθατε'},
+                                'ter': {'ήρθανε', 'ήρθαν', 'ήλθαν', 'ήλθανε'}}}}},
+            'paratatikos': {
+                'passive': {
+                    'ind': {
+                        'sg': {'pri': {'ερχόμουνα', 'ερχόμουν'}, 'sec': {'ερχόσουνα', 'ερχόσουν'},
                        'ter': {'ερχότανε', 'ερχόταν'}},
-                'pl': {'pri': {'ερχόμαστε', 'ερχόμασταν'}, 'sec': {'ερχόσαστε', 'ερχόσασταν'},
-                       'ter': {'ερχόντουσαν', 'έρχονταν'}}}}}, 'pass_pres_participle': {
+                        'pl': {'pri': {'ερχόμαστε', 'ερχόμασταν'}, 'sec': {'ερχόσαστε', 'ερχόσασταν'},
+                       'ter': {'ερχόντουσαν', 'έρχονταν'}}}}},
+            'pass_pres_participle': {
                 'sg': {'masc': {'gen': {'ερχόμενου'}, 'voc': {'ερχόμενε'}, 'nom': {'ερχόμενος'}, 'acc': {'ερχόμενο'}},
                        'fem': {'gen': {'ερχόμενης'}, 'voc': {'ερχόμενη'}, 'nom': {'ερχόμενη'}, 'acc': {'ερχόμενη'}},
                        'neut': {'gen': {'ερχόμενου'}, 'voc': {'ερχόμενο'}, 'nom': {'ερχόμενο'}, 'acc': {'ερχόμενο'}}},
-                'pl': {
-                    'masc': {'gen': {'ερχόμενων'}, 'voc': {'ερχόμενοι'}, 'nom': {'ερχόμενοι'}, 'acc': {'ερχόμενους'}},
+                'pl': {'masc': {'gen': {'ερχόμενων'}, 'voc': {'ερχόμενοι'}, 'nom': {'ερχόμενοι'}, 'acc': {'ερχόμενους'}},
                     'fem': {'gen': {'ερχόμενων'}, 'voc': {'ερχόμενες'}, 'nom': {'ερχόμενες'}, 'acc': {'ερχόμενες'}},
                     'neut': {'gen': {'ερχόμενων'}, 'voc': {'ερχόμενα'}, 'nom': {'ερχόμενα'}, 'acc': {'ερχόμενα'}}}}}
         )
@@ -120,7 +127,8 @@ class VerbTestAll(TestCase):
                        'ter': {'τραγουδιότανε', 'τραγουδιόταν'}},
                 'pl': {'pri': {'τραγουδιόμασταν', 'τραγουδιόμαστε'}, 'sec': {'τραγουδιόσασταν', 'τραγουδιόσαστε'},
                        'ter': {'τραγουδιούνταν', 'τραγουδιόνταν', 'τραγουδιόντουσαν'}}}}},
-             'act_pres_participle': {'τραγουδώντας'}, 'passive_perfect_participle': {'pl': {
+             'act_pres_participle': {'τραγουδώντας'},
+            'passive_perfect_participle': {'pl': {
                 'neut': {'gen': {'τραγουδημένων'}, 'acc': {'τραγουδημένα'}, 'voc': {'τραγουδημένα'},
                          'nom': {'τραγουδημένα'}},
                 'fem': {'gen': {'τραγουδημένων'}, 'acc': {'τραγουδημένες'}, 'voc': {'τραγουδημένες'},

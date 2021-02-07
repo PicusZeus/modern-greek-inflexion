@@ -21,7 +21,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
-
+ * 0.2.3 Added a more comprehensive corpus of the Greek words utilizing wikileksiko corpus
+ * 0.2.2 Fixed exceptions message
  * 0.2.1 Fixes in verb module, mainly to modal verbs but also some minor issues resolved also. Added custom exceptions in exceptions module
 
  * 0.1.15 Added handling for ancient adjectives from 3rd declination (is, itos, ks, kos), and also for attic declination

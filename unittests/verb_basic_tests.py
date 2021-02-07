@@ -1,7 +1,8 @@
 from unittest import TestCase, main
 
 from modern_greek_inflexion.verb import verb
-from exceptions import NotInGreekException, NotLegalVerbException
+from modern_greek_inflexion.exceptions import NotInGreekException
+
 r = verb.create_basic_forms('γράφω')
 print(r)
 

@@ -110,7 +110,6 @@ def create_all_imperfect_personal_forms(verb, voice):
                 forms_imp = None
         else:
             raise ValueError
-        # print(v, forms, forms_ind)
 
         forms = compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp)
     return forms

@@ -2,7 +2,7 @@ from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
 
 from ..helping_functions import merging_all_dictionaries
-from exceptions import NotInGreekException
+from modern_greek_inflexion.exceptions import NotInGreekException
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)

@@ -1,8 +1,9 @@
 
 from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, create_passive_aorist_participle
 from ..resources import greek_corpus
-from exceptions import NotLegalVerbException
-
+from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 def create_all_basic_forms(pres_form):
 
@@ -12,13 +13,14 @@ def create_all_basic_forms(pres_form):
    if there are alternatives
     """
     # print(pres_form in greek_corpus)
+    if not greek_pattern.match(pres_form):
+        raise NotInGreekException
 
-    if not pres_form or (pres_form[-1] not in ['ω', 'ώ'] \
-            and pres_form[-2:] not in ['ει', 'εί'] \
+    if not pres_form or (pres_form[-1] not in ['ω', 'ώ']
+            and pres_form[-2:] not in ['ει', 'εί']
             and pres_form[-3:] not in ['ται', 'μαι']) \
             or pres_form[-4:] == 'νται' \
             or pres_form not in greek_corpus:
-        # print(pres_form)
         raise NotLegalVerbException
         # return {'error': 'It is not a correct verb form. You have to input 1st person sg present in active voice if possible, or modal form in 3rd person sg, and your input is: ' + pres_form}
 
@@ -91,7 +93,6 @@ def create_all_basic_forms(pres_form):
     # aorist
 
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
-    # print(aorist_basic_forms, 'UWA')
     if aorist_basic_forms:
         verb_temp['aorist'] = {}
         aorist_active, aorist_passive = aorist_basic_forms.split('/')
@@ -105,7 +106,6 @@ def create_all_basic_forms(pres_form):
     # paratatikos
 
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens, not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
-    # print('PAEAR', paratatikos_basic_forms)
     if paratatikos_basic_forms:
         paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')
         paratatikos_active = paratatikos_active.split(',')

@@ -6,7 +6,7 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 
 from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
-from exceptions import NotInGreekException, NotLegalAdjectiveException
+from modern_greek_inflexion.exceptions import NotLegalAdjectiveException
 
 def create_all_basic_adj_forms(adj, inflection=None):
     """

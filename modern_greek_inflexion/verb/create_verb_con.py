@@ -177,7 +177,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:
                         print(sys.exc_info()[0])
-    # print(forms, "RETURN", conjugation_name)
     return forms
 
 def create_roots_from_past(verb, lemma):
