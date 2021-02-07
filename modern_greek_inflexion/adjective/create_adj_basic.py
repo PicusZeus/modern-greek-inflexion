@@ -6,6 +6,7 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
 
 from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
+from exceptions import NotInGreekException, NotLegalAdjectiveException
 
 def create_all_basic_adj_forms(adj, inflection=None):
     """
@@ -221,7 +222,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
     elif adj[-3:] == 'είς':
         # passive aorist participles
         if not adj[:-3] + 'έντα' in greek_corpus:
-            raise AssertionError
+            # print(adj)
+            raise NotLegalAdjectiveException
         masc = adj
         fem = adj[:-1] + 'σα'
         neuter = adj[:-3] + 'έν'
@@ -262,7 +264,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
             fem = adj[:-2] + 'ού'
             neuter = adj[:-1] + 'δικο'
         else:
-            raise AssertionError
+            raise NotLegalAdjectiveException
 
     elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς', 'ἐνεστώς']:
         masc = adj
@@ -441,9 +443,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
         adj_temp['adverb_comparative'] = adv_parathetika
 
 
-    assert adj_temp['adj'].split('/')[1] != '-'
+    # assert adj_temp['adj'].split('/')[1] != '-'
 
-    if adj in ['είμαι', 'τάχατες', 'βεληνεκές', 'γιαχνί', 'πλακί', 'μύριοι']:
-        # in my adjective list there are some strange errors which have to be filtered out
-        return None
+
     return adj_temp

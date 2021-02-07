@@ -2,6 +2,10 @@ from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
 
 from ..helping_functions import merging_all_dictionaries
+from exceptions import NotInGreekException
+import re
+
+greek_pattern = re.compile('[α-ω]+', re.IGNORECASE)
 
 def create_all_basic_forms(adj):
 
@@ -19,6 +23,10 @@ def create_all(adj, inflection=None):
     'comp_superl': array of all possible superlative adverbs (if exists)
 
     """
+
+    if not greek_pattern.match(adj):
+        raise NotInGreekException
+
     forms = []
     comp_forms = []
     super_forms = []

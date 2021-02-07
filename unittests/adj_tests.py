@@ -1,16 +1,22 @@
 from unittest import TestCase, main
 
 from modern_greek_inflexion.adjective import adjective
+from exceptions import NotInGreekException, NotLegalAdjectiveException
 
 
-r = adjective.create_all('ίλεως')
-print(r )
+
+# r = adjective.create_all('alfa')
+# print(r )
 
 
 class AdjectiveTests(TestCase):
 
 
+    def test_adj_not_in_greek(self):
+        self.assertRaises(NotInGreekException, adjective.create_all, 'alfa')
 
+    def test_adj_not_legal(self):
+        self.assertRaises(NotLegalAdjectiveException, adjective.create_all, 'καθικείς')
 
     def test_adj_oraios(self):
         self.assertEqual(
