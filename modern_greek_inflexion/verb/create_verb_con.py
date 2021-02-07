@@ -81,6 +81,10 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
 
                         forms[number][person].append(form)
 
+                    if conjugation_name == 'arch_pass_aor' and number == 'sg':
+                        forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0])
+
+
                     if form != put_accent_on_the_antepenultimate(form, true_syllabification=False):
                         if deaugmented_root:
                             form = deaugmented_root + ending
@@ -89,6 +93,10 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     if conjugation_name in ['con1_pass']:
         forms['pl']['pri'][0] = put_accent_on_the_antepenultimate(forms['pl']['pri'][0])
         forms['pl']['sec'][1] = put_accent_on_the_antepenultimate(forms['pl']['sec'][1])
+
+
+
+
 
     elif conjugation_name in ['parat1_pass']:
         forms['pl']['ter'][0] = put_accent_on_the_antepenultimate(forms['pl']['ter'][0])

@@ -1,6 +1,7 @@
 
 from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, create_passive_aorist_participle
 from ..resources import greek_corpus
+from exceptions import NotLegalVerbException
 
 
 def create_all_basic_forms(pres_form):
@@ -12,9 +13,14 @@ def create_all_basic_forms(pres_form):
     """
     # print(pres_form in greek_corpus)
 
-    if not pres_form or pres_form[-1] not in ['ω', 'ώ', 'ι', 'α'] or pres_form not in greek_corpus:
-
-        return {'error': 'It is not a correct verb form. You have to input 1st person sg present in active voice if possible, or modal form in 3rd person sg, and your input is: ' + pres_form}
+    if not pres_form or (pres_form[-1] not in ['ω', 'ώ'] \
+            and pres_form[-2:] not in ['ει', 'εί'] \
+            and pres_form[-3:] not in ['ται', 'μαι']) \
+            or pres_form[-4:] == 'νται' \
+            or pres_form not in greek_corpus:
+        # print(pres_form)
+        raise NotLegalVerbException
+        # return {'error': 'It is not a correct verb form. You have to input 1st person sg present in active voice if possible, or modal form in 3rd person sg, and your input is: ' + pres_form}
 
     verb_temp = {}
 
@@ -36,6 +42,7 @@ def create_all_basic_forms(pres_form):
         modal_med = True
         not_deponens = False
 
+    modal = modal_act or modal_med
     # prepositions that are sometimes added to a verb but do not have any impact on the way they are declined
     with_prothesis = False
     # protheseis = ['ξανα', 'πρωτο', 'κακο', 'υπερ']
@@ -84,7 +91,7 @@ def create_all_basic_forms(pres_form):
     # aorist
 
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
-
+    # print(aorist_basic_forms, 'UWA')
     if aorist_basic_forms:
         verb_temp['aorist'] = {}
         aorist_active, aorist_passive = aorist_basic_forms.split('/')
@@ -98,7 +105,7 @@ def create_all_basic_forms(pres_form):
     # paratatikos
 
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens, not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
-
+    # print('PAEAR', paratatikos_basic_forms)
     if paratatikos_basic_forms:
         paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')
         paratatikos_active = paratatikos_active.split(',')
@@ -114,26 +121,26 @@ def create_all_basic_forms(pres_form):
 
     present_participle_active = create_present_active_participle(pres_form, root, pres_conjugation)
 
-    if present_participle_active:
+    if present_participle_active and not modal:
         verb_temp['act_pres_participle'] = set(present_participle_active.split(','))
 
     # archaic praes part act
 
     present_participle_active_archaic = create_present_active_participle_arch(pres_form, root, pres_conjugation)
 
-    if present_participle_active_archaic:
+    if present_participle_active_archaic and not modal:
         verb_temp['arch_act_pres_participle'] = set(present_participle_active_archaic.split(','))
 
     # pres part pass
 
     present_participle_passive = create_present_passive_participle(pres_form, root, pres_conjugation)
 
-    if present_participle_passive:
+    if present_participle_passive and not modal:
         verb_temp['pass_pres_participle'] = set(present_participle_passive.split(','))
 
     # passive_perfect_participles
 
-    if 'passive_perfect_participle' in verb_temp and verb_temp['passive_perfect_participle'][-2:] in ['άς', 'άν']:
+    if 'passive_perfect_participle' in verb_temp and verb_temp['passive_perfect_participle'][-2:] in ['άς', 'άν'] and not modal:
         # correcting improper categorization of part on an
 
         verb_temp['active_aorist_participle'] = {act_root + 'άς/' + act_root + 'άσα/' + act_root + 'άν'}
@@ -141,21 +148,23 @@ def create_all_basic_forms(pres_form):
 
     passive_perfect_participles = create_passive_perfect_participle(pres_form, root, act_root, passive_root)
 
-    if passive_perfect_participles:
+    if passive_perfect_participles and not modal:
         verb_temp['passive_perfect_participle'] = set(passive_perfect_participles.split(','))
 
     # active aorist participle
 
-    if act_root:
+    if act_root and not modal:
         active_aorist_participle = create_active_aorist_participle(root, act_root)
         if active_aorist_participle:
             verb_temp['active_aorist_participle'] = set(active_aorist_participle.split(','))
 
     # passive aorist participle
-    if passive_root:
+    if passive_root and not modal:
         passive_aorist_participle = create_passive_aorist_participle(passive_root)
         if passive_aorist_participle:
             verb_temp['passive_aorist_participle'] = set(passive_aorist_participle.split(','))
+
+    verb_temp['modal'] = modal_act or modal_med
 
     # if with_prothesis:
     #     # because my db lacks compound verbs with common prefixes like ksana etc. it is a way to get all the forms, though

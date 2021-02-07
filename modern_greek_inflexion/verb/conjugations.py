@@ -1,7 +1,7 @@
 
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-
+from exceptions import NotLegalVerbException
 from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
 
 
@@ -613,7 +613,7 @@ def recognize_passive_present_continuous_conjugation(verb):
     if verb != 'είμαι' and len(verb) < 6:
         # maybe unnecessary, but one more way to catch problematic input
         print(verb + ' doesnt seem to be a correct verb form')
-        raise ValueError
+        raise NotLegalVerbException
 
     elif verb[-4:] == 'ομαι':
         root = verb[:-4]
@@ -776,4 +776,4 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
         return root, conjugation_ind
     else:
         print(verb)
-        raise AssertionError
+        raise NotLegalVerbException

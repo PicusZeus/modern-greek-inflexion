@@ -5,7 +5,7 @@ from exceptions import NotInGreekException, NotLegalAdjectiveException
 
 
 
-# r = adjective.create_all('alfa')
+# r = adjective.create_all('όλος')
 # print(r )
 
 

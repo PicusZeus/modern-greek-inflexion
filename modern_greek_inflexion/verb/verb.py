@@ -4,23 +4,34 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..adjective import adjective
 from ..helping_functions import merging_all_dictionaries
+from exceptions import NotInGreekException
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
 def create_basic_forms(verb):
+    if not greek_pattern.match(verb):
+        raise NotInGreekException
     return create_all_basic_forms(verb)
 
 
-def create_all_forms(verb):
-    basic_forms = create_all_basic_forms(verb)
 
+
+
+
+def create_all_forms(verb):
+
+    basic_forms = create_all_basic_forms(verb)
+    # print(basic_forms)
     all_forms = {}
+
+    modal = basic_forms['modal']
 
     "present"
     present = {}
     if 'error' in basic_forms:
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
-    # print(present_basic_forms)
     if 'active' in present_basic_forms:
         # only here, because we have lemma situation, all possible conjugation are also created (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
         pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms['active'], 'active')
@@ -32,11 +43,12 @@ def create_all_forms(verb):
 
         if not 'active' in present_basic_forms:
             deponens = True
+
+
     all_forms['present'] = present
     'conjunctive'
     # try:
     if 'conjunctive' in basic_forms:
-        # print(basic_forms['conjunctive'], 'CON')
         conjunctive_basic_forms = basic_forms['conjunctive']
         # print(conjunctive_basic_forms, 'SYNERXOMAI')
         conjunctive = {}
@@ -49,7 +61,8 @@ def create_all_forms(verb):
         if 'passive' in conjunctive_basic_forms:
 
             con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms['passive'], 'passive', active_root_for_imp=active_root)
-
+            if basic_forms['modal']:
+                del con_passive_forms['imp']
             conjunctive['passive'] = con_passive_forms
         all_forms['conjunctive'] = conjunctive
 
@@ -59,11 +72,17 @@ def create_all_forms(verb):
 
         aorist = {}
         if 'active' in aorist_basic_forms:
+
             aor_active_forms = create_all_past_personal_forms(aorist_basic_forms['active'], verb, 'perf', 'active')
+            if modal:
+                aor_active_forms['ind'].pop('pl', None)
+                aor_active_forms['ind']['sg'].pop('pri', None)
+                aor_active_forms['ind']['sg'].pop('sec', None)
             aorist['active'] = aor_active_forms
         if 'passive' in aorist_basic_forms:
             aor_passive_forms = create_all_past_personal_forms(aorist_basic_forms['passive'], verb, 'perf', 'passive')
             aorist['passive'] = aor_passive_forms
+
         all_forms['aorist'] = aorist
 
     #"paratatikos"

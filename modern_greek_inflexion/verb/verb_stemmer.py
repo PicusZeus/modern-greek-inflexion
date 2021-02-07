@@ -1,6 +1,6 @@
 import pickle
 from modern_greek_accentuation.syllabify import modern_greek_syllabify, count_syllables
-from modern_greek_accentuation.accentuation import is_accented, put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, put_accent_on_the_ultimate, remove_all_diacritics
+from modern_greek_accentuation.accentuation import is_accented, put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, put_accent_on_the_ultimate, remove_all_diacritics, where_is_accent
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels
 
@@ -355,13 +355,15 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             mod_root = act_root
         elif passive_root:
             mod_root = passive_root
-
+        # print(mod_root, act_root, 'ROOTS')
         if mod_root:
             aor_forms = add_augment(mod_root + 'ε')
+            print(aor_forms, "FORMDS")
             if passive_root:
                 aor_forms.extend(add_augment(mod_root + 'ηκε'))
             # mainly for symbainei
             anc_forms = add_augment(mod_root + 'η')
+            anc_forms = [a for a in anc_forms if where_is_accent(a) == 'penultimate']
             aor_forms.extend(anc_forms)
 
             aor_forms = [f for f in aor_forms if f in greek_corpus]
@@ -464,6 +466,7 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
         paratatikos_basic_forms = parat_act_forms + '/'
 
     elif modal_med:
+        # print('MODAL MED')
         parat_med_forms = ''
         if pres_form[-5:] == 'ιέται':
             parat_med_forms = [root + 'ιόταν']
@@ -476,10 +479,14 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
             parat_med_forms = [root + 'άτο', root + 'όταν', root + 'ιόταν']
 
         elif pres_form[-4:] == 'εται':
-            parat_med_forms = [root + 'όταν', root + 'ετο']
+            parat_med_forms = [put_accent_on_the_penultimate(root + 'όταν'), root + 'ετο']
+            # print('MODAL', parat_med_forms)
         elif pres_form[-5:] == 'ειται':
             parat_med_forms = [root + 'ειτο']
+            # print(parat_med_forms)
             parat_med_forms.extend(add_augment(parat_med_forms[0]))
+            parat_med_forms = [put_accent_on_the_antepenultimate(v) for v in parat_med_forms]
+            # print(parat_med_forms)
 
         parat_med_forms = [f for f in parat_med_forms if f in greek_corpus]
         parat_med_forms = ','.join(parat_med_forms)

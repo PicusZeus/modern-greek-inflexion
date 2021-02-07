@@ -15,3 +15,8 @@ class NotLegalAdjectiveException(Exception):
     pass
 
 
+class NotLegalVerbException(Exception):
+    """
+    Exception raised when input is not recognized as a possible verb form
+    """
+    pass

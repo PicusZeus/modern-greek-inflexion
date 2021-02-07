@@ -21,6 +21,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+
+ * 0.2.1 Fixes in verb module, mainly to modal verbs but also some minor issues resolved also. Added custom exceptions in exceptions module
+
  * 0.1.15 Added handling for ancient adjectives from 3rd declination (is, itos, ks, kos), and also for attic declination
  * 0.1.14 Added logic for contracted ancient adjectives on ous, oun, some minor improvements
  * 0.1.13 Added logic for resolving inflexion type of adjective that cannot be helped by corpus

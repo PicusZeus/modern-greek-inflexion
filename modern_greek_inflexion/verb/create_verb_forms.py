@@ -35,7 +35,6 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
         #             forms['forms_imp'][number][person] = new
 
     # change lists to sets
-    # print(forms, 'HERE')
 
     if forms_ind_or_con == 'modal':
         return forms
@@ -63,7 +62,6 @@ def create_all_imperfect_personal_forms(verb, voice):
     :param voice: voice has to be active or passive.
     :return: a dictionary {'voice': voice, 'sec_pos': secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary, 'forms_imp': all imper forms in a dictionary}
     """
-    # print(verb, 'PROKEITAI')
     act_verbs = pass_verbs = None
 
     if voice == 'active':
@@ -91,8 +89,7 @@ def create_all_imperfect_personal_forms(verb, voice):
 
             con_imp = con['conjugation_imp']
             forms_imp = create_all_pers_forms(con_imp, root)
-
-            if forms_ind == 'modal':
+            if con_ind == 'con1_act_modal':
                 forms_ind = {'sg': {'ter': [v]}}
                 forms_imp = None
             if forms_imp == 'modal':
@@ -104,7 +101,6 @@ def create_all_imperfect_personal_forms(verb, voice):
 
             root = con['root']
             con_ind = con['conjugation_ind']
-            # print(v, con_ind, 'PROKEITE HERE')
             forms_ind = create_all_pers_forms(con_ind, root)
 
             con_imp = con['conjugation_imp']
@@ -121,11 +117,13 @@ def create_all_imperfect_personal_forms(verb, voice):
 
 
 def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=None):
+
     """
     :param verb: an array of forms
     :param deponens:
     :return:
     """
+
     act_verb = pass_verb = None
 
     sec_pos = 'ind'
@@ -143,8 +141,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
             con_ind = con['conjugation_ind']
             con_imp = con['conjugation_imp']
             if con_ind in ['con1_act_modal', 'modal', 'con2_act_modal']:
-                # print(con_ind, con_imp, verb)
-                # forms_ind = {'sg': {'ter': [v]}}
+
                 forms_imp = None
             else:
                 con_imp = con['conjugation_imp']
@@ -187,14 +184,14 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
         v = v.strip()
 
         data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
+
         conjugation = data['conjugation_ind']
         if conjugation == 'parat2_act' or (voice == 'passive' and aspect == 'imperf'):
 
             simple_aor = False
         stem = data['root']
         deaugmented_stem = create_roots_from_past(v, lemma)
-        # if aspect == 'imperf':
-            # print(conjugation, verb, 'PAEATR')
+
         forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
         if forms_ind == 'modal':
             forms_ind = {'sg': {'ter': [v]}}
