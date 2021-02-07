@@ -3,10 +3,14 @@ from unittest import TestCase, main
 from modern_greek_inflexion.adjective import adjective
 
 
-r = adjective.create_all('βιλλαράς')
-print(r)
+r = adjective.create_all('ίλεως')
+print(r )
+
 
 class AdjectiveTests(TestCase):
+
+
+
 
     def test_adj_oraios(self):
         self.assertEqual(
@@ -49,6 +53,35 @@ class AdjectiveTests(TestCase):
 
         )
 
+
+    def test_adj_yperhliks(self):
+        self.assertEqual(
+            adjective.create_all('υπερήλιξ'),
+            {'adj': {'pl': {'neut': {'acc': {''}, 'nom': {''}, 'voc': {''}, 'gen': {''}},
+                            'fem': {'acc': {'υπερήλικες'}, 'nom': {'υπερήλικες'}, 'voc': {'υπερήλικες'},
+                                    'gen': {'υπερηλικών'}},
+                            'masc': {'acc': {'υπερήλικες'}, 'nom': {'υπερήλικες'}, 'voc': {'υπερήλικες'},
+                                     'gen': {'υπερηλίκων'}}},
+                     'sg': {'neut': {'acc': {''}, 'nom': {''}, 'voc': {''}, 'gen': {''}},
+                            'fem': {'acc': {'υπερήλικα'}, 'nom': {'υπερήλιξ'}, 'voc': {'υπερήλιξ'},
+                                    'gen': {'υπερήλικος'}},
+                            'masc': {'acc': {'υπερήλικα'}, 'nom': {'υπερήλιξ'}, 'voc': {'υπερήλιξ'},
+                                     'gen': {'υπερήλικος'}}}}}
+
+        )
+    def test_adj_ferelpis(self):
+        self.assertEqual(
+            adjective.create_all('φέρελπις'),
+            {'adj': {
+                'sg': {'masc': {'gen': {'φερέλπιδος'}, 'voc': {'φέρελπις'}, 'acc': {'φερέλπιδα'}, 'nom': {'φέρελπις'}},
+                       'neut': {'gen': {''}, 'voc': {''}, 'acc': {''}, 'nom': {''}},
+                       'fem': {'gen': {'φερέλπιδος'}, 'voc': {'φέρελπις'}, 'acc': {'φερέλπιδα'}, 'nom': {'φέρελπις'}}},
+                'pl': {'masc': {'gen': {'φερέλπιδων'}, 'voc': {'φερέλπιδες'}, 'acc': {'φερέλπιδες'},
+                                'nom': {'φερέλπιδες'}}, 'neut': {'gen': {''}, 'voc': {''}, 'acc': {''}, 'nom': {''}},
+                       'fem': {'gen': {'φερέλπιδων'}, 'voc': {'φερέλπιδες'}, 'acc': {'φερέλπιδες'},
+                               'nom': {'φερέλπιδες'}}}}}
+
+        )
 
     def test_adj_porfyroxrous(self):
         self.assertEqual(

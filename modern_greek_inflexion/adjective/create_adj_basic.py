@@ -7,7 +7,6 @@ from modern_greek_accentuation.resources import vowels
 
 from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
 
-
 def create_all_basic_adj_forms(adj, inflection=None):
     """
     :param adj: masc nom sg form (`ωραίος`)
@@ -142,11 +141,15 @@ def create_all_basic_adj_forms(adj, inflection=None):
             """
 
             if accent == 'penultimate':
-                masc = adj
-                fem = stem + 'α'
-                if stem + 'ισσα' in greek_corpus:
-                    fem = stem + 'ισσα'
-                neuter = stem + 'ικο'
+                if adj.endswith('ώδης'):
+                    masc, fem = adj, adj
+                    neuter = stem + 'ες'
+                else:
+                    masc = adj
+                    fem = stem + 'α'
+                    if stem + 'ισσα' in greek_corpus:
+                        fem = stem + 'ισσα'
+                    neuter = stem + 'ικο'
             elif accent == 'ultimate':
                 masc, fem = adj, adj
                 neuter = stem + 'ές'
@@ -192,8 +195,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
             neuter = stem + 'ον'
 
         if accent == 'ultimate' or not accent:
-            fem = '-'
-            neuter = stem + 'όν'
+            fem = stem + 'ούσα'
+            neuter = stem + 'ούν'
             neuter_alt_1 = stem + 'ών'
             neuter_alt_2 = stem + 'ούν'
             if neuter + 'τα' in greek_corpus or neuter + 'τες' in greek_corpus:
@@ -261,7 +264,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
         else:
             raise AssertionError
 
-    elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς']:
+    elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς', 'ἐνεστώς']:
         masc = adj
         fem = adj[:-1] + 'σα'
         neuter = adj
@@ -274,10 +277,24 @@ def create_all_basic_adj_forms(adj, inflection=None):
         fem = adj
         neuter = masc[:-2] + 'εν'
 
-    elif inflection == 'aklito':
-        masc, fem, neuter = adj, adj, adj
+    elif adj in ['περίφροντις', 'φέρελπις', 'άφροντις', 'φιλόπατρις', 'μόνορχις', 'παλίμπαις', 'πολύφροντις',
+                 'αρνησίπατρις', 'άπολις', 'άπατρις', 'αφιλόπατρις', 'ενήλιξ', 'πυρρόθριξ', 'δασύθριξ', 'ουλόθριξ',
+                 'κεντρόφυξ', 'πυρρόθριξ', 'υπερήλιξ', 'βλαξ', 'ομήλιξ', 'υπερμέτρωψ', 'κεντρόφυξ', 'μεσήλιξ']:
+        masc, fem = adj, adj
+        neuter = '-'
+
+    elif adj in ['εύχαρις', 'επίχαρις', 'άχαρις']:
+        masc, fem = adj, adj
+        neuter = adj[:-1]
+
+    elif adj in ['ίλεως']:
+        masc, fem = adj, adj
+        neuter = adj[:-1] + 'ν'
 
     else:
+        masc, fem, neuter = adj, adj, adj
+
+    if inflection == 'aklito':
         masc, fem, neuter = adj, adj, adj
 
     adj_forms = [masc, fem, neuter]
@@ -422,6 +439,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
 
     if adv_parathetika:
         adj_temp['adverb_comparative'] = adv_parathetika
+
+
     assert adj_temp['adj'].split('/')[1] != '-'
 
     if adj in ['είμαι', 'τάχατες', 'βεληνεκές', 'γιαχνί', 'πλακί', 'μύριοι']:

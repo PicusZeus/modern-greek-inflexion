@@ -2,12 +2,21 @@
 
 import copy
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
-    put_accent_on_the_penultimate, put_accent, count_syllables
+    put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
 
 from ..resources import greek_corpus, adj_basic_template
 
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά', 'adverb_comparative': 'ωμότερα/ωμότατα'}
 
+
+def put_accent_on_antepenultimate_in_all_forms(masc, forms):
+    if where_is_accent(masc) == 'antepenultimate':
+        for num in forms.keys():
+            for gender in forms[num].keys():
+                for case, form in forms[num][gender].items():
+                    # if num != 'pl' and case != 'gen':
+                    forms[num][gender][case] = put_accent_on_the_antepenultimate(form)
+    return forms
 
 def alternative_forms_kxth(fem):
     # κ, χ, θ ia, or h
@@ -262,7 +271,7 @@ def create_all_adj_forms(adj):
     forms = copy.deepcopy(adj_basic_template)
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
-
+    # print(masc[-2:], masc[-2:] == 'ις', masc == fem, neut == '-')
 
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
@@ -717,6 +726,66 @@ def create_all_adj_forms(adj):
 
         return forms, None
 
+    elif masc[-2:] == 'ις' and masc == fem and neut == '-':
+        # ancient 3rd declesion
+        thema = masc[:-1] + 'δ'
+
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = thema + 'α'
+        forms['sg']['masc']['gen'] = thema + 'ος'
+        forms['sg']['masc']['voc'] = masc
+        forms['sg']['fem']['nom'] = masc
+        forms['sg']['fem']['acc'] = thema + 'α'
+        forms['sg']['fem']['gen'] = thema + 'ος'
+        forms['sg']['fem']['voc'] = masc
+
+
+
+        forms['pl']['masc']['nom'] = thema + 'ες'
+        forms['pl']['masc']['acc'] = thema + 'ες'
+        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
+        forms['pl']['masc']['voc'] = thema + 'ες'
+        forms['pl']['fem']['nom'] = thema + 'ες'
+        forms['pl']['fem']['acc'] = thema + 'ες'
+        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(thema + 'ων')
+        forms['pl']['fem']['voc'] = thema + 'ες'
+
+        forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
+        return forms, None
+
+
+    elif masc[-1:] in ['ξ', 'ψ'] and masc == fem and neut == '-':
+        # ancient 3rd declesion
+        thema = masc[:-1] + 'κ'
+        if masc[-4:] == 'θριξ':
+            thema = masc[:-4] + 'τριχ'
+        elif masc[-3:] == 'φυξ':
+            thema = masc[:-3] + 'φυγ'
+        elif masc[-1] == 'ψ':
+            thema = masc[:-1] + 'π'
+
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = thema + 'α'
+        forms['sg']['masc']['gen'] = thema + 'ος'
+        forms['sg']['masc']['voc'] = masc
+        forms['sg']['fem']['nom'] = masc
+        forms['sg']['fem']['acc'] = thema + 'α'
+        forms['sg']['fem']['gen'] = thema + 'ος'
+        forms['sg']['fem']['voc'] = masc
+
+
+
+        forms['pl']['masc']['nom'] = thema + 'ες'
+        forms['pl']['masc']['acc'] = thema + 'ες'
+        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
+        forms['pl']['masc']['voc'] = thema + 'ες'
+        forms['pl']['fem']['nom'] = thema + 'ες'
+        forms['pl']['fem']['acc'] = thema + 'ες'
+        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(thema + 'ων')
+        forms['pl']['fem']['voc'] = thema + 'ες'
+
+        forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
+        return forms, None
     elif masc[-2:] == 'ας' and fem[-2:] == 'να' and neut[-2:] == 'αν':
         """
         not a very often occurence: ancient type of melas, melaina, melan
@@ -748,6 +817,79 @@ def create_all_adj_forms(adj):
         forms['pl']['neut']['acc'] = thema + 'α'
         forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
         forms['pl']['neut']['voc'] = thema + 'α'
+
+        return forms, None
+
+    elif masc[-2:] == 'ις' and fem == masc and neut[-1] == 'ι':
+        """
+        not a very often occurence: ancient type of melas, melaina, melan
+        """
+        thema = neut + 'τ'
+        fem_thema = thema
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = thema + 'α'
+        forms['sg']['masc']['gen'] = thema + 'ος'
+        forms['sg']['masc']['voc'] = neut
+        forms['sg']['fem']['nom'] = fem
+        forms['sg']['fem']['acc'] = thema + 'α'
+        forms['sg']['fem']['gen'] = thema + 'ος'
+        forms['sg']['fem']['voc'] = thema
+        forms['sg']['neut']['nom'] = neut
+        forms['sg']['neut']['gen'] = thema + 'ος'
+        forms['sg']['neut']['acc'] = neut
+        forms['sg']['neut']['voc'] = neut
+
+        forms['pl']['masc']['nom'] = thema + 'ες'
+        forms['pl']['masc']['acc'] = thema + 'ες'
+        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
+        forms['pl']['masc']['voc'] = thema + 'ες'
+        forms['pl']['fem']['nom'] = fem_thema + 'ες'
+        forms['pl']['fem']['acc'] = fem_thema + 'ες'
+        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem_thema + 'ων')
+        forms['pl']['fem']['voc'] = fem_thema + 'ες'
+        forms['pl']['neut']['nom'] = thema + 'α'
+        forms['pl']['neut']['acc'] = thema + 'α'
+        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
+        forms['pl']['neut']['voc'] = thema + 'α'
+
+        forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
+
+        return forms, None
+
+    elif masc[-2:] == 'ως' and fem == masc and neut[-2:] == 'ων':
+        """
+        not a very often occurence: ancient type of melas, melaina, melan
+        """
+        thema = neut[:-2]
+
+
+        forms['sg']['masc']['nom'] = masc
+        forms['sg']['masc']['acc'] = masc[:-1]
+        forms['sg']['masc']['gen'] = neut
+        forms['sg']['masc']['voc'] = masc
+        forms['sg']['fem']['nom'] = fem
+        forms['sg']['fem']['acc'] = fem[:-1]
+        forms['sg']['fem']['gen'] = neut
+        forms['sg']['fem']['voc'] = masc
+        forms['sg']['neut']['nom'] = neut
+        forms['sg']['neut']['gen'] = neut[:-1]
+        forms['sg']['neut']['acc'] = neut
+        forms['sg']['neut']['voc'] = neut
+
+        forms['pl']['masc']['nom'] = thema + 'ῳ'
+        forms['pl']['masc']['acc'] = thema + 'ῳς'
+        forms['pl']['masc']['gen'] = thema + 'ων'
+        forms['pl']['masc']['voc'] = thema + 'ῳ'
+        forms['pl']['fem']['nom'] = thema + 'ῳ'
+        forms['pl']['fem']['acc'] = thema + 'ῳς'
+        forms['pl']['fem']['gen'] = thema + 'ῳν'
+        forms['pl']['fem']['voc'] = thema + 'ῳ'
+        forms['pl']['neut']['nom'] = thema + 'α'
+        forms['pl']['neut']['acc'] = thema + 'α'
+        forms['pl']['neut']['gen'] = thema + 'ων'
+        forms['pl']['neut']['voc'] = thema + 'α'
+
+        forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
 
         return forms, None
 
