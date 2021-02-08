@@ -3,7 +3,7 @@ from unittest import TestCase, main
 from modern_greek_inflexion.verb import verb
 from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 
-res = verb.create_all_forms('πλέω')
+res = verb.create_all_forms('ξαίνω')
 print(res)
 """
 to do:
