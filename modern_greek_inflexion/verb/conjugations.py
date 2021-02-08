@@ -293,7 +293,7 @@ def create_regular_perf_root(verb, voice='active'):
             perf_root = root[:-1] + 'ψ'
         elif root[-2:] in ['εύ', 'αύ']:
             perf_root = root[:-2] + put_accent_on_syllable(root[-2]) + 'ψ'
-            #alternative stem on eus
+            # alternative stem on eus
             alternative_root = root + 'σ'
             if alternative_root + 'ω' in greek_corpus and perf_root + 'ω' not in greek_corpus:
                 perf_root = alternative_root
@@ -383,10 +383,8 @@ def create_regular_perf_root(verb, voice='active'):
         # archaic on o
         perf_root = root + 'ώσ'
 
-    if voice == 'passive' and \
-            conjugation in ['con1_act', 'con1_pass', 'con1_pass_modal', 'con2_pass_modal', 'con2d_act', 'con2d_pass'] and \
-            not irregular:
-
+    if voice == 'passive' and conjugation in ['con1_act', 'con1_pass', 'con1_pass_modal',
+                                              'con2_pass_modal', 'con2d_act', 'con2d_pass'] and not irregular:
 
         root = remove_all_diacritics(root)
         if root[-3:] == 'αιν':
@@ -444,8 +442,8 @@ def create_regular_perf_root(verb, voice='active'):
 
         if conjugation == 'con2d_act':
             perf_root = root + 'ωθ'
-
-        perf_root = remove_all_diacritics(perf_root)
+        if perf_root:
+            perf_root = remove_all_diacritics(perf_root)
 
     if voice == 'passive' and \
             conjugation in ['con2a_act', 'con2b_act', 'con2c_act', 'con2a_pass', 'con2b_pass', 'con2e_pass', 'con2c_pass', 'con2ab_pass'] and not irregular:
