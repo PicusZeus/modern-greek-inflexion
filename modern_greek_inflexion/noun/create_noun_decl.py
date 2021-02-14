@@ -95,8 +95,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                         if masc_voc.lower() in greek_corpus:
                             noun_all[gender][SG][VOC] = properN_masc_voc + ',' + masc_voc
 
-
-
                 if nom_pl:
                     gens = gen_sg.split(',')
                     accent_pl = where_is_accent(nom_pl, true_syllabification=False)

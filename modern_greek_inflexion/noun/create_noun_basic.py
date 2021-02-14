@@ -414,8 +414,9 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             if 'γάλα' in noun:
                 noun_temp['nom_pl'] = noun + 'τα' + ',' + noun + 'κτα'
                 noun_temp['gen_sg'] = noun + 'τος' + ',' + noun + 'κτος'
+        if (noun[-1] in ['α', 'ά'] and gen_a not in greek_corpus and plural_form_a not in greek_corpus
+              and put_accent(noun[:-1] + 'ων', accent) in greek_corpus) or noun in plur_tant_neut:
 
-        if noun in plur_tant_neut:
             # maybe pluralia tantum
             noun_temp['nom_sg'] = ''
             noun_temp['nom_pl'] = noun
@@ -804,6 +805,16 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['nom_sg'] = ''
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = ''
+        elif gender == 'fem_sg':
+            noun_temp['gender'] = 'fem'
+            noun_temp['nom_sg'] = noun
+            noun_temp['nom_pl'] = ''
+        elif gender == 'masc_sg':
+            noun_temp['gender'] = 'masc'
+            noun_temp['nom_pl'] = ''
+        elif gender == 'neut_sg':
+            noun_temp['gender'] = 'neut'
+            noun_temp['nom_pl'] = ''
 
     if noun in irregular_nouns.keys():
         noun_temp = irregular_nouns[noun]

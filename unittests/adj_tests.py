@@ -5,8 +5,8 @@ from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjec
 
 
 
-# r = adjective.create_all('όλος')
-# print(r )
+r = adjective.create_all('μέλας')
+print(r )
 
 
 class AdjectiveTests(TestCase):
@@ -108,7 +108,9 @@ class AdjectiveTests(TestCase):
         )
 
     def test_adj_melas(self):
+        self.maxDiff = None
         self.assertEqual(
+
             adjective.create_all('μέλας'),
             {'adj': {'sg': {'fem': {'voc': {'μέλαινα'}, 'gen': {'μέλαινας'}, 'acc': {'μέλαινα'}, 'nom': {'μέλαινα'}},
                             'masc': {'voc': {'μέλαν'}, 'gen': {'μέλανος'}, 'acc': {'μέλανα'}, 'nom': {'μέλας'}},

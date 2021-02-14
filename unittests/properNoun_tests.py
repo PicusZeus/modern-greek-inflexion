@@ -2,13 +2,9 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.noun import noun
 
-res = noun.create_all('Γης', proper_name=True, gender='fem')
+res = noun.create_all('Παπανδρέου', proper_name=True, gender='surname')
 # res = noun.create_all_basic_forms('Φρόσω', proper_name=True)
 print(res)
-
-
-
-
 
 
 class ProperNounTests(TestCase):
@@ -17,13 +13,30 @@ class ProperNounTests(TestCase):
             noun.create_all('Νίκος', proper_name=True),
             {'masc': {'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}},
                       'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}}
+        )
+
+    def test_Papandreou(self):
+        self.assertEqual(
+            noun.create_all('Παπανδρέου', proper_name=True, gender='surname'),
+            {'surname': {'pl': {'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'},
+                                'acc': {'Παπανδρέου'}}, 'sg': {'nom': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'},
+                                                               'voc': {'Παπανδρέου'}, 'acc': {'Παπανδρέου'}}}}
+
+        )
+
+
+    def test_Mykonos(self):
+        self.assertEqual(
+            noun.create_all('Μύκονος', proper_name=True, gender='fem_sg'),
+            {'fem': {'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}},
+                     'sg': {'nom': {'Μύκονος'}, 'gen': {'Μύκονου', 'Μυκόνου'}, 'acc': {'Μύκονο'}, 'voc': {'Μύκονε'}}}}
 
         )
 
     def test_Bandaloi(self):
         self.assertEqual(
             noun.create_all('Βάνδαλοι', proper_name=True),
-            {'masc': {'pl': {'nom': {'Βάνδαλοι'}, 'gen': {'Βάνδαλων'}, 'voc': {'Βάνδαλοι'}, 'acc': {'Βάνδαλους'}},
+            {'masc': {'pl': {'nom': {'Βάνδαλοι'}, 'gen': {'Βανδάλων'}, 'voc': {'Βάνδαλοι'}, 'acc': {'Βάνδαλους'}},
                       'sg': {'nom': {''}, 'gen': {''}, 'voc': {''}, 'acc': {''}}}}
 
         )
@@ -41,6 +54,7 @@ class ProperNounTests(TestCase):
 
 
     def test_Baios(self):
+        self.maxDiff = None
         self.assertEqual(
             noun.create_all('Βάιος', proper_name=True),
             {'masc': {'pl': {'voc': {''}, 'acc': {''}, 'nom': {''}},

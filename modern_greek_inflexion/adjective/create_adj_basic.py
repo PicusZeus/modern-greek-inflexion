@@ -399,7 +399,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
     elif (masc[-4:] == 'ονας' or masc[-2:] == 'ων') and fem[-2:] == 'ων':
         adverb = None
 
-    elif masc in ['άρρην']:
+    elif masc in ['άρρην', 'μέλας']:
         adverb = None
 
     epirrimata = [e for e in [adverb, alt_adv] if e and e in greek_corpus]
