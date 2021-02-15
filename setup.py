@@ -7,7 +7,7 @@ REQUIREMENTS = [i.strip() for i in open('requirements.txt').readlines()]
 
 setup(
     name="modern-greek-inflexion",
-    version="0.2.5",
+    version="0.2.6",
     description="Python 3 library for creating inflected forms for Modern Greek words",
     long_description_content_type="text/markdown",
     long_description=long_description,

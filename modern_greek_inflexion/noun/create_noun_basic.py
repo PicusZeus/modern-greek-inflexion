@@ -320,7 +320,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gen_sg'] = gen_form
             noun_temp['gender'] = 'fem'
 
-    elif noun[-2:] == 'ις':
+    elif noun[-2:] in ['ις', 'ΐς', 'ίς']:
         noun_temp['gender'] = 'fem'
         plural_form = put_accent_on_the_penultimate(noun[:-2] + 'εις', true_syllabification=False)
 
@@ -338,8 +338,8 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             # maybe gen on idos
             gen_form = noun[:-1] + 'δος'
             plural_form = noun[:-1] + 'δες'
-
-            if gen_form in greek_corpus or plural_form in greek_corpus:
+            print(gen_form, plural_form)
+            if gen_form in greek_corpus or plural_form in greek_corpus or gender == 'fem':
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
 
@@ -623,7 +623,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
 
     elif noun[-1] in ['ξ', 'ψ', 'τ', 'ρ',  'β', 'ν', 'δ', 'ε', 'έ', 'ζ', 'κ', 'λ', 'μ'] and \
-            noun not in ['σεξ', 'σερ', 'φαξ', 'μπορ', 'μπαρ', 'μποξ']:
+            noun not in ['σεξ', 'σερ', 'φαξ', 'μπορ', 'μπαρ', 'μποξ'] and inflection != 'aklito':
         # not very common but existing 3rd declension nouns
 
         stems = []
@@ -822,7 +822,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     if noun in diploklita.keys():
         noun_temp['nom_pl'] = diploklita[noun]
-
     if inflection == 'aklito':
         noun_temp['nom_sg'] = noun
         if not proper_name:

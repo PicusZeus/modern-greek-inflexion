@@ -21,6 +21,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.2.6 Fixed handling of indeclinable nouns (those on r, n etc were ignored)
  * 0.2.5 Added surname handling
  * 0.2.4 Minor fixes, updated requirements, updated word lists
  * 0.2.3 Added a more comprehensive corpus of the Greek words utilizing wikileksiko corpus, small improvements to the handling of prefixes in verbs
