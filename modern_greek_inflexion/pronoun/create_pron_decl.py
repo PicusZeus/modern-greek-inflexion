@@ -120,7 +120,6 @@ def create_all_pron_forms(bas_forms, strong=True):
             forms[PL][NEUT][ACC] = neut
             forms[PL][NEUT][VOC] = neut
 
-
     else:
         if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε', 'ίντα', 'ό,τι']:
             forms, _ = create_all_adj_forms(bas_forms)
@@ -167,7 +166,6 @@ def create_all_pron_forms(bas_forms, strong=True):
                         }}}
             return forms
 
-
         elif masc == 'ταύτα':
             forms = {'pl':{
                         'neut':{
@@ -194,7 +192,6 @@ def create_all_pron_forms(bas_forms, strong=True):
 
             }
             return forms
-
 
         else:
             raise ValueError

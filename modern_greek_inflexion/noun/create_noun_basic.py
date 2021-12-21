@@ -10,12 +10,8 @@ from ..resources import greek_corpus, feminine_os, feminine_h_eis, feminine_or_m
     irregular_nouns, diploklita
 
 
-
-
-
 def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=False):
     """
-
     :param noun: must be nom sg
     :return: dictionary with keys: nom_sg, gen_sg, nom_pl and gender. Alternative forms are divided with coma
     """
@@ -29,7 +25,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     noun = noun.lower()
 
     prefixes = ['νανο', 'μικρο', 'σκατο', 'παλιο']
-
 
     # on 'os'
 
@@ -90,7 +85,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                 noun_temp['gen_sg'] = gen_form
                 noun_temp['gender'] = 'neut'
 
-
             # γεγονός και άλλες μετοχές τού παρακειμένου
             plural_form = noun[:-1] + 'τα'
             gen_form = noun[:-1] + 'τος'
@@ -118,7 +112,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     elif noun[-1] == 'ς' and \
             ((noun[:-1] + 'δες' in greek_corpus) or (put_accent_on_the_antepenultimate(noun[:-1] + 'δες') in
                                                      greek_corpus)) and noun[-2:] != 'ις':
-        #imparisyllaba on des, archaic and modern
+        # imparisyllaba on des, archaic and modern
 
         noun_temp['gender'] = 'masc'
         noun_temp['gen_sg'] = noun[:-1]
@@ -282,7 +276,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
         if noun == 'Ζευς':
-
 
             noun_temp['gen_sg'] = 'Διός,Δίος'
             noun_temp['nom_pl'] = ''
@@ -565,7 +558,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     elif noun[-2:] in ['ων', 'ών']:
         noun_temp['gender']= 'masc'
 
-        irregular_3 = {'κύων':'κυν', 'είρων': 'είρων', 'ινδικτιών':'ινδικτιών'}
+        irregular_3 = {'κύων': 'κυν', 'είρων': 'είρων', 'ινδικτιών': 'ινδικτιών'}
 
         # 2 possibilities
         stem_a = noun[:-2] + 'όν'
@@ -621,7 +614,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['nom_pl'] = plural_form_d
             noun_temp['gen_sg'] = gen_form_d
 
-
     elif noun[-1] in ['ξ', 'ψ', 'τ', 'ρ',  'β', 'ν', 'δ', 'ε', 'έ', 'ζ', 'κ', 'λ', 'μ'] and \
             noun not in ['σεξ', 'σερ', 'φαξ', 'μπορ', 'μπαρ', 'μποξ'] and inflection != 'aklito':
         # not very common but existing 3rd declension nouns
@@ -656,8 +648,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             else:
                 noun_temp['gender'] = 'neut'
 
-
-
         for stem in stems:
             plural_form = stem + 'ες'
             modern_form = stem + 'ας'
@@ -674,14 +664,13 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                 plural_form = put_accent_on_the_antepenultimate(plural_form)
                 plural_form_n = put_accent_on_the_antepenultimate(plural_form_n)
 
-
             if (plural_form in greek_corpus or modern_form in greek_corpus) and noun not in ['πυρ']:
                 noun_temp['nom_pl'] = plural_form
                 if gen_form in greek_corpus or modern_form in greek_corpus:
                     noun_temp['gen_sg'] = gen_form
                 if gender:
                     noun_temp['gender'] = gender
-                # it's a bit crude way to correct gender but i cannot find a better way without a comprehensive list
+                # it's a bit crude way to correct gender but i cannot find a better one without a comprehensive list
                 # gen_pl = remove_all_diacritics(plural_form[:-2]) + 'ών'
                 # if gen_pl in greek_corpus:
                 #     noun_temp['gender'] = 'fem'
@@ -703,7 +692,8 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             # there are probably more such cases
             noun_temp['gender'] = 'fem'
         if noun in ['σερ']:
-            # there should be added probably a lot of proper names, but I will deal with it by using a flag proper_name_gender
+            # there should be added probably a lot of proper names, but I will deal with it by using
+            # a flag proper_name_gender
             noun_temp['gender'] = 'masc'
 
     elif noun[-1] in ['ώ', 'ω']:
@@ -768,17 +758,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         # aklita
 
-        # # but in this case check, maybe there is prefix
-        #
-        # for prefix in prefixes:
-        #     l = len(prefix)
-        #     print(noun)
-        #     if prefix in noun and prefix == noun[:l]:
-        #         print(prefix)
-        #
-        # #
-
-
         noun_temp['gender'] = 'neut'
         noun_temp['nom_pl'] = noun
         noun_temp['gen_sg'] = noun
@@ -819,7 +798,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     if noun in irregular_nouns.keys():
         noun_temp = irregular_nouns[noun]
 
-
     if noun in diploklita.keys():
         noun_temp['nom_pl'] = diploklita[noun]
     if inflection == 'aklito':
@@ -829,7 +807,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         else:
             noun_temp['nom_pl'] = ''
         noun_temp['gen_sg'] = noun
-
 
     # check one more time these, that do not have flag aklito, but are surmised to be, maybe removing a prefix we will
     # be able to find out the correct declesion type
@@ -848,8 +825,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     if capital:
         noun_temp = capitalize_basic_forms(noun_temp)
-
-
 
     return noun_temp
 

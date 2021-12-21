@@ -44,8 +44,6 @@ def create_all_num_adj_forms(num_base_forms, ordinal=False):
         elif neut[-7:] == 'τέσσερα':
             gen_pl = 'τεσσάρων'
             acc_masc = masc
-        # elif neut in aklita_num_alternatives:
-        #     masc = fem = neut = acc_masc = gen_pl = neut + ',' + aklita_num_alternatives[neut]
 
         elif neut == 'ένα':
 

@@ -25,7 +25,8 @@ def create_all_forms(verb):
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
     if 'active' in present_basic_forms:
-        # only here, because we have lemma situation, all possible conjugation are also created (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
+        # only here, because we have lemma situation, all possible conjugation are also created
+        # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
         pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms['active'], 'active')
         present['active'] = pres_act_forms
     if 'passive' in present_basic_forms:
@@ -33,9 +34,8 @@ def create_all_forms(verb):
         pres_passive_forms = create_all_imperfect_personal_forms(present_basic_forms['passive'], 'passive')
         present['passive'] = pres_passive_forms
 
-        if not 'active' in present_basic_forms:
+        if 'active' not in present_basic_forms:
             deponens = True
-
 
     all_forms['present'] = present
     'conjunctive'

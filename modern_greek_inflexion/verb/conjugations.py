@@ -74,9 +74,6 @@ def augment_prefixed_stem(stem):
     return res
 
 
-
-
-
 def create_all_participle_forms(participle, masc_endings, fem_endings, neuter_endings):
     # input is nom sg m (agaphmenos)
     # different accentuation options are possible, (I mean movable accent)
@@ -113,7 +110,7 @@ def create_pres_passive_participle(root, ending):
 
 
 def create_regular_perf_participle(pass_perf_root):
-    #returns nom sg, that can be later used to create other forms
+    # returns nom sg, that can be later used to create other forms
     form = None
     
     if pass_perf_root[-1] == 'θ':
@@ -141,7 +138,7 @@ def create_regular_perf_participle(pass_perf_root):
 
 
 def create_imp_pass(perf_pass_root):
-    #useful for deponentia
+    # useful for deponentia
     
     if perf_pass_root[-1] == 'θ':
         form = perf_pass_root[:-1] + 'σου'
@@ -191,11 +188,12 @@ def create_regular_perf_root(verb, voice='active'):
         perf_root = root
 
 
-    # the idea: to solve problem with irregular verbs that cannot be simply caught because they are combined with
+    # an idea: to solve problem with irregular verbs that cannot be simply caught because they are combined with
     # some suffix
 
     # to do: verbs with ancient aorist forms (ekserragi) have to be put in manually, as there is no poin in creating
-    # more code, list of such verbs: εξερράγη απεστάλη, συνέβη, συνελήφθη. But code might be useful here, especially that it wont be that complicated. But here
+    # more code, list of such verbs: εξερράγη απεστάλη, συνέβη, συνελήφθη.
+    # But code might be useful here, especially that it wont be that complicated. But here
     # check for 1 and 3 person sing.
 
     if voice == 'active':

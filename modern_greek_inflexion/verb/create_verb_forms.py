@@ -26,15 +26,6 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
                         new = []
                     new.extend(old)
                     forms[pos][number][person] = new
-        # if forms_imp:
-        #     for number in forms['forms_imp']:
-        #         for person in forms['forms_imp'][number]:
-        #             old = forms['forms_imp'][number][person]
-        #             new = forms_imp[number][person]
-        #             new.extend(old)
-        #             forms['forms_imp'][number][person] = new
-
-    # change lists to sets
 
     if forms_ind_or_con == 'modal':
         return forms
@@ -47,14 +38,9 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
                 old = forms[pos][number][person]
                 new = set(old)
                 forms[pos][number][person] = new
-    # if forms_imp:
-    #     for number in forms['forms_imp']:
-    #         for person in forms['forms_imp'][number]:
-    #             old = forms['forms_imp'][number][person]
-    #             new = set(old)
-    #             forms['forms_imp'][number][person] = new
 
     return forms
+
 
 def create_all_imperfect_personal_forms(verb, voice):
     """

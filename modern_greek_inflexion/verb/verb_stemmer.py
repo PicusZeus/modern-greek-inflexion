@@ -574,7 +574,6 @@ def create_present_passive_participle(_, root, pres_conjugation):
 
 def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
 
-
     all_passive_perfect_participles = ''
     passive_perfect_participles = []
 
@@ -590,7 +589,6 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
             for p in part_aug:
                 if p in greek_corpus:
                     passive_perfect_participles.append(p)
-
 
     if passive_root and not passive_perfect_participles:
 
@@ -653,7 +651,6 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
 
 def create_active_aorist_participle(root, act_roots):
     """
-
     :param root:
     :param act_roots: can be multiple alternative forms separated by ','
     :return:

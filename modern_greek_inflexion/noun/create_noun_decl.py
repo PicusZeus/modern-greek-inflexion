@@ -32,7 +32,7 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
     genders = masc,neuter_alt
     """
     if ',' in nom_pl:
-        #irregular plural maybe
+        # irregular plural maybe
         plurals = nom_pl.split(',')
         if (plurals[0][-2:] in ['οι', 'οί'] or not plurals[0]) and plurals[1][-1] in ['α', 'ά', 'ή', 'η']:
             genders = genders + ',neut_irregular'
@@ -231,7 +231,7 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 noun_all[gender][PL][GEN] = gen_pl
 
             elif nom_sg == nom_pl:
-                #aklita
+                # aklita
                 noun_all[gender][SG][ACC] = nom_sg
                 noun_all[gender][PL][GEN] = nom_pl
 
@@ -302,7 +302,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                     noun_all[gender][PL][GEN] = gen_pl
 
             elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί'] or nom_pl[-1:] in ['α', 'η', 'ά', 'ή']):
-
 
                 if nom_pl[-2:] in ['οι', 'οί']:
                     accent = where_is_accent(nom_pl, true_syllabification=False)

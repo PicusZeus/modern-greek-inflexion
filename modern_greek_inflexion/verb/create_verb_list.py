@@ -5,6 +5,7 @@ from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekE
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
+
 def create_all_basic_forms(pres_form):
 
     """
@@ -45,8 +46,8 @@ def create_all_basic_forms(pres_form):
         not_deponens = False
 
     modal = modal_act or modal_med
-    # prepositions that are sometimes added to a verb but do not have any impact on the way they are declined
-    with_prothesis = False
+    # prepositions that are sometimes added to a verb but do not have any impact on the way they
+    # are declined with_prothesis = False
     # protheseis = ['ξανα', 'πρωτο', 'κακο', 'υπερ']
     # # if they are at the beginning of the verb and such a verb exist
     # for prothesis in protheseis:
@@ -189,8 +190,6 @@ def create_all_basic_forms(pres_form):
     return verb_temp
 # create list of all verbs with their basic forms. Check them with existing forms and if they already exist,
 # leave them out
-
-
 
 
 

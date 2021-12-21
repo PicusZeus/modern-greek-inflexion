@@ -12,7 +12,9 @@ def create_all_adj_num(base_form):
     :param base_form: base neuter form of a numeral, in case of ordinals, masc
     :return:
     """
-    # ordinal or not, it should be assumed, as I don't know about any exception, that ordinals and alike have base_form that ends on os
+    # ordinal or not, it should be assumed, as I don't know about any exception,
+    # that ordinals and alike have base_form that ends on os
+
     if base_form[-2:] in ['ος', 'ός']:
         # true ordinals
         if base_form in ['δεύτερος', 'τρίτος', 'τέταρτος', 'πέμπτος', 'έκτος', 'έβδομος', 'όγδοος', 'ένατος', 'δέκατος'] or base_form[-4:] == 'στός':

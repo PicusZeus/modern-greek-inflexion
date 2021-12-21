@@ -7,8 +7,6 @@ data_path = os.path.join(this_dir, 'el_GR.pickle')
 
 greek_corpus = pickle.load(open(data_path, 'rb'))
 
-
-
 SG = 'sg'
 PL = 'pl'
 NOM = 'nom'

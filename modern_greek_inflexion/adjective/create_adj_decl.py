@@ -6,8 +6,8 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 
 from ..resources import greek_corpus, adj_basic_template
 
-# adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά', 'adverb_comparative': 'ωμότερα/ωμότατα'}
-
+# adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
+# 'adverb_comparative': 'ωμότερα/ωμότατα'}
 
 def put_accent_on_antepenultimate_in_all_forms(masc, forms):
     if where_is_accent(masc) == 'antepenultimate':
@@ -17,6 +17,7 @@ def put_accent_on_antepenultimate_in_all_forms(masc, forms):
                     # if num != 'pl' and case != 'gen':
                     forms[num][gender][case] = put_accent_on_the_antepenultimate(form)
     return forms
+
 
 def alternative_forms_kxth(fem):
     # κ, χ, θ ia, or h
@@ -42,6 +43,7 @@ def alternative_forms_kxth(fem):
             return alt_forms
 
     return None
+
 
 def alternative_forms_us(adj):
     # only for the us, ia, y type
@@ -71,7 +73,6 @@ def alternative_forms_us(adj):
         if gen_sg in greek_corpus:
             alt_forms['sg']['masc']['gen'] = masc[:-1] + ',' + gen_sg
 
-
     if neut:
         alt_forms['sg']['neut']['gen'] = neut
         gen_sg = masc[:-2] + 'έος'
@@ -100,15 +101,12 @@ def alternative_forms_us(adj):
         alt_forms['pl']['fem']['voc'] = fem_alt_plur
         alt_forms['pl']['fem']['gen'] = fem[:-2] + 'ειών'
 
-
-
-
-
     if masc in ['πολύς', 'μέγας']:
         alt_forms.pop('pl')
     # else there will be blank places, remember to check if there is sth
     # before inserting
     return alt_forms
+
 
 def alternative_forms_us2(adj):
     # only for the us, ia, y type
@@ -235,7 +233,6 @@ def alternative_forms_ou(fem):
     alt_forms['sg']['fem']['gen'] = fem + 'ς'
     alt_forms['sg']['fem']['voc'] = fem
 
-
     alt_forms['pl']['fem']['nom'] = fem + 'δες'
     alt_forms['pl']['fem']['acc'] = fem + 'δες'
     alt_forms['pl']['fem']['gen'] = fem + 'δων'
@@ -260,7 +257,6 @@ def put_accent_on_unaccented_forms(forms):
 
 
 def create_all_adj_forms(adj):
-    # print(adj)
 
     """
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesnt exist, it should
@@ -272,7 +268,6 @@ def create_all_adj_forms(adj):
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
     # print(masc[-2:], masc[-2:] == 'ις', masc == fem, neut == '-')
-
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
         fem = fem.split(',')[0] # because in the list there are given alternatives, which i dont need
@@ -432,9 +427,8 @@ def create_all_adj_forms(adj):
 
         return forms, alt_forms
 
-
     elif masc[-2:] in ['ης', 'άς', 'ής'] and fem[-1] in ['α', 'ύ'] and neut[-3:] == 'ικο':
-        #hs, a, iko
+        # hs, a, iko
         forms['sg']['masc']['nom'] = masc
         forms['sg']['masc']['acc'] = masc[:-1]
         forms['sg']['masc']['gen'] = masc[:-1]
@@ -535,6 +529,7 @@ def create_all_adj_forms(adj):
         forms['pl']['neut']['voc'] = thema + 'α'
 
         return forms, None
+
     elif masc[-2:] in ['ης', 'ής'] and fem[-2:] in ['ής', 'ης'] and neut[-2:] in ['ες', 'ές']:
         forms['sg']['masc']['nom'] = masc
         forms['sg']['masc']['gen'] = masc[:-2] + 'ους'
@@ -620,7 +615,6 @@ def create_all_adj_forms(adj):
 
         return forms, alternative_forms
 
-        
     elif (masc[-4:] == 'ονας' or masc[-2:] in ['ών','ων']) and fem[-2:] == 'ων' and neut[-2:] == 'ον':
 
         # ονας, ων, ον
@@ -753,7 +747,6 @@ def create_all_adj_forms(adj):
         forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
         return forms, None
 
-
     elif masc[-1:] in ['ξ', 'ψ'] and masc == fem and neut == '-':
         # ancient 3rd declesion
         thema = masc[:-1] + 'κ'
@@ -773,8 +766,6 @@ def create_all_adj_forms(adj):
         forms['sg']['fem']['gen'] = thema + 'ος'
         forms['sg']['fem']['voc'] = masc
 
-
-
         forms['pl']['masc']['nom'] = thema + 'ες'
         forms['pl']['masc']['acc'] = thema + 'ες'
         forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
@@ -786,6 +777,7 @@ def create_all_adj_forms(adj):
 
         forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
         return forms, None
+
     elif masc[-2:] == 'ας' and fem[-2:] == 'να' and neut[-2:] == 'αν':
         """
         not a very often occurence: ancient type of melas, melaina, melan

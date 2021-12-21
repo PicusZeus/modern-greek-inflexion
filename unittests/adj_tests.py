@@ -4,13 +4,11 @@ from modern_greek_inflexion.adjective import adjective
 from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjectiveException
 
 
-
 r = adjective.create_all('μέλας')
 print(r )
 
 
 class AdjectiveTests(TestCase):
-
 
     def test_adj_not_in_greek(self):
         self.assertRaises(NotInGreekException, adjective.create_all, 'alfa')

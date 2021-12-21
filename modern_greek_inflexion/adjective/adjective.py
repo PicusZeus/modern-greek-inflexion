@@ -7,9 +7,11 @@ import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
+
 def create_all_basic_forms(adj):
 
     return create_all_basic_adj_forms(adj)
+
 
 def create_all(adj, inflection=None):
     """
@@ -84,7 +86,6 @@ def create_all(adj, inflection=None):
         if adv_superlatives != '-':
             for adv_superlative in adv_superlatives.split(','):
                 super_adv.append(adv_superlative)
-    # print(forms)
     result = {}
 
     forms = merging_all_dictionaries(*forms)
@@ -92,7 +93,6 @@ def create_all(adj, inflection=None):
     if comp_forms:
 
         comp_forms = merging_all_dictionaries(*comp_forms)
-        # print(comp_forms, 'AFTER')
         if not comp_forms:
             raise ValueError
         result['comp'] = comp_forms
@@ -109,7 +109,5 @@ def create_all(adj, inflection=None):
     if super_adv:
         super_adv = set(super_adv)
         result['superl_adv'] = super_adv
-
-
 
     return result

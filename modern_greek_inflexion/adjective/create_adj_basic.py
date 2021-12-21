@@ -8,8 +8,10 @@ from modern_greek_accentuation.resources import vowels
 from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
 from modern_greek_inflexion.exceptions import NotLegalAdjectiveException
 
+
 def create_all_basic_adj_forms(adj, inflection=None):
     """
+    :param inflection: if relevant, add 'aklito' flag if it is certain does not have any declination (like μωβ)
     :param adj: masc nom sg form (`ωραίος`)
     :return: dictionary with keys:
     'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
@@ -27,10 +29,10 @@ def create_all_basic_adj_forms(adj, inflection=None):
         adj = adj[:-2] + 'ων'
 
     elif adj[-2:] == 'ές' and adj[:-2] + 'ής' in greek_corpus:
-        #    in ['εκκρεμές', 'λυκαυγές', 'αλκαλοειδές']:
+        #  ['εκκρεμές', 'λυκαυγές', 'αλκαλοειδές']:
         adj = adj[:-2] + 'ής'
     elif adj[-2:] == 'έν' and adj[:-2] + 'είς' in greek_corpus:
-        #['ανακοινωθέν']:
+        # ['ανακοινωθέν']:
         adj = adj[:-2] + 'είς'
     elif adj[-2:] == 'ού':
         if adj[:-2] + 'άς' in greek_corpus:
@@ -85,7 +87,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
                 fem = fem
             else:
                 # for the most part forms on h should be correct, but adj is not very common, so is lacking from db
-                # check for -a by looking for genetive on as in db
+                # check for -a by looking for genitive on as in db
                 if accent == 'ultimate':
                     gen = adj[:-2] + 'άς'
                     beta_fem = adj[:-2] + 'ά'
@@ -138,7 +140,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
 
         else:
             """
-            In cases where my corpus cant help me, I will surmise that it's hs, a (or issa), iko
+            In cases where my corpus cannot help me, I will surmise that it's hs, a (or issa), iko
             """
 
             if accent == 'penultimate':
@@ -160,14 +162,13 @@ def create_all_basic_adj_forms(adj, inflection=None):
         masc, fem = adj, adj
         neuter = adj[:-1] + 'ν'
 
-
     elif adj[-2:] in ['υς', 'ύς'] or adj in ['γλυκύ']:
-        # my database is far from greate
+        # my database is unfortunately not that great...
         stem = adj[:-2]
         masc = adj
         neuter = adj[:-1]
         if adj in ['γλυκύ']:
-            # unforturetly there are some mistakes in my word list whereneuter forms are given as lemma
+            # unfortunately there are some mistakes in my word list wherever forms are given as lemma
             # and so I have to correct them in this way
             stem = adj[:-1]
             masc = adj + 'ς'
@@ -212,12 +213,10 @@ def create_all_basic_adj_forms(adj, inflection=None):
             if not accent:
                 neuter = remove_all_diacritics(neuter)
 
-
         # it is also possible, that there are wn, onos
         if adj[:-2] + 'ονος' in greek_corpus:
             masc, fem = adj, adj
             neuter = adj[:-2] + 'ον'
-
 
     elif adj[-3:] == 'είς':
         # passive aorist participles
@@ -271,7 +270,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
         fem = adj[:-1] + 'σα'
         neuter = adj
         # rare but sometimes ancient perf participle
-
 
     elif adj in ['άρρην']:
         # so rare that it can be solved like that
@@ -441,9 +439,5 @@ def create_all_basic_adj_forms(adj, inflection=None):
 
     if adv_parathetika:
         adj_temp['adverb_comparative'] = adv_parathetika
-
-
-    # assert adj_temp['adj'].split('/')[1] != '-'
-
 
     return adj_temp

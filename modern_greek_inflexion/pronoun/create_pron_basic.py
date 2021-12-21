@@ -9,8 +9,7 @@ def create_basic_forms(pron):
     :return: as in adj masc/fem/neut
     """
 
-    #pronoun = {gender:{number}}
-
+    # pronoun = {gender:{number}}
 
     if pron[-2:] in ['ος', 'ός'] or pron[-3:] in ['πας'] and pron != 'τίνος':
         # like poios
@@ -62,7 +61,7 @@ def create_basic_forms(pron):
         bas_forms = 'όσπερ/ήπερ/όπερ'
 
     elif pron[-1] in ['η', 'ὴ'] or pron in ['μηδεμία', 'μερικοί', 'μου', 'πάσα', 'παν', 'όσο',  'τίνος']:
-        # there are some random fem nine forms in the list, should be filter out
+        # there are some random feminine forms in the list, should be filter out
         #     return None # also random forms of personal and other forms pron have to be filter out
         #     #     return Non
         return None

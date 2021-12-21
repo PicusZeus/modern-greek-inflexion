@@ -84,7 +84,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     if conjugation_name == 'arch_pass_aor' and number == 'sg':
                         forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0])
 
-
                     if form != put_accent_on_the_antepenultimate(form, true_syllabification=False):
                         if deaugmented_root:
                             form = deaugmented_root + ending
@@ -93,10 +92,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     if conjugation_name in ['con1_pass']:
         forms['pl']['pri'][0] = put_accent_on_the_antepenultimate(forms['pl']['pri'][0])
         forms['pl']['sec'][1] = put_accent_on_the_antepenultimate(forms['pl']['sec'][1])
-
-
-
-
 
     elif conjugation_name in ['parat1_pass']:
         forms['pl']['ter'][0] = put_accent_on_the_antepenultimate(forms['pl']['ter'][0])
@@ -142,7 +137,6 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
             passive_aorist_recreated = create_imp_pass(root)
             forms['sg']['sec'][0] = passive_aorist_recreated
 
-
     elif conjugation_name in ['imper_act_cont_2a']:
         forms['sg']['sec'][0] = put_accent_on_the_penultimate(forms['sg']['sec'][0])
         forms['sg']['sec'][1] = put_accent_on_the_antepenultimate(forms['sg']['sec'][1])
@@ -178,6 +172,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     except:
                         print(sys.exc_info()[0])
     return forms
+
 
 def create_roots_from_past(verb, lemma):
     # argument only in 1st person

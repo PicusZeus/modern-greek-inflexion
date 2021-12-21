@@ -10,7 +10,7 @@ VERB
 
 >>> from modern_greek_inflexion.verb import verb
 
-The verb module consists functions that create basic forms or all the forms for a single lemma, that has to be 1st person singular in present time, or, if it is a modal verb, in 3rd person, it recognizes conjugation types, irregular stems and creates all possible forms.
+The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be 1st person singular in present time, or, if it is a modal verb, in 3rd person, it recognizes conjugation types, irregular stems and creates all possible forms.
 The result of these function is a dictionary, with keys that exactly correlate to grammatical structures. As this library was created mainly for the purpose of feeding a db, it is a preferable way to structure the output, as class based approach would need more work and would not help in the main goal of this library. It can be though refactored to class based output, if there is such a need.
 
 BASIC VERB
