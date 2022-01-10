@@ -1,4 +1,7 @@
- # Modern-greek-inflexion
+![Tests](https://github.com/PicusZeus/modern_greek_inflexion/actions/workflows/tests.yml/badge.svg)
+ 
+
+# Modern-greek-inflexion
 
 Python 3 library for recognizing inflexion types and for creating all possible inflected forms for Modern Greek words.
 

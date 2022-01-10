@@ -1,5 +1,3 @@
-
-
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables,\
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
