@@ -1,7 +1,7 @@
 from unittest import TestCase, main
 
-from src.noun import noun
-
+from modern_greek_inflexion.noun import noun
+from modern_greek_inflexion import noun
 # res = noun.create_all('δολιοφθορέας', inflection='agnosto')
 # print(res)
 

@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from src.noun import noun
+from modern_greek_inflexion.noun import noun
 
 res = noun.create_all('Μωρ', proper_name=True, gender='masc', inflection='aklito')
 # res = noun.create_all_basic_forms('Φρόσω', proper_name=True)

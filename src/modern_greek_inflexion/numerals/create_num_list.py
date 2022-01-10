@@ -1,6 +1,6 @@
-from src.adjective.create_adj_basic import create_all_basic_adj_forms
+from src.modern_greek_inflexion.adjective import create_all_basic_adj_forms
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
-from ..resources import greek_corpus
+from src.modern_greek_inflexion.resources import greek_corpus
 
 
 def create_num_adj(numeral, ordinal=False):

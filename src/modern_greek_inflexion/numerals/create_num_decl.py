@@ -3,10 +3,10 @@ import copy
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, where_is_accent, put_accent_on_the_ultimate
 
-from src.adjective.create_adj_decl import create_all_adj_forms
-from src.adjective.create_adj_decl import adj_basic_template
+from src.modern_greek_inflexion.adjective import create_all_adj_forms
+from src.modern_greek_inflexion.adjective import adj_basic_template
 
-from ..resources import greek_corpus, aklita_num_alternatives
+from src.modern_greek_inflexion.resources import greek_corpus
 
 
 def create_all_num_adj_forms(num_base_forms, ordinal=False):

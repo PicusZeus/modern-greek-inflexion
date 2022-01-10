@@ -1,12 +1,9 @@
-import pickle
-
-
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate,\
     put_accent_on_the_antepenultimate, is_accented, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics, \
     put_accent, remove_diaer
 from modern_greek_accentuation.resources import vowels
 
-from ..resources import greek_corpus, feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut, aklita_gender, \
+from src.modern_greek_inflexion.resources import greek_corpus, feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut, aklita_gender, \
     irregular_nouns, diploklita
 
 

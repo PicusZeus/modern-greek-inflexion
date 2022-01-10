@@ -8,7 +8,14 @@ Usage
 VERB
 ==============
 
->>> from src.verb import verb
+>>>
+from src.modern_greek_inflexion.verb import verb
+
+The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be 1st person singular in present time, or, if it is a modal verb, in 3rd person, it recognizes conjugation types, irregular stems and creates all possible forms.
+The result of these function is a dictionary, with keys that exactly correlate to grammatical structures. As this library was created mainly for the purpose of feeding a db, it is a preferable way to structure the output, as class based approach would need more work and would not help in the main goal of this library. It can be though refactored to class based output, if there is such a need.
+
+The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be 1st person singular in present time, or, if it is a modal verb, in 3rd person, it recognizes conjugation types, irregular stems and creates all possible forms.
+The result of these function is a dictionary, with keys that exactly correlate to grammatical structures. As this library was created mainly for the purpose of feeding a db, it is a preferable way to structure the output, as class based approach would need more work and would not help in the main goal of this library. It can be though refactored to class based output, if there is such a need.
 
 The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be 1st person singular in present time, or, if it is a modal verb, in 3rd person, it recognizes conjugation types, irregular stems and creates all possible forms.
 The result of these function is a dictionary, with keys that exactly correlate to grammatical structures. As this library was created mainly for the purpose of feeding a db, it is a preferable way to structure the output, as class based approach would need more work and would not help in the main goal of this library. It can be though refactored to class based output, if there is such a need.
@@ -144,7 +151,36 @@ Sometimes there are alternative passive perfect participle, especially when an a
 ADJECTIVE
 =================
 
->>> from src.adjective import adjective
+>>>
+from src.modern_greek_inflexion.adjective import adjective
+
+The adjective module has to methods for creating basic forms of an adjective and for creating all possible forms.
+In order to create basic forms use "create_all_basic_forms", input must be masculine sing nominative form.
+
+>>> adjective.create_all_basic_forms('όμορφος')
+{'adj': 'όμορφος/όμορφη/όμορφο', 'comparative': 'ομορφότερος/ομορφότατος', 'adverb': 'όμορφα', 'adverb_comparative': 'ομορφότερα/ομορφότατα'}
+
+Here adj genders are given divided by / in this order masc/fem/neuter
+Comparative and comparative adverbs are given (if exist) with a slash, that divides comparative forms from superlatives.
+If there are some alternative forms, they are divided with a coma.
+
+If you want to create all the forms, use "create_all" method.
+
+As a result you are given a dictionary with all forms derived from a lemma form (that has to be masc sing nom)
+
+The adjective module has to methods for creating basic forms of an adjective and for creating all possible forms.
+In order to create basic forms use "create_all_basic_forms", input must be masculine sing nominative form.
+
+>>> adjective.create_all_basic_forms('όμορφος')
+{'adj': 'όμορφος/όμορφη/όμορφο', 'comparative': 'ομορφότερος/ομορφότατος', 'adverb': 'όμορφα', 'adverb_comparative': 'ομορφότερα/ομορφότατα'}
+
+Here adj genders are given divided by / in this order masc/fem/neuter
+Comparative and comparative adverbs are given (if exist) with a slash, that divides comparative forms from superlatives.
+If there are some alternative forms, they are divided with a coma.
+
+If you want to create all the forms, use "create_all" method.
+
+As a result you are given a dictionary with all forms derived from a lemma form (that has to be masc sing nom)
 
 The adjective module has to methods for creating basic forms of an adjective and for creating all possible forms.
 In order to create basic forms use "create_all_basic_forms", input must be masculine sing nominative form.
@@ -229,7 +265,14 @@ Adverb(s) are given under the "adv" key. Adverbs for comparative and superlative
 NOUN
 ======
 
->>> from src.noun import noun
+>>>
+from src.modern_greek_inflexion.noun import noun
+
+The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be nom sg of a given noun (or pluralis if its pluralis tantum)
+They return dictionaries with forms.
+
+The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be nom sg of a given noun (or pluralis if its pluralis tantum)
+They return dictionaries with forms.
 
 The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be nom sg of a given noun (or pluralis if its pluralis tantum)
 They return dictionaries with forms.
@@ -2242,7 +2285,12 @@ These forms are highly irregular and possess differentiation on weak and strong 
 ADVERBS
 +++++++
 
->>> from src.adverb import adverb
+>>>
+from src.modern_greek_inflexion.adverb import adverb
+
+Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other adverbs. Method used to give all forms is as always
+
+Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other adverbs. Method used to give all forms is as always
 
 Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other adverbs. Method used to give all forms is as always
 

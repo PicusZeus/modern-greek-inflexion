@@ -1,6 +1,6 @@
 from .create_noun_basic import create_all_basic_noun_forms
 from .create_noun_decl import create_all_noun_forms
-from ..helping_functions import merging_all_dictionaries
+from src.modern_greek_inflexion.helping_functions import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 

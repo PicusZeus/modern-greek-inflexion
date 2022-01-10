@@ -1,9 +1,9 @@
 
 from .create_num_decl import create_all_num_adj_forms
-from ..adjective import adjective
+from src.modern_greek_inflexion.adjective import adjective
 from .create_num_list import create_num_adj
-from ..noun import noun
-from ..helping_functions import merging_all_dictionaries
+from src.modern_greek_inflexion.noun import noun
+from src.modern_greek_inflexion.helping_functions import merging_all_dictionaries
 
 
 def create_all_adj_num(base_form):

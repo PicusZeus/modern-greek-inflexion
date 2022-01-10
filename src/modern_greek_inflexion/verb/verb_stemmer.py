@@ -1,4 +1,3 @@
-import pickle
 from modern_greek_accentuation.syllabify import modern_greek_syllabify, count_syllables
 from modern_greek_accentuation.accentuation import is_accented, put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, put_accent_on_the_ultimate, remove_all_diacritics, where_is_accent
 from modern_greek_accentuation.augmentify import add_augment
@@ -6,7 +5,7 @@ from modern_greek_accentuation.resources import vowels
 
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, create_regular_perf_root
 
-from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists,\
+from src.modern_greek_inflexion.resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists,\
     irregular_passive_aorists, deponens_with_active_perf_forms
 
 

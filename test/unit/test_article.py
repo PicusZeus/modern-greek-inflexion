@@ -1,7 +1,7 @@
 from unittest import TestCase, main
 
+from modern_greek_inflexion.articles import articles
 
-from src.articles import articles
 
 #
 # res = articles.create_all('ένας')

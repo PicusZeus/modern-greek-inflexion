@@ -1,8 +1,8 @@
 
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from src.exceptions import NotLegalVerbException
-from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
+from src.modern_greek_inflexion.exceptions import NotLegalVerbException
+from src.modern_greek_inflexion.resources import greek_corpus, irregular_passive_roots, irregular_active_roots
 
 
 def find_alternative_roots(ending, stem):

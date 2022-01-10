@@ -1,26 +1,23 @@
-from unittest import TestCase, main
+from unittest import TestCase
 
-from src.adverb import adverb
+from modern_greek_inflexion.adverb import adverb
 
-adv = adverb.create_all('άνω')
-print(adv)
 
 class AdverbTest(TestCase):
     def test_adv_noris(self):
-        self.assertEqual(
+        self.assertDictEqual(
             adverb.create_all('νωρίς'),
             {'adv': {'νωρίς'}, 'comp_adv': {'νωρίτερα'}, 'superl_adv': {''}}
-
         )
 
     def test_adv_pote(self):
-        self.assertEqual(
+        self.assertDictEqual(
             adverb.create_all('ποτέ'),
             {'adv': {'ποτέ'}}
         )
 
     def test_adv_ano(self):
-        self.assertEqual(
+        self.assertDictEqual(
             adverb.create_all('άνω'),
             {'adv': {'άνω'}, 'comp_adv': {'ανώτερα'}, 'superl_adv': {'ανώτατα'}, 'comp': {
                 'pl': {'neut': {'nom': {'ανώτερα'}, 'gen': {'ανώτερων'}, 'voc': {'ανώτερα'}, 'acc': {'ανώτερα'}},
@@ -36,7 +33,3 @@ class AdverbTest(TestCase):
                  'sg': {'neut': {'nom': {'ανώτατο'}, 'gen': {'ανώτατου'}, 'voc': {'ανώτατο'}, 'acc': {'ανώτατο'}},
                         'masc': {'nom': {'ανώτατος'}, 'gen': {'ανώτατου'}, 'voc': {'ανώτατε'}, 'acc': {'ανώτατο'}},
                         'fem': {'nom': {'ανώτατη'}, 'gen': {'ανώτατης'}, 'voc': {'ανώτατη'}, 'acc': {'ανώτατη'}}}}}
-
-        )
-if __name__ == '__main__':
-    main()

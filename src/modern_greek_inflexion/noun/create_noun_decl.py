@@ -1,6 +1,6 @@
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 
-from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC
+from src.modern_greek_inflexion.resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC
 
 
 def put_accent_on_unaccented_forms(forms):

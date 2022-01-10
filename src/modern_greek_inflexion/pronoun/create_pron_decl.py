@@ -1,7 +1,7 @@
-from src.adjective.create_adj_decl import create_all_adj_forms
+from src.modern_greek_inflexion.adjective import create_all_adj_forms
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
-from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
+from src.modern_greek_inflexion.resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
 
 
 def create_all_pron_forms(bas_forms, strong=True):

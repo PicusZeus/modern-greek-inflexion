@@ -5,7 +5,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_antepenulti
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
 
-from ..resources import greek_corpus, irregular_imperative_forms, conjugations
+from src.modern_greek_inflexion.resources import greek_corpus, irregular_imperative_forms, conjugations
 
 forms_imp = {
     'sg': {
