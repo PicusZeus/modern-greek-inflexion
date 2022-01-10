@@ -1,4 +1,4 @@
-![Tests](https://github.com/PicusZeus/modern_greek_inflexion/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/PicusZeus/modern-greek-inflexion/actions/workflows/tests.yml/badge.svg)
  
 
 # Modern-greek-inflexion
