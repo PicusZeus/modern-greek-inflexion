@@ -2,8 +2,7 @@ from unittest import TestCase, main
 
 from modern_greek_inflexion.numerals import numerals
 
-qa = numerals.create_all_adj_num('οχτώ')
-qn = numerals.create_all_noun_num('χιλιάδες')
+
 
 
 class NumeralsNounTest(TestCase):

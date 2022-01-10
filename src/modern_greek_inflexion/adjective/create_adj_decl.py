@@ -4,7 +4,7 @@ import copy
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
 
-from src.modern_greek_inflexion.resources import greek_corpus, adj_basic_template
+from modern_greek_inflexion.resources import greek_corpus, adj_basic_template
 
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
 # 'adverb_comparative': 'ωμότερα/ωμότατα'}

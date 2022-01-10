@@ -7,7 +7,7 @@ from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjec
 class AdjectiveTests(TestCase):
 
     def test_adj_not_in_greek(self):
-        self.assertRaises(NotInGreekException, adjective.create_all, 'alfa')
+        self.assertRaises(NotInGreekException, adjective.create_all, 'kakos')
 
     def test_adj_not_legal(self):
         self.assertRaises(NotLegalAdjectiveException, adjective.create_all, 'καθικείς')
