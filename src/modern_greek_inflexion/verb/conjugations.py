@@ -1,154 +1,22 @@
-
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from src.modern_greek_inflexion.exceptions import NotLegalVerbException
-from src.modern_greek_inflexion.resources import greek_corpus, irregular_passive_roots, irregular_active_roots
 
-
-def find_alternative_roots(ending, stem):
-    # return a list of possible verb roots for a given form that consists of an ending and stem
-
-    alternative_roots = []
-
-    if ending in ['αμε', 'ατε', 'ανε']:
-        # past tenses
-        # strip accent
-            
-        new_root = remove_all_diacritics(stem)
-        syllables = modern_greek_syllabify(new_root)
-
-        if len(syllables) == 1:
-            # add augment
-            augmented_roots = []
-            if not has_vowel(new_root[0]):
-                e = 'έ' + new_root
-                h = 'ή' + new_root
-                augmented_roots.extend([e, h])
-            elif new_root[:2] == 'ευ':
-                hu = 'ηύ' + new_root[2:]
-                augmented_roots.append(hu)
-            elif new_root[0] == 'έ':
-                e_h = 'ή' + new_root[1:]
-                augmented_roots.append(e_h)
-
-            alternative_roots.extend(augmented_roots)
-        else:
-            # internal augment
-            # move accent
-            accented_syllable = put_accent_on_syllable(syllables[-2])
-            syllables[-2] = accented_syllable
-            new_root = ''.join(syllables)
-            alternative_roots.append(new_root)
-
-    elif ending in ['όμαστε', 'όσαστε']:
-        # if ending 4, 5 act+pass (omaste, osaste)
-        syllables = modern_greek_syllabify(stem)
-        accented_syllable = put_accent_on_syllable(syllables[-1])
-        syllables[-1] = accented_syllable
-        new_root = ''.join(syllables)
-        alternative_roots.append(new_root)
-
-    elif ending == 'ονταν':
-        new_root = remove_all_diacritics(stem)
-
-        alternative_roots.append(new_root)
-        
-    return alternative_roots
-
-
-def augment_prefixed_stem(stem):
-    # this function checks if a given stem is prefixed by an applicable prefix and augment
-    # it if it is, returns list of proposed augmented stems,
-    # input stem must be anaccented
-    res = []
-    for pref in prefix_list_that_allow_augmentaion:
-        if len(stem)> len(pref) and pref == stem[:len(pref)]:
-            res.append(pref + 'ε' + stem[len(pref):])
-
-    for pref in dict_of_augmented_prefixes.keys():
-        
-        if len(stem) > len(pref) and pref == stem[:len(pref)]:
-            
-            res.append(dict_of_augmented_prefixes[pref] + stem[len(pref):])
-    
-    return res
-
-
-def create_all_participle_forms(participle, masc_endings, fem_endings, neuter_endings):
-    # input is nom sg m (agaphmenos)
-    # different accentuation options are possible, (I mean movable accent)
-    # you can add them later
-    # endings need to be a list of class instances: endings.number.number = 'sg', or 'pl'
-    # endings.case.case = case for a given ending
-    result = {'sg': {'m': {}, 'f': {}, 'n': {}}, 'pl': {'m': {}, 'f': {}, 'n': {}}}
-    root = participle[:-2]
-
-    for gender, endings in [('m', masc_endings), ('f', fem_endings), ('n', neuter_endings)]:
-        for ending in endings:
-            number = ending.number.number
-            case= ending.case.case
-            result[number][gender][case] = root + ending.ending
-
-    return result
-
-
-def create_pres_active_participle(root, ending):
-    # accentuation is not a problem here
-    form = root + ending
-
-    return form
-
-
-def create_pres_passive_participle(root, ending):
-    # returns nom sg, that can be later used to create other forms
-
-    form = root + ending
-    form = remove_all_diacritics(form)
-    form = put_accent_on_the_antepenultimate(form)
-
-    return form
-
-
-def create_regular_perf_participle(pass_perf_root):
-    # returns nom sg, that can be later used to create other forms
-    form = None
-    
-    if pass_perf_root[-1] == 'θ':
-        form = pass_perf_root[:-1] + 'μενος'
-
-    elif pass_perf_root[-2:] in ['στ']:
-        form = pass_perf_root[:-2] + 'σμενος'
-
-    elif pass_perf_root[-2:] == 'χτ':
-        form = pass_perf_root[:-2] + 'γμενος'
-
-    elif pass_perf_root[-2:] == 'φτ':
-        form = pass_perf_root[:-2] + 'μμενος'
-
-    elif pass_perf_root[-3:] == 'ευτ':
-        form = pass_perf_root[:-3] + 'εμμενος'
-
-    if form:
-
-        form = remove_all_diacritics(form)
-
-        form = put_accent_on_the_penultimate(form)
-
-    return form
+from modern_greek_inflexion.exceptions import NotLegalVerbException
+from modern_greek_inflexion.resources import greek_corpus, irregular_passive_roots, irregular_active_roots
 
 
 def create_imp_pass(perf_pass_root):
     # useful for deponentia
-    
+
     if perf_pass_root[-1] == 'θ':
         form = perf_pass_root[:-1] + 'σου'
     elif perf_pass_root[-2:] == 'φτ':
         form = perf_pass_root[:-2] + 'ψου'
 
     elif perf_pass_root[-2:] == 'στ':
-        form = perf_pass_root[:-2] + 'σου'    
+        form = perf_pass_root[:-2] + 'σου'
     elif perf_pass_root[-2:] == 'χτ':
-        form = perf_pass_root[:-2] + 'ξου'  
+        form = perf_pass_root[:-2] + 'ξου'
     elif perf_pass_root[-3:] == 'ευτ':
         form = perf_pass_root[:-3] + 'έψου'
 
@@ -164,7 +32,6 @@ def create_imp_pass(perf_pass_root):
 
 
 def create_regular_perf_root(verb, voice='active'):
-
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
     perf_root = None
@@ -178,7 +45,6 @@ def create_regular_perf_root(verb, voice='active'):
         res = recognize_passive_present_continuous_conjugation(verb)
 
     if not res:
-        print('conjugation not recognized: ' + verb)
         return None
 
     root = res['root']
@@ -186,7 +52,6 @@ def create_regular_perf_root(verb, voice='active'):
 
     if conjugation == 'modal':
         perf_root = root
-
 
     # an idea: to solve problem with irregular verbs that cannot be simply caught because they are combined with
     # some suffix
@@ -207,7 +72,7 @@ def create_regular_perf_root(verb, voice='active'):
                         beta_perf_root = root[:-len(pair[0])] + stem
 
                         if (beta_perf_root + 'ω' in greek_corpus) or (
-                            beta_perf_root + 'ώ' in greek_corpus
+                                beta_perf_root + 'ώ' in greek_corpus
                         ):
                             multiple_perf_roots.append(beta_perf_root)
 
@@ -250,10 +115,9 @@ def create_regular_perf_root(verb, voice='active'):
 
                     beta_perf_root = root[:-len(pair[0])] + r
                     if (beta_perf_root + 'ώ' in greek_corpus) or \
-                            (beta_perf_root + 'ω' in greek_corpus) or\
-                            (beta_perf_root + 'εί' in greek_corpus) or\
+                            (beta_perf_root + 'ω' in greek_corpus) or \
+                            (beta_perf_root + 'εί' in greek_corpus) or \
                             (beta_perf_root + 'ει' in greek_corpus):
-
                         perf_root = beta_perf_root
                         irregular = True
                         break
@@ -264,7 +128,7 @@ def create_regular_perf_root(verb, voice='active'):
             perf_root = root[:-3] + 'άν'
             if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                 perf_root = root[:-3] + 'ύν'
-                if perf_root + 'ω' not in greek_corpus  or perf_root + 'ει' not in greek_corpus:
+                if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                     perf_root = root[:-3] + 'άσ'
                     if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                         perf_root = root[:-3] + 'άξ'
@@ -280,7 +144,7 @@ def create_regular_perf_root(verb, voice='active'):
 
         elif root[-1] == 'ζ':
             perf_root = root[:-1] + 'ξ'
-            if perf_root + 'ω' not in greek_corpus  or perf_root + 'ει' not in greek_corpus:
+            if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                 perf_root = root[:-1] + 'σ'
 
         elif root[-1] in ['σκ']:
@@ -337,7 +201,7 @@ def create_regular_perf_root(verb, voice='active'):
                 perf_root = root + 'έσ'
                 if not ((perf_root + 'ω' in greek_corpus) or
                         (perf_root + 'ου' in greek_corpus) or
-                        perf_root + 'ει'  in greek_corpus):
+                        perf_root + 'ει' in greek_corpus):
 
                     perf_root = root + 'άξ'
                     if not ((perf_root + 'ω' in greek_corpus) or
@@ -351,7 +215,6 @@ def create_regular_perf_root(verb, voice='active'):
         # special case for compounds with ποιω that are not in my db for some reasons
 
         if root[-3:] == 'ποι' and conjugation in ['con2b_act', 'con2b_pass']:
-
             perf_root = root + 'ήσ'
 
     elif conjugation == 'con2c_act' and not perf_root:
@@ -368,11 +231,11 @@ def create_regular_perf_root(verb, voice='active'):
                     perf_root = beta_perf_root
                     break
         if root[-2:] == 'ού' and not perf_root:
-            #akouw
+            # akouw
             perf_root = root + 'σ'
         elif root[-2:] in diphtongs:
             perf_root = root[:-2] + 'άψ'
-            if perf_root + 'ω' not in greek_corpus  or perf_root + 'ει' not in greek_corpus:
+            if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                 perf_root = root + 'ξ'
         else:
             perf_root = root[:-1] + 'άψ'
@@ -444,7 +307,8 @@ def create_regular_perf_root(verb, voice='active'):
             perf_root = remove_all_diacritics(perf_root)
 
     if voice == 'passive' and \
-            conjugation in ['con2a_act', 'con2b_act', 'con2c_act', 'con2a_pass', 'con2b_pass', 'con2e_pass', 'con2c_pass', 'con2ab_pass'] and not irregular:
+            conjugation in ['con2a_act', 'con2b_act', 'con2c_act', 'con2a_pass', 'con2b_pass', 'con2e_pass',
+                            'con2c_pass', 'con2ab_pass'] and not irregular:
 
         perf_root = root + 'ηθ'
 
@@ -474,22 +338,18 @@ def create_regular_perf_root(verb, voice='active'):
         perf_root = remove_all_diacritics(perf_root)
 
     if not perf_root:
-        print('perf_root not created for verb: ' + verb)
-        # raise ValueError
+        return
 
     if (perf_root and
         ((perf_root + 'ω' in greek_corpus) or
          (perf_root + 'ώ' in greek_corpus) or
-         (perf_root + 'εί' in greek_corpus))) or\
-            root[-3:] == 'ποι' or\
+         (perf_root + 'εί' in greek_corpus))) or \
+            root[-3:] == 'ποι' or \
             multiple_stems:
-
-
 
         return perf_root
     else:
         return None
-#
 
 
 def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', voice='active'):
@@ -505,20 +365,22 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
 
     if verb[-2:] == 'άω' and verb not in ['πάω', 'φάω']:
         root = verb[:-2]
-        
+
         conjugation_ind = 'con2a_act'
         conjugation_imp = 'imper_act_cont_2a'
         conjugation_part = 'present_active_part_2'
 
     # συνηρημενα
-    elif ((verb[-1:] == 'ω' and verb[-2] in ['έ', 'ά', 'ώ']) and (verb[-3:] not in ['δέω', 'ρέω', 'χέω'] and verb[-4:] not in ['πνέω', 'πλέω'])) or (verb[-1] == 'ω' and len(verb) > 2 and verb[-3:-1] in ['αί', 'ού']) or verb == 'πάω':
+    elif ((verb[-1:] == 'ω' and verb[-2] in ['έ', 'ά', 'ώ']) and (
+            verb[-3:] not in ['δέω', 'ρέω', 'χέω'] and verb[-4:] not in ['πνέω', 'πλέω'])) or (
+            verb[-1] == 'ω' and len(verb) > 2 and verb[-3:-1] in ['αί', 'ού']) or verb == 'πάω':
         root = verb[:-1]
         conjugation_ind = 'con2c_act'
         conjugation_imp = 'imper_act_cont_2c'
         conjugation_part = 'present_active_part_2c'
     elif (verb[-1] == 'ώ') or (verb[-1:] == 'ω' and count_syllables(verb) == 1):
         root = verb[:-1]
-       
+
         conjugation_ind = 'con2b_act'
         conjugation_imp = 'imper_act_cont_2b'
         conjugation_part = 'present_active_part_2'
@@ -557,7 +419,6 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
 
     elif verb == '':
         # sometimes there is no simple future form
-        print('no simple conjunctive')
         pass
 
     elif verb[-2:] in ['ει', 'εί']:
@@ -589,21 +450,19 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
             if conjugation_ind == 'con2b_act' and put_accent_on_the_penultimate(root + 'α') in greek_corpus:
                 conjugation_imp = 'imper_act_aor_ca'
 
-        
     if aspect == 'perf' and voice == 'passive':
         # for future passive participle logic is implemented separately
         conjugation_part = ''
 
         conjugation_imp = 'imper_pass_aor_a'
     return {'aspect': aspect, 'voice': voice, 'tense': tense,
-                    'root': root,
-                    'conjugation_ind': conjugation_ind,
-                    'conjugation_imp': conjugation_imp,
-                    'conjugation_part': conjugation_part}
+            'root': root,
+            'conjugation_ind': conjugation_ind,
+            'conjugation_imp': conjugation_imp,
+            'conjugation_part': conjugation_part}
 
 
 def recognize_passive_present_continuous_conjugation(verb):
-
     verb = verb.strip()
 
     if verb != 'είμαι' and len(verb) < 6:
@@ -616,13 +475,13 @@ def recognize_passive_present_continuous_conjugation(verb):
         conjugation_ind = 'con1_pass'
         conjugation_imp = 'imper_pass_cont_1'
         conjugation_part = 'present_passive_part_1'
-    
+
     elif verb[-5:] == "ιέμαι":
         root = verb[:-5]
         conjugation_ind = 'con2a_pass'
         conjugation_imp = 'imper_pass_cont_2a'
         conjugation_part = 'present_passive_part_2a'
-    
+
     elif verb[-5:] == 'ούμαι':
         root = verb[:-5]
         conjugation_ind = 'con2b_pass'
@@ -679,7 +538,6 @@ def recognize_passive_present_continuous_conjugation(verb):
 
 
 def recognize_past_conjugation(verb, lemma, aspect='imperf', voice='active'):
-
     verb = verb.strip()
     root = verb[:-1]
 
@@ -709,7 +567,6 @@ def recognize_past_conjugation(verb, lemma, aspect='imperf', voice='active'):
 
 
 def recognize_passive_past_continuous_conjugation(lemma, verb):
-
     verb = verb.strip()
     root = None
     if len(verb) >= 7 and 'ιόμουν' in verb[-7:]:
@@ -719,7 +576,7 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
             # if iomouna
             root = verb[:-7]
         conjugation_ind = 'parat2a_pass'
-            
+
     elif len(verb) >= 6 and 'όμουν' in verb[-6:]:
         if verb[-5:] == 'όμουν':
             root = verb[:-5]
@@ -734,7 +591,7 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
         elif lemma[-4:] == 'έμαι':
             conjugation_ind = 'parat2d_pass'
             root = verb[:-5]
-    elif len(verb)>=7 and 'ούμουν' in verb[-7:]:
+    elif len(verb) >= 7 and 'ούμουν' in verb[-7:]:
         if verb[-6:] == 'ούμουν':
             root = verb[:-6]
         else:
@@ -742,7 +599,7 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
             root = verb[:-7]
         conjugation_ind = 'parat2b_pass'
 
-    elif len(verb)>=6 and 'ούμην' in verb[-5:]:
+    elif len(verb) >= 6 and 'ούμην' in verb[-5:]:
         if verb[-5:] == 'ούμην':
             root = verb[:-5]
 
@@ -771,5 +628,4 @@ def recognize_passive_past_continuous_conjugation(lemma, verb):
     if root:
         return root, conjugation_ind
     else:
-        print(verb)
         raise NotLegalVerbException

@@ -1,10 +1,10 @@
-from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables,\
+from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
-from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import vowels
+from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
-from modern_greek_inflexion.resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
-from modern_greek_inflexion.exceptions import NotLegalAdjectiveException
+from ..exceptions import NotLegalAdjectiveException
+from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
 
 
 def create_all_basic_adj_forms(adj, inflection=None):
@@ -19,9 +19,8 @@ def create_all_basic_adj_forms(adj, inflection=None):
     'adverb': adverb form, if alternatives, then separated with coma
     'adverb_comparative': if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
     """
-    # correct possible errors in the list
 
-    # print(adj)
+
 
     if adj[-2:] == 'ον' and adj + 'τα' in greek_corpus:
         adj = adj[:-2] + 'ων'
@@ -54,7 +53,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
             fem = adj[:-2] + 'ή'
         else:
             fem = adj[:-2] + 'η'
-        fem_alt = None
 
         if adj[-3] in vowels and count_syllables(adj) <= 2:
             if accent == 'ultimate':
@@ -96,7 +94,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
                 if gen in greek_corpus:
                     fem = beta_fem
 
-            # if its lacking from the db, still the best guess is to leave the form on -h
+            # if it's lacking from the db, still the best guess is to leave the form on -h
 
         adj_forms.append(fem)
 
@@ -154,7 +152,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
             elif accent == 'ultimate':
                 masc, fem = adj, adj
                 neuter = stem + 'ές'
-            # raise AssertionError
 
     elif adj[-3:] == 'ους':
         masc, fem = adj, adj
@@ -189,8 +186,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
         neuter = None
         if accent == 'penultimate' or not accent:
             fem = stem + 'ουσα'
-            # if not accent:
-            #     fem = put_accent_on_the_penultimate(fem)
 
             neuter = stem + 'ον'
 
@@ -201,7 +196,9 @@ def create_all_basic_adj_forms(adj, inflection=None):
             neuter_alt_2 = stem + 'ούν'
             if neuter + 'τα' in greek_corpus or neuter + 'τες' in greek_corpus:
                 fem = stem + 'ούσα'
-            elif neuter_alt_1 + 'τα' in greek_corpus or neuter_alt_1 + 'τες' in greek_corpus or adj in ['ζων', 'κυβερνών', 'επιζών']:
+            elif neuter_alt_1 + 'τα' in greek_corpus or neuter_alt_1 + 'τες' in greek_corpus or adj in ['ζων',
+                                                                                                        'κυβερνών',
+                                                                                                        'επιζών']:
 
                 fem = stem + 'ώσα'
                 neuter = neuter_alt_1
@@ -219,7 +216,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
     elif adj[-3:] == 'είς':
         # passive aorist participles
         if not adj[:-3] + 'έντα' in greek_corpus:
-            # print(adj)
             raise NotLegalAdjectiveException
         masc = adj
         fem = adj[:-1] + 'σα'
@@ -231,7 +227,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
         # pas pasa pan
 
         pl_nta = adj[:-1] + 'ντα'
-        fem_sa =adj[:-1] + 'σα'
+        fem_sa = adj[:-1] + 'σα'
 
         if count_syllables(adj) == 1:
             pl_nta = put_accent(pl_nta, 'penultimate')
@@ -299,7 +295,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
 
     adj_temp['adj'] = '/'.join(adj_forms)
 
-# παραθετικά
+    # παραθετικά
 
     stem = neuter
     if stem[-1] == 'ς':
@@ -324,7 +320,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
         if alt_parathetiko not in greek_corpus:
             alt_parathetiko = None
         else:
-            alt_uperthetiko =put_accent_on_the_antepenultimate(alt_parathetiko[:-5] + 'τατος')
+            alt_uperthetiko = put_accent_on_the_antepenultimate(alt_parathetiko[:-5] + 'τατος')
             if alt_uperthetiko not in greek_corpus:
                 alt_uperthetiko = '-'
 
@@ -404,10 +400,10 @@ def create_all_basic_adj_forms(adj, inflection=None):
     if epirrimata:
         adj_temp['adverb'] = epirrimata
 
-# comparative epirrimata
+    # comparative epirrimata
     adv_parathetika = None
 
-    adverb_parathetiko = alt_adverb_parathetiko =adverb_uperthetiko = alt_adverb_uperthetiko = ''
+    adverb_parathetiko = alt_adverb_parathetiko = adverb_uperthetiko = alt_adverb_uperthetiko = ''
 
     if parathetiko:
         adverb_parathetiko = parathetiko[:-2] + 'α'

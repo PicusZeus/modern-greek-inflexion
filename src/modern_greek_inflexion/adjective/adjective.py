@@ -1,15 +1,14 @@
+import re
+
 from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
-
-from modern_greek_inflexion.helping_functions import merging_all_dictionaries
-from modern_greek_inflexion.exceptions import NotInGreekException
-import re
+from ..exceptions import NotInGreekException
+from ..helping_functions import merging_all_dictionaries
 
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
 def create_all_basic_forms(adj):
-
     return create_all_basic_adj_forms(adj)
 
 
@@ -38,17 +37,18 @@ def create_all(adj, inflection=None):
 
     all_basic_adj_forms = create_all_basic_adj_forms(adj, inflection=inflection)
 
-    # 'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
-    # separated with a coma
-    # 'comparative': if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
-    # form only in masc sing nom
-    # 'adverb': adverb form, if alternatives, then separated with coma
-    # 'adverb_comparative': if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
+    """
+    'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
+    separated with a coma
+    'comparative': if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
+    form only in masc sing nom
+    'adverb': adverb form, if alternatives, then separated with coma
+    'adverb_comparative': 
+    if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko   
+    """
 
     all_adj_infl_forms = create_all_adj_forms(all_basic_adj_forms['adj'])
-    # print(all_adj_infl_forms)
 
-    # print(all_basic_adj_forms['adj'])
     forms.append(all_adj_infl_forms[0])
     if all_adj_infl_forms[1]:
         forms.append(all_adj_infl_forms[1])
@@ -97,7 +97,6 @@ def create_all(adj, inflection=None):
             raise ValueError
         result['comp'] = comp_forms
     if super_forms:
-
         super_forms = merging_all_dictionaries(*super_forms)
         result['superl'] = super_forms
     if adverbs:

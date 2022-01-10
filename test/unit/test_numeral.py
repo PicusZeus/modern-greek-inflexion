@@ -3,12 +3,10 @@ from unittest import TestCase, main
 from modern_greek_inflexion.numerals import numerals
 
 
-
-
 class NumeralsNounTest(TestCase):
 
     def test_noun_xiliades(self):
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_noun_num('χιλιάδες'),
             {'fem': {'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}},
                      'pl': {'voc': {'χιλιάδες'}, 'acc': {'χιλιάδες'}, 'gen': {'χιλιάδων'}, 'nom': {'χιλιάδες'}}}}
@@ -18,7 +16,7 @@ class NumeralsNounTest(TestCase):
 class NumeralsAdjectiveTest(TestCase):
 
     def test_num_diakosia(self):
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_adj_num('διακόσια'),
             {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
@@ -26,11 +24,10 @@ class NumeralsAdjectiveTest(TestCase):
                 'fem': {'gen': {'διακοσίων'}, 'acc': {'διακόσιες'}, 'voc': {'διακόσιες'}, 'nom': {'διακόσιες'}},
                 'masc': {'gen': {'διακοσίων'}, 'acc': {'διακόσιους'}, 'voc': {'διακόσιοι'}, 'nom': {'διακόσιοι'}},
                 'neut': {'gen': {'διακοσίων'}, 'acc': {'διακόσια'}, 'voc': {'διακόσια'}, 'nom': {'διακόσια'}}}}}
-
         )
 
     def test_num_deuteros(self):
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_adj_num('δεύτερος'),
             {'adj': {'sg': {'masc': {'nom': {'δεύτερος'}, 'acc': {'δεύτερο'}, 'gen': {'δεύτερου'}, 'voc': {'δεύτερε'}},
                             'fem': {'nom': {'δεύτερη'}, 'acc': {'δεύτερη'}, 'gen': {'δεύτερης'}, 'voc': {'δεύτερη'}},
@@ -40,29 +37,27 @@ class NumeralsAdjectiveTest(TestCase):
                          'fem': {'nom': {'δεύτερες'}, 'acc': {'δεύτερες'}, 'gen': {'δεύτερων'}, 'voc': {'δεύτερες'}},
                          'neut': {'nom': {'δεύτερα'}, 'acc': {'δεύτερα'}, 'gen': {'δεύτερων'}, 'voc': {'δεύτερα'}}}},
              'adv': {'δεύτερον'}}
-
         )
 
     def test_num_protos(self):
-        self.maxDiff = None
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_adj_num('πρώτος'),
             {'adv': {'πρώτον', 'πρώτα'}, 'comp': {'sg': {
                 'neut': {'voc': {'πρωτύτερο'}, 'nom': {'πρωτύτερο'}, 'gen': {'πρωτύτερου'}, 'acc': {'πρωτύτερο'}},
                 'masc': {'voc': {'πρωτύτερε'}, 'nom': {'πρωτύτερος'}, 'gen': {'πρωτύτερου'}, 'acc': {'πρωτύτερο'}},
                 'fem': {'voc': {'πρωτύτερη'}, 'nom': {'πρωτύτερη'}, 'gen': {'πρωτύτερης'}, 'acc': {'πρωτύτερη'}}},
-                                                                       'pl': {'neut': {'voc': {'πρωτύτερα'},
-                                                                                       'nom': {'πρωτύτερα'},
-                                                                                       'gen': {'πρωτύτερων'},
-                                                                                       'acc': {'πρωτύτερα'}},
-                                                                              'masc': {'voc': {'πρωτύτεροι'},
-                                                                                       'nom': {'πρωτύτεροι'},
-                                                                                       'gen': {'πρωτύτερων'},
-                                                                                       'acc': {'πρωτύτερους'}},
-                                                                              'fem': {'voc': {'πρωτύτερες'},
-                                                                                      'nom': {'πρωτύτερες'},
-                                                                                      'gen': {'πρωτύτερων'},
-                                                                                      'acc': {'πρωτύτερες'}}}},
+                'pl': {'neut': {'voc': {'πρωτύτερα'},
+                                'nom': {'πρωτύτερα'},
+                                'gen': {'πρωτύτερων'},
+                                'acc': {'πρωτύτερα'}},
+                       'masc': {'voc': {'πρωτύτεροι'},
+                                'nom': {'πρωτύτεροι'},
+                                'gen': {'πρωτύτερων'},
+                                'acc': {'πρωτύτερους'}},
+                       'fem': {'voc': {'πρωτύτερες'},
+                               'nom': {'πρωτύτερες'},
+                               'gen': {'πρωτύτερων'},
+                               'acc': {'πρωτύτερες'}}}},
              'superl_adv': {'πρώτιστα'}, 'superl': {
                 'sg': {'neut': {'voc': {'πρώτιστο'}, 'nom': {'πρώτιστο'}, 'gen': {'πρώτιστου'}, 'acc': {'πρώτιστο'}},
                        'masc': {'voc': {'πρώτιστε'}, 'nom': {'πρώτιστος'}, 'gen': {'πρώτιστου'}, 'acc': {'πρώτιστο'}},
@@ -78,11 +73,10 @@ class NumeralsAdjectiveTest(TestCase):
                 'pl': {'neut': {'voc': {'πρώτα'}, 'nom': {'πρώτα'}, 'gen': {'πρώτων'}, 'acc': {'πρώτα'}},
                        'masc': {'voc': {'πρώτοι'}, 'nom': {'πρώτοι'}, 'gen': {'πρώτων'}, 'acc': {'πρώτους'}},
                        'fem': {'voc': {'πρώτες'}, 'nom': {'πρώτες'}, 'gen': {'πρώτων'}, 'acc': {'πρώτες'}}}}}
-
         )
 
     def test_num_dekatria(self):
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_adj_num('δεκατρία'),
             {'adj': {
                 'pl': {'masc': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
@@ -91,11 +85,10 @@ class NumeralsAdjectiveTest(TestCase):
                 'sg': {'masc': {'voc': {''}, 'acc': {''}, 'nom': {''}, 'gen': {''}},
                        'fem': {'voc': {''}, 'acc': {''}, 'nom': {''}, 'gen': {''}},
                        'neut': {'voc': {''}, 'acc': {''}, 'nom': {''}, 'gen': {''}}}}}
-
         )
 
     def test_num_oxto(self):
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_adj_num('οχτώ'),
             {'adj': {'pl': {'masc': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}},
                             'fem': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}},
@@ -103,11 +96,10 @@ class NumeralsAdjectiveTest(TestCase):
                      'sg': {'masc': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}},
                             'fem': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}},
                             'neut': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}}}}}
-
         )
 
     def test_num_enamisi(self):
-        self.assertEqual(
+        self.assertDictEqual(
             numerals.create_all_adj_num('ενάμισι'),
             {'adj': {'sg': {'masc': {'gen': {'ενάμιση'}, 'nom': {'ενάμισης'}, 'acc': {'ενάμιση'}, 'voc': {'ενάμιση'}},
                             'neut': {'gen': {'ενάμισι'}, 'nom': {'ενάμισι'}, 'acc': {'ενάμισι'}, 'voc': {'ενάμισι'}},
@@ -115,7 +107,6 @@ class NumeralsAdjectiveTest(TestCase):
                      'pl': {'masc': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
                             'neut': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
                             'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}}
-
         )
-if __name__ == '__main__':
-    main()
+
+

@@ -1,5 +1,4 @@
-
-from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation,\
+from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     recognize_past_conjugation
 
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
@@ -7,7 +6,7 @@ from .create_verb_con import create_all_pers_forms, create_roots_from_past
 
 def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
     """
-    compuond all alternative forms into a set
+    compound all alternative forms into a set
     :return:
     """
     if not forms:
@@ -102,8 +101,9 @@ def create_all_imperfect_personal_forms(verb, voice):
 
 
 def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=None):
-
     """
+    :param voice:
+    :param active_root_for_imp:
     :param verb: an array of forms
     :param deponens:
     :return:
@@ -153,6 +153,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
 
 def create_all_past_personal_forms(verb, lemma, aspect, voice):
     """
+    :param voice:
     :param verb: aorist or paratatikos in a set (can be multiple alternative forms)
     :param lemma: that is a present form, needed in order to correctly create augment
     :param aspect:
@@ -172,7 +173,6 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
 
         conjugation = data['conjugation_ind']
         if conjugation == 'parat2_act' or (voice == 'passive' and aspect == 'imperf'):
-
             simple_aor = False
         stem = data['root']
         deaugmented_stem = create_roots_from_past(v, lemma)

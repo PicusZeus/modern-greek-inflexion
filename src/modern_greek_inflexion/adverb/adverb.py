@@ -1,7 +1,6 @@
+from ..adjective import adjective
 
-from src.modern_greek_inflexion.adjective import adjective
-
-from src.modern_greek_inflexion.resources import irregular_adv
+from ..resources import irregular_adv
 
 
 def create_all(adverb):

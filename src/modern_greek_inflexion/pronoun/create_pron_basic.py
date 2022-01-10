@@ -1,6 +1,6 @@
-
 from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent
-from src.modern_greek_inflexion.adjective import adjective
+
+from ..adjective import adjective
 
 
 def create_basic_forms(pron):
@@ -27,9 +27,9 @@ def create_basic_forms(pron):
             bas_forms_r = adjective.create_all_basic_adj_forms(pron_r[:-1] + 'ς')['adj']
             fem = bas_forms_r.split('/')[1]
             neut = bas_forms_r.split('/')[2]
-            bas_forms = pron + '/' + fem + suffix+ '/' + neut+ suffix
+            bas_forms = pron + '/' + fem + suffix + '/' + neut + suffix
         else:
-            bas_forms = pron + '/' + pron  + '/' + pron
+            bas_forms = pron + '/' + pron + '/' + pron
 
     elif pron[-4:] == 'ένας' or pron[-3:] == 'είς':
         # all the pron like kathenas
@@ -38,8 +38,8 @@ def create_basic_forms(pron):
             masc_length = 3
         masc = pron
         fem = pron[:-masc_length] + 'εμία'
-        if len(pron) > 4 and pron[-(masc_length+1)] == 'ν':
-            fem = pron[:-(masc_length+1)] + 'μία'
+        if len(pron) > 4 and pron[-(masc_length + 1)] == 'ν':
+            fem = pron[:-(masc_length + 1)] + 'μία'
         if pron == 'ένας':
             fem = 'μία'
 
@@ -60,16 +60,12 @@ def create_basic_forms(pron):
 
         bas_forms = 'όσπερ/ήπερ/όπερ'
 
-    elif pron[-1] in ['η', 'ὴ'] or pron in ['μηδεμία', 'μερικοί', 'μου', 'πάσα', 'παν', 'όσο',  'τίνος']:
+    elif pron[-1] in ['η', 'ὴ'] or pron in ['μηδεμία', 'μερικοί', 'μου', 'πάσα', 'παν', 'όσο', 'τίνος']:
         # there are some random feminine forms in the list, should be filter out
-        #     return None # also random forms of personal and other forms pron have to be filter out
-        #     #     return Non
+
         return None
 
     else:
         bas_forms = pron + '/' + pron + '/' + pron
 
     return bas_forms
-
-
-

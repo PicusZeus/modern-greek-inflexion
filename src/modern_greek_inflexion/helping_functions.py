@@ -7,7 +7,6 @@ def dict_of_dicts_merge(x, y):
     if isinstance(x, set):
         if isinstance(y, set):
             x.update(y)
-            # print('updated', x)
             return x
         elif isinstance(y, str):
             y = set(y.split(','))

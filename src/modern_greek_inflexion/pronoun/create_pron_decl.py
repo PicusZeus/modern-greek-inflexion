@@ -1,11 +1,16 @@
-from src.modern_greek_inflexion.adjective import create_all_adj_forms
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
-from src.modern_greek_inflexion.resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
+from ..adjective.adjective import create_all_adj_forms
+from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
 
 
 def create_all_pron_forms(bas_forms, strong=True):
-    # inflected: boolean
+    """
+
+    :param bas_forms: basic forms in all genders
+    :param strong: if false, creates week pronouns
+    :return: dict with all forms
+    """
     # forms: dic 'fem', 'masc', neut', if not inflected forms is a string
 
     masc, fem, neut = bas_forms.split('/')
@@ -33,7 +38,6 @@ def create_all_pron_forms(bas_forms, strong=True):
                     forms = AUTOS_WEAK
 
             if masc == 'ποιος':
-
                 gen_fem_sg = 'ποιας,ποιανάς,τίνος'
                 gen_neut_sg = gen_masc_sg = 'ποιου,ποιανού,τίνος'
                 gen_pl = 'ποιων,ποιανών,τίνων'
@@ -128,7 +132,6 @@ def create_all_pron_forms(bas_forms, strong=True):
                     for case in forms[number][gender]:
 
                         if gender != NEUT or case not in [NOM, ACC]:
-
                             forms[number][gender][case] = ''
         elif masc == 'εγώ':
             if strong:
@@ -147,48 +150,47 @@ def create_all_pron_forms(bas_forms, strong=True):
 
         elif masc == 'αλλήλων':
             forms = {'pl': {
-                        'masc': {
-                            'gen': 'αλλήλων',
-                            'acc': 'αλλήλους'
-                        },
-                        'fem': {
-                            'gen': 'αλλήλων',
-                            'acc': 'αλλήλες'
-                        },
-                    }}
+                'masc': {
+                    'gen': 'αλλήλων',
+                    'acc': 'αλλήλους'
+                },
+                'fem': {
+                    'gen': 'αλλήλων',
+                    'acc': 'αλλήλες'
+                },
+            }}
 
         elif masc in ['όπερ', 'τουθόπερ']:
 
-            forms = {'sg':{
-                        'neut':{
-                            'nom': masc,
-                            'acc': masc
-                        }}}
+            forms = {'sg': {
+                'neut': {
+                    'nom': masc,
+                    'acc': masc
+                }}}
             return forms
 
         elif masc == 'ταύτα':
-            forms = {'pl':{
-                        'neut':{
-                                'nom': masc,
-                                'acc': masc
-                        }}}
+            forms = {'pl': {
+                'neut': {
+                    'nom': masc,
+                    'acc': masc
+                }}}
             return forms
 
         elif masc == 'εαυτός':
-            forms = {'sg':{
-                        'masc':{
-                                'nom': masc,
-                                'acc': 'εαυτό,εαυτόν',
-                                'gen': 'εαυτού'
-                        },
-                    'pl': {
-                        'masc':{
-                            'nom': 'εαυτοί',
-                            'acc': 'εαυτούς',
-                            'gen': 'ευτών'
-                        }
-                    }}
-
+            forms = {'sg': {
+                'masc': {
+                    'nom': masc,
+                    'acc': 'εαυτό,εαυτόν',
+                    'gen': 'εαυτού'
+                },
+                'pl': {
+                    'masc': {
+                        'nom': 'εαυτοί',
+                        'acc': 'εαυτούς',
+                        'gen': 'ευτών'
+                    }
+                }}
 
             }
             return forms
@@ -205,6 +207,3 @@ def create_all_pron_forms(bas_forms, strong=True):
                     forms[number][gender][case] = ''
 
     return forms
-
-
-

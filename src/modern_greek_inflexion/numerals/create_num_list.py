@@ -1,13 +1,14 @@
-from modern_greek_inflexion.adjective.adjective import create_all_basic_adj_forms
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
-from modern_greek_inflexion.resources import greek_corpus
+
+from ..adjective.adjective import create_all_basic_adj_forms
+from ..resources import greek_corpus
 
 
 def create_num_adj(numeral, ordinal=False):
     """
-    :param numeral:
-    :param ordinal:
-    :return:
+    :param numeral: numeral
+    :param ordinal: if it is an ordinal numeral
+    :return: forms in all three genders, ready to be parsed through adjective engine
     """
 
     if ordinal:
@@ -48,8 +49,3 @@ def create_num_adj(numeral, ordinal=False):
             masc = fem = neut = numeral
         forms = {'adj': masc + '/' + fem + '/' + neut}
     return forms
-
-
-
-
-
