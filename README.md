@@ -19,7 +19,7 @@ see [docs.rst](https://github.com/PicusZeus/modern_greek_inflexion/blob/master/d
 
 ## Unittests
 run 
->python -m unitests.test_module_name
+>python -m unittest
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.3.0 Fixed bug when a possible prefix of a verb is identical with a verb itself, minor refactoring of the code
  * 0.2.6 Fixed handling of indeclinable nouns (those on r, n etc were ignored)
  * 0.2.5 Added surname handling
  * 0.2.4 Minor fixes, updated requirements, updated word lists

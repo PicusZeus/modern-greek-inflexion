@@ -7,8 +7,12 @@ VERB
 >>>
 from src.modern_greek_inflexion.verb import verb
 
-The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be 1st person singular in the present tense, or, if it is a modal verb, in 3rd person, it recognizes conjugation types, irregular stems and creates all possible forms.
-The result of these function is a dictionary, with keys that exactly correlate to grammatical structures. As this library was created mainly for the purpose of feeding a db, it was a chosen way to structure the output, as class based approach would need more work and would not help in the main goal of this library. It can be though refactored to class based output, if there is such a need.
+The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be
+1st person singular in the present tense, or, if it is a modal verb, in 3rd person, it recognizes conjugation types,
+irregular stems and creates all possible forms.
+The result of these function is a dictionary, as for all other functions creating forms for other parts of speech, with
+keys that exactly correlate to grammatical structures. As this library was created mainly for the purpose of feeding
+a db, I choose not to follow strict linguistic terminology, and preferred such an output, that mimics JSON.
 
 
 BASIC VERB
@@ -17,7 +21,13 @@ BASIC VERB
 If you are interested in creating only basic forms, use:
 
 >>> verb.create_all_basic_forms('βλέπω')
-{'present': {'active': {'βλέπω'}, 'passive': {'βλέπομαι'}}, 'conjunctive': {'active': {'δω'}, 'passive': {'ιδωθώ'}}, 'aorist': {'active': {'είδα'}, 'passive': {'ειδώθηκα'}}, 'paratatikos': {'active': {'έβλεπα'}, 'passive': {'βλεπόμουν'}}, 'act_pres_participle': {'βλέποντας'}, 'arch_act_pres_participle': {'βλέπων/βλέπουσα/βλέπον'}, 'passive_perfect_participle': {'ιδωμένος'}}
+{'present': {'active': {'βλέπω'}, 'passive': {'βλέπομαι'}},
+'conjunctive': {'active': {'δω'}, 'passive': {'ιδωθώ'}},
+'aorist': {'active': {'είδα'}, 'passive': {'ειδώθηκα'}},
+'paratatikos': {'active': {'έβλεπα'}, 'passive': {'βλεπόμουν'}},
+'act_pres_participle': {'βλέποντας'},
+'arch_act_pres_participle': {'βλέπων/βλέπουσα/βλέπον'},
+'passive_perfect_participle': {'ιδωμένος'}}
 
 If you are interested only in for example aorist, use dictionary keys
 
@@ -52,8 +62,8 @@ STRUCTURE OF A DICTIONARY WITH VERB FORMS
 
 * TENSE
 
-Structure of the generated dictionary in the first level is:
-'present', 'conjunctive', 'aorist', 'paratatikos' for personal inflexion (if such categories are correct for a given verb).
+Structure of a generated dictionary in the first level is laid out according to tenses.
+'present', 'conjunctive', 'aorist', 'paratatikos' for personal inflexion (if such tenses are relevant for a given verb).
 
 >>> [tense for tense in ['present', 'conjunctive', 'aorist', 'paratatikos'] if time in verb.create_all_forms('διαβάζω')]
 ['present', 'conjunctive', 'aorist', 'paratatikos']
@@ -67,7 +77,8 @@ Next there is division into active and passive voice through keys "active" and "
 
 * MOOD
 
-Next keys indicate either indicative 'ind' (though for conjunctive it's not entirely appropriate) forms or imperative forms 'imp' (if exists).
+Next keys indicate either indicative 'ind' (though for conjunctive it's not entirely appropriate) forms or imperative
+forms 'imp' (if exists).
 
 >>> [pos for pos in ['ind', 'imp'] if pos in verb.create_all_forms('διαβάζω')['present']['active']]
 ['ind', 'imp']
@@ -101,7 +112,8 @@ Active present participle, that is an adverbial form, is given under a key "act_
 >>> verb.create_all_forms('διαβάζω')['act_pres_participle']
 {'διαβάζοντας'}
 
-In some cases verbs form archaic active present participle, that is adjectival, if it exists you will find it under the key "arch_act_pres_participle".
+In some cases verbs form archaic active present participle, that is adjectival, if it exists you will find it under
+the key "arch_act_pres_participle".
 Forms are given in a dictionary that have an analogous structure to that of adjective (see ADJECTIVE section)
 
 >>> verb.create_all_forms('βλέπω')['arch_act_pres_participle']['sg']['masc']['nom']
@@ -146,7 +158,8 @@ The adjective module has two methods for creating basic forms of an adjective an
 In order to create basic forms use "create_all_basic_forms", input must be a masculine sing nominative form.
 
 >>> adjective.create_all_basic_forms('όμορφος')
-{'adj': 'όμορφος/όμορφη/όμορφο', 'comparative': 'ομορφότερος/ομορφότατος', 'adverb': 'όμορφα', 'adverb_comparative': 'ομορφότερα/ομορφότατα'}
+{'adj': 'όμορφος/όμορφη/όμορφο', 'comparative': 'ομορφότερος/ομορφότατος',
+'adverb': 'όμορφα', 'adverb_comparative': 'ομορφότερα/ομορφότατα'}
 
 Here adj genders are given divided by / in this order masc/fem/neuter
 Comparative and comparative adverbs are given (if exist) with a slash, that divides comparative forms from superlatives.
@@ -189,8 +202,10 @@ Form or forms are given in a set
 COMPARATIVES
 +++++++++++++++
 
-Comparative adjectival forms are structured in the same way as basic adjectives and are given only if a adjectives do create synthetic comparative and superlative forms.
-Comparative forms can be accessed by the key "comp" that is the comparative degree, and 'superl', that is the superlative degree.
+Comparative adjectival forms are structured in the same way as basic adjectives and are given only if a adjectives do
+create synthetic comparative and superlative forms.
+Comparative forms can be accessed by the key "comp" that is the comparative degree, and 'superl', that is the
+superlative degree.
 
 >>> [comp for comp in ['comp', 'superl'] if comp in adjective.create_all('κακός')]
 ['comp', 'superl']
@@ -200,7 +215,8 @@ Comparative forms can be accessed by the key "comp" that is the comparative degr
 
 ADVERBS
 ++++++++++
-Adverb(s) are given under the "adv" key. Adverbs for comparative and superlative degree are given (if exist) under the keys "comp_adv" and "superl_adv"
+Adverb(s) are given under the "adv" key. Adverbs for comparative and superlative degree are given (if exist) under the
+keys "comp_adv" and "superl_adv"
 
 >>> [adv for adv in ['adv', 'comp_adv', 'superl_adv'] if adv in adjective.create_all('κακός')]
 ['adv', 'comp_adv', 'superl_adv']
@@ -215,14 +231,16 @@ NOUN
 >>>
 from src.modern_greek_inflexion.noun import noun
 
-The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be nom sg of a given noun (or pluralis if its pluralis tantum)
+The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be
+a nom sg of a given noun (or pluralis if its pluralis tantum)
 They return dictionaries with forms.
 
 
 BASIC NOUN
 +++++++++++++++
 
-If you want to recognize only gender and declination type, use 'create_all_basic_forms' method. Instead of giving a name of declination type, it returns gender, genitive singular and nom_plural.
+If you want to recognize only gender and declination type, use 'create_all_basic_forms' method. Instead of giving a name
+of declination type, it returns gender, genitive singular and nom_plural.
 
 >>> noun.create_all_basic_forms('οδός')
 {'nom_sg': 'οδός', 'gen_sg': 'οδού', 'nom_pl': 'οδοί', 'gender': 'fem'}
@@ -230,17 +248,20 @@ If you want to recognize only gender and declination type, use 'create_all_basic
 ALL FORMS
 ++++++++++++
 
-If you want to return all forms, use ``create_all`` method. It also takes as an argument a noun sg (or plural if its pluralis tantum).
+If you want to return all forms, use ``create_all`` method. It also takes as an argument a noun sg (or plural if it's
+pluralis tantum).
 
 STRUCTURE
 +++++++++++
 
-It returns a dictionary structured a bit differently than adjectives, because here the first layer of keys indicate gender:
+It returns a dictionary structured a bit differently than adjectives, because here the first layer of keys indicate
+gender:
 
 >>> list(noun.create_all('γυναίκα').keys())
 ['fem']
 
-It is done so, because some nouns can be in different genders, and so it is the basic differentiation for them (like diplokilta or profession names).
+It is done so, because some nouns can be in different genders, and so it is the basic differentiation for them (like
+diplokilta or profession names).
 
 >>> [gender for gender in ['masc', 'neut'] if gender in noun.create_all('χρόνος').keys()]
 ['masc', 'neut']
@@ -263,7 +284,8 @@ And in the end you have a form (or forms if there are multiple options) in a set
 >>> [form for form in ['τάξης', 'τάξεως'] if form in noun.create_all('τάξη')['fem']['sg']['gen']]
 ['τάξης', 'τάξεως']
 
-If a paradigm is defective, that is if a noun do not create some form or can be found only in plural or singular, then structure of the dictionary exists, but the sets include empty string
+If a paradigm is defective, that is if a noun do not create some form or can be found only in plural or singular, then
+structure of the dictionary exists, but the sets include empty string
 
 >>> noun.create_all('νους')['masc']['pl']['nom']
 {''}
@@ -271,7 +293,10 @@ If a paradigm is defective, that is if a noun do not create some form or can be 
 PROPER NOUN
 ==============
 
-Proper nouns behave mostly in the same way as nouns, but since in this group there are many exceptions in gender endings as well as many aklita, if you can use flags: ``proper_noun`` and ``proper_noun_gender``. The first one is boolean, and can help especially in vocatives. The second one helps with indeclinable words borrowed from other languages and with common exceptions like names of islands.
+Proper nouns behave mostly in the same way as nouns, but since in this group there are many exceptions in gender endings
+as well as many aklita, if you can use flags: ``proper_noun`` and ``proper_noun_gender``. The first one is boolean, and
+can help especially in vocatives. The second one helps with indeclinable words borrowed from other languages and with
+common exceptions like names of islands.
 
 >>> list(noun.create_all('Μύκονος').keys())
 ['masc']
@@ -298,7 +323,9 @@ QUANTIFIERS
 
 >>> from src.quantifiers import quantifiers
 
-Among quantifiers there are adjectival quantifiers ('ένας') and noun quantifiers ('δεκάδα'), and so this module has two function for those two groups, as logic that would be able to recognize to which group a quantifier belongs, though possible, does not really offer much advantage to anyone. If I am wrong, it can always be added.
+Among quantifiers there are adjectival quantifiers ('ένας') and noun quantifiers ('δεκάδα'), and so this module has two
+function for those two groups, as logic that would be able to recognize to which group a quantifier belongs, though
+possible, does not really offer much advantage to anyone. If I am wrong, it can always be added.
 
 
 NOUN QUANTIFIERS
@@ -309,7 +336,8 @@ These are simply nouns and so the resulting dictionary with forms will be analog
 >>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
 {'χιλιάδες'}
 
-Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative versions of a quantifier (as is quite often the case), both are versions are given.
+Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative
+versions of a quantifier (as is quite often the case), both are versions are given.
 
 >>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
 ['οχτακόσιους', 'οκτακόσιους']
@@ -325,8 +353,6 @@ and sometimes even comparatives
 {'πρωτύτερος'}
 
 
-
-
 PRONOUNS
 +++++++++++++
 
@@ -334,7 +360,9 @@ PRONOUNS
 
 There is wide variety of pronoun inflexions and they are quite different from adjectives. There is only
 
-There is wide variety of pronoun inflexions and they are quite different from adjectives. There is only ``create_all`` module available, as there is no point in some "basic" forms for them. Structure of a resulting dictionary is analogous to that of the ``adjective.create_all`` method, but is one layer more shallow.
+There is wide variety of pronoun inflexions and they are quite different from adjectives. There is only ``create_all``
+module available, as there is no point in some "basic" forms for them. Structure of a resulting dictionary is analogous
+to that of the ``adjective.create_all`` method, but is one layer more shallow.
 
 >>> pronoun.create_all('οποίος')['sg']['fem']['gen']
 {'οποίας'}
@@ -342,7 +370,8 @@ There is wide variety of pronoun inflexions and they are quite different from ad
 PERSONAL PRONOUNS
 =====================
 
-These forms are highly irregular and possess differentiation on weak and strong versions, and so if you want to get weak pronouns, use ``strong`` flag, which is ``True`` by default.
+These forms are highly irregular and possess differentiation on weak and strong versions, and so if you want to get
+weak pronouns, use ``strong`` flag, which is ``True`` by default.
 
 >>> pronoun.create_all('εσύ')['sg']['nd']['gen']
 {'εσένα'}
@@ -357,10 +386,12 @@ ADVERBS
 >>>
 from src.modern_greek_inflexion.adverb import adverb
 
-Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other adverbs. Method used to give all forms is as always
+Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other
+adverbs. Method used to give all forms is as always
 
 
-Adverbs that are created by adjectives are catered for in adjective module. here should be directed all other adverbs. Method used to give all forms is as always ``create_all``, but most of the time it will be only the given adverb itself.
+Adverbs that are created by adjectives are catered for in adjective module. here should be directed all other adverbs.
+Method used to give all forms is as always ``create_all``, but most of the time it will be only the given adverb itself.
 
 >>> adverb.create_all('ποτέ')
 {'adv': {'ποτέ'}}
@@ -374,4 +405,7 @@ In few cases when adverb forms comparatives or even superlatives
 OTHER POSES
 ++++++++++
 
-Other poses such as conjunctions, particles, prepositions and so forth do not need any kind of stemmer, but maybe it would be a good idea, to add a funcionality, that would provide alternative forms for these kind of words (ακόμη/ακόμα κτλ), and in case of prepositions information on the case it requires, and also maybe a list of conjunctions that consists of two or more words?
+Other poses such as conjunctions, particles, prepositions and so forth do not need any kind of stemmer, but maybe it
+would be a good idea, to add a functionality, that would provide alternative forms for these kind of words
+(ακόμη/ακόμα κτλ), and in case of prepositions information on the case it requires, and also maybe a list of
+conjunctions that consists of two or more words?
