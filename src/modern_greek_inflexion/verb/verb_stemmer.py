@@ -5,7 +5,7 @@ from modern_greek_accentuation.resources import vowels
 
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, create_regular_perf_root
 
-from modern_greek_inflexion.resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists,\
+from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists,\
     irregular_passive_aorists, deponens_with_active_perf_forms
 
 

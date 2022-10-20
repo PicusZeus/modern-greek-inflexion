@@ -1,8 +1,8 @@
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
-from modern_greek_inflexion.exceptions import NotLegalVerbException
-from modern_greek_inflexion.resources import greek_corpus, irregular_passive_roots, irregular_active_roots
+from ..exceptions import NotLegalVerbException
+from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
 
 
 def create_imp_pass(perf_pass_root):

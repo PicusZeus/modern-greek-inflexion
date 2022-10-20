@@ -1,7 +1,7 @@
 from unittest import TestCase, main
 
 from modern_greek_inflexion.exceptions import NotInGreekException
-from modern_greek_inflexion.verb import verb
+from modern_greek_inflexion import verb
 
 
 class VerbTestBasic(TestCase):

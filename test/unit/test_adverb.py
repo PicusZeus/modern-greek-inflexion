@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from modern_greek_inflexion.adverb import adverb
+from modern_greek_inflexion import adverb
 
 
 class AdverbTest(TestCase):

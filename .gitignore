@@ -272,3 +272,4 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/python,virtualenv,pycharm,jupyternotebooksLe
 
 *.ipynb
+.DS_Store

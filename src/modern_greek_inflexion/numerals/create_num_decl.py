@@ -3,7 +3,7 @@ import copy
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, where_is_accent, \
     put_accent_on_the_ultimate
 
-from ..adjective.adjective import create_all_adj_forms
+from ..adjective import create_all_adj_forms
 from ..resources import adj_basic_template
 from ..resources import greek_corpus
 

@@ -3,9 +3,9 @@ Usage
 
 VERB
 ==============
-
->>>
-from src.modern_greek_inflexion.verb import verb
+>>> from sys import path
+>>> path.append('src')
+>>> from modern_greek_inflexion import verb
 
 The verb module consists of functions that create basic forms or all the forms for a single lemma, that has to be
 1st person singular in the present tense, or, if it is a modal verb, in 3rd person, it recognizes conjugation types,
@@ -21,13 +21,7 @@ BASIC VERB
 If you are interested in creating only basic forms, use:
 
 >>> verb.create_all_basic_forms('βλέπω')
-{'present': {'active': {'βλέπω'}, 'passive': {'βλέπομαι'}},
-'conjunctive': {'active': {'δω'}, 'passive': {'ιδωθώ'}},
-'aorist': {'active': {'είδα'}, 'passive': {'ειδώθηκα'}},
-'paratatikos': {'active': {'έβλεπα'}, 'passive': {'βλεπόμουν'}},
-'act_pres_participle': {'βλέποντας'},
-'arch_act_pres_participle': {'βλέπων/βλέπουσα/βλέπον'},
-'passive_perfect_participle': {'ιδωμένος'}}
+{'present': {'active': {'βλέπω'}, 'passive': {'βλέπομαι'}}, 'conjunctive': {'active': {'δω'}, 'passive': {'ιδωθώ'}}, 'aorist': {'active': {'είδα'}, 'passive': {'ειδώθηκα'}}, 'paratatikos': {'active': {'έβλεπα'}, 'passive': {'βλεπόμουν'}}, 'act_pres_participle': {'βλέποντας'}, 'arch_act_pres_participle': {'βλέπων/βλέπουσα/βλέπον'}, 'passive_perfect_participle': {'ιδωμένος'}, 'modal': False}
 
 If you are interested only in for example aorist, use dictionary keys
 
@@ -65,7 +59,7 @@ STRUCTURE OF A DICTIONARY WITH VERB FORMS
 Structure of a generated dictionary in the first level is laid out according to tenses.
 'present', 'conjunctive', 'aorist', 'paratatikos' for personal inflexion (if such tenses are relevant for a given verb).
 
->>> [tense for tense in ['present', 'conjunctive', 'aorist', 'paratatikos'] if time in verb.create_all_forms('διαβάζω')]
+>>> [tense for tense in ['present', 'conjunctive', 'aorist', 'paratatikos'] if tense in verb.create_all_forms('διαβάζω')]
 ['present', 'conjunctive', 'aorist', 'paratatikos']
 
 * VOICE
@@ -151,15 +145,13 @@ Sometimes there are alternative passive perfect participle, especially when an a
 ADJECTIVE
 =================
 
->>>
-from src.modern_greek_inflexion.adjective import adjective
+>>> from modern_greek_inflexion import adjective
 
 The adjective module has two methods for creating basic forms of an adjective and for creating all possible forms.
 In order to create basic forms use "create_all_basic_forms", input must be a masculine sing nominative form.
 
 >>> adjective.create_all_basic_forms('όμορφος')
-{'adj': 'όμορφος/όμορφη/όμορφο', 'comparative': 'ομορφότερος/ομορφότατος',
-'adverb': 'όμορφα', 'adverb_comparative': 'ομορφότερα/ομορφότατα'}
+{'adj': 'όμορφος/όμορφη/όμορφο', 'comparative': 'ομορφότερος/ομορφότατος', 'adverb': 'όμορφα', 'adverb_comparative': 'ομορφότερα/ομορφότατα'}
 
 Here adj genders are given divided by / in this order masc/fem/neuter
 Comparative and comparative adverbs are given (if exist) with a slash, that divides comparative forms from superlatives.
@@ -228,8 +220,7 @@ keys "comp_adv" and "superl_adv"
 NOUN
 ======
 
->>>
-from src.modern_greek_inflexion.noun import noun
+>>> from modern_greek_inflexion import noun
 
 The noun module consists of functions that create basic forms or all the forms from a single lemma, that has to be
 a nom sg of a given noun (or pluralis if its pluralis tantum)
@@ -321,7 +312,7 @@ The two flags can be used independently
 QUANTIFIERS
 ==================
 
->>> from src.quantifiers import quantifiers
+>>> from modern_greek_inflexion import numerals
 
 Among quantifiers there are adjectival quantifiers ('ένας') and noun quantifiers ('δεκάδα'), and so this module has two
 function for those two groups, as logic that would be able to recognize to which group a quantifier belongs, though
@@ -333,30 +324,26 @@ NOUN QUANTIFIERS
 
 These are simply nouns and so the resulting dictionary with forms will be analogous to that of nouns
 
->>> quantifiers.create_all_noun_quant('χιλιάδα')['fem']['pl']['nom']
+>>> numerals.create_all_noun_num('χιλιάδα')['fem']['pl']['nom']
 {'χιλιάδες'}
 
-Adjectival quantifiers are actually adjectives, but some additional logic had to be added. If there are alternative
-versions of a quantifier (as is quite often the case), both are versions are given.
 
->>> [q for q in ['οχτακόσιους', 'οκτακόσιους'] if q in quantifiers.create_all_adj_quant('οχτακόσια')['adj']['pl']['masc']['acc']]
-['οχτακόσιους', 'οκτακόσιους']
 
 Some of these quantifiers, especially ordinal numbers have also adverb
 
->>> quantifiers.create_all_adj_num('δεύτερος')['adv']
+>>> numerals.create_all_adj_num('δεύτερος')['adv']
 {'δεύτερον'}
 
 and sometimes even comparatives
 
->>> quantifiers.create_all_adj_quant('πρώτος')['comp']['sg']['masc']['nom']
+>>> numerals.create_all_adj_num('πρώτος')['comp']['sg']['masc']['nom']
 {'πρωτύτερος'}
 
 
 PRONOUNS
 +++++++++++++
 
->>> from src.pronoun import pronoun
+>>> from modern_greek_inflexion import pronoun
 
 There is wide variety of pronoun inflexions and they are quite different from adjectives. There is only
 
@@ -383,8 +370,7 @@ weak pronouns, use ``strong`` flag, which is ``True`` by default.
 ADVERBS
 +++++++
 
->>>
-from src.modern_greek_inflexion.adverb import adverb
+>>> from modern_greek_inflexion import adverb
 
 Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other
 adverbs. Method used to give all forms is as always

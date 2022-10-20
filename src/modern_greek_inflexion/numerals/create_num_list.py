@@ -1,6 +1,6 @@
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 
-from ..adjective.adjective import create_all_basic_adj_forms
+from ..adjective import create_all_basic_adj_forms
 from ..resources import greek_corpus
 
 

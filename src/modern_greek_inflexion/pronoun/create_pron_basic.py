@@ -1,6 +1,6 @@
 from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent
 
-from ..adjective import adjective
+from .. import adjective
 
 
 def create_basic_forms(pron):

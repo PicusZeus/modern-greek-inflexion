@@ -1,6 +1,6 @@
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
-from ..adjective.adjective import create_all_adj_forms
+from ..adjective import create_all_adj_forms
 from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
 
 

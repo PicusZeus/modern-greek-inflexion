@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from modern_greek_inflexion.pronoun import pronoun
+from modern_greek_inflexion import pronoun
 
 
 class PronounTestAll(TestCase):

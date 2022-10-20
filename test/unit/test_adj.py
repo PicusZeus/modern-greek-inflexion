@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from modern_greek_inflexion.adjective import adjective
+from modern_greek_inflexion import adjective
 from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjectiveException
 
 

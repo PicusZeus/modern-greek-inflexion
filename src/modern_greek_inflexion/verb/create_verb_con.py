@@ -4,7 +4,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_antepenulti
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
 
-from modern_greek_inflexion.resources import greek_corpus, irregular_imperative_forms, conjugations
+from ..resources import greek_corpus, irregular_imperative_forms, conjugations
 from .conjugations import create_imp_pass, recognize_past_conjugation
 
 forms_imp = {

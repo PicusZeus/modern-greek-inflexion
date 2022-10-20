@@ -1,6 +1,6 @@
-from unittest import TestCase, main
+from unittest import TestCase
 
-from modern_greek_inflexion.noun import noun
+from modern_greek_inflexion import noun
 
 
 class ProperNounTests(TestCase):

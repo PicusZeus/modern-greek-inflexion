@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from modern_greek_inflexion.numerals import numerals
+from modern_greek_inflexion import numerals
 
 
 class NumeralsNounTest(TestCase):
