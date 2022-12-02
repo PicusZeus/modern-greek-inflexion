@@ -103,7 +103,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
         adj_forms.append(neuter)
 
     elif adj[-2:] in ['ής', 'ης']:
-
         # first check which type
         stem = adj[:-2]
         if stem + 'ικο' in greek_corpus:
@@ -138,7 +137,6 @@ def create_all_basic_adj_forms(adj, inflection=None):
             """
             In cases where my corpus cannot help me, I will surmise that it's hs, a (or issa), iko
             """
-
             if accent == 'penultimate':
                 if adj.endswith('ώδης'):
                     masc, fem = adj, adj
@@ -259,7 +257,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
         else:
             raise NotLegalAdjectiveException
 
-    elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς', 'ἐνεστώς']:
+    elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς', 'ενεστώς']:
         masc = adj
         fem = adj[:-1] + 'σα'
         neuter = adj
@@ -291,7 +289,14 @@ def create_all_basic_adj_forms(adj, inflection=None):
     if inflection == 'aklito':
         masc, fem, neuter = adj, adj, adj
 
-    adj_forms = [masc, fem, neuter]
+
+    try:
+        adj_forms = [masc, fem, neuter]
+    except:
+        raise NotLegalAdjectiveException
+    # if these are referenced before assignment, it means the adj cannot be processed, as it either
+    # doesn't exist or I have too small dictionary, so it cannot be recognized
+
 
     adj_temp['adj'] = '/'.join(adj_forms)
 
@@ -435,3 +440,5 @@ def create_all_basic_adj_forms(adj, inflection=None):
         adj_temp['adverb_comparative'] = adv_parathetika
 
     return adj_temp
+
+

@@ -12,6 +12,9 @@ class AdjectiveTests(TestCase):
     def test_adj_not_legal(self):
         self.assertRaises(NotLegalAdjectiveException, adjective.create_all, 'καθικείς')
 
+    def test_pammegethhs(self):
+        self.assertRaises(NotLegalAdjectiveException, adjective.create_all, 'ζούδιαρης')
+
     def test_adj_oraios(self):
         self.assertDictEqual(
             adjective.create_all('ωραίος'),
