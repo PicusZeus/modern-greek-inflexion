@@ -192,7 +192,8 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['nom_pl'] = noun
             noun_temp['nom_sg'] = noun
 
-    elif noun[-2:] in ['άς', 'ής', 'ας', 'ης']:
+    elif noun[-2:] in ['άς', 'ής', 'ας', 'ης'] and gender not in ['neut_sg']:
+
         noun_temp['gender'] = 'masc'
         # es
         plural_form_a = noun[:-2] + 'ες'
@@ -337,7 +338,6 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             # maybe gen on idos
             gen_form = noun[:-1] + 'δος'
             plural_form = noun[:-1] + 'δες'
-            print(gen_form, plural_form)
             if gen_form in greek_corpus or plural_form in greek_corpus or gender == 'fem':
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form

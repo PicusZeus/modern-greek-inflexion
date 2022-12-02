@@ -56,6 +56,7 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 gen_pl = 'χρόνω,χρόνων,χρονώ,χρονών'
                 noun_all['neut'][PL][GEN] = gen_pl
         else:
+
             noun_all[gender] = {}
             noun_all[gender][SG] = {}
             noun_all[gender][PL] = {}
@@ -66,12 +67,14 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             noun_all[gender][PL][ACC] = nom_pl
             noun_all[gender][PL][VOC] = nom_pl
 
+
             if gender in ['fem', 'neut']:
                 noun_all[gender][SG][ACC] = nom_sg
                 noun_all[gender][PL][ACC] = nom_pl
 
             elif gender == 'masc' and nom_sg == gen_sg:
                 noun_all[gender][SG][ACC] = nom_sg
+
 
             if nom_sg[-2:] in ['ος', 'ός'] and gen_sg[-2:] in ['ου', 'ού']:
 
@@ -181,18 +184,23 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 # to filter out aklita
 
                 noun_all[gender][SG][ACC] = nom_sg
+
                 gen_sg_accent = where_is_accent(gen_sg.split(',')[0])
                 if gen_sg_accent == ANTEPENULTIMATE:
                     gen_sg_accent = PENULTIMATE
-                gen_pl = put_accent(nom_pl.split(',')[0][:-1] + 'ων', gen_sg_accent)
-                if nom_pl[-1] in ['η', 'ή']:
-                    gen_pl = put_accent(gen_pl, ULTIMATE)
 
-                if gen_pl not in greek_corpus:
-                    gen_pl_alt = put_accent(gen_pl, PENULTIMATE)
-                    if gen_pl_alt in greek_corpus:
-                        gen_pl = gen_pl_alt
-                noun_all[gender][PL][GEN] = gen_pl
+                # plural sometimes doesnt exist
+                if nom_pl:
+                    gen_pl = put_accent(nom_pl.split(',')[0][:-1] + 'ων', gen_sg_accent)
+
+                    if nom_pl[-1] in ['η', 'ή']:
+                        gen_pl = put_accent(gen_pl, ULTIMATE)
+
+                    if gen_pl not in greek_corpus:
+                        gen_pl_alt = put_accent(gen_pl, PENULTIMATE)
+                        if gen_pl_alt in greek_corpus:
+                            gen_pl = gen_pl_alt
+                    noun_all[gender][PL][GEN] = gen_pl
 
             elif nom_sg[-1:] in ['ο', 'ό', 'ί', 'ι', 'ΐ', 'ύ', 'υ'] and gender == 'neut' and nom_sg != gen_sg:
 

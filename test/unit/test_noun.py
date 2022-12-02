@@ -27,6 +27,39 @@ class NounTests(TestCase):
                 'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}}}}
         )
 
+    def test_noun_xaos(self):
+        """-os neuter sg tantum"""
+        self.assertDictEqual(
+            noun.create_all('χάος', gender='neut_sg'),
+            {'neut': {
+                'pl': {'acc': {''}, 'nom': {''}, 'voc': {''}},
+                'sg': {'acc': {'χάος'}, 'gen': {'χάους'}, 'nom': {'χάος'}, 'voc': {'χάος'}}}
+             }
+        )
+
+    def test_noun_olon(self):
+        """-on neuter sg tantum"""
+        self.assertDictEqual(
+            noun.create_all('όλον', gender='neut_sg'),
+            {'neut':
+                 {'pl':
+                      {'acc': {''}, 'nom': {''}, 'voc': {''}},
+                  'sg':
+                      {'acc': {'όλον'}, 'gen': {'όλου'},  'nom': {'όλον'}, 'voc': {'όλον'}}
+                  }
+             })
+
+    def test_noun_hmifws(self):
+        """-ws neuter sg tantum"""
+        self.assertDictEqual(
+            noun.create_all('ημίφως', gender='neut_sg'),
+            {'neut':
+                 {'pl':
+                      {'acc': {''}, 'nom': {''}, 'voc': {''}},
+                  'sg': {'acc': {'ημίφως'}, 'gen': {'ημίφωτος'}, 'nom': {'ημίφως'}, 'voc': {'ημίφως'}}}}
+        )
+
+
     def test_noun_alytarchos(self):
         self.assertDictEqual(
             noun.create_all('αλύταρχος', gender='masc'),
