@@ -1,6 +1,10 @@
 from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent
 
 from .. import adjective
+from ..exceptions import NotInGreekException
+from modern_greek_accentuation.accentuation import convert_to_monotonic
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
 def create_basic_forms(pron):
@@ -8,7 +12,9 @@ def create_basic_forms(pron):
     :param pron: pronoun in nom sg masc, if declination applies
     :return: as in adj masc/fem/neut
     """
-
+    pron = convert_to_monotonic(pron)
+    if not greek_pattern.match(pron):
+        raise NotInGreekException
     # pronoun = {gender:{number}}
 
     if pron[-2:] in ['ος', 'ός'] or pron[-3:] in ['πας'] and pron != 'τίνος':

@@ -3,14 +3,22 @@ from .create_num_list import create_num_adj
 from .. import adjective
 from ..helping_functions import merging_all_dictionaries
 from .. import noun
-
+from modern_greek_accentuation.accentuation import convert_to_monotonic
+from ..exceptions import NotInGreekException
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 def create_all_adj_num(base_form):
+
     """
 
     :param base_form: base neuter form of a numeral, in case of ordinals, masc
     :return: dict with all possible forms
     """
+    base_form = convert_to_monotonic(base_form)
+    if not greek_pattern.match(base_form):
+        raise NotInGreekException
+
     # ordinal or not, it should be assumed, as I don't know about any exception,
     # that ordinals and alike have base_form that ends on os
 

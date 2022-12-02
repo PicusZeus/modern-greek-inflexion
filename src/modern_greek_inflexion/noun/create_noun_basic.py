@@ -5,6 +5,10 @@ from modern_greek_accentuation.resources import vowels, PENULTIMATE, ANTEPENULTI
 
 from ..resources import greek_corpus, feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut, aklita_gender, \
     irregular_nouns, diploklita
+from ..exceptions import NotInGreekException
+from modern_greek_accentuation.accentuation import convert_to_monotonic
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
 def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=False):
@@ -16,7 +20,9 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     :param noun: must be nom sg
     :return: dictionary with keys: nom_sg, gen_sg, nom_pl and gender. Alternative forms are divided with coma
     """
-
+    noun = convert_to_monotonic(noun)
+    if not greek_pattern.match(noun):
+        raise NotInGreekException
     noun_temp ={'nom_sg': noun, 'gen_sg': '', 'nom_pl': '', 'gender': ''}
     number_of_syllables = count_syllables(noun, true_syllabification=False)
     accent = where_is_accent(noun, true_syllabification=False)

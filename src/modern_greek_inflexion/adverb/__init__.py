@@ -1,8 +1,14 @@
 from .. import adjective
 from ..resources import irregular_adv
-
+from modern_greek_accentuation.accentuation import convert_to_monotonic
+from ..exceptions import NotInGreekException
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 def create_all(adverb):
+    adverb = convert_to_monotonic(adverb)
+    if not greek_pattern.match(adverb):
+        raise NotInGreekException
     """
     :param adverb:
     :return: returns a dictionary:
@@ -13,6 +19,7 @@ def create_all(adverb):
     'superl' if exists adj superl created from a given adverb, dictionary is given in an array
 
     """
+
     if adverb in irregular_adv:
         result = {'adv': {adverb}}
         comp_adv, superl_adv = irregular_adv[adverb]['comp_adv'].split('/')

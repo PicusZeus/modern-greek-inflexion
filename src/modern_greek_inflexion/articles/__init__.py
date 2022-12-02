@@ -1,6 +1,7 @@
 """
 simply a list
 """
+from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 
 definite_article = {
@@ -63,6 +64,9 @@ indefinite_article = {
 
 
 def create_all(article):
+    article = convert_to_monotonic(article)
+    if article not in ['ο', 'ένας']:
+        raise Exception("it's not a Greek article")
     """
     So that API is consistent
     :param article: o or enas

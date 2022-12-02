@@ -5,12 +5,16 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 def create_basic_forms(verb):
     return create_all_basic_forms(verb)
 
 
 def create_all_forms(verb):
+
+
     basic_forms = create_all_basic_forms(verb)
     all_forms = {}
 

@@ -1,11 +1,11 @@
-import re
 
 from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
 from ..exceptions import NotInGreekException
 from ..helping_functions import merging_all_dictionaries
-
-greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
+from modern_greek_accentuation.accentuation import convert_to_monotonic
+import re
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
 def create_all_basic_forms(adj):
@@ -14,6 +14,7 @@ def create_all_basic_forms(adj):
 
 def create_all(adj, inflection=None):
     """
+    :param inflection: agnosto or aklito or None
     :param adj: masc sg nom form
     :return: dictionary with keys:
     'adj': array with dictionaries of forms and alternative forms
@@ -24,8 +25,9 @@ def create_all(adj, inflection=None):
     'comp_superl': array of all possible superlative adverbs (if exists)
 
     """
-
+    adj = convert_to_monotonic(adj)
     if not greek_pattern.match(adj):
+
         raise NotInGreekException
 
     forms = []
