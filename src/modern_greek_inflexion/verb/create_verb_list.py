@@ -16,7 +16,8 @@ def create_all_basic_forms(pres_form):
    :return: a dictionary {'present': '', 'conjunctive': '', 'aorist': '', 'paratatikos': ''} and others, for times it gives active and medio-passive (if exists) divided by '/'. Modals are given in 3rd person, alternative formse are separated by coma, passive participles on menos are given only in masc separated by coma
    if there are alternatives
     """
-    pres_form = convert_to_monotonic(pres_form)
+    if pres_form:
+        pres_form = convert_to_monotonic(pres_form)
     if not greek_pattern.match(pres_form):
         raise NotInGreekException
 
