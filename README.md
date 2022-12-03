@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.4.5 Small improvements, fixing bug with endings eimai, added adv pron and smaller improvements
  * 0.4.0 Code refactored, changed import paths, fixing bug causing problems with imports
  * 0.3.0 Fixed bug when a possible prefix of a verb is identical with a verb itself, minor refactoring of the code
  * 0.2.6 Fixed handling of indeclinable nouns (those on r, n etc were ignored)

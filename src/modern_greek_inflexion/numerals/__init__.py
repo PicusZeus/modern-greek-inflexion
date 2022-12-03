@@ -15,7 +15,7 @@ def create_all_adj_num(base_form):
     :param base_form: base neuter form of a numeral, in case of ordinals, masc
     :return: dict with all possible forms
     """
-    base_form = convert_to_monotonic(base_form)
+    base_form = convert_to_monotonic(base_form, one_syllable_rule=False)
     if not greek_pattern.match(base_form):
         raise NotInGreekException
 

@@ -1,3 +1,4 @@
+
 from .. import adjective
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..helping_functions import merging_all_dictionaries
@@ -15,6 +16,7 @@ def create_basic_forms(verb):
 
 def create_all_forms(verb):
 
+    verb = convert_to_monotonic(verb, one_syllable_rule=False)
     basic_forms = create_all_basic_forms(verb)
     all_forms = {}
 

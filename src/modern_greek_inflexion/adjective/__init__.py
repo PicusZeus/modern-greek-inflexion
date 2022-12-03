@@ -25,7 +25,7 @@ def create_all(adj, inflection=None):
     'comp_superl': array of all possible superlative adverbs (if exists)
 
     """
-    adj = convert_to_monotonic(adj)
+    adj = convert_to_monotonic(adj, one_syllable_rule=False)
     if not greek_pattern.match(adj):
 
         raise NotInGreekException
