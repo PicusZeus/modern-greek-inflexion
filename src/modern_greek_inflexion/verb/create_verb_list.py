@@ -26,6 +26,7 @@ def create_all_basic_forms(pres_form):
                          and pres_form[-3:] not in ['ται', 'μαι']) \
             or pres_form[-4:] == 'νται' \
             or pres_form not in greek_corpus:
+
         raise NotLegalVerbException
 
     verb_temp = {}

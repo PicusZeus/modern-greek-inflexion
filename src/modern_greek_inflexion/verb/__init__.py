@@ -4,6 +4,7 @@ from ..helping_functions import merging_all_dictionaries
 from .create_verb_forms import create_all_imperfect_personal_forms, create_all_perf_non_past_personal_forms, \
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
+from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
@@ -14,7 +15,6 @@ def create_basic_forms(verb):
 
 def create_all_forms(verb):
 
-
     basic_forms = create_all_basic_forms(verb)
     all_forms = {}
 
@@ -22,9 +22,11 @@ def create_all_forms(verb):
 
     "present"
     present = {}
+
     if 'error' in basic_forms:
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
+
     if 'active' in present_basic_forms:
         # only here, because we have lemma situation, all possible conjugation are also created
         # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
@@ -33,6 +35,7 @@ def create_all_forms(verb):
     if 'passive' in present_basic_forms:
         # here you can have more possible forms
         pres_passive_forms = create_all_imperfect_personal_forms(present_basic_forms['passive'], 'passive')
+
         present['passive'] = pres_passive_forms
 
         if 'active' not in present_basic_forms:

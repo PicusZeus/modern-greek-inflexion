@@ -45,6 +45,35 @@ class VerbTestAll(TestCase):
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'μελλόταν'}}}}}}
         )
 
+    def test_verb_antikeimai(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            verb.create_all_forms('αντίκειμαι'),
+            {'paratatikos': {},
+              'pass_pres_participle': {'pl': {'fem': {'acc': {'αντικείμενες'}, 'gen': {'αντικείμενων'}, 'nom': { 'αντικείμενες'}, 'voc': {
+                                                            'αντικείμενες'}}, 'masc': {'acc': {'αντικείμενους'},'gen': {'αντικείμενων'}, 'nom': {
+                                                                                                'αντικείμενοι'},'voc': {'αντικείμενοι'}},'neut': {'acc': {'αντικείμενα'}, 'gen': {
+                                                                                                'αντικείμενων'},'nom': {'αντικείμενα'},  'voc': {
+                                                                                                'αντικείμενα'}}}, 'sg': {'fem': {'acc': {'αντικείμενη'},'gen': {
+                                                                                        'αντικείμενης'},'nom': {
+                                                                                        'αντικείμενη'},'voc': {
+                                                                                        'αντικείμενη'}}, 'masc': { 'acc': {'αντικείμενο'}, 'gen': {
+                                                                                    'αντικείμενου'},'nom': {
+                                                                                    'αντικείμενος'}, 'voc': {
+                                                                                    'αντικείμενε'}},'neut': {
+                                                                                'acc': {'αντικείμενο'}, 'gen': {
+                                                                                    'αντικείμενου'}, 'nom': {
+                                                                                    'αντικείμενο'}, 'voc': {
+                                                                                    'αντικείμενο'}}}}, 'present':
+                 {'passive': {'imp': {'pl': {'sec': {'αντίκεισθε'}}, 'sg': {'sec': {'αντίκεισο'}}}, 'ind': {'pl': {'pri': {'αντικείμεθα'},'sec': {
+                                                                                      'αντίκειστε'}, 'ter': {
+                                                                                      'αντίκεινται'}}, 'sg': {
+                                                                               'pri': {'αντίκειμαι'},  'sec': {
+                                                                                   'αντίκεισαι'}, 'ter': {
+                                                                                   'αντίκειται'}}}}}}
+
+        )
+
     def test_verb_erxomai(self):
         self.assertDictEqual(
             verb.create_all_forms('έρχομαι'),

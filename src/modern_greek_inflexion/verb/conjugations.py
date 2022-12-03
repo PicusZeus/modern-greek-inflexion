@@ -500,7 +500,7 @@ def recognize_passive_present_continuous_conjugation(verb):
         conjugation_imp = 'imper_pass_cont_2c'
         conjugation_part = 'present_passive_part_2ab'
 
-    elif verb[-4:] in ['εμαι', 'υμαι'] or verb[-5:] == 'είμαι':
+    elif verb[-4:] in ['εμαι', 'υμαι'] or verb[-5:] in ['είμαι', 'ειμαι']:
         root = verb[:-3]
         conjugation_ind = 'con2d_pass'
         conjugation_imp = 'imper_pass_cont_2d'
