@@ -96,6 +96,16 @@ class NounTests(TestCase):
                       'pl': {'voc': {'ασθενείς'}, 'acc': {'ασθενείς'}, 'nom': {'ασθενείς'}, 'gen': {'ασθενών'}}}}
         )
 
+    def test_noun_bhks(self):
+        self.assertDictEqual(
+            noun.create_all('βηξ'),
+            {'fem':
+                 {'pl':
+                      {'acc': {'βήχες'},'gen': {'βηχών'}, 'nom': {'βήχες'}, 'voc': {'βήχες'}},
+                  'sg': {'acc': {'βήχα'}, 'gen': {'βηχός'}, 'nom': {'βηξ'},'voc': {'βηξ'}}}
+            }
+        )
+
     def test_noun_gymnasiarxhs(self):
         self.assertDictEqual(
             noun.create_all('γυμνασιάρχης'),

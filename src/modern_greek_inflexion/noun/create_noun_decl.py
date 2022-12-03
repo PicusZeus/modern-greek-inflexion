@@ -1,6 +1,6 @@
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import PENULTIMATE, ULTIMATE, ANTEPENULTIMATE
-from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC
+from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, ND
 
 
 def put_accent_on_unaccented_forms(forms):
@@ -23,7 +23,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
     :return: tuple with 3 elements: forms in all cases in dictionary, gender, and alternative forms in dictionary, if exist
     I want to include alternatives in a main dictionary of forms by adding them with a coma separator
     """
-
     accent = where_is_accent(nom_sg, true_syllabification=False)
     noun_all = {}
 
@@ -55,6 +54,24 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             if irregular_nom_pl == 'χρόνια':
                 gen_pl = 'χρόνω,χρόνων,χρονώ,χρονών'
                 noun_all['neut'][PL][GEN] = gen_pl
+
+        elif gender == 'surname' and nom_sg[-1] != 'ς':
+
+            noun_all[gender] = {}
+            noun_all[gender][SG] = {}
+            noun_all[gender][PL] = {}
+            noun_all[gender][SG][NOM] = nom_sg
+            noun_all[gender][SG][ACC] = nom_sg
+            noun_all[gender][SG][GEN] = nom_sg
+            noun_all[gender][SG][VOC] = nom_sg
+            noun_all[gender][PL][NOM] = nom_sg
+            noun_all[gender][PL][ACC] = nom_sg
+            noun_all[gender][PL][VOC] = nom_sg
+            noun_all[gender][PL][GEN] = nom_sg
+
+            return noun_all
+
+
         else:
 
             noun_all[gender] = {}

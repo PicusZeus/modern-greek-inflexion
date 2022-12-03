@@ -84,13 +84,29 @@ class PronounTestAll(TestCase):
     def test_pron_katheti(self):
         self.assertDictEqual(
             pronoun.create_all('καθετί'),
-            {'sg': {'masc': {'nom': {''}, 'voc': {''}, 'acc': {''}, 'gen': {''}},
-                    'fem': {'nom': {''}, 'voc': {''}, 'acc': {''}, 'gen': {''}},
-                    'neut': {'nom': {'καθετί'}, 'voc': {''}, 'acc': {'καθετί'}, 'gen': {''}}},
-             'pl': {'masc': {'nom': {''}, 'voc': {''}, 'acc': {''}, 'gen': {''}},
-                    'fem': {'nom': {''}, 'voc': {''}, 'acc': {''}, 'gen': {''}},
-                    'neut': {'nom': {'καθετί'}, 'voc': {''}, 'acc': {'καθετί'}, 'gen': {''}}}}
+            {'sg': {'neut': {'acc': {'καθετί'}, 'nom': {'καθετί'}}}}
+
         )
 
+    def test_pron_pou(self):
+        self.assertDictEqual(
+            pronoun.create_all('που'),
+            {'pl': {'fem': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                                   'masc': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                                   'neut': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}}},
+                     'sg': {'fem': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                                      'masc': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                                      'neut': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}}}}
+
+            )
+
+    def test_pron_pote(self):
+        self.assertDictEqual(
+            pronoun.create_all('πότε'),
+            {
+                'nd': {'nd': {'nd': {'πότε'}}}
+
+            }
+        )
 
 

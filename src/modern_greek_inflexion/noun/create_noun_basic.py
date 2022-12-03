@@ -622,6 +622,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun not in ['σεξ', 'σερ', 'φαξ', 'μπορ', 'μπαρ', 'μποξ'] and inflection != 'aklito':
         # not very common but existing 3rd declension nouns
 
+
         stems = []
 
         if noun[-1] == 'ξ':
@@ -629,13 +630,17 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             stems.append(noun[:-1] + 'κ')
             stems.append(noun[:-1] + 'χ')
             stems.append(noun[:-1] + 'κτ')
+            if not gender:
+                """sometimes this guess won't work"""
+                gender = 'fem'
         elif noun[-1] == 'ψ':
 
             stems.append(noun[:-1] + 'π')
             stems.append(noun[:-1] + 'φ')
             stems.append(noun[:-1] + 'πτ')
             stems.append(noun[:-1] + 'β')
-
+            if not gender:
+                gender = 'fem'
         elif noun[-1] == 'ρ':
 
             stems.append(noun)

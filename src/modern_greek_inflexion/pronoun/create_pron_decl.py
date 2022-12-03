@@ -1,7 +1,7 @@
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
 from ..adjective import create_all_adj_forms
-from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC
+from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
 def create_all_pron_forms(bas_forms, strong=True):
@@ -125,14 +125,19 @@ def create_all_pron_forms(bas_forms, strong=True):
             forms[PL][NEUT][VOC] = neut
 
     else:
-        if masc in ['καθετί', 'τι', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε', 'ίντα', 'ό,τι']:
+        if masc in ['κάθε', 'κάτι', 'τι', 'δείνα', 'που']:
             forms, _ = create_all_adj_forms(bas_forms)
             for number in forms:
                 for gender in forms[number]:
                     for case in forms[number][gender]:
 
-                        if gender != NEUT or case not in [NOM, ACC]:
+                        if case not in [NOM, ACC]:
                             forms[number][gender][case] = ''
+        elif masc in ['καθετί', 'κατιτίς', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε', 'τίποτες', 'ίντα', 'ό,τι']:
+            forms = {SG: {NEUT: {NOM: masc, ACC: masc}}}
+        elif masc in ['οπού', 'πότε', 'όποτε', 'κάποτε', 'ποτέ', 'πάντα', 'πού', 'κάπου', 'πουθενά', 'παντού']:
+            # adv
+            forms = {ND: {ND: {ND: masc}}}
         elif masc == 'εγώ':
             if strong:
                 from ..resources import EGO_STRONG
@@ -169,7 +174,7 @@ def create_all_pron_forms(bas_forms, strong=True):
                 }}}
             return forms
 
-        elif masc == 'ταύτα':
+        elif masc in ['ταύτα', 'τάδε', 'τάδες']:
             forms = {'pl': {
                 'neut': {
                     'nom': masc,

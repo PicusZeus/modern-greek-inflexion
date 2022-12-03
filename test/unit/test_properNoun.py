@@ -11,14 +11,29 @@ class ProperNounTests(TestCase):
                       'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}}
         )
 
+    def test_Paxu(self):
+        self.assertDictEqual(
+            noun.create_all('Παχύ', proper_name=True, gender='surname'),
+            {'surname': {'pl': {'gen': {'Παχύ'}, 'acc': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}},
+             'sg': {'acc': {'Παχύ'}, 'gen': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}}}}
+        )
+
     def test_Papandreou(self):
         self.assertDictEqual(
             noun.create_all('Παπανδρέου', proper_name=True, gender='surname'),
-            {'surname': {'pl': {'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'},
-                                'acc': {'Παπανδρέου'}}, 'sg': {'nom': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'},
-                                                               'voc': {'Παπανδρέου'}, 'acc': {'Παπανδρέου'}}}}
+
+
+        {'surname': {'pl': {'gen': {'Παπανδρέου'}, 'acc': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}},
+                     'sg': {'acc': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}}}}
         )
 
+    def test_Dimas(self):
+        self.assertDictEqual(
+            noun.create_all('Δημάς', proper_name=True, gender='surname'),
+            {'surname': {'pl': {'acc': {'Δημάδες'},'gen': {'Δημάδων'}, 'nom': {'Δημάδες'},'voc': {'Δημάδες'}},
+                         'sg': {'acc': {'Δημά'},'gen': {'Δημά'},'nom': {'Δημάς'}, 'voc': {'Δημά'}}}}
+
+        )
     def test_Mykonos(self):
         self.assertDictEqual(
             noun.create_all('Μύκονος', proper_name=True, gender='fem_sg'),
