@@ -3,7 +3,6 @@ simply a list
 """
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
-
 definite_article = {
     'sg': {
         'masc': {

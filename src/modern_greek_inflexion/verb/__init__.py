@@ -10,6 +10,7 @@ from modern_greek_accentuation.accentuation import convert_to_monotonic
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
+
 def create_basic_forms(verb):
     return create_all_basic_forms(verb)
 

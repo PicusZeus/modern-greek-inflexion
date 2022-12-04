@@ -5,6 +5,7 @@ from ..exceptions import NotInGreekException
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
+
 def create_all(adverb):
     adverb = convert_to_monotonic(adverb, one_syllable_rule=False)
     if not greek_pattern.match(adverb):

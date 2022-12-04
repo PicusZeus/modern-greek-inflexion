@@ -8,6 +8,7 @@ from ..exceptions import NotInGreekException
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
+
 def create_all_adj_num(base_form):
 
     """
