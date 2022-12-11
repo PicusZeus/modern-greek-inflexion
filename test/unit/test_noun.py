@@ -343,3 +343,13 @@ class NounTests(TestCase):
                              'gen': {'χρόνων', 'χρονών', 'χρόνω', 'χρονώ'}}}}
         )
 
+    def test_noun_farfalo(self):
+        self.assertDictEqual(
+            noun.create_all('φαρφάλω', gender='fem'),
+            {'fem': {'pl': {'acc': {''}, 'nom': {''}, 'voc': {''}},
+                     'sg': {'acc': {'φαρφάλω'},
+                                      'gen': {'φαρφάλως'},
+                                      'nom': {'φαρφάλω'},
+                                      'voc': {'φαρφάλω'}}}}
+
+        )

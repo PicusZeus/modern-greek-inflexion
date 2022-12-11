@@ -714,7 +714,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gen_sg'] = noun[:-1] + 'ούς'
             if noun in ['βάβω']:
                 noun_temp['gen_sg'] = noun
-        elif capital or proper_name:
+        elif capital or proper_name or gender == 'fem':
             # feminine proper name
             noun_temp['gender'] = 'fem'
             noun_temp['gen_sg'] = noun + 'ς'
