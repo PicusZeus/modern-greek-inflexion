@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.4.8 Added optional flag aklito for nouns and adjectives (boolean)
  * 0.4.7 Bug fixes, added: adj on wr, verbs (aor and parat) on arw
  * 0.4.6 Bug with single syllable verbs fixed
  * 0.4.5 Small improvements, fixing bug with endings eimai, added adv pron and smaller improvements
