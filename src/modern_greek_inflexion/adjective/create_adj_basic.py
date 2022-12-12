@@ -283,6 +283,10 @@ def create_all_basic_adj_forms(adj, inflection=None):
         masc, fem = adj, adj
         neuter = adj[:-1] + 'ν'
 
+    elif adj[-2:] == 'ωρ':
+        masc, fem = adj, adj
+        neuter = '-'
+
     else:
         masc, fem, neuter = adj, adj, adj
 

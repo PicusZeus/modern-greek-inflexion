@@ -245,7 +245,6 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                     active_aor_forms.extend(add_augment(stem + 'α'))
             else:
                 active_aor_forms.extend(add_augment(act_root + 'α'))
-
             if pres_form[-3:] == 'έχω':
                 active_aor_forms.extend([pres_form[:-3] + 'είχα'])
                 archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
@@ -253,11 +252,15 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
 
             # filter_out
             active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
+            if not active_aor_forms and pres_form[-3:] == 'άρω':
+                # common argo and english loans
+                active_aor_forms.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'α'))
 
             # there are at least two instances where this algorithm can be confused by irregular imperative forms
             irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα', 'τρέχα', 'φεύγα')
 
             active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
+
 
             # special case for poiw
             if 'ποιήσ' in act_root:
@@ -410,6 +413,10 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
             act_par_all_3rd = [f for f in act_par if f[:-1] + 'ε' in greek_corpus]
             if act_par_all_3rd:
                 act_par_all = [f[:-1] + 'α' for f in act_par_all_3rd]
+
+        if not act_par_all and pres_form[-3:] == 'άρω':
+            # argo and foreign loans
+            act_par_all.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'α'))
 
         pass_par = [f for f in pass_par if f in greek_corpus]
         act_par = ','.join(act_par_all)

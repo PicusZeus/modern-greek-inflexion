@@ -9,7 +9,12 @@ from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
-
+FEM = 'fem'
+MASC = 'masc'
+NEUT = 'neut'
+FEM_PL = 'fem_pl'
+MASC_PL = 'masc_pl'
+NEUT_PL = 'neut_pl'
 
 def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=False):
     """
@@ -47,13 +52,13 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         gens_sg = []
 
-        noun_temp['gender'] = 'masc'
+        noun_temp['gender'] = MASC
 
         # the problem is that many long words on -os that are part of some kind of jargon and do not have any other form
         # declined in the corpus, i will assume then that words above 4 syllables do exist, but only in singular, the
         # same should be the case for neuter long words on -o
         # also some proper names in greek_corpus are, as is proper, capitalized
-        if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or gender == 'masc' or number_of_syllables >4:
+        if gen_form in greek_corpus or gen_form.capitalize() in greek_corpus or gender == MASC or number_of_syllables >4:
             gens_sg.append(gen_form)
 
         if accent == ANTEPENULTIMATE:
@@ -63,19 +68,19 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         noun_temp['gen_sg'] = ','.join(gens_sg)
 
-        if plural_form in greek_corpus or plural_form.capitalize() in greek_corpus or number_of_syllables > 4 or gender == 'masc':
+        if plural_form in greek_corpus or plural_form.capitalize() in greek_corpus or number_of_syllables > 4 or gender == MASC:
             noun_temp['nom_pl'] = plural_form
             if not gens_sg:
                 noun_temp['gen_sg'] = gen_form
 
         if noun in feminine_os:
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
 
         if noun in feminine_or_masc or (noun[-5:] == 'λόγος' and number_of_syllables > 3):
             # especially all kinds of professionals
             noun_temp['gender'] = 'fem,masc'
 
-        if not noun_temp['nom_pl'] and not gens_sg or gender == 'neut':
+        if not noun_temp['nom_pl'] and not gens_sg or gender == NEUT:
             # maybe its neuter like lathos
             plural_form = stem + 'η'
             gen_form = stem + 'ους'
@@ -87,10 +92,10 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                 plural_form = put_accent_on_the_penultimate(plural_form)
                 gen_form = put_accent_on_the_penultimate(gen_form)
 
-            if plural_form in greek_corpus or gen_form in greek_corpus or gender == 'neut':
+            if plural_form in greek_corpus or gen_form in greek_corpus or gender == NEUT:
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
-                noun_temp['gender'] = 'neut'
+                noun_temp['gender'] = NEUT
 
             # γεγονός και άλλες μετοχές τού παρακειμένου
             plural_form = noun[:-1] + 'τα'
@@ -98,7 +103,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             if plural_form in greek_corpus or gen_form in greek_corpus:
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
-                noun_temp['gender'] = 'neut'
+                noun_temp['gender'] = NEUT
 
         # in all other instances probably they are correct masculine words, but don't occur in the corpus, still for
         # proper name don't add plural if it doesn't exist in the corpus
@@ -107,21 +112,21 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             stem = noun[:-2]
             plural_form = stem + 'οι'
             gen_form = put_accent(stem + 'ου', accent, true_syllabification=False)
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
             if accent == ULTIMATE:
                 plural_form = stem + 'οί'
                 gen_form = stem + 'ού'
             if not proper_name:
                 noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
 
     elif noun[-1] == 'ς' and \
             ((noun[:-1] + 'δες' in greek_corpus) or (put_accent_on_the_antepenultimate(noun[:-1] + 'δες') in
                                                      greek_corpus)) and noun[-2:] != 'ις':
         # imparisyllaba on des, archaic and modern
 
-        noun_temp['gender'] = 'masc'
+        noun_temp['gender'] = MASC
         noun_temp['gen_sg'] = noun[:-1]
         plurals = []
         plural_form = noun[:-1] + 'δες'
@@ -158,7 +163,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         # they can be either pluralia tantum or masc on es that do not have plur in the corpus or neuter on es or aklito
         if noun[:-1] in greek_corpus or noun[:-1].capitalize() in greek_corpus:
             # this means its a gen. of a masc form
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
             noun_temp['gen_sg'] = noun[:-1]
 
             nom_pl = noun[:-1] + 'δες'
@@ -173,28 +178,28 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         elif put_accent(noun[:-2] + 'ους', accent) in greek_corpus:
             noun_temp['gen_sg'] = put_accent(noun[:-2] + 'ους', accent)
             noun_temp['nom_pl'] = put_accent(noun[:-2] + 'η', accent)
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
 
         elif (noun[:-2] + 'ων') in greek_corpus or (remove_all_diacritics(noun[:-2]) + 'ών') in greek_corpus or \
                 (noun[:-2] + 'ων').capitalize() in greek_corpus or (remove_all_diacritics(noun[:-2]) + 'ών').capitalize() in greek_corpus or noun in ['προάλλες', 'πρόποδες']:
 
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
             if noun in ['πρόποδες', 'χοιράδες']:
-                noun_temp['gender'] = 'masc'
+                noun_temp['gender'] = MASC
             noun_temp['gen_sg'] = ''
             noun_temp['nom_pl'] = noun
             noun_temp['nom_sg'] = ''
 
         else:
             # should be neuter aklita
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             noun_temp['gen_sg'] = noun
             noun_temp['nom_pl'] = noun
             noun_temp['nom_sg'] = noun
 
     elif noun[-2:] in ['άς', 'ής', 'ας', 'ης'] and gender not in ['neut_sg']:
 
-        noun_temp['gender'] = 'masc'
+        noun_temp['gender'] = MASC
         # es
         plural_form_a = noun[:-2] + 'ες'
         gen_form_a = noun[:-1]
@@ -241,7 +246,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         elif plural_form_c_neut in greek_corpus and gen_form_c in greek_corpus:
             nom_pl = plural_form_c_neut
             gen_sg = gen_form_c
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
 
         else:
             nom_pl = None
@@ -279,7 +284,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         plural_form = noun[:-3] + 'είς'
         gen_form = noun[:-3] + 'έως'
-        noun_temp['gender'] = 'masc'
+        noun_temp['gender'] = MASC
         if plural_form in greek_corpus and gen_form in greek_corpus:
             noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
@@ -292,7 +297,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gender'] = 'fem,masc'
 
     elif noun[-2:] in ['ώς', 'ως']:
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         plural_form = noun[:-1] + 'τα'
         gen_form = noun[:-1] + 'τος'
         thema_ot = put_accent(noun[:-2] + 'οτ', accent)
@@ -304,7 +309,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gen_sg'] = gen_form
         # there is possibility, that the thema is on 'οτ'
         elif thema_ot + 'ος' in greek_corpus:
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             gen_form = thema_ot + 'ος'
             plural_form = thema_ot + 'α'
             noun_temp['nom_pl'] = plural_form
@@ -313,15 +318,15 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         elif put_accent(noun[:-2] + 'ους', accent) in greek_corpus:
             gen_form = put_accent(noun[:-2] + 'ους', accent)
             noun_temp['gen_sg'] = gen_form
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
         elif noun == 'άλως':
             # its kind of exception
             gen_form = 'άλω'
             noun_temp['gen_sg'] = gen_form
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
 
     elif noun[-2:] in ['ις', 'ΐς', 'ίς']:
-        noun_temp['gender'] = 'fem'
+        noun_temp['gender'] = FEM
         plural_form = put_accent_on_the_penultimate(noun[:-2] + 'εις', true_syllabification=False)
 
         gen_form = noun[:-2] + 'εως'
@@ -338,34 +343,34 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             # maybe gen on idos
             gen_form = noun[:-1] + 'δος'
             plural_form = noun[:-1] + 'δες'
-            if gen_form in greek_corpus or plural_form in greek_corpus or gender == 'fem':
+            if gen_form in greek_corpus or plural_form in greek_corpus or gender == FEM:
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
 
     elif noun[-3:] in ['ους', 'ούς']:
         if 'πλους' in noun or 'νους' in noun and noun != 'μπόνους':
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
             noun_temp['gen_sg'] = noun[:-1]
         elif noun == 'ους':
             # το αυτί χρειάζεται να είναι μόνο του
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             noun_temp['gen_sg'] = 'ωτός'
             noun_temp['nom_pl'] = 'ώτα'
         else:
             # aklita
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             noun_temp['gen_sg'] = noun
             noun_temp['nom_pl'] = noun
 
     elif noun[-2:] in ['υς', 'ύς']:
-        noun_temp['gender'] = 'fem'
+        noun_temp['gender'] = FEM
         gen_form = noun[:-1] + 'ος'
         thema = put_accent_on_the_ultimate(noun)
         if count_syllables(noun) == 1:
             gen_form = put_accent_on_the_ultimate(gen_form)
         plur_form = thema[:-1] + 'ες'
         if noun in ['βοτρύς','ιχθύς','πέλεκυς', 'μυς']:
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
         if noun == 'πέλεκυς':
             gen_form = 'πελέκεως'
             plur_form = 'πελέκεις'
@@ -375,7 +380,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     elif noun[-1] in ['α', 'η', 'ά', 'ή']:
         # feminina
-        noun_temp['gender'] = 'fem'
+        noun_temp['gender'] = FEM
         gen_a = noun + 'ς'
         noun_temp['gen_sg'] = gen_a
         plural_form_a = noun[:-1] + 'ες'
@@ -395,20 +400,20 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         if noun[-2:] == 'μα' and (plural_form_a not in greek_corpus or
                                   plural_form_b not in greek_corpus or
                                   plural_form_c not in greek_corpus or
-                                gender == 'neut' or
+                                gender == NEUT or
                                   put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False) in greek_corpus):
             plural_form = put_accent_on_the_antepenultimate(noun + 'τα', true_syllabification=False)
             gen_form = put_accent_on_the_antepenultimate(noun + 'τος', true_syllabification=False)
             noun_temp['nom_pl'] = plural_form
             noun_temp['gen_sg'] = gen_form
-            noun_temp['gender'] = 'neut'
-        elif noun[-1] == 'α' and noun + 'τος' in greek_corpus and noun + 'τα' in greek_corpus or gender == 'neut':
+            noun_temp['gender'] = NEUT
+        elif noun[-1] == 'α' and noun + 'τος' in greek_corpus and noun + 'τα' in greek_corpus or gender == NEUT:
             # gala, galatos
 
             noun_temp['nom_sg'] = noun
             noun_temp['nom_pl'] = put_accent_on_the_antepenultimate(noun + 'τα')
             noun_temp['gen_sg'] = put_accent_on_the_antepenultimate(noun + 'τος')
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             if 'γάλα' in noun:
                 noun_temp['nom_pl'] = noun + 'τα' + ',' + noun + 'κτα'
                 noun_temp['gen_sg'] = noun + 'τος' + ',' + noun + 'κτος'
@@ -419,7 +424,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['nom_sg'] = ''
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = ''
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
 
         if (noun[-2:] in ['ση', 'ξη', 'ψη'] or noun in feminine_h_eis) and put_accent_on_the_ultimate(noun[:-1] + 'ων') not in greek_corpus:
             # it has to be if, because it can be earlier falsly recognized as a correct form on es, because of som aorists
@@ -428,7 +433,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gen_sg'] = gen_a + ',' + put_accent_on_the_antepenultimate(noun[:-1] + 'εως', true_syllabification=False)
 
     elif noun[-2:] == 'ού':
-        noun_temp['gender'] = 'fem'
+        noun_temp['gender'] = FEM
         noun_temp['gen_sg'] = noun + 'ς'
         plural_form = noun + 'δες'
         if plural_form in greek_corpus:
@@ -443,11 +448,11 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             if plural_form in greek_corpus or gen_form in greek_corpus:
                 noun_temp['nom_pl'] = plural_form
                 noun_temp['gen_sg'] = gen_form
-                noun_temp['gender'] = 'neut'
+                noun_temp['gender'] = NEUT
 
                 return noun_temp
 
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         plural_form = noun[:-1] + 'α'
         gen_form = noun[:-1] + 'ου'
         if ultimate_accent:
@@ -456,7 +461,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         if plural_form in greek_corpus or\
                 plural_form.capitalize() in greek_corpus or\
                 number_of_syllables>4 or\
-                (gender not in ['fem', 'masc'] and inflection != 'aklito'):
+                (gender not in [FEM, MASC] and inflection != 'aklito'):
 
             noun_temp['nom_pl'] = plural_form
 
@@ -473,16 +478,16 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         if gens:
             noun_temp['gen_sg'] = ','.join(gens)
-        elif gender not in ['fem', 'masc'] and inflection != 'aklito':
+        elif gender not in [FEM, MASC] and inflection != 'aklito':
             noun_temp['gen_sg'] = gen_form
         else:
             # σ`αυτήν την περίπτωση υποθετούμε πως είναι ουδέτερα άκλιτα
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = noun
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
 
     elif noun[-1] in ['ι', 'ί', 'ΐ'] and noun[-2:] not in ['οι', 'οί']:
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         plural_form = noun + 'α'
         gen_form = put_accent_on_the_ultimate(noun + 'ου')
         if ultimate_accent:
@@ -510,7 +515,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     elif noun[-2:] in ['οι', 'οί']:
         # pluralis tantum masc
-        noun_temp['gender'] = 'masc'
+        noun_temp['gender'] = MASC
         noun_temp['nom_pl'] = noun
         noun_temp['nom_sg'] = ''
         noun_temp['gen_sg'] = ''
@@ -520,7 +525,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     elif noun[-2:] in ['ον', 'όν', 'έν', 'εν', 'άν', 'αν']:
         # ουδετερα ουσιαστικά με θέμα σε -ντ, παιρνει ύποψη και τα αρχαία ουδέτερα Β' κλίσης σε -ον
 
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         plural_form = noun + 'τα'
 
         gen_form = noun + 'τος'
@@ -555,12 +560,12 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
             if noun in ['ρεσεψιόν', 'σπορτσγούμαν']:
                 # there are certainly more
-                noun_temp['gender'] = 'fem'
+                noun_temp['gender'] = FEM
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = noun
 
     elif noun[-2:] in ['ων', 'ών']:
-        noun_temp['gender']= 'masc'
+        noun_temp['gender']= MASC
 
         irregular_3 = {'κύων': 'κυν', 'είρων': 'είρων', 'ινδικτιών': 'ινδικτιών'}
 
@@ -632,7 +637,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             stems.append(noun[:-1] + 'κτ')
             if not gender:
                 """sometimes this guess won't work"""
-                gender = 'fem'
+                gender = FEM
         elif noun[-1] == 'ψ':
 
             stems.append(noun[:-1] + 'π')
@@ -640,22 +645,22 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             stems.append(noun[:-1] + 'πτ')
             stems.append(noun[:-1] + 'β')
             if not gender:
-                gender = 'fem'
+                gender = FEM
         elif noun[-1] == 'ρ':
 
             stems.append(noun)
             stems.append(noun[:-1] + 'τ')
             if noun[-2:] == 'ωρ':
                 stems.append(noun[:-2] + 'ορ')
-                noun_temp['gender'] = 'masc'
+                noun_temp['gender'] = MASC
 
                 if 'μήτωρ' in noun:
-                    noun_temp['gender'] = 'fem'
+                    noun_temp['gender'] = FEM
             elif noun[-2:] == 'ώρ':
                 stems.append(noun[:-2] + 'όρ')
-                noun_temp['gender'] = 'masc'
+                noun_temp['gender'] = MASC
             else:
-                noun_temp['gender'] = 'neut'
+                noun_temp['gender'] = NEUT
 
         for stem in stems:
             plural_form = stem + 'ες'
@@ -682,11 +687,11 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
                 # it's a bit crude way to correct gender but i cannot find a better one without a comprehensive list
                 # gen_pl = remove_all_diacritics(plural_form[:-2]) + 'ών'
                 # if gen_pl in greek_corpus:
-                #     noun_temp['gender'] = 'fem'
+                #     noun_temp['gender'] = FEM
                 return noun_temp
             else:
                 if plural_form_n in greek_corpus or noun in ['έαρ']:
-                    noun_temp['gender'] = 'neut'
+                    noun_temp['gender'] = NEUT
                     noun_temp['gen_sg'] = gen_form
                     if noun not in ['έαρ']:
                         noun_temp['nom_pl'] = plural_form_n
@@ -694,39 +699,39 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         # else it is assumed it's either borrowing or some substantiated other things
 
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         noun_temp['nom_pl'] = noun
         noun_temp['gen_sg'] = noun
         if noun in ['σπεσιαλιτέ', 'ρεσεψιόν']:
             # there are probably more such cases
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
         if noun in ['σερ']:
             # there should be added probably a lot of proper names, but I will deal with it by using
             # a flag proper_name_gender
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
 
     elif noun[-1] in ['ώ', 'ω']:
 
         if noun in ['ηχώ', 'πειθώ', 'φειδώ', 'βάβω']:
             # ancient feminina
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
 
             noun_temp['gen_sg'] = noun[:-1] + 'ούς'
             if noun in ['βάβω']:
                 noun_temp['gen_sg'] = noun
-        elif capital or proper_name or gender == 'fem':
+        elif capital or proper_name or gender == FEM:
             # feminine proper name
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
             noun_temp['gen_sg'] = noun + 'ς'
 
         else:
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = noun
 
     elif noun[-1] in ['υ', 'ύ']:
         # ancient 3 declension, oksy , asty
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         if noun[-2:] in ['ου', 'ού']:
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = noun
@@ -767,7 +772,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         # aklita
 
-        noun_temp['gender'] = 'neut'
+        noun_temp['gender'] = NEUT
         noun_temp['nom_pl'] = noun
         noun_temp['gen_sg'] = noun
 
@@ -777,31 +782,31 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
     if gender:
         noun_temp['gender'] = gender
 
-        if gender == 'fem_pl':
-            noun_temp['gender'] = 'fem'
+        if gender == FEM_PL:
+            noun_temp['gender'] = FEM
             noun_temp['nom_sg'] = ''
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = ''
-        elif gender == 'masc_pl':
-            noun_temp['gender'] = 'masc'
+        elif gender == MASC_PL:
+            noun_temp['gender'] = MASC
             noun_temp['nom_sg'] = ''
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = ''
 
-        elif gender == 'neut_pl':
-            noun_temp['gender'] = 'neut'
+        elif gender == NEUT_PL:
+            noun_temp['gender'] = NEUT
             noun_temp['nom_sg'] = ''
             noun_temp['nom_pl'] = noun
             noun_temp['gen_sg'] = ''
         elif gender == 'fem_sg':
-            noun_temp['gender'] = 'fem'
+            noun_temp['gender'] = FEM
             noun_temp['nom_sg'] = noun
             noun_temp['nom_pl'] = ''
         elif gender == 'masc_sg':
-            noun_temp['gender'] = 'masc'
+            noun_temp['gender'] = MASC
             noun_temp['nom_pl'] = ''
         elif gender == 'neut_sg':
-            noun_temp['gender'] = 'neut'
+            noun_temp['gender'] = NEUT
             noun_temp['nom_pl'] = ''
 
     if noun in irregular_nouns.keys():

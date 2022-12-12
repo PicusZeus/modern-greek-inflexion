@@ -6,6 +6,16 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from ..resources import greek_corpus, adj_basic_template
 
 
+
+SG = 'sg'
+PL = 'pl'
+FEM = 'fem'
+MASC = 'masc'
+NEUT = 'neut'
+NOM = 'nom'
+GEN = 'gen'
+ACC = 'acc'
+VOC = 'voc'
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
 # 'adverb_comparative': 'ωμότερα/ωμότατα'}
 
@@ -20,12 +30,12 @@ def put_accent_on_antepenultimate_in_all_forms(masc, forms):
 
 def alternative_forms_kxth(fem):
     # κ, χ, θ ia, or h
-    alt_forms = {'sg': {
-        'fem': {
-            'nom': '',
-            'gen': '',
-            'acc': '',
-            'voc': ''}
+    alt_forms = {SG: {
+        FEM: {
+            NOM: '',
+            GEN: '',
+            ACC: '',
+            VOC: ''}
     }
     }
     if fem[-2] in ['κ', 'χ', 'θ']:
@@ -34,10 +44,10 @@ def alternative_forms_kxth(fem):
             alt_form = put_accent_on_the_ultimate(alt_form)
 
         if alt_form in greek_corpus:
-            alt_forms['sg']['fem']['nom'] = alt_form
-            alt_forms['sg']['fem']['acc'] = alt_form
-            alt_forms['sg']['fem']['gen'] = alt_form + 'ς'
-            alt_forms['sg']['fem']['voc'] = alt_form
+            alt_forms[SG][FEM][NOM] = alt_form
+            alt_forms[SG][FEM][ACC] = alt_form
+            alt_forms[SG][FEM][GEN] = alt_form + 'ς'
+            alt_forms[SG][FEM][VOC] = alt_form
 
             return alt_forms
 
@@ -46,17 +56,17 @@ def alternative_forms_kxth(fem):
 
 def alternative_forms_us(adj):
     # only for the us, ia, y type
-    alt_forms = {'sg': {
-        'masc': {
+    alt_forms = {SG: {
+        MASC: {
         },
-        'fem': {},
+        FEM: {},
         'neut': {
         }
     },
-        'pl': {
-            'masc': {},
-            'fem': {},
-            'neut': {
+        PL: {
+            MASC: {},
+            FEM: {},
+            NEUT: {
             }
         }}
 
@@ -64,44 +74,44 @@ def alternative_forms_us(adj):
 
     if masc:
 
-        alt_forms['sg']['masc']['gen'] = masc[:-1]
+        alt_forms[SG][MASC][GEN] = masc[:-1]
         acc_sg = masc[:-1] + 'ν'
         if acc_sg in greek_corpus:
-            alt_forms['sg']['masc']['acc'] = acc_sg
+            alt_forms[SG][MASC][ACC] = acc_sg
         gen_sg = masc[:-2] + 'έος'
         if gen_sg in greek_corpus:
-            alt_forms['sg']['masc']['gen'] = masc[:-1] + ',' + gen_sg
+            alt_forms[SG][MASC][GEN] = masc[:-1] + ',' + gen_sg
 
     if neut:
-        alt_forms['sg']['neut']['gen'] = neut
+        alt_forms[SG][NEUT][GEN] = neut
         gen_sg = masc[:-2] + 'έος'
         if gen_sg in greek_corpus:
-            alt_forms['sg']['neut']['gen'] = neut + ',' + gen_sg
+            alt_forms[SG][NEUT][GEN] = neut + ',' + gen_sg
 
     if masc not in ['πολύς', 'μέγας'] and masc[:-2] + 'είς' in greek_corpus:
-        alt_forms['pl']['masc']['nom'] = masc[:-2] + 'είς'
-        alt_forms['pl']['masc']['acc'] = masc[:-2] + 'είς'
-        alt_forms['pl']['masc']['gen'] = masc[:-2] + 'έων'
-        alt_forms['pl']['masc']['voc'] = masc[:-2] + 'είς'
-        alt_forms['pl']['neut']['nom'] = neut[:-1] + 'έα'
-        alt_forms['pl']['neut']['acc'] = neut[:-1] + 'έα'
-        alt_forms['pl']['neut']['voc'] = neut[:-1] + 'έα'
-        alt_forms['pl']['neut']['gen'] = neut[:-1] + 'έων'
+        alt_forms[PL][MASC][NOM] = masc[:-2] + 'είς'
+        alt_forms[PL][MASC][ACC] = masc[:-2] + 'είς'
+        alt_forms[PL][MASC][GEN] = masc[:-2] + 'έων'
+        alt_forms[PL][MASC][VOC] = masc[:-2] + 'είς'
+        alt_forms[PL][NEUT][NOM] = neut[:-1] + 'έα'
+        alt_forms[PL][NEUT][ACC] = neut[:-1] + 'έα'
+        alt_forms[PL][NEUT][VOC] = neut[:-1] + 'έα'
+        alt_forms[PL][NEUT][GEN] = neut[:-1] + 'έων'
 
     if fem[:-2] + 'εία' in greek_corpus:
         fem_alt_stem = fem[:-2] + 'εία'
         fem_alt_plur = fem[:-2] + 'είες'
-        alt_forms['sg']['fem']['nom'] = fem_alt_stem
-        alt_forms['sg']['fem']['acc'] = fem_alt_stem + ',' + fem_alt_stem + 'ν'
-        alt_forms['sg']['fem']['gen'] = fem_alt_stem + 'ς'
-        alt_forms['sg']['fem']['voc'] = fem_alt_stem
-        alt_forms['pl']['fem']['nom'] = fem_alt_plur
-        alt_forms['pl']['fem']['acc'] = fem_alt_plur
-        alt_forms['pl']['fem']['voc'] = fem_alt_plur
-        alt_forms['pl']['fem']['gen'] = fem[:-2] + 'ειών'
+        alt_forms[SG][FEM][NOM] = fem_alt_stem
+        alt_forms[SG][FEM][ACC] = fem_alt_stem + ',' + fem_alt_stem + 'ν'
+        alt_forms[SG][FEM][GEN] = fem_alt_stem + 'ς'
+        alt_forms[SG][FEM][VOC] = fem_alt_stem
+        alt_forms[PL][FEM][NOM] = fem_alt_plur
+        alt_forms[PL][FEM][ACC] = fem_alt_plur
+        alt_forms[PL][FEM][VOC] = fem_alt_plur
+        alt_forms[PL][FEM][GEN] = fem[:-2] + 'ειών'
 
     if masc in ['πολύς', 'μέγας']:
-        alt_forms.pop('pl')
+        alt_forms.pop(PL)
     # else there will be blank places, remember to check if there is sth
     # before inserting
     return alt_forms
@@ -109,20 +119,20 @@ def alternative_forms_us(adj):
 
 def alternative_forms_us2(adj):
     # only for the us, ia, y type
-    alt_forms = {'sg': {
-        'masc': {
-            'gen': '',
+    alt_forms = {SG: {
+        MASC: {
+            GEN: '',
         },
-        'neut': {
-            'gen': '',
+        NEUT: {
+            GEN: '',
         }
     }}
 
     masc, fem, neut = adj.split('/')
 
     if masc:
-        alt_forms['sg']['masc']['gen'] = masc[:-2] + 'έος'
-        alt_forms['sg']['neut']['gen'] = masc[:-2] + 'έος'
+        alt_forms[SG][MASC][GEN] = masc[:-2] + 'έος'
+        alt_forms[SG][NEUT][GEN] = masc[:-2] + 'έος'
 
     return alt_forms
 
@@ -135,53 +145,53 @@ def alternative_forms_wn(adj):
 
     if neut != '-':
         thema = neut + 'τ'
-        alt_forms['sg']['masc']['acc'] = thema + 'α'
-        alt_forms['sg']['masc']['gen'] = thema + 'ος'
-        alt_forms['sg']['neut']['nom'] = neut
-        alt_forms['sg']['neut']['gen'] = thema + 'ος'
-        alt_forms['sg']['neut']['acc'] = neut
-        alt_forms['sg']['neut']['voc'] = neut
-        alt_forms['pl']['masc']['nom'] = thema + 'ες'
-        alt_forms['pl']['masc']['acc'] = thema + 'ες'
-        alt_forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        alt_forms['pl']['masc']['voc'] = thema + 'ες'
-        alt_forms['pl']['neut']['nom'] = thema + 'α'
-        alt_forms['pl']['neut']['acc'] = thema + 'α'
-        alt_forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        alt_forms['pl']['neut']['voc'] = thema + 'α'
+        alt_forms[SG][MASC][ACC] = thema + 'α'
+        alt_forms[SG][MASC][GEN] = thema + 'ος'
+        alt_forms[SG][NEUT][NOM] = neut
+        alt_forms[SG][NEUT][GEN] = thema + 'ος'
+        alt_forms[SG][NEUT][ACC] = neut
+        alt_forms[SG][NEUT][VOC] = neut
+        alt_forms[PL][MASC][NOM] = thema + 'ες'
+        alt_forms[PL][MASC][ACC] = thema + 'ες'
+        alt_forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        alt_forms[PL][MASC][VOC] = thema + 'ες'
+        alt_forms[PL][NEUT][NOM] = thema + 'α'
+        alt_forms[PL][NEUT][ACC] = thema + 'α'
+        alt_forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        alt_forms[PL][NEUT][VOC] = thema + 'α'
     if masc != '-':
-        alt_forms['sg']['masc']['nom'] = masc
-        alt_forms['sg']['masc']['voc'] = masc
+        alt_forms[SG][MASC][NOM] = masc
+        alt_forms[SG][MASC][VOC] = masc
 
     if fem != '-':
-        alt_forms['sg']['fem']['nom'] = fem
-        alt_forms['sg']['fem']['acc'] = fem
-        alt_forms['sg']['fem']['gen'] = fem + 'ς'
-        alt_forms['sg']['fem']['voc'] = fem
-        alt_forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-        alt_forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-        alt_forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
-        alt_forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
+        alt_forms[SG][FEM][NOM] = fem
+        alt_forms[SG][FEM][ACC] = fem
+        alt_forms[SG][FEM][GEN] = fem + 'ς'
+        alt_forms[SG][FEM][VOC] = fem
+        alt_forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+        alt_forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+        alt_forms[PL][FEM][GEN] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
+        alt_forms[PL][FEM][VOC] = fem[:-1] + 'ες'
 
     return alt_forms
 
 
 def alternative_forms_onas(adj):
-    alt_forms = {'sg': {
-        'masc': {
-            'nom': '',
-            'gen': '',
-            'acc': '',
-            'voc': ''
+    alt_forms = {SG: {
+        MASC: {
+            NOM: '',
+            GEN: '',
+            ACC: '',
+            VOC: ''
         },
 
     },
-        'pl': {
-            'masc': {
-                'nom': '',
-                'gen': '',
-                'acc': '',
-                'voc': ''},
+        PL: {
+            MASC: {
+                NOM: '',
+                GEN: '',
+                ACC: '',
+                VOC: ''},
 
         }}
 
@@ -189,16 +199,16 @@ def alternative_forms_onas(adj):
 
     if neut:
         thema = neut
-        alt_forms['sg']['masc']['acc'] = thema + 'α'
-        alt_forms['sg']['masc']['gen'] = thema + 'ος'
-        alt_forms['pl']['masc']['nom'] = thema + 'ες'
-        alt_forms['pl']['masc']['acc'] = thema + 'ες'
-        alt_forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        alt_forms['pl']['masc']['voc'] = thema + 'ες'
+        alt_forms[SG][MASC][ACC] = thema + 'α'
+        alt_forms[SG][MASC][GEN] = thema + 'ος'
+        alt_forms[PL][MASC][NOM] = thema + 'ες'
+        alt_forms[PL][MASC][ACC] = thema + 'ες'
+        alt_forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        alt_forms[PL][MASC][VOC] = thema + 'ες'
 
     if fem:
-        alt_forms['sg']['masc']['nom'] = fem
-        alt_forms['sg']['masc']['voc'] = fem
+        alt_forms[SG][MASC][NOM] = fem
+        alt_forms[SG][MASC][VOC] = fem
 
     return alt_forms
 
@@ -208,33 +218,33 @@ def alternative_forms_ou(fem):
     :param fem: its a feminine form with a ou ending
     :return:
     """
-    alt_forms = {'sg': {
-        'fem': {
-            'nom': '',
-            'gen': '',
-            'acc': '',
-            'voc': ''
+    alt_forms = {SG: {
+        FEM: {
+            NOM: '',
+            GEN: '',
+            ACC: '',
+            VOC: ''
         },
 
     },
-        'pl': {
-            'fem': {
-                'nom': '',
-                'gen': '',
-                'acc': '',
-                'voc': ''},
+        PL: {
+            FEM: {
+                NOM: '',
+                GEN: '',
+                ACC: '',
+                VOC: ''},
 
         }}
 
-    alt_forms['sg']['fem']['nom'] = fem
-    alt_forms['sg']['fem']['acc'] = fem
-    alt_forms['sg']['fem']['gen'] = fem + 'ς'
-    alt_forms['sg']['fem']['voc'] = fem
+    alt_forms[SG][FEM][NOM] = fem
+    alt_forms[SG][FEM][ACC] = fem
+    alt_forms[SG][FEM][GEN] = fem + 'ς'
+    alt_forms[SG][FEM][VOC] = fem
 
-    alt_forms['pl']['fem']['nom'] = fem + 'δες'
-    alt_forms['pl']['fem']['acc'] = fem + 'δες'
-    alt_forms['pl']['fem']['gen'] = fem + 'δων'
-    alt_forms['pl']['fem']['voc'] = fem + 'δες'
+    alt_forms[PL][FEM][NOM] = fem + 'δες'
+    alt_forms[PL][FEM][ACC] = fem + 'δες'
+    alt_forms[PL][FEM][GEN] = fem + 'δων'
+    alt_forms[PL][FEM][VOC] = fem + 'δες'
 
     return alt_forms
 
@@ -264,7 +274,8 @@ def create_all_adj_forms(adj):
     forms = copy.deepcopy(adj_basic_template)
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
-    # print(masc[-2:], masc[-2:] == 'ις', masc == fem, neut == '-')
+
+
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
         fem = fem.split(',')[0]  # because in the list there are given alternatives, which i don't need
@@ -274,36 +285,36 @@ def create_all_adj_forms(adj):
             if fem[-2] in ['ι', 'ί']:
                 fem = masc[:-2] + 'α'
         # os, h/a, o
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['gen'] = masc[:-2] + 'ου'
-        forms['sg']['masc']['voc'] = masc[:-2] + 'ε'
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][GEN] = masc[:-2] + 'ου'
+        forms[SG][MASC][VOC] = masc[:-2] + 'ε'
 
-        forms['pl']['masc']['nom'] = masc[:-2] + 'οι'
-        forms['pl']['masc']['acc'] = masc[:-2] + 'ους'
-        forms['pl']['masc']['gen'] = masc[:-2] + 'ων'
-        forms['pl']['masc']['voc'] = masc[:-2] + 'οι'
+        forms[PL][MASC][NOM] = masc[:-2] + 'οι'
+        forms[PL][MASC][ACC] = masc[:-2] + 'ους'
+        forms[PL][MASC][GEN] = masc[:-2] + 'ων'
+        forms[PL][MASC][VOC] = masc[:-2] + 'οι'
 
         if fem != '-':
-            forms['sg']['fem']['nom'] = fem
-            forms['sg']['fem']['acc'] = fem
-            forms['sg']['fem']['gen'] = fem + 'ς'
-            forms['sg']['fem']['voc'] = fem
+            forms[SG][FEM][NOM] = fem
+            forms[SG][FEM][ACC] = fem
+            forms[SG][FEM][GEN] = fem + 'ς'
+            forms[SG][FEM][VOC] = fem
 
-            forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['gen'] = fem[:-1] + 'ων'
-            forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
+            forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+            forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+            forms[PL][FEM][GEN] = fem[:-1] + 'ων'
+            forms[PL][FEM][VOC] = fem[:-1] + 'ες'
 
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = neut[:-1] + 'ου'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = neut[:-1] + 'ου'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['neut']['nom'] = neut[:-1] + 'α'
-        forms['pl']['neut']['acc'] = neut[:-1] + 'α'
-        forms['pl']['neut']['gen'] = neut[:-1] + 'ων'
-        forms['pl']['neut']['voc'] = neut[:-1] + 'α'
+        forms[PL][NEUT][NOM] = neut[:-1] + 'α'
+        forms[PL][NEUT][ACC] = neut[:-1] + 'α'
+        forms[PL][NEUT][GEN] = neut[:-1] + 'ων'
+        forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
         accent = where_is_accent(masc)
         if accent == 'ultimate':
@@ -318,63 +329,63 @@ def create_all_adj_forms(adj):
 
     elif masc[-3:] == 'ους' and neut[-3:] == 'ουν':
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['gen'] = masc[:-1] + 'ν'
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = masc
-        forms['sg']['fem']['acc'] = masc[:-1]
-        forms['sg']['fem']['gen'] = masc[:-1] + 'ν'
-        forms['sg']['fem']['voc'] = masc
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = neut[:-1]
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
-        forms['pl']['masc']['nom'] = masc[:-3] + 'οι'
-        forms['pl']['masc']['acc'] = masc
-        forms['pl']['masc']['gen'] = masc[:-3] + 'ων'
-        forms['pl']['masc']['voc'] = masc[:-3] + 'οι'
-        forms['pl']['fem']['nom'] = masc[:-3] + 'οι'
-        forms['pl']['fem']['acc'] = masc
-        forms['pl']['fem']['gen'] = masc[:-3] + 'ων'
-        forms['pl']['fem']['voc'] = masc[:-3] + 'οι'
-        forms['pl']['neut']['nom'] = masc[:-3] + 'οα'
-        forms['pl']['neut']['acc'] = masc[:-3] + 'οα'
-        forms['pl']['neut']['gen'] = masc[:-3] + 'ων'
-        forms['pl']['neut']['voc'] = masc[:-3] + 'οα'
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][GEN] = masc[:-1] + 'ν'
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = masc
+        forms[SG][FEM][ACC] = masc[:-1]
+        forms[SG][FEM][GEN] = masc[:-1] + 'ν'
+        forms[SG][FEM][VOC] = masc
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = neut[:-1]
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
+        forms[PL][MASC][NOM] = masc[:-3] + 'οι'
+        forms[PL][MASC][ACC] = masc
+        forms[PL][MASC][GEN] = masc[:-3] + 'ων'
+        forms[PL][MASC][VOC] = masc[:-3] + 'οι'
+        forms[PL][FEM][NOM] = masc[:-3] + 'οι'
+        forms[PL][FEM][ACC] = masc
+        forms[PL][FEM][GEN] = masc[:-3] + 'ων'
+        forms[PL][FEM][VOC] = masc[:-3] + 'οι'
+        forms[PL][NEUT][NOM] = masc[:-3] + 'οα'
+        forms[PL][NEUT][ACC] = masc[:-3] + 'οα'
+        forms[PL][NEUT][GEN] = masc[:-3] + 'ων'
+        forms[PL][NEUT][VOC] = masc[:-3] + 'οα'
 
         return forms, None
 
     elif (masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == 'ultimate') or masc == 'μέγας':
         # add alternativeσ, bathys
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
 
-        forms['sg']['masc']['voc'] = masc[:-1]
+        forms[SG][MASC][VOC] = masc[:-1]
 
-        forms['sg']['masc']['gen'] = fem[:-1] + 'ου'
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['gen'] = fem[:-1] + 'ου'
-        forms['pl']['masc']['nom'] = fem[:-1] + 'οι'
-        forms['pl']['masc']['acc'] = fem[:-1] + 'ους'
-        forms['pl']['masc']['gen'] = fem[:-1] + 'ων'
-        forms['pl']['masc']['voc'] = fem[:-1] + 'οι'
-        forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['gen'] = fem[:-1] + 'ων'
-        forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
-        forms['pl']['neut']['nom'] = fem[:-1] + 'α'
-        forms['pl']['neut']['acc'] = fem[:-1] + 'α'
-        forms['pl']['neut']['gen'] = fem[:-1] + 'ων'
-        forms['pl']['neut']['voc'] = fem[:-1] + 'α'
+        forms[SG][MASC][GEN] = fem[:-1] + 'ου'
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][GEN] = fem[:-1] + 'ου'
+        forms[PL][MASC][NOM] = fem[:-1] + 'οι'
+        forms[PL][MASC][ACC] = fem[:-1] + 'ους'
+        forms[PL][MASC][GEN] = fem[:-1] + 'ων'
+        forms[PL][MASC][VOC] = fem[:-1] + 'οι'
+        forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+        forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+        forms[PL][FEM][GEN] = fem[:-1] + 'ων'
+        forms[PL][FEM][VOC] = fem[:-1] + 'ες'
+        forms[PL][NEUT][NOM] = fem[:-1] + 'α'
+        forms[PL][NEUT][ACC] = fem[:-1] + 'α'
+        forms[PL][NEUT][GEN] = fem[:-1] + 'ων'
+        forms[PL][NEUT][VOC] = fem[:-1] + 'α'
 
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
         if masc != 'μέγας':
             for num in forms.keys():
@@ -389,34 +400,34 @@ def create_all_adj_forms(adj):
     elif masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == 'penultimate':
         # oksys, okseos
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['gen'] = masc[:-1]
-        forms['sg']['masc']['voc'] = masc[:-1]
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][GEN] = masc[:-1]
+        forms[SG][MASC][VOC] = masc[:-1]
 
-        forms['pl']['masc']['nom'] = masc[:-2] + 'είς'
-        forms['pl']['masc']['acc'] = masc[:-2] + 'είς'
-        forms['pl']['masc']['gen'] = masc[:-2] + 'έων'
-        forms['pl']['masc']['voc'] = masc[:-2] + 'είς'
+        forms[PL][MASC][NOM] = masc[:-2] + 'είς'
+        forms[PL][MASC][ACC] = masc[:-2] + 'είς'
+        forms[PL][MASC][GEN] = masc[:-2] + 'έων'
+        forms[PL][MASC][VOC] = masc[:-2] + 'είς'
         if fem != '-':
-            forms['sg']['fem']['nom'] = fem
-            forms['sg']['fem']['acc'] = fem
-            forms['sg']['fem']['gen'] = fem + 'ς'
-            forms['sg']['fem']['voc'] = fem
-            forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['gen'] = fem[:-2] + 'ιών'
-            forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
+            forms[SG][FEM][NOM] = fem
+            forms[SG][FEM][ACC] = fem
+            forms[SG][FEM][GEN] = fem + 'ς'
+            forms[SG][FEM][VOC] = fem
+            forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+            forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+            forms[PL][FEM][GEN] = fem[:-2] + 'ιών'
+            forms[PL][FEM][VOC] = fem[:-1] + 'ες'
 
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = neut
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = neut
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['neut']['nom'] = masc[:-2] + 'έα'
-        forms['pl']['neut']['acc'] = masc[:-2] + 'έα'
-        forms['pl']['neut']['gen'] = masc[:-2] + 'έων'
-        forms['pl']['neut']['voc'] = masc[:-2] + 'έα'
+        forms[PL][NEUT][NOM] = masc[:-2] + 'έα'
+        forms[PL][NEUT][ACC] = masc[:-2] + 'έα'
+        forms[PL][NEUT][GEN] = masc[:-2] + 'έων'
+        forms[PL][NEUT][VOC] = masc[:-2] + 'έα'
 
         alt_forms = alternative_forms_us2(adj)
 
@@ -424,37 +435,37 @@ def create_all_adj_forms(adj):
 
     elif masc[-2:] in ['ης', 'άς', 'ής'] and fem[-1] in ['α', 'ύ'] and neut[-3:] == 'ικο':
         # hs, a, iko
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['gen'] = masc[:-1]
-        forms['sg']['masc']['voc'] = masc[:-1]
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = neut[:-1] + 'ου'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][GEN] = masc[:-1]
+        forms[SG][MASC][VOC] = masc[:-1]
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = neut[:-1] + 'ου'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = masc[:-1] + 'δες'
-        forms['pl']['masc']['acc'] = masc[:-1] + 'δες'
-        forms['pl']['masc']['gen'] = masc[:-1] + 'δων'
-        forms['pl']['masc']['voc'] = masc[:-1] + 'δες'
+        forms[PL][MASC][NOM] = masc[:-1] + 'δες'
+        forms[PL][MASC][ACC] = masc[:-1] + 'δες'
+        forms[PL][MASC][GEN] = masc[:-1] + 'δων'
+        forms[PL][MASC][VOC] = masc[:-1] + 'δες'
         if fem[-2:] == 'ού':
-            forms['pl']['fem']['nom'] = fem + 'δες'
-            forms['pl']['fem']['acc'] = fem + 'δες'
-            forms['pl']['fem']['gen'] = fem + 'δων'
-            forms['pl']['fem']['voc'] = fem + 'δες'
+            forms[PL][FEM][NOM] = fem + 'δες'
+            forms[PL][FEM][ACC] = fem + 'δες'
+            forms[PL][FEM][GEN] = fem + 'δων'
+            forms[PL][FEM][VOC] = fem + 'δες'
         else:
-            forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-            forms['pl']['fem']['gen'] = fem[:-2] + 'ων'
-            forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
-        forms['pl']['neut']['nom'] = neut[:-1] + 'α'
-        forms['pl']['neut']['acc'] = neut[:-1] + 'α'
-        forms['pl']['neut']['gen'] = neut[:-1] + 'ων'
-        forms['pl']['neut']['voc'] = neut[:-1] + 'α'
+            forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+            forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+            forms[PL][FEM][GEN] = fem[:-2] + 'ων'
+            forms[PL][FEM][VOC] = fem[:-1] + 'ες'
+        forms[PL][NEUT][NOM] = neut[:-1] + 'α'
+        forms[PL][NEUT][ACC] = neut[:-1] + 'α'
+        forms[PL][NEUT][GEN] = neut[:-1] + 'ων'
+        forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
         alternative_forms = None
         # προσθεσε εναλλακτικές μορφές για το θυληκό γενος ξανθομάλλα και ξανθομαλλού
@@ -467,30 +478,30 @@ def create_all_adj_forms(adj):
 
     elif masc[-2:] == 'ής' and fem[-1] == 'ά' and neut[-1] == 'ί':
         # colors hs, a, i
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['gen'] = masc[:-1]
-        forms['sg']['masc']['voc'] = masc[:-1]
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = fem[:-1] + 'ού'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
-        forms['pl']['masc']['nom'] = fem[:-1] + 'οί'
-        forms['pl']['masc']['acc'] = fem[:-1] + 'ούς'
-        forms['pl']['masc']['gen'] = fem[:-1] + 'ών'
-        forms['pl']['masc']['voc'] = fem[:-1] + 'οί'
-        forms['pl']['fem']['nom'] = fem[:-1] + 'ές'
-        forms['pl']['fem']['acc'] = fem[:-1] + 'ές'
-        forms['pl']['fem']['gen'] = fem[:-1] + 'ών'
-        forms['pl']['fem']['voc'] = fem[:-1] + 'ές'
-        forms['pl']['neut']['nom'] = fem[:-1] + 'ά'
-        forms['pl']['neut']['acc'] = fem[:-1] + 'ά'
-        forms['pl']['neut']['gen'] = fem[:-1] + 'ών'
-        forms['pl']['neut']['voc'] = fem[:-1] + 'ά'
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][GEN] = masc[:-1]
+        forms[SG][MASC][VOC] = masc[:-1]
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = fem[:-1] + 'ού'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
+        forms[PL][MASC][NOM] = fem[:-1] + 'οί'
+        forms[PL][MASC][ACC] = fem[:-1] + 'ούς'
+        forms[PL][MASC][GEN] = fem[:-1] + 'ών'
+        forms[PL][MASC][VOC] = fem[:-1] + 'οί'
+        forms[PL][FEM][NOM] = fem[:-1] + 'ές'
+        forms[PL][FEM][ACC] = fem[:-1] + 'ές'
+        forms[PL][FEM][GEN] = fem[:-1] + 'ών'
+        forms[PL][FEM][VOC] = fem[:-1] + 'ές'
+        forms[PL][NEUT][NOM] = fem[:-1] + 'ά'
+        forms[PL][NEUT][ACC] = fem[:-1] + 'ά'
+        forms[PL][NEUT][GEN] = fem[:-1] + 'ών'
+        forms[PL][NEUT][VOC] = fem[:-1] + 'ά'
 
         return forms, None
 
@@ -498,59 +509,59 @@ def create_all_adj_forms(adj):
         # archaic participles, not sure which endings to choose, as it seems both are used, ancient and modern (especially in fem),
         # for now I will settle with modernized
         thema = masc[:-1] + 'τ'
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = thema + 'ων'
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['gen'] = fem[:-1] + 'ων'
-        forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = thema + 'ων'
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = thema + 'ων'
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+        forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+        forms[PL][FEM][GEN] = fem[:-1] + 'ων'
+        forms[PL][FEM][VOC] = fem[:-1] + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = thema + 'ων'
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         return forms, None
 
     elif masc[-2:] in ['ης', 'ής'] and fem[-2:] in ['ής', 'ης'] and neut[-2:] in ['ες', 'ές']:
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['gen'] = masc[:-2] + 'ους'
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['voc'] = masc[:-1]
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['gen'] = fem[:-2] + 'ους'
-        forms['sg']['fem']['acc'] = fem[:-1]
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = fem[:-2] + 'ους'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][GEN] = masc[:-2] + 'ους'
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][VOC] = masc[:-1]
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][GEN] = fem[:-2] + 'ους'
+        forms[SG][FEM][ACC] = fem[:-1]
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = fem[:-2] + 'ους'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = masc[:-2] + 'εις'
-        forms['pl']['masc']['acc'] = masc[:-2] + 'εις'
-        forms['pl']['masc']['gen'] = masc[:-2] + 'ων'
-        forms['pl']['masc']['voc'] = masc[:-2] + 'εις'
-        forms['pl']['fem']['nom'] = masc[:-2] + 'εις'
-        forms['pl']['fem']['acc'] = masc[:-2] + 'εις'
-        forms['pl']['fem']['gen'] = masc[:-2] + 'ων'
-        forms['pl']['fem']['voc'] = masc[:-2] + 'εις'
-        forms['pl']['neut']['nom'] = masc[:-2] + 'η'
-        forms['pl']['neut']['acc'] = masc[:-2] + 'η'
-        forms['pl']['neut']['gen'] = masc[:-2] + 'ων'
-        forms['pl']['neut']['voc'] = masc[:-2] + 'η'
+        forms[PL][MASC][NOM] = masc[:-2] + 'εις'
+        forms[PL][MASC][ACC] = masc[:-2] + 'εις'
+        forms[PL][MASC][GEN] = masc[:-2] + 'ων'
+        forms[PL][MASC][VOC] = masc[:-2] + 'εις'
+        forms[PL][FEM][NOM] = masc[:-2] + 'εις'
+        forms[PL][FEM][ACC] = masc[:-2] + 'εις'
+        forms[PL][FEM][GEN] = masc[:-2] + 'ων'
+        forms[PL][FEM][VOC] = masc[:-2] + 'εις'
+        forms[PL][NEUT][NOM] = masc[:-2] + 'η'
+        forms[PL][NEUT][ACC] = masc[:-2] + 'η'
+        forms[PL][NEUT][GEN] = masc[:-2] + 'ων'
+        forms[PL][NEUT][VOC] = masc[:-2] + 'η'
 
         if where_is_accent(masc) == 'ultimate':
             for num in forms.keys():
@@ -568,30 +579,30 @@ def create_all_adj_forms(adj):
         neut = neuters[0]
         thema = neut + 'τ'
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
-        forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+        forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
+        forms[PL][FEM][VOC] = fem[:-1] + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         alternative_forms = None
 
@@ -615,68 +626,96 @@ def create_all_adj_forms(adj):
         # ονας, ων, ον
         thema = neut
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'α'
-        forms['sg']['masc']['voc'] = thema + 'α'
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'α'
+        forms[SG][MASC][VOC] = thema + 'α'
         if masc[-2:] in ['ών', 'ων']:
-            forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = thema + 'α'
-        forms['sg']['fem']['gen'] = thema + 'ος'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+            forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = thema + 'α'
+        forms[SG][FEM][GEN] = thema + 'ος'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = thema + 'ες'
-        forms['pl']['fem']['acc'] = thema + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(thema + 'ων')
-        forms['pl']['fem']['voc'] = thema + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = thema + 'ες'
+        forms[PL][FEM][ACC] = thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(thema + 'ων')
+        forms[PL][FEM][VOC] = thema + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         alternative_forms = alternative_forms_onas(adj)
 
         return forms, alternative_forms
+
+    elif masc[-2:] == 'ωρ':
+
+        thema = masc[:-2] + 'ορ'
+
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = thema
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = thema + 'α'
+        forms[SG][FEM][GEN] = thema + 'ος'
+        forms[SG][FEM][VOC] = thema
+        # forms[SG][NEUT][NOM] = neut
+        # forms[SG][NEUT][GEN] = thema + 'ος'
+        # forms[SG][NEUT][ACC] = neut
+        # forms[SG][NEUT][VOC] = neut
+
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = thema + 'ες'
+        forms[PL][FEM][ACC] = thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][FEM][VOC] = thema + 'ες'
+
+        return forms, None
 
     elif masc[-3:] in ['είς'] and fem[-2:] in ['σα'] and neut[-2:] in ['έν']:
         # participles
 
         thema = neut + 'τ'
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['acc'] = fem[:-1] + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
-        forms['pl']['fem']['voc'] = fem[:-1] + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = fem[:-1] + 'ες'
+        forms[PL][FEM][ACC] = fem[:-1] + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
+        forms[PL][FEM][VOC] = fem[:-1] + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         alternative_forms = None
 
@@ -687,31 +726,31 @@ def create_all_adj_forms(adj):
 
         thema = neut
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = neut
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = thema + 'α'
-        forms['sg']['fem']['gen'] = thema + 'ος'
-        forms['sg']['fem']['voc'] = neut
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = neut
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = thema + 'α'
+        forms[SG][FEM][GEN] = thema + 'ος'
+        forms[SG][FEM][VOC] = neut
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = thema + 'ες'
-        forms['pl']['fem']['acc'] = thema + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
-        forms['pl']['fem']['voc'] = thema + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = thema + 'ες'
+        forms[PL][FEM][ACC] = thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(fem[:-1] + 'ων')
+        forms[PL][FEM][VOC] = thema + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         return forms, None
 
@@ -719,23 +758,23 @@ def create_all_adj_forms(adj):
         # ancient 3rd declesion
         thema = masc[:-1] + 'δ'
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = masc
-        forms['sg']['fem']['acc'] = thema + 'α'
-        forms['sg']['fem']['gen'] = thema + 'ος'
-        forms['sg']['fem']['voc'] = masc
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = masc
+        forms[SG][FEM][ACC] = thema + 'α'
+        forms[SG][FEM][GEN] = thema + 'ος'
+        forms[SG][FEM][VOC] = masc
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = thema + 'ες'
-        forms['pl']['fem']['acc'] = thema + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(thema + 'ων')
-        forms['pl']['fem']['voc'] = thema + 'ες'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = thema + 'ες'
+        forms[PL][FEM][ACC] = thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(thema + 'ων')
+        forms[PL][FEM][VOC] = thema + 'ες'
 
         forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
         return forms, None
@@ -750,23 +789,23 @@ def create_all_adj_forms(adj):
         elif masc[-1] == 'ψ':
             thema = masc[:-1] + 'π'
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = masc
-        forms['sg']['fem']['acc'] = thema + 'α'
-        forms['sg']['fem']['gen'] = thema + 'ος'
-        forms['sg']['fem']['voc'] = masc
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = masc
+        forms[SG][FEM][ACC] = thema + 'α'
+        forms[SG][FEM][GEN] = thema + 'ος'
+        forms[SG][FEM][VOC] = masc
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = thema + 'ες'
-        forms['pl']['fem']['acc'] = thema + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(thema + 'ων')
-        forms['pl']['fem']['voc'] = thema + 'ες'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = thema + 'ες'
+        forms[PL][FEM][ACC] = thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(thema + 'ων')
+        forms[PL][FEM][VOC] = thema + 'ες'
 
         forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
         return forms, None
@@ -777,31 +816,31 @@ def create_all_adj_forms(adj):
         """
         thema = neut
         fem_thema = fem[:-1]
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = neut
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem
-        forms['sg']['fem']['gen'] = fem + 'ς'
-        forms['sg']['fem']['voc'] = fem
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = neut
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem
+        forms[SG][FEM][GEN] = fem + 'ς'
+        forms[SG][FEM][VOC] = fem
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = fem_thema + 'ες'
-        forms['pl']['fem']['acc'] = fem_thema + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem_thema + 'ων')
-        forms['pl']['fem']['voc'] = fem_thema + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = fem_thema + 'ες'
+        forms[PL][FEM][ACC] = fem_thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(fem_thema + 'ων')
+        forms[PL][FEM][VOC] = fem_thema + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         return forms, None
 
@@ -809,31 +848,31 @@ def create_all_adj_forms(adj):
 
         thema = neut + 'τ'
         fem_thema = thema
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = thema + 'α'
-        forms['sg']['masc']['gen'] = thema + 'ος'
-        forms['sg']['masc']['voc'] = neut
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = thema + 'α'
-        forms['sg']['fem']['gen'] = thema + 'ος'
-        forms['sg']['fem']['voc'] = thema
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = thema + 'ος'
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = thema + 'α'
+        forms[SG][MASC][GEN] = thema + 'ος'
+        forms[SG][MASC][VOC] = neut
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = thema + 'α'
+        forms[SG][FEM][GEN] = thema + 'ος'
+        forms[SG][FEM][VOC] = thema
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = thema + 'ος'
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = thema + 'ες'
-        forms['pl']['masc']['acc'] = thema + 'ες'
-        forms['pl']['masc']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['masc']['voc'] = thema + 'ες'
-        forms['pl']['fem']['nom'] = fem_thema + 'ες'
-        forms['pl']['fem']['acc'] = fem_thema + 'ες'
-        forms['pl']['fem']['gen'] = put_accent_on_the_ultimate(fem_thema + 'ων')
-        forms['pl']['fem']['voc'] = fem_thema + 'ες'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = put_accent_on_the_penultimate(thema + 'ων')
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[PL][MASC][NOM] = thema + 'ες'
+        forms[PL][MASC][ACC] = thema + 'ες'
+        forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][MASC][VOC] = thema + 'ες'
+        forms[PL][FEM][NOM] = fem_thema + 'ες'
+        forms[PL][FEM][ACC] = fem_thema + 'ες'
+        forms[PL][FEM][GEN] = put_accent_on_the_ultimate(fem_thema + 'ων')
+        forms[PL][FEM][VOC] = fem_thema + 'ες'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
 
@@ -843,31 +882,31 @@ def create_all_adj_forms(adj):
 
         thema = neut[:-2]
 
-        forms['sg']['masc']['nom'] = masc
-        forms['sg']['masc']['acc'] = masc[:-1]
-        forms['sg']['masc']['gen'] = neut
-        forms['sg']['masc']['voc'] = masc
-        forms['sg']['fem']['nom'] = fem
-        forms['sg']['fem']['acc'] = fem[:-1]
-        forms['sg']['fem']['gen'] = neut
-        forms['sg']['fem']['voc'] = masc
-        forms['sg']['neut']['nom'] = neut
-        forms['sg']['neut']['gen'] = neut[:-1]
-        forms['sg']['neut']['acc'] = neut
-        forms['sg']['neut']['voc'] = neut
+        forms[SG][MASC][NOM] = masc
+        forms[SG][MASC][ACC] = masc[:-1]
+        forms[SG][MASC][GEN] = neut
+        forms[SG][MASC][VOC] = masc
+        forms[SG][FEM][NOM] = fem
+        forms[SG][FEM][ACC] = fem[:-1]
+        forms[SG][FEM][GEN] = neut
+        forms[SG][FEM][VOC] = masc
+        forms[SG][NEUT][NOM] = neut
+        forms[SG][NEUT][GEN] = neut[:-1]
+        forms[SG][NEUT][ACC] = neut
+        forms[SG][NEUT][VOC] = neut
 
-        forms['pl']['masc']['nom'] = thema + 'ῳ'
-        forms['pl']['masc']['acc'] = thema + 'ῳς'
-        forms['pl']['masc']['gen'] = thema + 'ων'
-        forms['pl']['masc']['voc'] = thema + 'ῳ'
-        forms['pl']['fem']['nom'] = thema + 'ῳ'
-        forms['pl']['fem']['acc'] = thema + 'ῳς'
-        forms['pl']['fem']['gen'] = thema + 'ῳν'
-        forms['pl']['fem']['voc'] = thema + 'ῳ'
-        forms['pl']['neut']['nom'] = thema + 'α'
-        forms['pl']['neut']['acc'] = thema + 'α'
-        forms['pl']['neut']['gen'] = thema + 'ων'
-        forms['pl']['neut']['voc'] = thema + 'α'
+        forms[PL][MASC][NOM] = thema + 'ῳ'
+        forms[PL][MASC][ACC] = thema + 'ῳς'
+        forms[PL][MASC][GEN] = thema + 'ων'
+        forms[PL][MASC][VOC] = thema + 'ῳ'
+        forms[PL][FEM][NOM] = thema + 'ῳ'
+        forms[PL][FEM][ACC] = thema + 'ῳς'
+        forms[PL][FEM][GEN] = thema + 'ῳν'
+        forms[PL][FEM][VOC] = thema + 'ῳ'
+        forms[PL][NEUT][NOM] = thema + 'α'
+        forms[PL][NEUT][ACC] = thema + 'α'
+        forms[PL][NEUT][GEN] = thema + 'ων'
+        forms[PL][NEUT][VOC] = thema + 'α'
 
         forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
 

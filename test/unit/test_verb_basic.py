@@ -123,3 +123,14 @@ class VerbTestBasic(TestCase):
              'modal': False}
         )
 
+    def test_verb_krossaro(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('κροσσάρω'),
+            {'aorist': {'active': {'κρόσσαρα'}},
+                 'conjunctive': {'active': {'κροσσάρω'}},
+                 'modal': False,
+                 'paratatikos': {'active': {'κρόσσαρα'}},
+                 'present': {'active': {'κροσσάρω'}}}
+
+        )
+

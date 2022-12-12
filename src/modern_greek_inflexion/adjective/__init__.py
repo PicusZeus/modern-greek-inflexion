@@ -52,6 +52,7 @@ def create_all(adj, inflection=None):
     all_adj_infl_forms = create_all_adj_forms(all_basic_adj_forms['adj'])
 
     forms.append(all_adj_infl_forms[0])
+
     if all_adj_infl_forms[1]:
         forms.append(all_adj_infl_forms[1])
 

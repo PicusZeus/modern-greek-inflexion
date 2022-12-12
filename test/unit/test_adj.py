@@ -330,3 +330,24 @@ class AdjectiveTests(TestCase):
              'comp_adv': {'ήττον', 'ήσσον', 'χειρότερα'}, 'superl_adv': {'κάκιστα', 'ήκιστα'}}
         )
 
+    def test_adj_apatwr(self):
+        # self.maxDiff = None
+        self.assertDictEqual(
+            adjective.create_all('απάτωρ'),
+            {'adj':
+                 {'pl':
+                      {'masc': {'gen': {'απατόρων'}, 'nom': {'απάτορες'}, 'voc': {'απάτορες'}, 'acc': {'απάτορες'}},
+                       'fem': {'gen': {'απατόρων'}, 'nom': {'απάτορες'}, 'voc': {'απάτορες'}, 'acc': {'απάτορες'}},
+                       'neut': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}}},
+                  'sg': {'masc': {'gen': {'απάτορος'}, 'nom': {'απάτωρ'}, 'voc': {'απάτορ'}, 'acc': {'απάτορα'}},
+                         'fem': {'gen': {'απάτορος'}, 'nom': {'απάτωρ'}, 'voc': {'απάτορ'}, 'acc': {'απάτορα'}},
+                         'neut': {'gen': {''}, 'nom': {''}, 'voc': {''}, 'acc': {''}}}}}
+,
+
+            adjective.create_all('απάτωρ'),
+            # adjective.create_all_basic_forms('απάτωρ')
+        )
+
+
+
+
