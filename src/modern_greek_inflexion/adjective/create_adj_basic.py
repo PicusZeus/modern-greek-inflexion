@@ -7,9 +7,9 @@ from ..exceptions import NotLegalAdjectiveException
 from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
 
 
-def create_all_basic_adj_forms(adj, inflection=None):
+def create_all_basic_adj_forms(adj, aklito=False):
     """
-    :param inflection: if relevant, add 'aklito' flag if it is certain does not have any declination (like μωβ)
+    :param aklito: if relevant, boolean
     :param adj: masc nom sg form (`ωραίος`)
     :return: dictionary with keys:
     'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
@@ -290,7 +290,7 @@ def create_all_basic_adj_forms(adj, inflection=None):
     else:
         masc, fem, neuter = adj, adj, adj
 
-    if inflection == 'aklito':
+    if aklito:
         masc, fem, neuter = adj, adj, adj
 
 

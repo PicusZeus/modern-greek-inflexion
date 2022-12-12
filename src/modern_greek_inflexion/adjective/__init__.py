@@ -12,9 +12,9 @@ def create_all_basic_forms(adj):
     return create_all_basic_adj_forms(adj)
 
 
-def create_all(adj, inflection=None):
+def create_all(adj, aklito=False):
     """
-    :param inflection: agnosto or aklito or None
+    :param aklito: boolean
     :param adj: masc sg nom form
     :return: dictionary with keys:
     'adj': array with dictionaries of forms and alternative forms
@@ -37,7 +37,7 @@ def create_all(adj, inflection=None):
     comp_adv = []
     super_adv = []
 
-    all_basic_adj_forms = create_all_basic_adj_forms(adj, inflection=inflection)
+    all_basic_adj_forms = create_all_basic_adj_forms(adj, aklito=aklito)
 
     """
     'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and

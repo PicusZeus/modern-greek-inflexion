@@ -248,7 +248,7 @@ class NounTests(TestCase):
 
     def test_noun_euro(self):
         self.assertDictEqual(
-            noun.create_all('ευρώ'),
+            noun.create_all('ευρώ', aklito=True),
             {'neut': {'sg': {'voc': {'ευρώ'}, 'gen': {'ευρώ'}, 'acc': {'ευρώ'}, 'nom': {'ευρώ'}},
                       'pl': {'voc': {'ευρώ'}, 'gen': {'ευρώ'}, 'acc': {'ευρώ'}, 'nom': {'ευρώ'}}}}
         )
@@ -351,5 +351,16 @@ class NounTests(TestCase):
                                       'gen': {'φαρφάλως'},
                                       'nom': {'φαρφάλω'},
                                       'voc': {'φαρφάλω'}}}}
+
+        )
+
+    def test_noun_resepsion(self):
+        self.assertDictEqual(
+            noun.create_all('ρεσεψιόν', gender='fem', aklito=True),
+            {'fem':
+                 {'pl':
+                      {'voc': {'ρεσεψιόν'}, 'gen': {'ρεσεψιόν'}, 'nom': {'ρεσεψιόν'}, 'acc': {'ρεσεψιόν'}},
+                  'sg':
+                      {'voc': {'ρεσεψιόν'}, 'gen': {'ρεσεψιόν'}, 'nom': {'ρεσεψιόν'}, 'acc': {'ρεσεψιόν'}}}}
 
         )

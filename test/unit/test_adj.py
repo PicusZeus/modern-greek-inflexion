@@ -200,7 +200,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_roz(self):
         self.assertDictEqual(
-            adjective.create_all('ροζ'),
+            adjective.create_all('ροζ', aklito=True),
             {'adj': {'sg': {'masc': {'nom': {'ροζ'}, 'voc': {'ροζ'}, 'acc': {'ροζ'}, 'gen': {'ροζ'}},
                             'neut': {'nom': {'ροζ'}, 'voc': {'ροζ'}, 'acc': {'ροζ'}, 'gen': {'ροζ'}},
                             'fem': {'nom': {'ροζ'}, 'voc': {'ροζ'}, 'acc': {'ροζ'}, 'gen': {'ροζ'}}},

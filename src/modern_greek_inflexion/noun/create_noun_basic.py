@@ -16,12 +16,12 @@ FEM_PL = 'fem_pl'
 MASC_PL = 'masc_pl'
 NEUT_PL = 'neut_pl'
 
-def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=False):
+def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=False):
     """
     :param proper_name: Proper names behave differently from normal nouns, so if it is known, it should be flagged
     :param gender: In case of some nouns, gender should be given, where it cannot be correctly guessed on the basis
     of the ending
-    :param inflection: It can have value None (then inflection is found automatically, or "aklito" (indeclinable)
+    :param aklito: Boolean (if false, inflection is found automatically, if true "aklito" (indeclinable)
     :param noun: must be nom sg
     :return: dictionary with keys: nom_sg, gen_sg, nom_pl and gender. Alternative forms are divided with coma
     """
@@ -461,7 +461,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
         if plural_form in greek_corpus or\
                 plural_form.capitalize() in greek_corpus or\
                 number_of_syllables>4 or\
-                (gender not in [FEM, MASC] and inflection != 'aklito'):
+                (gender not in [FEM, MASC] and not aklito):
 
             noun_temp['nom_pl'] = plural_form
 
@@ -478,7 +478,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
         if gens:
             noun_temp['gen_sg'] = ','.join(gens)
-        elif gender not in [FEM, MASC] and inflection != 'aklito':
+        elif gender not in [FEM, MASC] and not aklito:
             noun_temp['gen_sg'] = gen_form
         else:
             # σ`αυτήν την περίπτωση υποθετούμε πως είναι ουδέτερα άκλιτα
@@ -504,7 +504,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
             noun_temp['gen_sg'] = gen_form
 
-        elif inflection != "aklito":
+        elif not aklito:
             # if corpus doesnt help, but we know, that it's declinab
             noun_temp['nom_pl'] = plural_form
         if noun_temp['nom_pl'] == '' and noun_temp['gen_sg'] == '':
@@ -624,7 +624,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
             noun_temp['gen_sg'] = gen_form_d
 
     elif noun[-1] in ['ξ', 'ψ', 'τ', 'ρ',  'β', 'ν', 'δ', 'ε', 'έ', 'ζ', 'κ', 'λ', 'μ'] and \
-            noun not in ['σεξ', 'σερ', 'φαξ', 'μπορ', 'μπαρ', 'μποξ'] and inflection != 'aklito':
+            noun not in ['σεξ', 'σερ', 'φαξ', 'μπορ', 'μπαρ', 'μποξ'] and not aklito:
         # not very common but existing 3rd declension nouns
 
 
@@ -814,7 +814,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     if noun in diploklita.keys():
         noun_temp['nom_pl'] = diploklita[noun]
-    if inflection == 'aklito':
+    if aklito:
         noun_temp['nom_sg'] = noun
         if not proper_name:
             noun_temp['nom_pl'] = noun
@@ -824,7 +824,7 @@ def create_all_basic_noun_forms(noun, inflection=None, gender=None, proper_name=
 
     # check one more time these, that do not have flag aklito, but are surmised to be, maybe removing a prefix we will
     # be able to find out the correct declesion type
-    if inflection != "aklito" and noun_temp['nom_pl'] == noun_temp['nom_sg']:
+    if not aklito and noun_temp['nom_pl'] == noun_temp['nom_sg']:
         for prefix in prefixes:
             pr_l = len(prefix)
             if prefix in noun and prefix == noun[:pr_l]:
