@@ -13,7 +13,10 @@ greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 def create_all_basic_forms(pres_form):
     """
    :param pres_form: 1st person sg present
-   :return: a dictionary {'present': '', 'conjunctive': '', 'aorist': '', 'paratatikos': ''} and others, for times it gives active and medio-passive (if exists) divided by '/'. Modals are given in 3rd person, alternative formse are separated by coma, passive participles on menos are given only in masc separated by coma
+   :return: a dictionary {'present': '', 'conjunctive': '', 'aorist': '', 'paratatikos': ''} and others, for times it
+   gives active and medio-passive (if exists) divided by '/'.
+   Modals are given in 3rd person, alternative formse are separated by coma,
+   passive participles on menos are given only in masc separated by coma
    if there are alternatives
     """
 

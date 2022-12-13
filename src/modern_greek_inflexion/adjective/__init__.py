@@ -38,7 +38,6 @@ def create_all(adj, aklito=False):
     super_adv = []
 
     all_basic_adj_forms = create_all_basic_adj_forms(adj, aklito=aklito)
-
     """
     'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
     separated with a coma

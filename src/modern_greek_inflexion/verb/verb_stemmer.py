@@ -52,6 +52,8 @@ def create_basic_present_forms(base_form, deponens=False, not_deponens=True, int
         if pres_conjugation == 'con2a_act':
 
             pres_pass_form = root + 'ιέμαι'
+            # if root[-1:] == 'ι':
+            #
             pres_pass_form_alt_1 = root + 'ούμαι'
             pres_pass_form_alt_2 = root + 'ώμαι'
 

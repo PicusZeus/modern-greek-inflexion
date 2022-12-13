@@ -6,9 +6,10 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-
+from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
+
 
 
 def create_basic_forms(verb):
@@ -19,6 +20,8 @@ def create_all_forms(verb):
 
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
     basic_forms = create_all_basic_forms(verb)
+    
+
     all_forms = {}
 
     modal = basic_forms['modal']
@@ -30,71 +33,74 @@ def create_all_forms(verb):
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
 
-    if 'active' in present_basic_forms:
+    if ACTIVE in present_basic_forms:
         # only here, because we have lemma situation, all possible conjugation are also created
         # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
-        pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms['active'], 'active')
-        present['active'] = pres_act_forms
-    if 'passive' in present_basic_forms:
+        pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms[ACTIVE], ACTIVE)
+        present[ACTIVE] = pres_act_forms
+    if PASSIVE in present_basic_forms:
         # here you can have more possible forms
-        pres_passive_forms = create_all_imperfect_personal_forms(present_basic_forms['passive'], 'passive')
+        pres_passive_forms = create_all_imperfect_personal_forms(present_basic_forms[PASSIVE], PASSIVE)
 
-        present['passive'] = pres_passive_forms
+        present[PASSIVE] = pres_passive_forms
 
-        if 'active' not in present_basic_forms:
+        if ACTIVE not in present_basic_forms:
             deponens = True
 
     all_forms['present'] = present
-    'conjunctive'
-    if 'conjunctive' in basic_forms:
-        conjunctive_basic_forms = basic_forms['conjunctive']
+    CONJUNCTIVE
+    if CONJUNCTIVE in basic_forms:
+        conjunctive_basic_forms = basic_forms[CONJUNCTIVE]
         conjunctive = {}
-        active_root = None
-        if 'active' in conjunctive_basic_forms:
-            con_active_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms['active'], 'active')
-            active_root = list(conjunctive_basic_forms['active'])[0][:-1]
-            conjunctive['active'] = con_active_forms
+        active_roots = None
+        if ACTIVE in conjunctive_basic_forms:
+            con_active_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[ACTIVE], ACTIVE)
 
-        if 'passive' in conjunctive_basic_forms:
 
-            con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms['passive'], 'passive',
-                                                                        active_root_for_imp=active_root)
+            active_roots = [x[:-1] for x in conjunctive_basic_forms[ACTIVE]]
+
+            conjunctive[ACTIVE] = con_active_forms
+
+        if PASSIVE in conjunctive_basic_forms:
+
+            con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[PASSIVE], PASSIVE,
+                                                                        active_root_for_imp=active_roots)
             if basic_forms['modal']:
-                del con_passive_forms['imp']
-            conjunctive['passive'] = con_passive_forms
-        all_forms['conjunctive'] = conjunctive
+                del con_passive_forms[IMP]
+            conjunctive[PASSIVE] = con_passive_forms
+        all_forms[CONJUNCTIVE] = conjunctive
 
     "aorist"
-    if 'aorist' in basic_forms:
-        aorist_basic_forms = basic_forms['aorist']
+    if AORIST in basic_forms:
+        aorist_basic_forms = basic_forms[AORIST]
 
         aorist = {}
-        if 'active' in aorist_basic_forms:
+        if ACTIVE in aorist_basic_forms:
 
-            aor_active_forms = create_all_past_personal_forms(aorist_basic_forms['active'], verb, 'perf', 'active')
+            aor_active_forms = create_all_past_personal_forms(aorist_basic_forms[ACTIVE], verb, 'perf', ACTIVE)
             if modal:
-                aor_active_forms['ind'].pop('pl', None)
-                aor_active_forms['ind']['sg'].pop('pri', None)
-                aor_active_forms['ind']['sg'].pop('sec', None)
-            aorist['active'] = aor_active_forms
-        if 'passive' in aorist_basic_forms:
-            aor_passive_forms = create_all_past_personal_forms(aorist_basic_forms['passive'], verb, 'perf', 'passive')
-            aorist['passive'] = aor_passive_forms
+                aor_active_forms['ind'].pop(PL, None)
+                aor_active_forms['ind'][SG].pop(PRI, None)
+                aor_active_forms['ind'][SG].pop(SEC, None)
+            aorist[ACTIVE] = aor_active_forms
+        if PASSIVE in aorist_basic_forms:
+            aor_passive_forms = create_all_past_personal_forms(aorist_basic_forms[PASSIVE], verb, 'perf', PASSIVE)
+            aorist[PASSIVE] = aor_passive_forms
 
-        all_forms['aorist'] = aorist
+        all_forms[AORIST] = aorist
 
     # "paratatikos"
     if 'paratatikos' in basic_forms:
         paratatikos_basic_forms = basic_forms['paratatikos']
         paratatikos = {}
-        if 'active' in paratatikos_basic_forms:
-            paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms['active'], verb, 'imperf',
-                                                                      'active')
-            paratatikos['active'] = paratatikos_active_forms
-        if 'passive' in paratatikos_basic_forms:
-            paratatikos_passive_forms = create_all_past_personal_forms(paratatikos_basic_forms['passive'], verb,
-                                                                       'imperf', 'passive')
-            paratatikos['passive'] = paratatikos_passive_forms
+        if ACTIVE in paratatikos_basic_forms:
+            paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms[ACTIVE], verb, 'imperf',
+                                                                      ACTIVE)
+            paratatikos[ACTIVE] = paratatikos_active_forms
+        if PASSIVE in paratatikos_basic_forms:
+            paratatikos_passive_forms = create_all_past_personal_forms(paratatikos_basic_forms[PASSIVE], verb,
+                                                                       'imperf', PASSIVE)
+            paratatikos[PASSIVE] = paratatikos_passive_forms
         all_forms['paratatikos'] = paratatikos
 
     # "act_pres_participle"

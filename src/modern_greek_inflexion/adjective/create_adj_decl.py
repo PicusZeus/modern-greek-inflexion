@@ -60,7 +60,7 @@ def alternative_forms_us(adj):
         MASC: {
         },
         FEM: {},
-        'neut': {
+        NEUT: {
         }
     },
         PL: {
@@ -433,7 +433,7 @@ def create_all_adj_forms(adj):
 
         return forms, alt_forms
 
-    elif masc[-2:] in ['ης', 'άς', 'ής'] and fem[-1] in ['α', 'ύ'] and neut[-3:] == 'ικο':
+    elif masc[-2:] in ['ης', 'άς', 'ής', 'ας'] and fem[-1] in ['α', 'ύ'] and neut[-3:] == 'ικο':
         # hs, a, iko
         forms[SG][MASC][NOM] = masc
         forms[SG][MASC][ACC] = masc[:-1]
@@ -583,6 +583,7 @@ def create_all_adj_forms(adj):
         forms[SG][MASC][ACC] = thema + 'α'
         forms[SG][MASC][GEN] = thema + 'ος'
         forms[SG][MASC][VOC] = masc
+
         forms[SG][FEM][NOM] = fem
         forms[SG][FEM][ACC] = fem
         forms[SG][FEM][GEN] = fem + 'ς'
@@ -606,6 +607,7 @@ def create_all_adj_forms(adj):
 
         alternative_forms = None
 
+
         if len(neuters) > 1 and len(feminins) > 1:
 
             alternative_forms = alternative_forms_wn(f'{masc}/{feminins[1]}/{neuters[1]}')
@@ -618,7 +620,9 @@ def create_all_adj_forms(adj):
 
         forms = put_accent_on_unaccented_forms(forms)
         alternative_forms = put_accent_on_unaccented_forms(alternative_forms)
-
+        if masc[-4:] in ['ντας']:
+            forms[SG][MASC][GEN] = masc[:-1]
+            forms[SG][MASC][VOC] = masc[:-1]
         return forms, alternative_forms
 
     elif (masc[-4:] == 'ονας' or masc[-2:] in ['ών', 'ων']) and fem[-2:] == 'ων' and neut[-2:] == 'ον':

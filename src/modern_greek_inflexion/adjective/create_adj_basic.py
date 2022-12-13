@@ -230,7 +230,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
         if count_syllables(adj) == 1:
             pl_nta = put_accent(pl_nta, 'penultimate')
             fem_sa = put_accent(fem_sa, 'penultimate')
-        if pl_nta in greek_corpus:
+        if pl_nta in greek_corpus or adj[-4:] == 'άπας':
             masc = adj
             fem = fem_sa
             neuter = adj[:-1] + 'ν'
@@ -249,11 +249,18 @@ def create_all_basic_adj_forms(adj, aklito=False):
             masc = adj
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
-
-        elif where_is_accent(adj) == 'ultimate':
+        elif adj[-4:] == 'ντας':
+            masc = adj
+            fem = adj[:-5] + 'ούσα'
+            neuter = adj[:-3]
+        elif where_is_accent(adj) in ['ultimate', 'penultimate']:
             masc = adj
             fem = adj[:-2] + 'ού'
             neuter = adj[:-1] + 'δικο'
+            if where_is_accent(adj) == 'penultimate':
+                fem = adj[:-1]
+                neuter = adj[:-2] + 'ικο'
+
         else:
             raise NotLegalAdjectiveException
 

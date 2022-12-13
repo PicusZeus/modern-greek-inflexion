@@ -1,6 +1,6 @@
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     recognize_past_conjugation
-
+from ..resources import ACTIVE, PASSIVE
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 
 
@@ -9,22 +9,30 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
     compound all alternative forms into a set
     :return:
     """
+
     if not forms:
         if forms_imp:
             forms = {sec_pos: forms_ind_or_con, 'imp': forms_imp}
         else:
             forms = {sec_pos: forms_ind_or_con}
     else:
+        if forms_imp:
+            new_forms = {sec_pos: forms_ind_or_con, 'imp': forms_imp}
+        else:
+            new_forms = {sec_pos: forms_ind_or_con}
         for pos in forms:
             for number in forms[pos]:
                 for person in forms[pos][number]:
                     old = forms[pos][number][person]
                     try:
-                        new = forms_ind_or_con[number][person]
+                        new = new_forms[pos][number][person]
                     except KeyError:
                         new = []
+
                     new.extend(old)
                     forms[pos][number][person] = new
+
+
 
     if forms_ind_or_con == 'modal':
         return forms
@@ -42,6 +50,7 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
 
 
 def create_all_imperfect_personal_forms(verb, voice):
+
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
@@ -49,9 +58,9 @@ def create_all_imperfect_personal_forms(verb, voice):
     """
     act_verbs = pass_verbs = None
 
-    if voice == 'active':
+    if voice == ACTIVE:
         act_verbs = verb
-    elif voice == 'passive':
+    elif voice == PASSIVE:
         pass_verbs = verb
     else:
         print('voice can be only passive or active')
@@ -63,11 +72,12 @@ def create_all_imperfect_personal_forms(verb, voice):
     for v in verb:
 
         if act_verbs:
-            voice = 'active'
+            voice = ACTIVE
             sec_pos = 'ind'
             v = v.strip()
             # to be safe, sometimes list, especially if created manually, can have some white spaces
             con = recognize_active_non_past_conjugation(v, voice=voice)
+
             root = con['root']
             con_ind = con['conjugation_ind']
             forms_ind = create_all_pers_forms(con_ind, root)
@@ -103,7 +113,7 @@ def create_all_imperfect_personal_forms(verb, voice):
 def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=None):
     """
     :param voice:
-    :param active_root_for_imp:
+    :param active_root_for_imp: an array of possible roots
     :param verb: an array of forms
     :param deponens:
     :return:
@@ -116,12 +126,12 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
 
     for v in verb:
         v = v.strip()
-        if voice == 'active' and v:
+        if voice == ACTIVE and v:
             act_verb = v
-        elif voice == 'passive' and v:
+        elif voice == PASSIVE and v:
             pass_verb = v
         if act_verb:
-            con = recognize_active_non_past_conjugation(act_verb, aspect='perf', tense='fin', voice='active')
+            con = recognize_active_non_past_conjugation(act_verb, aspect='perf', tense='fin', voice=ACTIVE)
             root = con['root']
             con_ind = con['conjugation_ind']
             con_imp = con['conjugation_imp']
@@ -147,7 +157,9 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
 
         else:
             raise ValueError
+
         forms = compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp)
+
     return forms
 
 
@@ -172,7 +184,7 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
         data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
 
         conjugation = data['conjugation_ind']
-        if conjugation == 'parat2_act' or (voice == 'passive' and aspect == 'imperf'):
+        if conjugation == 'parat2_act' or (voice == PASSIVE and aspect == 'imperf'):
             simple_aor = False
         stem = data['root']
         deaugmented_stem = create_roots_from_past(v, lemma)

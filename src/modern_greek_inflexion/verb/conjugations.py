@@ -389,14 +389,19 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
                 verb[:-1] + 'άς' in greek_corpus and
                 verb[:-1] + 'άτε' in greek_corpus
         ):
+
             conjugation_ind = 'con2a_act'
             conjugation_imp = 'imper_act_cont_2a'
             conjugation_part = 'present_active_part_2'
 
-        elif verb[:-1] + 'ει' not in greek_corpus and verb[:-1] + 'α' in greek_corpus and count_syllables(verb) == 1:
-            conjugation_ind = 'con2a_act'
-            conjugation_imp = 'imper_act_cont_2a'
-            conjugation_part = 'present_active_part_2'
+        # elif verb[:-1] + 'ει' not in greek_corpus and verb[:-1] + 'α' in greek_corpus and count_syllables(verb) == 1:
+        #     if verb == 'ποιώ':
+        #         print('TUTAJ')
+        #
+        #     conjugation_ind = 'con2a_act'
+        #
+        #     conjugation_imp = 'imper_act_cont_2a'
+        #     conjugation_part = 'present_active_part_2'
 
         elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus:
 
@@ -444,7 +449,7 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
             # sometimes there is no simple future form
             pass
 
-        elif (root[-1] not in ['σ', 'ρ', 'λ'] or root in ['πέσ']) and verb != 'φάω':
+        elif (root[-1] not in ['σ', 'ψ', 'ξ', 'ρ', 'λ'] or root in ['πέσ']) and verb != 'φάω':
             conjugation_imp = 'imper_act_aor_b'
             # anebainw
             if conjugation_ind == 'con2b_act' and put_accent_on_the_penultimate(root + 'α') in greek_corpus:

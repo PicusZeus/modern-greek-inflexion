@@ -109,4 +109,14 @@ class NumeralsAdjectiveTest(TestCase):
                             'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}}
         )
 
+    # def test_num_enamisis(self):
+    #     self.assertDictEqual(
+    #         numerals.create_all_adj_num('ενάμισης'),
+    #         {'adj': {'sg': {'masc': {'gen': {'ενάμιση'}, 'nom': {'ενάμισης'}, 'acc': {'ενάμιση'}, 'voc': {'ενάμιση'}},
+    #                         'neut': {'gen': {'ενάμισι'}, 'nom': {'ενάμισι'}, 'acc': {'ενάμισι'}, 'voc': {'ενάμισι'}},
+    #                         'fem': {'gen': {'μιάμισης'}, 'nom': {'μιάμιση'}, 'acc': {'μιάμιση'}, 'voc': {'μιάμιση'}}},
+    #                  'pl': {'masc': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
+    #                         'neut': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
+    #                         'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}}
+    #     )
 
