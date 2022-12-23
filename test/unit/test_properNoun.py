@@ -105,6 +105,13 @@ class ProperNounTests(TestCase):
                              'acc': {'Πολωνούς'}}}}
         )
 
+    def test_Alexandrou(self):
+        self.assertDictEqual(
+            noun.create_all('Αλεξαντρού', proper_name=True),
+            {'fem': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                    'sg': {'acc': {'Αλεξαντρού'}, 'gen': {'Αλεξαντρούς'},
+                    'nom': {'Αλεξαντρού'}, 'voc': {'Αλεξαντρού'}}}}
+        )
     def test_Angelos(self):
         self.assertDictEqual(
             noun.create_all('Άγγελος', proper_name=True),
