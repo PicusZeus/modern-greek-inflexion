@@ -92,5 +92,30 @@ class ProperNounTests(TestCase):
                      'pl': {'voc': {''}, 'nom': {''}, 'acc': {''}}}}
         )
 
+    def test_Polonos(self):
+        self.assertDictEqual(
+            noun.create_all('Πολωνός', gender='masc'),
+            {'masc': {'sg': {'gen': {'Πολωνού'},
+                             'nom': {'Πολωνός'},
+                             'voc': {'Πολωνέ'},
+                             'acc': {'Πολωνό'}},
+                      'pl': {'gen': {'Πολωνών'},
+                             'nom': {'Πολωνοί'},
+                             'voc': {'Πολωνοί'},
+                             'acc': {'Πολωνούς'}}}}
+        )
 
+    def test_Angelos(self):
+        self.assertDictEqual(
+            noun.create_all('Άγγελος', proper_name=True),
+            {'masc': {'pl': {'acc': {'Αγγέλους', 'Άγγελους'},
+                                                'gen': {'Αγγέλων'},
+                                                'nom': {'Άγγελοι'},
+                                                'voc': {'Άγγελοι'}},
+                        'sg': {'acc': {'Άγγελο'},
+                               'gen': {'Αγγέλου', 'Άγγελου'},
+                               'nom': {'Άγγελος'},
+                               'voc': {'Άγγελε'}}}}
+
+        )
 

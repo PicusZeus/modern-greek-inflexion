@@ -364,3 +364,15 @@ class NounTests(TestCase):
                       {'voc': {'ρεσεψιόν'}, 'gen': {'ρεσεψιόν'}, 'nom': {'ρεσεψιόν'}, 'acc': {'ρεσεψιόν'}}}}
 
         )
+
+    def test_peira(self):
+        self.assertDictEqual(
+            noun.create_all('ξεχασιά', gender='fem_sg'),
+            {'fem': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                                 'sg': {'acc': {'ξεχασιά'},
+                                                          'gen': {'ξεχασιάς'},
+
+                                                          'nom': {'ξεχασιά'},
+                                                          'voc': {'ξεχασιά'}}}}
+
+        )

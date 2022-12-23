@@ -5,7 +5,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate
 
 from ..adjective import create_all_adj_forms
 from ..resources import adj_basic_template
-from ..resources import greek_corpus
+from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT
 
 
 def create_all_num_adj_forms(num_base_forms, ordinal=False):
@@ -45,39 +45,39 @@ def create_all_num_adj_forms(num_base_forms, ordinal=False):
 
         elif neut == 'ένα':
 
-            forms['sg']['masc']['nom'] = masc
-            forms['sg']['masc']['acc'] = 'ένα,έναν'
-            forms['sg']['masc']['voc'] = 'ένα'
-            forms['sg']['masc']['gen'] = 'ενός'
+            forms[SG][MASC][NOM] = masc
+            forms[SG][MASC][ACC] = 'ένα,έναν'
+            forms[SG][MASC][VOC] = 'ένα'
+            forms[SG][MASC][GEN] = 'ενός'
 
-            forms['sg']['fem']['nom'] = 'μια,μία'
-            forms['sg']['fem']['acc'] = 'μια,μιαν,μία,μίαν'
-            forms['sg']['fem']['gen'] = 'μίας,μιας'
-            forms['sg']['fem']['voc'] = 'μία,μια'
+            forms[SG][FEM][NOM] = 'μια,μία'
+            forms[SG][FEM][ACC] = 'μια,μιαν,μία,μίαν'
+            forms[SG][FEM][GEN] = 'μίας,μιας'
+            forms[SG][FEM][VOC] = 'μία,μια'
 
-            forms['sg']['neut']['gen'] = 'ενός'
-            forms['sg']['neut']['nom'] = neut
-            forms['sg']['neut']['acc'] = neut
-            forms['sg']['neut']['voc'] = neut
+            forms[SG][NEUT][GEN] = 'ενός'
+            forms[SG][NEUT][NOM] = neut
+            forms[SG][NEUT][ACC] = neut
+            forms[SG][NEUT][VOC] = neut
 
             return forms
 
         elif masc == 'ενάμισης':
 
-            forms['sg']['masc']['nom'] = masc
-            forms['sg']['masc']['acc'] = masc[:-1]
-            forms['sg']['masc']['voc'] = masc[:-1]
-            forms['sg']['masc']['gen'] = masc[:-1]
+            forms[SG][MASC][NOM] = masc
+            forms[SG][MASC][ACC] = masc[:-1]
+            forms[SG][MASC][VOC] = masc[:-1]
+            forms[SG][MASC][GEN] = masc[:-1]
 
-            forms['sg']['fem']['nom'] = fem
-            forms['sg']['fem']['acc'] = fem
-            forms['sg']['fem']['gen'] = fem + 'ς'
-            forms['sg']['fem']['voc'] = fem
+            forms[SG][FEM][NOM] = fem
+            forms[SG][FEM][ACC] = fem
+            forms[SG][FEM][GEN] = fem + 'ς'
+            forms[SG][FEM][VOC] = fem
 
-            forms['sg']['neut']['gen'] = neut
-            forms['sg']['neut']['nom'] = neut
-            forms['sg']['neut']['acc'] = neut
-            forms['sg']['neut']['voc'] = neut
+            forms[SG][NEUT][GEN] = neut
+            forms[SG][NEUT][NOM] = neut
+            forms[SG][NEUT][ACC] = neut
+            forms[SG][NEUT][VOC] = neut
 
             return forms
 
@@ -85,37 +85,37 @@ def create_all_num_adj_forms(num_base_forms, ordinal=False):
             masc = 'μηδείς'
             fem = 'μηδεμία'
 
-            forms['sg']['masc']['nom'] = masc
-            forms['sg']['masc']['acc'] = 'μηδένα'
-            forms['sg']['masc']['gen'] = 'μηδενός'
+            forms[SG][MASC][NOM] = masc
+            forms[SG][MASC][ACC] = 'μηδένα'
+            forms[SG][MASC][GEN] = 'μηδενός'
 
-            forms['sg']['neut']['nom'] = neut
-            forms['sg']['neut']['gen'] = 'μηδενός'
-            forms['sg']['neut']['acc'] = neut
+            forms[SG][NEUT][NOM] = neut
+            forms[SG][NEUT][GEN] = 'μηδενός'
+            forms[SG][NEUT][ACC] = neut
 
-            forms['sg']['fem']['nom'] = fem
-            forms['sg']['fem']['acc'] = fem + ',μηδεμίαν'
-            forms['sg']['fem']['gen'] = 'μηδεμίας'
-            forms['sg']['fem']['voc'] = fem
+            forms[SG][FEM][NOM] = fem
+            forms[SG][FEM][ACC] = fem + ',μηδεμίαν'
+            forms[SG][FEM][GEN] = 'μηδεμίας'
+            forms[SG][FEM][VOC] = fem
 
             return forms
 
         else:
             masc = fem = neut = acc_masc = gen_pl = neut
 
-        forms['pl']['masc']['nom'] = masc
-        forms['pl']['masc']['acc'] = acc_masc
-        forms['pl']['masc']['gen'] = gen_pl
-        forms['pl']['masc']['voc'] = masc
+        forms[PL][MASC][NOM] = masc
+        forms[PL][MASC][ACC] = acc_masc
+        forms[PL][MASC][GEN] = gen_pl
+        forms[PL][MASC][VOC] = masc
 
-        forms['pl']['fem']['nom'] = fem
-        forms['pl']['fem']['acc'] = fem
-        forms['pl']['fem']['gen'] = gen_pl
-        forms['pl']['fem']['voc'] = fem
+        forms[PL][FEM][NOM] = fem
+        forms[PL][FEM][ACC] = fem
+        forms[PL][FEM][GEN] = gen_pl
+        forms[PL][FEM][VOC] = fem
 
-        forms['pl']['neut']['nom'] = neut
-        forms['pl']['neut']['acc'] = neut
-        forms['pl']['neut']['gen'] = gen_pl
-        forms['pl']['neut']['voc'] = neut
+        forms[PL][NEUT][NOM] = neut
+        forms[PL][NEUT][ACC] = neut
+        forms[PL][NEUT][GEN] = gen_pl
+        forms[PL][NEUT][VOC] = neut
 
         return forms

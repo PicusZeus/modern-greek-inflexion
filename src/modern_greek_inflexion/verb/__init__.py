@@ -6,7 +6,7 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE
+from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
@@ -24,7 +24,7 @@ def create_all_forms(verb):
 
     all_forms = {}
 
-    modal = basic_forms['modal']
+    modal = basic_forms[MODAL]
 
     "present"
     present = {}
@@ -48,7 +48,7 @@ def create_all_forms(verb):
             deponens = True
 
     all_forms['present'] = present
-    CONJUNCTIVE
+    #CONJUNCTIVE
     if CONJUNCTIVE in basic_forms:
         conjunctive_basic_forms = basic_forms[CONJUNCTIVE]
         conjunctive = {}
@@ -65,7 +65,7 @@ def create_all_forms(verb):
 
             con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[PASSIVE], PASSIVE,
                                                                         active_root_for_imp=active_roots)
-            if basic_forms['modal']:
+            if basic_forms[MODAL]:
                 del con_passive_forms[IMP]
             conjunctive[PASSIVE] = con_passive_forms
         all_forms[CONJUNCTIVE] = conjunctive
@@ -79,9 +79,9 @@ def create_all_forms(verb):
 
             aor_active_forms = create_all_past_personal_forms(aorist_basic_forms[ACTIVE], verb, 'perf', ACTIVE)
             if modal:
-                aor_active_forms['ind'].pop(PL, None)
-                aor_active_forms['ind'][SG].pop(PRI, None)
-                aor_active_forms['ind'][SG].pop(SEC, None)
+                aor_active_forms[IND].pop(PL, None)
+                aor_active_forms[IND][SG].pop(PRI, None)
+                aor_active_forms[IND][SG].pop(SEC, None)
             aorist[ACTIVE] = aor_active_forms
         if PASSIVE in aorist_basic_forms:
             aor_passive_forms = create_all_past_personal_forms(aorist_basic_forms[PASSIVE], verb, 'perf', PASSIVE)
