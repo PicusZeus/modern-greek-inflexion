@@ -79,13 +79,15 @@ def create_all_basic_forms(pres_form):
 
     # μέλλοντας και υποτακτική
 
-    conjunctive_basic_forms, perf_root, act_root, passive_root = create_basic_conjunctive_forms(pres_form,
-                                                                                                pres_conjugation, root,
-                                                                                                deponens=deponens,
-                                                                                                not_deponens=not_deponens,
-                                                                                                intransitive_active=intransitive_active,
-                                                                                                modal_act=modal_act,
-                                                                                                modal_med=modal_med)
+    conjunctive_basic_forms, perf_root, act_root, passive_root =\
+        create_basic_conjunctive_forms(pres_form,
+                                       pres_conjugation,
+                                       root,
+                                       deponens=deponens,
+                                       not_deponens=not_deponens,
+                                       intransitive_active=intransitive_active,
+                                       modal_act=modal_act,
+                                       modal_med=modal_med)
     if conjunctive_basic_forms:
 
         verb_temp['conjunctive'] = {}

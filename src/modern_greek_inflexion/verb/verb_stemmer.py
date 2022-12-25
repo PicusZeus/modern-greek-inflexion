@@ -155,6 +155,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
         conjunctive_basic_forms = active_perf_form + '/' + passive_perf_form
 
     elif deponens:
+
         passive_root = create_regular_perf_root(pres_form, voice="passive")
 
         if passive_root:
@@ -237,6 +238,9 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                     active_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2]))
         for ir_verb in irregular_passive_aorists:
             length_ir_verb = len(ir_verb)
+            if ir_verb == "αίρομαι" and pres_form == ir_verb:
+                "AAAAAAAAAAAAAA"
+
             if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
                 passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
 
@@ -246,10 +250,17 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                 for stem in act_root.split(','):
                     active_aor_forms.extend(add_augment(stem + 'α'))
             else:
+
                 active_aor_forms.extend(add_augment(act_root + 'α'))
+
+
             if pres_form[-3:] == 'έχω':
                 active_aor_forms.extend([pres_form[:-3] + 'είχα'])
-                archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
+                try:
+                    archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
+                except Exception as e:
+                    print(Exception, pres_form, 'AAAAAAAAA')
+                    raise Exception
                 active_aor_forms.extend(archaic_aor_form)
 
             # filter_out
@@ -651,6 +662,9 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
 
     if passive_perfect_participles:
         # these are all possible participles in masc sg!!!
+        if 'παρμένος' in passive_perfect_participles:
+            # since επαιρομαι is kinda περνομαι but not really, not an elegand trick, but if more such situations occure, better solution should be found
+            passive_perfect_participles = ['παρμένος']
         passive_perfect_participles = list(set(passive_perfect_participles))
         all_passive_perfect_participles = ','.join(passive_perfect_participles)
 

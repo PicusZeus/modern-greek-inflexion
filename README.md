@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.0 Updated accentuation module, that deals better with augmentation of verbs.
  * 0.4.9 Improved accentuation handling, improved handling of sg only nouns
  * 0.4.8 Added optional flag aklito for nouns and adjectives (boolean)
  * 0.4.7 Bug fixes, added: adj on wr, verbs (aor and parat) on arw

@@ -97,12 +97,14 @@ class VerbTestBasic(TestCase):
         )
 
     def test_verb_synerxomai(self):
+        self.maxDiff = None
         self.assertDictEqual(
+
             verb.create_basic_forms('συνέρχομαι'),
             {'present': {'passive': {'συνέρχομαι'}}, 'conjunctive': {'active': {'συνέλθω', 'συνέρθω'}},
              'aorist': {'active': {'συνήρθα', 'συνήλθα'}}, 'paratatikos': {'passive': {'συνερχόμουν'}},
              'pass_pres_participle': {'συνερχόμενος'}, 'active_aorist_participle': {'συνελθών/συνελθούσα/συνελθόν'},
-             'modal': False}
+             'modal': False},
         )
 
     def test_verb_katebainw(self):
@@ -133,4 +135,6 @@ class VerbTestBasic(TestCase):
                  'present': {'active': {'κροσσάρω'}}}
 
         )
+
+
 

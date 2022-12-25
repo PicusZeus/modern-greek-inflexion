@@ -111,13 +111,16 @@ def create_regular_perf_root(verb, voice='active'):
                     break
 
             if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+
                 for r in pair[1].split(','):
 
                     beta_perf_root = root[:-len(pair[0])] + r
+
                     if (beta_perf_root + 'ώ' in greek_corpus) or \
                             (beta_perf_root + 'ω' in greek_corpus) or \
                             (beta_perf_root + 'εί' in greek_corpus) or \
                             (beta_perf_root + 'ει' in greek_corpus):
+
                         perf_root = beta_perf_root
                         irregular = True
                         break
