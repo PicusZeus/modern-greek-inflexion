@@ -11,7 +11,6 @@ def create_all_basic_forms(noun, proper_name=False, gender=None, aklito=False):
 def create_all(lemma, proper_name=False, gender=None, aklito=False):
 
     noun = convert_to_monotonic(lemma, one_syllable_rule=False)
-
     noun = create_all_basic_noun_forms(noun, gender=gender, proper_name=proper_name, aklito=aklito)
 
 

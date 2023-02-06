@@ -16,6 +16,35 @@ class VerbTestBasic(TestCase):
              'modal': False},
         )
 
+    def test_verb_kathisto(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('καθιστώ'),
+            {'present': {'active': {'καθιστώ'}}, 'conjunctive': {'active': {'καταστήσω'}},
+             'aorist': {'active': {'κατέστησα', 'κατάστησα'}},
+             'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
+             'act_pres_participle': {'καθιστώντας'}, 'modal': False}
+
+        )
+    def test_verb_theto(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('θέτω'),
+            {'present':
+                 {'active': {'θέτω'},
+                  'passive': {'θέτομαι'}},
+             'conjunctive':
+                 {'active': {'θέσω'},
+                  'passive': {'τεθώ'}},
+             'aorist': {'active': {'έθεσα'},
+                        'passive': {'τέθηκα', 'ετέθη'}},
+             'paratatikos':
+                 {'active': {'έθετα'},
+                  'passive': {'θετόμουν'}},
+             'act_pres_participle': {'θέτοντας'},
+             'passive_aorist_participle': {'τεθείς/τεθείσα/τεθέν'},
+             'modal': False}
+
+        )
+
     def test_verb_kyberno(self):
         self.assertDictEqual(
             verb.create_basic_forms('κυβερνώ'),

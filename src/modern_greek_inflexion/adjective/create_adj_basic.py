@@ -104,8 +104,11 @@ def create_all_basic_adj_forms(adj, aklito=False):
 
     elif adj[-2:] in ['ής', 'ης']:
         # first check which type
+
         stem = adj[:-2]
+
         if stem + 'ικο' in greek_corpus:
+
             # type hs, a, iko, here accent is always on the last syllable of the stem
             masc = adj
             fem = stem + 'α'

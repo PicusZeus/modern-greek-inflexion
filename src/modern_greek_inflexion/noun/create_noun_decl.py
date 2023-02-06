@@ -84,14 +84,12 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
             noun_all[gender][PL][ACC] = nom_pl
             noun_all[gender][PL][VOC] = nom_pl
 
-
             if gender in [FEM, NEUT]:
                 noun_all[gender][SG][ACC] = nom_sg
                 noun_all[gender][PL][ACC] = nom_pl
 
             elif gender == MASC and nom_sg == gen_sg:
                 noun_all[gender][SG][ACC] = nom_sg
-
 
             if nom_sg[-2:] in ['ος', 'ός'] and gen_sg[-2:] in ['ου', 'ού']:
 
@@ -115,8 +113,8 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                     gens = gen_sg.split(',')
                     accent_pl = where_is_accent(nom_pl, true_syllabification=False)
                     if accent_pl == ANTEPENULTIMATE and (len(gens) > 1 or
-                                                           where_is_accent(gen_sg,
-                                                                           true_syllabification=False) == PENULTIMATE):
+                                                         where_is_accent(gen_sg,
+                                                                         true_syllabification=False) == PENULTIMATE):
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', PENULTIMATE, true_syllabification=False)
                     else:
                         gen_pl = put_accent(nom_pl[:-2] + 'ων', accent_pl, true_syllabification=False)
@@ -157,6 +155,8 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 if voc_on_a:
                     noun_all[gender][SG][VOC] = voc_on_a
                 noun_all[gender][PL][GEN] = ','.join(g_pl)
+
+            # elif gen_sg[-3:] == 'εως' and nom_sg[-1]
 
             elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != NEUT:
 
@@ -251,6 +251,11 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 if nom_pl:
                     gen_pl = nom_sg[:-2] + 'ων'
                 noun_all[gender][PL][GEN] = gen_pl
+
+            elif gen_sg[-3:] == 'εως' and nom_sg[-1] == 'ς':
+                noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
+                noun_all[gender][SG][VOC] = nom_sg[:-1]
+                noun_all[gender][PL][GEN] = gen_sg[:-1] + 'ν'
 
             elif nom_sg == nom_pl:
                 # aklita

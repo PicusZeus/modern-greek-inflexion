@@ -218,6 +218,9 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
         # hs, eis
         plural_form_ba = noun[:-2] + 'είς'
         gen_form_ba = noun[:-2] + 'ούς'
+        # hs, eis
+        plural_form_bb = noun[:-2] + 'εις'
+        gen_form_bb = noun[:-2] + 'εως'
         # ancient forms
         plural_form_c = noun[:-1] + 'τες'
         plural_form_c_neut = noun[:-1] + 'τα'
@@ -243,6 +246,10 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
         elif plural_form_ba in greek_corpus and gen_form_ba in greek_corpus:
             nom_pl = plural_form_ba
             gen_sg = gen_form_ba
+
+        elif plural_form_bb in greek_corpus and gen_form_bb[:-1] + 'ν' in greek_corpus:
+            nom_pl = plural_form_bb
+            gen_sg = gen_form_bb
 
         elif plural_form_a in greek_corpus:
 
@@ -316,8 +323,6 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
             noun_temp[GEN_SG] = gen_form
         # there is possibility, that the thema is on 'οτ'
         elif thema_ot + 'ος' in greek_corpus:
-            if noun == 'Πολωνός':
-                print(thema_ot, 'base')
             noun_temp[GENDER] = NEUT
             gen_form = thema_ot + 'ος'
             plural_form = thema_ot + 'α'
@@ -371,9 +376,10 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
             noun_temp[GEN_SG] = noun
             noun_temp[NOM_PL] = noun
 
-    elif noun[-2:] in ['υς', 'ύς']:
-        noun_temp[GENDER] = FEM
+    elif gender == FEM and noun[-2:] in ['υς', 'ύς']:
+
         gen_form = noun[:-1] + 'ος'
+
         thema = put_accent_on_the_ultimate(noun)
         if count_syllables(noun) == 1:
             gen_form = put_accent_on_the_ultimate(gen_form)
@@ -386,6 +392,14 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
 
         noun_temp[GEN_SG] = gen_form
         noun_temp[NOM_PL] = plur_form
+
+    elif noun[-2:] in ['υς', 'ύς']:
+        gender = MASC
+        gen_form = put_accent_on_the_antepenultimate(noun[:-2] + "εως")
+        plur_form = put_accent_on_the_penultimate(noun[:-2] + 'εις')
+        if plur_form in greek_corpus:
+            noun_temp[GEN_SG] = gen_form
+            noun_temp[NOM_PL] = plur_form
 
     elif noun[-1] in ['α', 'η', 'ά', 'ή']:
         # feminina

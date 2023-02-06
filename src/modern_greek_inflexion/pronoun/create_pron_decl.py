@@ -135,7 +135,7 @@ def create_all_pron_forms(bas_forms, strong=True):
                             forms[number][gender][case] = ''
         elif masc in ['καθετί', 'κατιτίς', 'κατιτί', 'τίποτα', 'τίποτε', 'οτιδήποτε', 'τίποτες', 'ίντα', 'ό,τι']:
             forms = {SG: {NEUT: {NOM: masc, ACC: masc}}}
-        elif masc in ['οπού', 'πότε', 'όποτε', 'κάποτε', 'ποτέ', 'πάντα', 'πού', 'κάπου', 'πουθενά', 'παντού']:
+        elif masc in ['οπού', 'όπου', 'πότε', 'όποτε', 'κάποτε', 'ποτέ', 'πάντα', 'πού', 'κάπου', 'πουθενά', 'παντού']:
             # adv
             forms = {ND: {ND: {ND: masc}}}
         elif masc == 'εγώ':
