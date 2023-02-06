@@ -156,8 +156,6 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                     noun_all[gender][SG][VOC] = voc_on_a
                 noun_all[gender][PL][GEN] = ','.join(g_pl)
 
-            # elif gen_sg[-3:] == 'εως' and nom_sg[-1]
-
             elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != NEUT:
 
                 noun_all[gender][SG][ACC] = nom_sg
@@ -256,6 +254,7 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
                 noun_all[gender][SG][VOC] = nom_sg[:-1]
                 noun_all[gender][PL][GEN] = gen_sg[:-1] + 'ν'
+                noun_all[gender][SG][ACC] = nom_sg[:-1]
 
             elif nom_sg == nom_pl:
                 # aklita
