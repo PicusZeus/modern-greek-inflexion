@@ -3,7 +3,8 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
 from ..exceptions import NotLegalVerbException
 from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
-
+from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MODAL, CON2_ACT_MODAL, CON2A_ACT, CON2B_ACT,\
+    CON2C_ACT, CON2D_ACT, IMPER_ACT_EIMAI
 
 def create_imp_pass(perf_pass_root):
     # useful for deponentia
@@ -356,7 +357,7 @@ def create_regular_perf_root(verb, voice='active'):
 
 
 def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', voice='active'):
-    # can be used for aspects: 'continuous', 'simple', 'simple_passive' 
+    # can be used for aspects: 'continuous', 'simple', 'simple_passive'
     # verb is expected to be in 1st person sg, else it's assumed it's modal verb
     verb = verb.strip()
     root = ''
@@ -397,14 +398,6 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
             conjugation_imp = 'imper_act_cont_2a'
             conjugation_part = 'present_active_part_2'
 
-        # elif verb[:-1] + 'ει' not in greek_corpus and verb[:-1] + 'α' in greek_corpus and count_syllables(verb) == 1:
-        #     if verb == 'ποιώ':
-        #         print('TUTAJ')
-        #
-        #     conjugation_ind = 'con2a_act'
-        #
-        #     conjugation_imp = 'imper_act_cont_2a'
-        #     conjugation_part = 'present_active_part_2'
 
         elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus:
 
@@ -421,9 +414,15 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
 
     elif verb == 'είμαι':
         root = ''
-        conjugation_ind = 'eimai'
-        conjugation_imp = 'imper_act_eimai'
-        conjugation_part = 'present_active_eimai'
+        conjugation_ind = EIMAI
+        conjugation_imp = IMPER_ACT_EIMAI
+        conjugation_part = PRESENT_ACTIVE_PART_EIMAI
+
+    elif len(verb) > 5 and verb[-5:] == 'είμαι':
+        root = verb[:-5]
+        conjugation_ind = EIMAI
+
+        conjugation_imp = PRESENT_ACTIVE_PART_EIMAI
 
     elif verb == '':
         # sometimes there is no simple future form
@@ -477,6 +476,10 @@ def recognize_passive_present_continuous_conjugation(verb):
         # maybe unnecessary, but one more way to catch problematic input
         print(verb + ' doesnt seem to be a correct verb form')
         raise NotLegalVerbException
+
+    # if verb in ['είμαι', 'παραείμαι']:
+    #     root = ''
+    #     conjugation_ind =
 
     elif verb[-4:] == 'ομαι':
         root = verb[:-4]
@@ -554,8 +557,9 @@ def recognize_past_conjugation(verb, lemma, aspect='imperf', voice='active'):
     if root[-3:] == 'ούσ':
         conjugation_ind = 'parat2_act'
 
-    elif verb in ['ήμουν', 'ήμουνα']:
+    elif verb in ['ήμουν', 'παραήμουν']:
         conjugation_ind = 'eimai_paratatikos'
+        root = verb[:-5]
 
     elif verb[-1] in ['ν', 'η']:
         conjugation_ind = 'arch_pass_aor'

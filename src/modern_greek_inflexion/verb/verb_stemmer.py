@@ -7,6 +7,7 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 
 from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists,\
     irregular_passive_aorists, deponens_with_active_perf_forms
+from ..resources import EIMAI
 
 
 def create_basic_present_forms(base_form, deponens=False, not_deponens=True, intransitive_active=False, modal_act=False, modal_med=False):
@@ -250,17 +251,13 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                 for stem in act_root.split(','):
                     active_aor_forms.extend(add_augment(stem + 'α'))
             else:
-
                 active_aor_forms.extend(add_augment(act_root + 'α'))
-
 
             if pres_form[-3:] == 'έχω':
                 active_aor_forms.extend([pres_form[:-3] + 'είχα'])
-                try:
-                    archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
-                except Exception as e:
-                    print(Exception, pres_form, 'AAAAAAAAA')
-                    raise Exception
+
+                archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
+
                 active_aor_forms.extend(archaic_aor_form)
 
             # filter_out
@@ -392,6 +389,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
 
 def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=False, not_deponens=True, modal_act=False, modal_med=False):
     paratatikos_basic_forms = None
+
     if not_deponens:
         act_par, pass_par = [], []
         if pres_conjugation == 'con1_act':
@@ -400,6 +398,7 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
 
             act_par = [f for f in act_par if not (count_syllables(
                 f) == 2 and f[0] not in vowels)]
+
             pass_par = [put_accent_on_the_penultimate(root + 'όμουν')]
 
         elif pres_conjugation == 'con2a_act':
@@ -417,15 +416,20 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
             act_par = add_augment(not_augmented_par)
             pass_par = [put_accent_on_the_penultimate(root + 'γόμουν')]
 
-        elif pres_conjugation == 'eimai':
-            act_par = ['ήμουν']
+        elif pres_conjugation == EIMAI:
+            act_par = [root + 'ήμουν']
+
+
 
         act_par_all = [f for f in act_par if f in greek_corpus]
+        if pres_conjugation == EIMAI:
+            act_par_all = [root+'ήμουν']
         if not act_par_all:
 
             act_par_all_3rd = [f for f in act_par if f[:-1] + 'ε' in greek_corpus]
             if act_par_all_3rd:
                 act_par_all = [f[:-1] + 'α' for f in act_par_all_3rd]
+
 
         if not act_par_all and pres_form[-3:] == 'άρω':
             # argo and foreign loans
@@ -519,8 +523,8 @@ def create_present_active_participle(_, root, pres_conjugation):
     elif pres_conjugation == 'con2c_act':
         pres_part_act = root + 'γοντας'
 
-    elif pres_conjugation == 'eimai':
-        pres_part_act = 'όντας'
+    elif pres_conjugation == EIMAI:
+        pres_part_act = root + 'όντας'
 
     if pres_part_act and pres_part_act in greek_corpus or root[-3:] == 'ποι':
         return pres_part_act
@@ -677,6 +681,7 @@ def create_active_aorist_participle(root, act_roots):
     :param act_roots: can be multiple alternative forms separated by ','
     :return:
     """
+
     result = []
     for act_root in act_roots.split(','):
         active_aorist_participles = None
@@ -690,7 +695,9 @@ def create_active_aorist_participle(root, act_roots):
         if masc in greek_corpus and fem in greek_corpus:
             active_aorist_participles = masc + '/' + fem + '/' + neut
             # on as
-        elif masc_wn in greek_corpus and fem_ousa in greek_corpus:
+        elif masc_wn in greek_corpus and fem_ousa in greek_corpus and act_root[-1] \
+            not in ['σ', 'ξ', 'ψ'] and act_root not in ['πάρ']:
+
             active_aorist_participles = masc_wn + '/' + fem_ousa + '/' + neut_on
 
         if active_aorist_participles:

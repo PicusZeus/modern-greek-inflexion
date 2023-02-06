@@ -6,7 +6,7 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND
+from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
@@ -20,7 +20,8 @@ def create_all_forms(verb):
 
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
     basic_forms = create_all_basic_forms(verb)
-    
+
+
 
     all_forms = {}
 
@@ -37,6 +38,7 @@ def create_all_forms(verb):
         # only here, because we have lemma situation, all possible conjugation are also created
         # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
         pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms[ACTIVE], ACTIVE)
+
         present[ACTIVE] = pres_act_forms
     if PASSIVE in present_basic_forms:
         # here you can have more possible forms
@@ -93,7 +95,9 @@ def create_all_forms(verb):
     if 'paratatikos' in basic_forms:
         paratatikos_basic_forms = basic_forms['paratatikos']
         paratatikos = {}
+
         if ACTIVE in paratatikos_basic_forms:
+
             paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms[ACTIVE], verb, 'imperf',
                                                                       ACTIVE)
             paratatikos[ACTIVE] = paratatikos_active_forms
@@ -107,7 +111,7 @@ def create_all_forms(verb):
     if "act_pres_participle" in basic_forms:
         all_forms['act_pres_participle'] = basic_forms['act_pres_participle']
 
-    arch_act_pres_participle = {}
+    # arch_act_pres_participle
     for participle_type in ['arch_act_pres_participle', 'active_aorist_participle', 'passive_aorist_participle']:
         if participle_type in basic_forms:
 
@@ -118,13 +122,13 @@ def create_all_forms(verb):
 
             all_forms[participle_type] = merging_all_dictionaries(*all_possible_infl_forms)
 
-    pass_pres_participle = {}
+    # pass_pres_participle
 
     for participle_type in ['pass_pres_participle', 'passive_perfect_participle']:
         if participle_type in basic_forms:
             all_possible_infl_forms = []
             for participle in basic_forms[participle_type]:
-                res = adjective.create_all(participle)['adj']
+                res = adjective.create_all(participle)[ADJ]
                 all_possible_infl_forms.append(res)
             all_forms[participle_type] = merging_all_dictionaries(*all_possible_infl_forms)
 

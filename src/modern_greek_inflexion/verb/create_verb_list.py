@@ -3,8 +3,8 @@ from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_f
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
     create_passive_aorist_participle
 from ..resources import greek_corpus
+from ..resources import ACTIVE, PASSIVE, DEPONENS, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
 from ..exceptions import NotLegalVerbException, NotInGreekException
-from modern_greek_accentuation.accentuation import convert_to_monotonic
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
@@ -13,15 +13,21 @@ greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 def create_all_basic_forms(pres_form):
     """
    :param pres_form: 1st person sg present
-   :return: a dictionary {'present': '', 'conjunctive': '', 'aorist': '', 'paratatikos': ''} and others, for times it
+   :return: a dictionary {PRESENT: '', CONJUNCTIVE: '', AORIST: '', PARATATIKOS: ''} and others, for times it
    gives active and medio-passive (if exists) divided by '/'.
    Modals are given in 3rd person, alternative formse are separated by coma,
    passive participles on menos are given only in masc separated by coma
    if there are alternatives
     """
 
+
     if not greek_pattern.match(pres_form):
         raise NotInGreekException
+
+
+    if pres_form not in greek_corpus and pres_form[-2:] == 'άω':
+        pres_form = pres_form[:-2] + 'ώ'
+
 
     if not pres_form or (pres_form[-1] not in ['ω', 'ώ']
                          and pres_form[-2:] not in ['ει', 'εί']
@@ -35,8 +41,10 @@ def create_all_basic_forms(pres_form):
     not_deponens = True
     deponens = False
     intransitive_active = False
-
-    if 'μαι' == pres_form[-3:] and not 'είμαι' == pres_form:
+    if pres_form in ['είμαι', 'παραείμαι']:
+        deponens = False
+        not_deponens = True
+    elif 'μαι' == pres_form[-3:]:
         #  deponens
         deponens = True
         not_deponens = False
@@ -60,22 +68,23 @@ def create_all_basic_forms(pres_form):
                                                                                             intransitive_active=intransitive_active,
                                                                                             modal_act=modal_act,
                                                                                             modal_med=modal_med)
+
     pres_act = pres_pass = None
     try:
         pres_act, pres_pass = present_basic.split('/')
         pres_act = pres_act.split(',')
         pres_pass = pres_pass.split(',')
     except ValueError:
-        if present_basic[-1] in ['ω', 'ώ'] or present_basic[-2:] in ['ει', 'εί']:
+        if present_basic[-1] in ['ω', 'ώ'] or present_basic[-2:] in ['ει', 'εί'] or present_basic in ['είμαι', 'παραείμαι']:
             pres_act = present_basic.split(',')
         elif present_basic[-3:] in ['μαι', 'ται']:
             pres_pass = present_basic.split(',')
 
-    verb_temp['present'] = {}
+    verb_temp[PRESENT] = {}
     if pres_act:
-        verb_temp['present']['active'] = set(pres_act)
+        verb_temp[PRESENT][ACTIVE] = set(pres_act)
     if pres_pass:
-        verb_temp['present']['passive'] = set(pres_pass)
+        verb_temp[PRESENT][PASSIVE] = set(pres_pass)
 
     # μέλλοντας και υποτακτική
 
@@ -90,16 +99,16 @@ def create_all_basic_forms(pres_form):
                                        modal_med=modal_med)
     if conjunctive_basic_forms:
 
-        verb_temp['conjunctive'] = {}
+        verb_temp[CONJUNCTIVE] = {}
         conjunctive_act, conjunctive_pass = conjunctive_basic_forms.split('/')
 
         conjunctive_act = conjunctive_act.split(',')
         conjunctive_pass = conjunctive_pass.split(',')
 
         if conjunctive_act and conjunctive_act[0]:
-            verb_temp['conjunctive']['active'] = set(conjunctive_act)
+            verb_temp[CONJUNCTIVE][ACTIVE] = set(conjunctive_act)
         if conjunctive_pass and conjunctive_pass[0]:
-            verb_temp['conjunctive']['passive'] = set(conjunctive_pass)
+            verb_temp[CONJUNCTIVE][PASSIVE] = set(conjunctive_pass)
 
     # aorist
 
@@ -107,30 +116,31 @@ def create_all_basic_forms(pres_form):
                                                    not_deponens=not_deponens, intransitive_active=intransitive_active,
                                                    modal_act=modal_act, modal_med=modal_med)
     if aorist_basic_forms:
-        verb_temp['aorist'] = {}
+        verb_temp[AORIST] = {}
         aorist_active, aorist_passive = aorist_basic_forms.split('/')
         aorist_active = aorist_active.split(',')
         aorist_passive = aorist_passive.split(',')
         if aorist_active and aorist_active[0]:
-            verb_temp['aorist']['active'] = set(aorist_active)
+            verb_temp[AORIST][ACTIVE] = set(aorist_active)
         if aorist_passive and aorist_passive[0]:
-            verb_temp['aorist']['passive'] = set(aorist_passive)
+            verb_temp[AORIST][PASSIVE] = set(aorist_passive)
 
     # paratatikos
 
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens,
                                                              not_deponens=not_deponens, modal_act=modal_act,
                                                              modal_med=modal_med)
+
     if paratatikos_basic_forms:
         paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')
         paratatikos_active = paratatikos_active.split(',')
         paratatikos_passive = paratatikos_passive.split(',')
 
-        verb_temp['paratatikos'] = {}
+        verb_temp[PARATATIKOS] = {}
         if paratatikos_active and paratatikos_active[0]:
-            verb_temp['paratatikos']['active'] = set(paratatikos_active)
+            verb_temp[PARATATIKOS][ACTIVE] = set(paratatikos_active)
         if paratatikos_passive and paratatikos_passive[0]:
-            verb_temp['paratatikos']['passive'] = set(paratatikos_passive)
+            verb_temp[PARATATIKOS][PASSIVE] = set(paratatikos_passive)
 
     # pres_part_act
 
@@ -170,6 +180,7 @@ def create_all_basic_forms(pres_form):
     # active aorist participle
 
     if act_root and not modal:
+
         active_aorist_participle = create_active_aorist_participle(root, act_root)
         if active_aorist_participle:
             verb_temp['active_aorist_participle'] = set(active_aorist_participle.split(','))
@@ -180,7 +191,7 @@ def create_all_basic_forms(pres_form):
         if passive_aorist_participle:
             verb_temp['passive_aorist_participle'] = set(passive_aorist_participle.split(','))
 
-    verb_temp['modal'] = modal_act or modal_med
+    verb_temp[MODAL] = modal_act or modal_med
 
     return verb_temp
 # create list of all verbs with their basic forms. Check them with existing forms and if they already exist,

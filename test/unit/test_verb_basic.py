@@ -25,6 +25,7 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'καθιστώντας'}, 'modal': False}
 
         )
+
     def test_verb_theto(self):
         self.assertDictEqual(
             verb.create_basic_forms('θέτω'),
@@ -154,16 +155,24 @@ class VerbTestBasic(TestCase):
              'modal': False}
         )
 
+    def test_verb_katexo(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('κατέχω'),
+            {'present': {'active': {'κατέχω'}, 'passive': {'κατέχομαι'}}, 'conjunctive': {'active': {'κατάσχω'}},
+             'aorist': {'active': {'κατείχα'}},
+             'paratatikos': {'active': {'κάτεχα', 'κατείχα'}, 'passive': {'κατεχόμουν'}},
+             'act_pres_participle': {'κατέχοντας'}, 'arch_act_pres_participle': {'κατέχων/κατέχουσα/κατέχον'},
+             'pass_pres_participle': {'κατεχόμενος'}, 'modal': False}
+
+        )
+
     def test_verb_krossaro(self):
         self.assertDictEqual(
             verb.create_basic_forms('κροσσάρω'),
             {'aorist': {'active': {'κρόσσαρα'}},
-                 'conjunctive': {'active': {'κροσσάρω'}},
-                 'modal': False,
-                 'paratatikos': {'active': {'κρόσσαρα'}},
-                 'present': {'active': {'κροσσάρω'}}}
+             'conjunctive': {'active': {'κροσσάρω'}},
+             'modal': False,
+             'paratatikos': {'active': {'κρόσσαρα'}},
+             'present': {'active': {'κροσσάρω'}}}
 
         )
-
-
-

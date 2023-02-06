@@ -26,8 +26,14 @@ PASSIVE = 'passive'
 IMP = 'imp'
 CONJUNCTIVE = 'conjunctive'
 AORIST = 'aorist'
+PRESENT = 'present'
+PARATATIKOS = 'paratatikos'
 IND = 'ind'
 MODAL = 'modal'
+ADJ = 'adj'
+DEPONENS = 'deponens'
+
+
 
 NOM_PL = 'nom_pl'
 GEN_SG = 'gen_sg'
@@ -457,6 +463,8 @@ irregular_imperative_forms = {
 }
 EIMAI = 'eimai'
 EIMAI_PARATATIKOS = "eimai_paratatikos"
+PRESENT_ACTIVE_PART_EIMAI = "present_active_part_eimai"
+IMPER_ACT_EIMAI = 'imper_act_eimai'
 CON1_ACT = "con1_act"
 CON2A_ACT = 'con2a_act'
 CON2B_ACT = 'con2b_act'
@@ -464,10 +472,11 @@ CON2C_ACT = 'con2c_act'
 CON2D_ACT = 'con2d_act'
 CON1_ACT_MODAL = 'con1_act_modal'
 CON2_ACT_MODAL = 'con2_act_modal'
+PARAT2_ACT = 'parat2_act'
 
 conjugations = {
 EIMAI: {SG: {PRI: ['είμαι'], SEC: ['είσαι'], TER: ['είναι']}, PL: {PRI: ['είμαστε'], SEC: ['είστε', 'είσαστε'], TER: ['είναι']}},
-EIMAI_PARATATIKOS:  {SG: {PRI: ['ήμουν', 'ήμουνα'], SEC: ['ησουν', 'ήσουνα'], TER: ['ήταν', 'ήτανε']}, PL: {PRI: ['ήμαστε', 'ήμασταν'], SEC: ['ήσαστε', 'ήσασταν'], TER: ['ήταν', 'ήτανε']}},
+EIMAI_PARATATIKOS:  {SG: {PRI: ['ήμουν', 'ήμουνα'], SEC: ['ήσουν', 'ήσουνα'], TER: ['ήταν', 'ήτανε']}, PL: {PRI: ['ήμαστε', 'ήμασταν'], SEC: ['ήσαστε', 'ήσασταν'], TER: ['ήταν', 'ήτανε']}},
 CON1_ACT: {SG: {PRI: ['ω'], SEC: ['εις'], TER: ['ει']}, PL: {PRI: ['ουμε'], SEC: ['ετε'], TER: ['ουν', 'ουνε']}},
 CON2A_ACT: {SG: {PRI: ['ώ', 'άω'], SEC: ['άς'], TER: ['ά', 'άει']}, PL: {PRI: ['ούμε', 'άμε'], SEC: ['άτε'], TER: ['άνε', 'άν', 'ούν', 'ούνε']}},
 CON2B_ACT: {SG: {PRI: ['ώ'], SEC: ['είς'], TER: ['εί']}, PL: {PRI: ['ούμε'], SEC: ['είτε'], TER: ['ούνε', 'ούν']}},
@@ -493,7 +502,7 @@ CON2_ACT_MODAL: {SG: {TER: ['εί']}},
 
 'aor_act': {SG: {PRI: ['α'], SEC: ['ες'], TER: ['ε']}, PL: {PRI: ['αμε'], SEC: ['ατε'], TER: ['αν', 'ανε']}},
 'arch_pass_aor' :{SG: {PRI: ['ην'], SEC: ['ης'], TER: ['η']}, PL: {PRI: ['ημεν'], SEC: ['ητε'], TER: ['ησαν']}},
-'parat2_act': {SG: {PRI: ['α'], SEC: ['ες'], TER: ['ε']}, PL: {PRI: ['αμε'], SEC: ['ατε'], TER: ['αν', 'ανε']}},
+PARAT2_ACT: {SG: {PRI: ['α'], SEC: ['ες'], TER: ['ε']}, PL: {PRI: ['αμε'], SEC: ['ατε'], TER: ['αν', 'ανε']}},
 'parat_act_modal': {SG:{TER: ['ε']}},
 'parat1_pass': {SG: {PRI: ['όμουν', 'όμουνα'], SEC: ['όσουν', 'όσουνα'], TER: ['όταν', 'ότανε']},
                 PL: {PRI: ['όμασταν', 'όμαστε'], SEC: ['όσασταν', 'όσαστε'], TER: ['ονταν', 'όντουσαν']}},
@@ -510,7 +519,7 @@ CON2_ACT_MODAL: {SG: {TER: ['εί']}},
 'parat2e_pass': {SG: {PRI: ['άμην'], SEC: ['ασο'], TER: ['ατο']},
                  PL: {PRI: ['άμεθα', 'όμαστε', 'όμασταν'],SEC: ['ασθε', 'άστε', 'όσασταν', 'όσαστε'], TER: ['αντο']}},
 'imper_act_cont_1': {SG: {SEC: ['ε']}, PL:{ SEC:['ετε'] }},
-'imper_act_eimai': {SG: {TER: ['έστω']}},
+IMPER_ACT_EIMAI: {SG: {TER: ['έστω']}},
 'imper_act_cont_2a': {SG: {SEC: ['α', 'αγε']}, PL:{ SEC:['άτε'] }},
 'imper_act_cont_2b': {SG: {SEC: ['ει']}, PL:{ SEC:['είτε'] }},
 'imper_act_cont_2d': {SG: {SEC: ['ου']}, PL: {SEC:['ούτε', 'οίτε']}},
@@ -529,7 +538,7 @@ CON2_ACT_MODAL: {SG: {TER: ['εί']}},
 'imper_pass_aor_a': {SG: {SEC: ['ου']}, PL:{ SEC:['είτε']}},
 'imper_pass_aor_b': { PL:{ SEC:['είτε']} },
 'present_active_part_1': {ND: {ND: ['οντας']}},
-'present_active_eimai': {ND: {ND: ['όντας']}},
+PRESENT_ACTIVE_PART_EIMAI: {ND: {ND: ['όντας']}},
 'present_active_part_2c': {ND: {ND: ['γοντας']}},
 'present_active_part_2': {ND: {ND: ['ώντας']}},
 'present_passive_part_1': {SG: {ND: ['όμενος']}},

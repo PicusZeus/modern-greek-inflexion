@@ -27,7 +27,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
- * 0.5.1 Fixed issue with incorrect inflexion of nouns on 'hs/us and eis'
+ * 0.5.3 Fixed issue with incorrect inflexion of nouns on 'hs/us and eis'
+ * 0.5.2 Fixed bug with accentuation of composita like katexo and paraeimai
+ * 0.5.1 Updated accentuation module, fixed bug with eimai, fixed bug with aorist participles
  * 0.5.0 Updated accentuation module, that deals better with augmentation of verbs.
  * 0.4.9 Improved accentuation handling, improved handling of sg only nouns
  * 0.4.8 Added optional flag aklito for nouns and adjectives (boolean)
