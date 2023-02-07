@@ -3,8 +3,10 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
 from ..exceptions import NotLegalVerbException
 from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
-from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MODAL, CON2_ACT_MODAL, CON2A_ACT, CON2B_ACT,\
-    CON2C_ACT, CON2D_ACT, IMPER_ACT_EIMAI
+from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MODAL, CON2_ACT_MODAL, CON2A_ACT, \
+    CON2B_ACT, CON2C_ACT, CON2D_ACT, IMPER_ACT_EIMAI, PARAT2_ACT, EIMAI_PARATATIKOS, CON2B_PASS, CON1_PASS, CON2C_PASS, \
+    CON2A_PASS, CON2AB_PASS, CON2SA_PASS
+
 
 def create_imp_pass(perf_pass_root):
     # useful for deponentia
@@ -121,12 +123,11 @@ def create_regular_perf_root(verb, voice='active'):
                             (beta_perf_root + 'ω' in greek_corpus) or \
                             (beta_perf_root + 'εί' in greek_corpus) or \
                             (beta_perf_root + 'ει' in greek_corpus):
-
                         perf_root = beta_perf_root
                         irregular = True
                         break
 
-    if conjugation in ['con1_act', 'con1_pass', 'con1_act_modal'] and not perf_root:
+    if conjugation in [CON1_ACT, CON1_PASS, CON1_ACT_MODAL] and not perf_root:
 
         if root[-3:] == 'αίν':
             perf_root = root[:-3] + 'άν'
@@ -178,18 +179,18 @@ def create_regular_perf_root(verb, voice='active'):
             # ancient form
             perf_root = root
 
-    elif conjugation in ['con2a_act', 'con2b_act', 'con2a_pass', 'con2b_pass', 'con2c_pass', 'con2_act_modal'] and \
+    elif conjugation in [CON2A_ACT, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
             not perf_root:
 
         perf_root = root + 'ήσ'
 
         # εξαιρέσεις
-        if root[-2:] == 'χν' and conjugation in ['con2a_act', 'con2a_pass'] and perf_root + 'ω' not in greek_corpus:
+        if root[-2:] == 'χν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
             perf_root = root[:-1] + 'άσ'
 
-        elif root[-2:] == 'ρν' and conjugation in ['con2a_act', 'con2a_pass'] and perf_root + 'ω' not in greek_corpus:
+        elif root[-2:] == 'ρν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
             perf_root = root[:-1] + 'άσ'
-        elif conjugation in ['con2b_act', 'con2a_act']:
+        elif conjugation in [CON2B_ACT, CON2A_ACT]:
             perf_root = root + 'ίσ'
 
             if perf_root + 'ω' not in greek_corpus:
@@ -218,10 +219,10 @@ def create_regular_perf_root(verb, voice='active'):
                             perf_root = root + 'ήξ'
         # special case for compounds with ποιω that are not in my db for some reasons
 
-        if root[-3:] == 'ποι' and conjugation in ['con2b_act', 'con2b_pass']:
+        if root[-3:] == 'ποι' and conjugation in [CON2B_ACT, CON2B_PASS]:
             perf_root = root + 'ήσ'
 
-    elif conjugation == 'con2c_act' and not perf_root:
+    elif conjugation == CON2C_ACT and not perf_root:
         # my best guess is to remove 2 last syllables and to add αψα
 
         irregular_2c_roots = [['τρώ', 'φά'], ['λέ', 'π'], ['τρώγ', 'φάγ']]
@@ -244,12 +245,12 @@ def create_regular_perf_root(verb, voice='active'):
         else:
             perf_root = root[:-1] + 'άψ'
 
-    elif conjugation == 'con2d_act' and not perf_root:
+    elif conjugation == CON2D_ACT and not perf_root:
         # archaic on o
         perf_root = root + 'ώσ'
 
-    if voice == 'passive' and conjugation in ['con1_act', 'con1_pass', 'con1_pass_modal',
-                                              'con2_pass_modal', 'con2d_act', 'con2d_pass'] and not irregular:
+    if voice == 'passive' and conjugation in [CON1_ACT, CON1_PASS, 'con1_pass_modal',
+                                              'con2_pass_modal', CON2D_ACT, 'con2d_pass'] and not irregular:
 
         root = remove_all_diacritics(root)
         if root[-3:] == 'αιν':
@@ -305,14 +306,14 @@ def create_regular_perf_root(verb, voice='active'):
             if perf_root + 'ώ' not in greek_corpus:
                 perf_root = root + 'θ'
 
-        if conjugation == 'con2d_act':
+        if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'
         if perf_root:
             perf_root = remove_all_diacritics(perf_root)
 
     if voice == 'passive' and \
-            conjugation in ['con2a_act', 'con2b_act', 'con2c_act', 'con2a_pass', 'con2b_pass', 'con2e_pass',
-                            'con2c_pass', 'con2ab_pass'] and not irregular:
+            conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, 'con2e_pass',
+                            CON2C_PASS, CON2AB_PASS] and not irregular:
 
         perf_root = root + 'ηθ'
 
@@ -321,7 +322,7 @@ def create_regular_perf_root(verb, voice='active'):
         # εξαιρέσεις
         if not (perf_root + 'ώ' in greek_corpus):
 
-            if conjugation in ['con2a_act', 'con2b_act', 'con2b_pass', 'con2b_pass', 'con2a_pass', 'con2ab']:
+            if conjugation in [CON2A_ACT, CON2B_ACT, CON2B_PASS, CON2B_PASS, CON2A_PASS, 'con2ab']:
                 perf_root = root + 'αστ'
                 if not (perf_root + 'ώ' in greek_corpus):
                     perf_root = root + 'εστ'
@@ -337,7 +338,7 @@ def create_regular_perf_root(verb, voice='active'):
                                         perf_root = root + "ιστ"
 
         # σπεσιαλ case for compounds with poiw
-        if root[-3:] == 'ποι' and conjugation in ['con2b_act', 'con2b_pass']:
+        if root[-3:] == 'ποι' and conjugation in [CON2B_ACT, CON2B_PASS]:
             perf_root = root + 'ηθ'
         perf_root = remove_all_diacritics(perf_root)
 
@@ -367,10 +368,12 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
 
     # recognize conjugation
 
-    if verb[-2:] == 'άω' and verb not in ['πάω', 'φάω']:
+    if verb[-2:] == 'άω' and verb and count_syllables(verb) > 2 and verb not in ['συνφάω', 'πρωτοφάω', 'αποφάω',
+                                                                                 'καταφάω', 'καλοφάω', 'γλωσσοφάω',
+                                                                                 'παραφάω', 'ψωμοφάω', 'ψιλοφάω']:
         root = verb[:-2]
 
-        conjugation_ind = 'con2a_act'
+        conjugation_ind = CON2A_ACT
         conjugation_imp = 'imper_act_cont_2a'
         conjugation_part = 'present_active_part_2'
 
@@ -379,13 +382,13 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
             verb[-3:] not in ['δέω', 'ρέω', 'χέω'] and verb[-4:] not in ['πνέω', 'πλέω'])) or (
             verb[-1] == 'ω' and len(verb) > 2 and verb[-3:-1] in ['αί', 'ού']) or verb == 'πάω':
         root = verb[:-1]
-        conjugation_ind = 'con2c_act'
+        conjugation_ind = CON2C_ACT
         conjugation_imp = 'imper_act_cont_2c'
         conjugation_part = 'present_active_part_2c'
     elif (verb[-1] == 'ώ') or (verb[-1:] == 'ω' and count_syllables(verb) == 1):
         root = verb[:-1]
 
-        conjugation_ind = 'con2b_act'
+        conjugation_ind = CON2B_ACT
         conjugation_imp = 'imper_act_cont_2b'
         conjugation_part = 'present_active_part_2'
         # contracted άω to ώ
@@ -394,21 +397,21 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
                 verb[:-1] + 'άτε' in greek_corpus
         ):
 
-            conjugation_ind = 'con2a_act'
+            conjugation_ind = CON2A_ACT
             conjugation_imp = 'imper_act_cont_2a'
             conjugation_part = 'present_active_part_2'
 
 
         elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus:
 
-            conjugation_ind = 'con2d_act'
+            conjugation_ind = CON2D_ACT
             conjugation_imp = 'imper_act_cont_2d'
             conjugation_part = 'present_active_part_2'
 
     elif verb[-1:] == 'ω':
 
         root = verb[:-1]
-        conjugation_ind = 'con1_act'
+        conjugation_ind = CON1_ACT
         conjugation_imp = 'imper_act_cont_1'
         conjugation_part = 'present_active_part_1'
 
@@ -430,9 +433,9 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
 
     elif verb[-2:] in ['ει', 'εί']:
         root = verb[:-2]
-        conjugation_ind = 'con1_act_modal'
+        conjugation_ind = CON1_ACT_MODAL
         if verb[-2:] == 'εί':
-            conjugation_ind = 'con2_act_modal'
+            conjugation_ind = CON2_ACT_MODAL
 
     else:
         # else it's assumed it's modal
@@ -454,7 +457,7 @@ def recognize_active_non_past_conjugation(verb, aspect='imperf', tense='fin', vo
         elif (root[-1] not in ['σ', 'ψ', 'ξ', 'ρ', 'λ'] or root in ['πέσ']) and verb != 'φάω':
             conjugation_imp = 'imper_act_aor_b'
             # anebainw
-            if conjugation_ind == 'con2b_act' and put_accent_on_the_penultimate(root + 'α') in greek_corpus:
+            if conjugation_ind == CON2B_ACT and put_accent_on_the_penultimate(root + 'α') in greek_corpus:
                 conjugation_imp = 'imper_act_aor_ca'
 
     if aspect == 'perf' and voice == 'passive':
@@ -483,31 +486,31 @@ def recognize_passive_present_continuous_conjugation(verb):
 
     elif verb[-4:] == 'ομαι':
         root = verb[:-4]
-        conjugation_ind = 'con1_pass'
+        conjugation_ind = CON1_PASS
         conjugation_imp = 'imper_pass_cont_1'
         conjugation_part = 'present_passive_part_1'
 
     elif verb[-5:] == "ιέμαι":
         root = verb[:-5]
-        conjugation_ind = 'con2a_pass'
+        conjugation_ind = CON2A_PASS
         conjugation_imp = 'imper_pass_cont_2a'
         conjugation_part = 'present_passive_part_2a'
 
     elif verb[-5:] == 'ούμαι':
         root = verb[:-5]
-        conjugation_ind = 'con2b_pass'
+        conjugation_ind = CON2B_PASS
         conjugation_imp = 'imper_pass_cont_2b'
         conjugation_part = 'present_passive_part_2b'
 
     elif verb[-4:] == 'άμαι':
         root = verb[:-4]
-        conjugation_ind = 'con2c_pass'
+        conjugation_ind = CON2C_PASS
         conjugation_imp = 'imper_pass_cont_2c'
         conjugation_part = 'present_passive_part_2b'
 
     elif verb[-4:] == 'ώμαι':
         root = verb[:-4]
-        conjugation_ind = 'con2ab_pass'
+        conjugation_ind = CON2AB_PASS
         conjugation_imp = 'imper_pass_cont_2c'
         conjugation_part = 'present_passive_part_2ab'
 
@@ -555,10 +558,10 @@ def recognize_past_conjugation(verb, lemma, aspect='imperf', voice='active'):
     conjugation_ind = 'aor_act'
 
     if root[-3:] == 'ούσ':
-        conjugation_ind = 'parat2_act'
+        conjugation_ind = PARAT2_ACT
 
     elif verb in ['ήμουν', 'παραήμουν']:
-        conjugation_ind = 'eimai_paratatikos'
+        conjugation_ind = EIMAI_PARATATIKOS
         root = verb[:-5]
 
     elif verb[-1] in ['ν', 'η']:

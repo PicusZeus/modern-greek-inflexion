@@ -239,8 +239,6 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                     active_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2]))
         for ir_verb in irregular_passive_aorists:
             length_ir_verb = len(ir_verb)
-            if ir_verb == "αίρομαι" and pres_form == ir_verb:
-                "AAAAAAAAAAAAAA"
 
             if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
                 passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))

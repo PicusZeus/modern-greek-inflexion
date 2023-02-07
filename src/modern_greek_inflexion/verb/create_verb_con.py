@@ -191,12 +191,15 @@ def create_roots_from_past(verb, lemma):
         return None
 
     deaugmented_stem = deaugment_stem(stem, lemma)
+
     deaugmented_stem_prefixed = deaugment_prefixed_stem(stem)
 
-    if deaugmented_stem and put_accent_on_the_antepenultimate(deaugmented_stem + 'αμε') in greek_corpus:
+    if deaugmented_stem:
+            # and put_accent_on_the_antepenultimate(deaugmented_stem + 'αμε') in greek_corpus:
         res = deaugmented_stem
-    elif deaugmented_stem_prefixed and put_accent_on_the_antepenultimate(
-            deaugmented_stem_prefixed + 'αμε') in greek_corpus:
+    elif deaugmented_stem_prefixed: \
+            # and put_accent_on_the_antepenultimate(
+            # deaugmented_stem_prefixed + 'αμε') in greek_corpus:
         res = deaugmented_stem_prefixed
 
     return res

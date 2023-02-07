@@ -178,6 +178,9 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
     :return:
     """
 
+
+
+
     sec_pos = IND
     forms = {}
 

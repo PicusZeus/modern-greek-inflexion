@@ -177,6 +177,21 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_spaw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('σπάω'),
+            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}}, 'aorist': {'active': {'έσπασα'}},
+             'paratatikos': {'active': {'έσπαγα'}}, 'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
+        )
+
+    def test_verb_fylaw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('φυλάω'),
+            {'present': {'active': {'φυλάω'}}, 'conjunctive': {'active': {'φυλάξω'}},
+             'aorist': {'active': {'εφύλαξα', 'φύλαξα'}}, 'paratatikos': {'active': {'φυλούσα', 'φύλαγα'}},
+             'act_pres_participle': {'φυλώντας'}, 'passive_perfect_participle': {'φυλαγμένος'}, 'modal': False}
+
+        )
     def test_verb_paw(self):
         self.assertDictEqual(
             verb.create_basic_forms('πάω'),

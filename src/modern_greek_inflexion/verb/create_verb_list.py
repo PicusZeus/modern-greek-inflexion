@@ -20,14 +20,11 @@ def create_all_basic_forms(pres_form):
    if there are alternatives
     """
 
-
     if not greek_pattern.match(pres_form):
         raise NotInGreekException
 
-
     if pres_form not in greek_corpus and pres_form[-2:] == 'άω':
         pres_form = pres_form[:-2] + 'ώ'
-
 
     if not pres_form or (pres_form[-1] not in ['ω', 'ώ']
                          and pres_form[-2:] not in ['ει', 'εί']
@@ -97,6 +94,7 @@ def create_all_basic_forms(pres_form):
                                        intransitive_active=intransitive_active,
                                        modal_act=modal_act,
                                        modal_med=modal_med)
+
     if conjunctive_basic_forms:
 
         verb_temp[CONJUNCTIVE] = {}
@@ -112,9 +110,11 @@ def create_all_basic_forms(pres_form):
 
     # aorist
 
+
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
                                                    not_deponens=not_deponens, intransitive_active=intransitive_active,
                                                    modal_act=modal_act, modal_med=modal_med)
+
     if aorist_basic_forms:
         verb_temp[AORIST] = {}
         aorist_active, aorist_passive = aorist_basic_forms.split('/')
