@@ -170,6 +170,9 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     irregular_form = irregular_imperative_forms[root][number][person]
                     try:
                         forms[number][person].append(irregular_form)
+                        if root == 'πά':
+                            # a sketchy way to deal with pao, but no other way I see
+                            forms[number][person] = [irregular_form]
                         # in this case check validity of all imperative forms
                         forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:

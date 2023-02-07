@@ -176,3 +176,11 @@ class VerbTestBasic(TestCase):
              'present': {'active': {'κροσσάρω'}}}
 
         )
+
+    def test_verb_paw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('πάω'),
+            {'present': {'active': {'πάω'}}, 'conjunctive': {'active': {'πάω'}}, 'aorist': {'active': {'πήγα'}},
+             'paratatikos': {'active': {'πήγαινα'}}, 'modal': False}
+
+        )

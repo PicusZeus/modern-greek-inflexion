@@ -34,6 +34,9 @@ def create_all_forms(verb):
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
 
+
+
+
     if ACTIVE in present_basic_forms:
         # only here, because we have lemma situation, all possible conjugation are also created
         # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added

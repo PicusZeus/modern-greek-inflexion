@@ -709,7 +709,22 @@ class VerbTestAll(TestCase):
                                    'κατεχόμενες'}}}}}
 
         )
+    def test_verb_pao(self):
+        self.assertDictEqual(
+            verb.create_all_forms('πάω'),
+            {'present': {'active': {'ind': {'sg': {'pri': {'πάω'}, 'sec': {'πας'}, 'ter': {'πάει'}},
+                                            'pl': {'pri': {'πάμε'}, 'sec': {'πάτε'}, 'ter': {'παν', 'πάνε'}}},
+                                    'imp': {'sg': {'sec': {'πήγαινε'}}, 'pl': {'sec': {'πηγαίνετε'}}}}},
+             'conjunctive': {'active': {'ind': {'sg': {'pri': {'πάω'}, 'sec': {'πας'}, 'ter': {'πάει'}},
+                                                'pl': {'pri': {'πάμε'}, 'sec': {'πάτε'}, 'ter': {'παν', 'πάνε'}}},
+                                        'imp': {'sg': {'sec': {'πήγαινε'}}, 'pl': {'sec': {'πηγαίνετε'}}}}}, 'aorist': {
+                'active': {'ind': {'sg': {'pri': {'πήγα'}, 'sec': {'πήγες'}, 'ter': {'πήγε'}},
+                                   'pl': {'pri': {'πήγαμε'}, 'sec': {'πήγατε'}, 'ter': {'πήγαν', 'πήγανε'}}}}},
+             'paratatikos': {'active': {'ind': {'sg': {'pri': {'πήγαινα'}, 'sec': {'πήγαινες'}, 'ter': {'πήγαινε'}},
+                                                'pl': {'pri': {'πηγαίναμε'}, 'sec': {'πηγαίνατε'},
+                                                       'ter': {'πήγαιναν', 'πηγαίνανε'}}}}}}
 
+        )
     def test_verb_paraeimai(self):
         self.assertDictEqual(
             verb.create_all_forms('παραείμαι'),

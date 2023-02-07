@@ -6,7 +6,7 @@ from modern_greek_accentuation.resources import vowels
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, create_regular_perf_root
 
 from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists,\
-    irregular_passive_aorists, deponens_with_active_perf_forms
+    irregular_passive_aorists, deponens_with_active_perf_forms, irregular_active_paratatikos
 from ..resources import EIMAI
 
 
@@ -392,7 +392,15 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
 
     if not_deponens:
         act_par, pass_par = [], []
-        if pres_conjugation == 'con1_act':
+
+        for ir_verb in irregular_active_paratatikos:
+            length_ir_verb = len(ir_verb)
+            if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+                act_par.extend(add_augment(pres_form[:-length_ir_verb] + irregular_active_paratatikos[ir_verb]))
+
+        if act_par:
+            pass
+        elif pres_conjugation == 'con1_act':
             not_augmented_par = root + 'α'
             act_par = add_augment(not_augmented_par)
 

@@ -88,6 +88,7 @@ def create_all_imperfect_personal_forms(verb, voice):
 
             con_imp = con[CONJUGATION_IMP]
             forms_imp = create_all_pers_forms(con_imp, root)
+
             if con_ind == CON1_ACT_MODAL:
                 forms_ind = {SG: {TER: [v]}}
                 forms_imp = None
