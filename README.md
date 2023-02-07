@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.32 Fixed handling of a irregularities in pao verb.
  * 0.5.31 Fixed issue with missing acc in us/hs eis noun inflexion type.
  * 0.5.3 Fixed issue with incorrect inflexion of nouns on 'hs/us and eis'.
  * 0.5.2 Fixed bug with accentuation of composita like katexo and paraeimai.
