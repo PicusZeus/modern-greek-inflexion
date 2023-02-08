@@ -195,6 +195,18 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'εγγραφόμενος'}, 'passive_perfect_participle': {'εγγραμμένος', 'εγγεγραμμένος'},
              'active_aorist_participle': {'εγγράψας/εγγράψασα/εγγράψαν'}, 'modal': False}
 
+        )
+
+    def test_verb_syggrafo(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('συγγράφω'),
+            {'present': {'active': {'συγγράφω'}, 'passive': {'συγγράφομαι'}},
+             'conjunctive': {'active': {'συγγράψω'}, 'passive': {'συγγραφτώ', 'συγγραφώ'}},
+             'aorist': {'active': {'συνέγραψα'}, 'passive': {'συνεγράφη', 'συγγράφηκα', 'συγγράφτηκα'}},
+             'paratatikos': {'active': {'συνέγραφα'}, 'passive': {'συγγραφόμουν'}},
+             'act_pres_participle': {'συγγράφοντας'}, 'pass_pres_participle': {'συγγραφόμενος'},
+             'passive_perfect_participle': {'συγγεγραμμένος'},
+             'active_aorist_participle': {'συγγράψας/συγγράψασα/συγγράψαν'}, 'modal': False}
 
         )
 
@@ -206,6 +218,7 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'φυλώντας'}, 'passive_perfect_participle': {'φυλαγμένος'}, 'modal': False}
 
         )
+
     def test_verb_paw(self):
         self.assertDictEqual(
             verb.create_basic_forms('πάω'),
