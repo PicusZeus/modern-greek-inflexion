@@ -184,6 +184,20 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'έσπαγα'}}, 'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
         )
 
+    def test_verb_eggrafw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('εγγράφω'),
+            {'present': {'active': {'εγγράφω'}, 'passive': {'εγγράφομαι'}},
+             'conjunctive': {'active': {'εγγράψω'}, 'passive': {'εγγραφώ', 'εγγραφτώ'}},
+             'aorist': {'active': {'ενέγραψα'}, 'passive': {'εγγράφηκα', 'ενεγράφη', 'εγγράφτηκα'}},
+             'paratatikos': {'active': {'ενέγραφα', 'έγγραφα'}, 'passive': {'εγγραφόμουν'}},
+             'act_pres_participle': {'εγγράφοντας'}, 'arch_act_pres_participle': {'εγγράφων/εγγράφουσα/εγγράφον'},
+             'pass_pres_participle': {'εγγραφόμενος'}, 'passive_perfect_participle': {'εγγραμμένος', 'εγγεγραμμένος'},
+             'active_aorist_participle': {'εγγράψας/εγγράψασα/εγγράψαν'}, 'modal': False}
+
+
+        )
+
     def test_verb_fylaw(self):
         self.assertDictEqual(
             verb.create_basic_forms('φυλάω'),

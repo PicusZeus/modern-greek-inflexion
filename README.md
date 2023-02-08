@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.40 Fixed inner augmentation (eggrafo, syllambano)
  * 0.5.33 Fixed handling of 2 syllables on ao (spao) and improved augment handling.
  * 0.5.32 Fixed handling of a irregularities in pao verb.
  * 0.5.31 Fixed issue with missing acc in us/hs eis noun inflexion type.

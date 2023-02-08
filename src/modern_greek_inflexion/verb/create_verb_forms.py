@@ -3,8 +3,8 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 from ..resources import ACTIVE, PASSIVE, PRI, SEC, PL, SG, TER, EIMAI, EIMAI_PARATATIKOS, IND, IMP, CON1_ACT, \
     CON2_ACT_MODAL, MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
-from modern_greek_accentuation.accentuation import where_is_accent
-
+from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
+from ..resources import greek_corpus
 ROOT = 'root'
 CONJUGATION_IND = 'conjugation_ind'
 CONJUGATION_IMP = 'conjugation_imp'
@@ -199,6 +199,9 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
             simple_aor = False
         stem = data[ROOT]
         deaugmented_stem = create_roots_from_past(v, lemma)
+        if deaugmented_stem:
+            if put_accent_on_the_penultimate(deaugmented_stem + 'ω') not in greek_corpus and v[-2:] != 'γα':
+                deaugmented_stem = None
 
         forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
         if forms_ind == MODAL:
