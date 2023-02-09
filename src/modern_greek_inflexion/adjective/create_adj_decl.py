@@ -460,7 +460,7 @@ def create_all_adj_forms(adj):
         else:
             forms[PL][FEM][NOM] = fem[:-1] + 'ες'
             forms[PL][FEM][ACC] = fem[:-1] + 'ες'
-            forms[PL][FEM][GEN] = fem[:-2] + 'ων'
+            # forms[PL][FEM][GEN] = ''
             forms[PL][FEM][VOC] = fem[:-1] + 'ες'
         forms[PL][NEUT][NOM] = neut[:-1] + 'α'
         forms[PL][NEUT][ACC] = neut[:-1] + 'α'
