@@ -6,10 +6,9 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ
+from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
-
 
 
 def create_basic_forms(verb):
@@ -21,8 +20,6 @@ def create_all_forms(verb):
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
     basic_forms = create_all_basic_forms(verb)
 
-
-
     all_forms = {}
 
     modal = basic_forms[MODAL]
@@ -33,9 +30,6 @@ def create_all_forms(verb):
     if 'error' in basic_forms:
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
-
-
-
 
     if ACTIVE in present_basic_forms:
         # only here, because we have lemma situation, all possible conjugation are also created
@@ -82,7 +76,7 @@ def create_all_forms(verb):
         aorist = {}
         if ACTIVE in aorist_basic_forms:
 
-            aor_active_forms = create_all_past_personal_forms(aorist_basic_forms[ACTIVE], verb, 'perf', ACTIVE)
+            aor_active_forms = create_all_past_personal_forms(aorist_basic_forms[ACTIVE], verb, PERF, ACTIVE)
             if modal:
                 aor_active_forms[IND].pop(PL, None)
                 aor_active_forms[IND][SG].pop(PRI, None)

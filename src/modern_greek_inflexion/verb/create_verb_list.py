@@ -72,7 +72,8 @@ def create_all_basic_forms(pres_form):
         pres_act = pres_act.split(',')
         pres_pass = pres_pass.split(',')
     except ValueError:
-        if present_basic[-1] in ['ω', 'ώ'] or present_basic[-2:] in ['ει', 'εί'] or present_basic in ['είμαι', 'παραείμαι']:
+        if present_basic[-1] in ['ω', 'ώ'] or present_basic[-2:] in ['ει', 'εί'] or present_basic in ['είμαι',
+                                                                                                      'παραείμαι']:
             pres_act = present_basic.split(',')
         elif present_basic[-3:] in ['μαι', 'ται']:
             pres_pass = present_basic.split(',')
@@ -85,7 +86,7 @@ def create_all_basic_forms(pres_form):
 
     # μέλλοντας και υποτακτική
 
-    conjunctive_basic_forms, perf_root, act_root, passive_root =\
+    conjunctive_basic_forms, perf_root, act_root, passive_root = \
         create_basic_conjunctive_forms(pres_form,
                                        pres_conjugation,
                                        root,
@@ -94,7 +95,6 @@ def create_all_basic_forms(pres_form):
                                        intransitive_active=intransitive_active,
                                        modal_act=modal_act,
                                        modal_med=modal_med)
-
     if conjunctive_basic_forms:
 
         verb_temp[CONJUNCTIVE] = {}
@@ -109,7 +109,6 @@ def create_all_basic_forms(pres_form):
             verb_temp[CONJUNCTIVE][PASSIVE] = set(conjunctive_pass)
 
     # aorist
-
 
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
                                                    not_deponens=not_deponens, intransitive_active=intransitive_active,

@@ -1,13 +1,14 @@
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     recognize_past_conjugation
 from ..resources import ACTIVE, PASSIVE, PRI, SEC, PL, SG, TER, EIMAI, EIMAI_PARATATIKOS, IND, IMP, CON1_ACT, \
-    CON2_ACT_MODAL, MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT
+    CON2_ACT_MODAL, MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
+    CONJUGATION_IMP, FIN
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
-from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
+from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate, \
+    put_accent_on_the_antepenultimate
 from ..resources import greek_corpus
-ROOT = 'root'
-CONJUGATION_IND = 'conjugation_ind'
-CONJUGATION_IMP = 'conjugation_imp'
+
+
 def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
     """
     compound all alternative forms into a set
@@ -36,12 +37,8 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
                     new.extend(old)
                     forms[pos][number][person] = new
 
-
-
     if forms_ind_or_con == MODAL:
         return forms
-    if forms_imp == MODAL:
-        forms_imp = None
 
     for pos in forms:
         for number in forms[pos]:
@@ -54,7 +51,6 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
 
 
 def create_all_imperfect_personal_forms(verb, voice):
-
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
@@ -136,10 +132,10 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
         elif voice == PASSIVE and v:
             pass_verb = v
         if act_verb:
-            con = recognize_active_non_past_conjugation(act_verb, aspect='perf', tense='fin', voice=ACTIVE)
+            con = recognize_active_non_past_conjugation(act_verb, aspect=PERF, tense=FIN, voice=ACTIVE)
             root = con[ROOT]
             con_ind = con[CONJUGATION_IND]
-            con_imp = con[CONJUGATION_IMP]
+
             if con_ind in [CON1_ACT_MODAL, MODAL, CON2_ACT_MODAL]:
 
                 forms_imp = None
@@ -149,7 +145,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
             forms_ind = create_all_pers_forms(con_ind, root)
 
         elif pass_verb:
-            con = recognize_active_non_past_conjugation(pass_verb, aspect='perf', tense='fin', voice=voice)
+            con = recognize_active_non_past_conjugation(pass_verb, aspect=PERF, tense=FIN, voice=voice)
             root = con[ROOT]
             con_ind = con[CONJUGATION_IND]
             if con_ind in [CON1_ACT_MODAL, MODAL]:
@@ -178,9 +174,6 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
     :return:
     """
 
-
-
-
     sec_pos = IND
     forms = {}
 
@@ -194,7 +187,7 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
 
         conjugation = data[CONJUGATION_IND]
         if conjugation in [PARAT2_ACT, EIMAI_PARATATIKOS] \
-                or (voice == PASSIVE and aspect == 'imperf') \
+                or (voice == PASSIVE and aspect == IMPERF) \
                 or where_is_accent(data[ROOT]) == 'ultimate':
             simple_aor = False
         stem = data[ROOT]

@@ -4,8 +4,8 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from modern_greek_accentuation.resources import vowels, PENULTIMATE, ANTEPENULTIMATE, ULTIMATE
 
 from ..resources import greek_corpus, feminine_os, feminine_h_eis, feminine_or_masc, plur_tant_neut, aklita_gender, \
-    irregular_nouns, diploklita, ONLY_SG, FEM, MASC, NEUT, FEM_SG, FEM_PL, MASC_SG, MASC_PL, NEUT_SG, NEUT_PL, \
-    NOM_SG, NOM_PL, GEN_SG, GENDER
+    irregular_nouns, diploklita, FEM, MASC, NEUT, FEM_SG, FEM_PL, MASC_SG, MASC_PL, NEUT_SG, NEUT_PL, \
+    NOM_SG, NOM_PL, GEN_SG, GENDER, MASC_FEM
 from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 import re
@@ -85,7 +85,7 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
 
         if noun in feminine_or_masc or (noun[-5:] == 'λόγος' and number_of_syllables > 3):
             # especially all kinds of professionals
-            noun_temp[GENDER] = 'fem,masc'
+            noun_temp[GENDER] = MASC_FEM
 
         if not noun_temp[NOM_PL] and not gens_sg or gender == NEUT:
             # maybe its neuter like lathos
@@ -285,14 +285,14 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
 
         # lastly check maybe there are professions which can be feminine
         if noun in feminine_or_masc:
-            noun_temp[GENDER] = 'masc,fem'
+            noun_temp[GENDER] = MASC_FEM
         # and again a better test for all -eas, if there is gen sg on ews, this  has certainly femine form, this gen
         # form cannot be added as an alternative, as it occures only for feminines and has to be added in create_all
         # function
         fem_gen = noun[:-3] + 'έως'
 
         if noun[-3:] == 'έας' and fem_gen in greek_corpus:
-            noun_temp[GENDER] = 'masc,fem'
+            noun_temp[GENDER] = MASC_FEM
 
     elif noun[-3:] in ['εύς', 'ευς']:
 
@@ -308,7 +308,7 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
             noun_temp[NOM_PL] = ''
 
         if noun in feminine_or_masc:
-            noun_temp[GENDER] = 'fem,masc'
+            noun_temp[GENDER] = MASC_FEM
 
     elif noun[-2:] in ['ώς', 'ως']:
         noun_temp[GENDER] = NEUT

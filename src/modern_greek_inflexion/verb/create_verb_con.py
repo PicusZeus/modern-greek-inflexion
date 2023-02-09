@@ -6,7 +6,10 @@ from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, de
 
 from ..resources import greek_corpus, irregular_imperative_forms, conjugations
 from .conjugations import create_imp_pass, recognize_past_conjugation
-from ..resources import SG, SEC, PL, PRI, TER, EIMAI, MODAL
+from ..resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, ACTIVE, \
+    IMPERF, PASSIVE, CON1_PASS_MODAL, IND, CON2D_PASS, CON2E_PASS, PARAT1_PASS, PARAT2B_PASS, PARAT2D_PASS, \
+    ARCH_PASS_AOR, IMPER_ACT_CONT_2A, IMPER_PASS_AOR_A, IMPER_ACT_AOR_CA, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
+    IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, PARAT2B_LOGIA, ROOT, DEPONENS
 
 forms_imp = {
     SG: {
@@ -30,7 +33,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     """
     forms = {}
 
-    if not conjugation_name or conjugation_name in ['modal', 'con1_pass_modal']:
+    if not conjugation_name or conjugation_name in [MODAL, CON1_PASS_MODAL]:
         return MODAL
     endings = conjugations[conjugation_name]
 
@@ -47,22 +50,22 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                 forms[number][person].append(form)
     # check if a verb in 2nd conjugation active has alternative endings belonging to other type of the 2nd con
 
-    if conjugation_name in ['con2a_act', 'imper_act_cont_2a']:
+    if conjugation_name in [CON2A_ACT, IMPER_ACT_CONT_2A]:
         if root + 'είς' in greek_corpus and root + 'εί' in greek_corpus:
-            endings = conjugations['con2b_act']
+            endings = conjugations[CON2B_ACT]
 
-            if conjugation_name == 'imper_act_cont_2a':
-                endings = conjugations['imper_act_cont_2b']
+            if conjugation_name == IMPER_ACT_CONT_2A:
+                endings = conjugations[IMPER_ACT_CONT_2B]
             for number in endings:
                 for person in endings[number]:
                     for alt_ending in endings[number][person]:
                         forms[number][person].append(root + alt_ending)
 
-    if conjugation_name in ['con2b_act', 'imper_act_cont_2b']:
+    if conjugation_name in [CON2B_ACT, IMPER_ACT_CONT_2B]:
         if root + 'άς' in greek_corpus and root + 'άει' in greek_corpus:
-            endings = conjugations['con2a_act']
-            if conjugation_name == 'imper_act_cont_2b':
-                endings = conjugations['imper_act_cont_2a']
+            endings = conjugations[CON2A_ACT]
+            if conjugation_name == IMPER_ACT_CONT_2B:
+                endings = conjugations[IMPER_ACT_CONT_2A]
             for number in endings:
                 for person in endings[number]:
                     for alt_ending in endings[number][person]:
@@ -84,7 +87,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
 
                         forms[number][person].append(form)
 
-                    if conjugation_name == 'arch_pass_aor' and number == SG:
+                    if conjugation_name == ARCH_PASS_AOR and number == SG:
                         forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0])
 
                     if form != put_accent_on_the_antepenultimate(form, true_syllabification=False):
@@ -93,14 +96,14 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         forms[number][person].append(
                             put_accent_on_the_antepenultimate(form, true_syllabification=False))
 
-    if conjugation_name in ['con1_pass']:
+    if conjugation_name in [CON1_PASS]:
         forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
         forms[PL][SEC][1] = put_accent_on_the_antepenultimate(forms[PL][SEC][1])
 
-    elif conjugation_name in ['parat1_pass']:
+    elif conjugation_name in [PARAT1_PASS]:
         forms[PL][TER][0] = put_accent_on_the_antepenultimate(forms[PL][TER][0])
 
-    elif conjugation_name in ['parat2d_pass', 'parat2b_logia', 'parat2b_pass']:
+    elif conjugation_name in [PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS]:
         # add augment to archaic forms
         forms_ind_with_augmented_forms = forms.copy()
         for number in forms.keys():
@@ -118,30 +121,30 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
 
         forms = forms_ind_with_augmented_forms
 
-    elif conjugation_name in ['con2d_pass']:
+    elif conjugation_name in [CON2D_PASS]:
         for number in forms.keys():
             for person in forms[number]:
                 for index, form in enumerate(forms[number][person]):
                     forms[number][person][index] = put_accent_on_the_antepenultimate(form)
 
-    elif conjugation_name in ['con2b_act', 'con2c_act', 'imper_act_aor_c']:
+    elif conjugation_name in [CON2B_ACT, CON2C_ACT, IMPER_ACT_AOR_C]:
         for number in forms.keys():
             for person in forms[number]:
                 for index, form in enumerate(forms[number][person]):
                     if count_syllables(form, true_syllabification=False) == 1:
                         forms[number][person][index] = remove_all_diacritics(form)
 
-    elif conjugation_name in ['imper_act_cont_1', 'imper_act_cont_2c', 'imper_act_aor_a', 'imper_act_aor_b']:
+    elif conjugation_name in [IMPER_ACT_CONT_1, IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B]:
         forms[SG][SEC][0] = put_accent_on_the_antepenultimate(forms[SG][SEC][0], true_syllabification=False)
 
-    elif conjugation_name in ['imper_pass_aor_a']:
+    elif conjugation_name in [IMPER_PASS_AOR_A]:
         if active_root and active_root[0][-1] in ['σ', 'ψ', 'ξ']:
             forms[SG][SEC] = [x + "ου" for x in active_root]
         else:
             passive_aorist_recreated = create_imp_pass(root)
             forms[SG][SEC][0] = passive_aorist_recreated
 
-    elif conjugation_name in ['imper_act_cont_2a']:
+    elif conjugation_name in [IMPER_ACT_CONT_2A]:
         forms[SG][SEC][0] = put_accent_on_the_penultimate(forms[SG][SEC][0])
         forms[SG][SEC][1] = put_accent_on_the_antepenultimate(forms[SG][SEC][1])
         if len(forms[SG][SEC]) == 3:
@@ -150,11 +153,11 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
         if forms[SG][SEC][0] != put_accent_on_the_penultimate(forms[SG][SEC][0], true_syllabification=False):
             forms[SG][SEC].append(put_accent_on_the_penultimate(forms[SG][SEC][0], true_syllabification=False))
 
-    elif conjugation_name in ['con2e_pass']:
+    elif conjugation_name in [CON2E_PASS]:
         forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
         forms[PL][PRI][1] = put_accent_on_the_antepenultimate(forms[PL][PRI][1])
         forms[PL][SEC][1] = put_accent_on_the_penultimate(forms[PL][SEC][1])
-    elif conjugation_name in ['imper_act_aor_ca', 'imper_act_cont_2b']:
+    elif conjugation_name in [IMPER_ACT_AOR_CA, IMPER_ACT_CONT_2B]:
         if root == 'ζ':
             forms[SG][TER] = ['ζήτω']
         forms[SG][SEC][0] = put_accent_on_the_penultimate(forms[SG][SEC][0], true_syllabification=False)
@@ -208,25 +211,25 @@ def create_all_past_forms(verb, lemma, aspect, deponens=False):
         act_verbs = verb[0]
         pass_verbs = None
 
-    sec_pos = 'ind'
+    sec_pos = IND
     forms = []
 
     if act_verbs:
         simple_aor = True
-        voice = 'active'
-        diathesis = 'active'
+        voice = ACTIVE
+        diathesis = ACTIVE
         for v in act_verbs.split(','):
             v = v.strip()
             if deponens and v not in ['έγινα', 'κάθισα', 'έκατσα', 'ήρθα', 'ήλθα']:
-                voice = 'passive'
-                diathesis = 'deponens'
-                simple_aor = aspect != 'imperf'
+                voice = PASSIVE
+                diathesis = DEPONENS
+                simple_aor = aspect != IMPERF
             data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
             conjugation = data['conjugation_ind']
-            if conjugation == 'parat2_act':
+            if conjugation == PARAT2_ACT:
                 simple_aor = False
 
-            stem = data['root']
+            stem = data[ROOT]
             deaugmented_stem = create_roots_from_past(v, lemma)
 
             forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem,
@@ -234,16 +237,16 @@ def create_all_past_forms(verb, lemma, aspect, deponens=False):
             forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})
 
     if pass_verbs:
-        voice = 'passive'
-        diathesis = 'passive'
+        voice = PASSIVE
+        diathesis = PASSIVE
         for v in pass_verbs.split(','):
             v = v.strip()
 
             data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
             conjugation = data['conjugation_ind']
-            stem = data['root']
+            stem = data[ROOT]
 
-            not_paratatikos = aspect != 'imperf'
+            not_paratatikos = aspect != IMPERF
 
             forms_ind = create_all_pers_forms(conjugation, stem, simple_aor=not_paratatikos)
             forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})
