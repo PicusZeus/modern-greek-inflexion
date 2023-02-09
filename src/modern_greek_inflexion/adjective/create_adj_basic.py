@@ -363,9 +363,11 @@ def create_all_basic_adj_forms(adj, aklito=False):
 
     # επιρρήματα
 
+
     alt_adv = None
 
     if neuter[-1] in ['ο', 'ό']:
+
         accent = where_is_accent(neuter)
         if accent != 'ultimate':
             adverb = neuter[:-1] + 'α'
@@ -373,6 +375,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
         else:
             adverb = neuter[:-1] + 'ά'
             alt_adv = neuter[:-1] + 'ώς'
+
 
     elif masc[-2:] in ['ής', 'ης'] and neuter[-2:] in ['ές', 'ες']:
 

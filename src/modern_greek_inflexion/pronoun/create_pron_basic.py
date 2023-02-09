@@ -12,7 +12,6 @@ def create_basic_forms(pron):
     :param pron: pronoun in nom sg masc, if declination applies
     :return: as in adj masc/fem/neut
     """
-    pron = convert_to_monotonic(pron)
     if not greek_pattern.match(pron):
         raise NotInGreekException
     # pronoun = {gender:{number}}

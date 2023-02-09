@@ -25,7 +25,12 @@ class PronounTestAll(TestCase):
                     'neut': {'nom': {'άτινα', 'άττα'}, 'gen': {'ώντινων'}, 'acc': {'άτινα', 'άττα'}},
                     'fem': {'nom': {'αίτινες'}, 'gen': {'ώντινων'}, 'acc': {'άστινας'}}}}
         )
+    def test_pron_pouq(self):
+        self.assertDictEqual(
+            pronoun.create_all('πού'),
+            {'nd': {'nd': {'nd': {'πού'}}}}
 
+        )
     def test_pron_osper(self):
         self.assertDictEqual(
             pronoun.create_all('όσπερ'),
