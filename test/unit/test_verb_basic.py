@@ -42,6 +42,7 @@ class VerbTestBasic(TestCase):
                   'passive': {'θετόμουν'}},
              'act_pres_participle': {'θέτοντας'},
              'passive_aorist_participle': {'τεθείς/τεθείσα/τεθέν'},
+             'passive_perfect_participle': {'τεθειμένος'},
              'modal': False}
 
         )
@@ -185,6 +186,7 @@ class VerbTestBasic(TestCase):
         )
 
     def test_verb_eggrafw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_basic_forms('εγγράφω'),
             {'present': {'active': {'εγγράφω'}, 'passive': {'εγγράφομαι'}},
@@ -226,3 +228,31 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'πήγαινα'}}, 'modal': False}
 
         )
+
+    def test_verb_thelw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('θέλω'),
+            {'present': {'active': {'θέλω'}}, 'conjunctive': {'active': {'θελήσω'}}, 'aorist': {'active': {'θέλησα'}},
+             'paratatikos': {'active': {'ήθελα'}}, 'act_pres_participle': {'θέλοντας'},
+             'passive_perfect_participle': {'θελημένος'}, 'modal': False}
+
+        )
+
+    def test_verb_dinw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('δίνω'),
+            {'present': {'active': {'δίνω'}, 'passive': {'δίνομαι'}},
+             'conjunctive': {'active': {'δώσω'}, 'passive': {'δοθώ'}},
+             'aorist': {'active': {'έδωσα'}, 'passive': {'εδόθη', 'δόθηκα'}},
+             'paratatikos': {'active': {'έδινα'}, 'passive': {'δινόμουν'}}, 'act_pres_participle': {'δίνοντας'},
+             'passive_perfect_participle': {'δοσμένος', 'δεδομένος'},
+             'passive_aorist_participle': {'δοθείς/δοθείσα/δοθέν'}, 'modal': False}
+
+        )
+
+    # def test_verb(self):
+    #     self.assertDictEqual(
+    #         verb.create_basic_forms('προβάλλω'),
+    #         {},
+    #         print(verb.create_basic_forms('εκτίθεμαι'))
+    #     )

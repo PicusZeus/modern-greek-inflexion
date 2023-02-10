@@ -610,6 +610,7 @@ def create_present_passive_participle(_, root, pres_conjugation):
 def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
     all_passive_perfect_participles = ''
     passive_perfect_participles = []
+    reg_passive_perfect_participles = []
 
     # check for irregularities
     for pr_f in irregular_passive_perfect_participles.keys():
@@ -617,14 +618,19 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
         if pr_f == pres_form[-(len(pr_f)):] and irregular_passive_perfect_participles[pr_f]:
 
             part = pres_form[:-len(pr_f)] + irregular_passive_perfect_participles[pr_f]
+
             part_aug = add_augment(part)
-            if part in greek_corpus:
-                passive_perfect_participles = [part]
+
+            passive_perfect_participles = [part]
+
             for p in part_aug:
                 if p in greek_corpus:
                     passive_perfect_participles.append(p)
 
-    if passive_root and not passive_perfect_participles:
+            passive_perfect_participles = [p for p in passive_perfect_participles if p in greek_corpus]
+            break
+
+    if passive_root:
 
         for passive_root in passive_root.split(','):
 
@@ -649,10 +655,11 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-2] + 'γμενος')
             else:
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root + 'μένος')
-            passive_perfect_participles = add_augment(passive_perfect_participle)
-            passive_perfect_participles = [f for f in passive_perfect_participles if f in greek_corpus]
+
+            reg_passive_perfect_participles = add_augment(passive_perfect_participle)
+            reg_passive_perfect_participles = [f for f in reg_passive_perfect_participles if f in greek_corpus]
             if root[-3:] == 'ποι':
-                passive_perfect_participles = [root + 'ημένος']
+                reg_passive_perfect_participles = [root + 'ημένος']
 
     elif not passive_root and act_root and not passive_perfect_participles:
 
@@ -671,17 +678,22 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
         else:
             passive_perfect_participle = put_accent_on_the_penultimate(act_root + 'μενος')
         if passive_perfect_participle:
-            passive_perfect_participles = add_augment(passive_perfect_participle)
+            reg_passive_perfect_participles = add_augment(passive_perfect_participle)
 
-            passive_perfect_participles = [f for f in passive_perfect_participles if f in greek_corpus]
+            reg_passive_perfect_participles = [f for f in reg_passive_perfect_participles if f in greek_corpus]
 
-    if passive_perfect_participles:
+    if reg_passive_perfect_participles:
         # these are all possible participles in masc sg!!!
-        if 'παρμένος' in passive_perfect_participles:
+        if 'παρμένος' in reg_passive_perfect_participles:
             # since επαιρομαι is kinda περνομαι but not really, not an elegand trick, but if more such situations occure, better solution should be found
-            passive_perfect_participles = ['παρμένος']
-        passive_perfect_participles = list(set(passive_perfect_participles))
-        all_passive_perfect_participles = ','.join(passive_perfect_participles)
+            reg_passive_perfect_participles = ['παρμένος']
+        reg_passive_perfect_participles = list(set(reg_passive_perfect_participles))
+        # passive_perfect_participles.extend(reg_passive_perfect_participles)
+    if passive_perfect_participles:
+
+        reg_passive_perfect_participles.extend(passive_perfect_participles)
+    all_passive_perfect_participles = ','.join(reg_passive_perfect_participles)
+
 
     return all_passive_perfect_participles
 
