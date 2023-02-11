@@ -22,6 +22,7 @@ forms_imp = {
 
 
 def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_root=None, simple_aor=False):
+
     """
 
     :param conjugation_name: conjugation name
@@ -61,15 +62,15 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                     for alt_ending in endings[number][person]:
                         forms[number][person].append(root + alt_ending)
 
-    if conjugation_name in [CON2B_ACT, IMPER_ACT_CONT_2B]:
-        if root + 'άς' in greek_corpus and root + 'άει' in greek_corpus:
-            endings = conjugations[CON2A_ACT]
-            if conjugation_name == IMPER_ACT_CONT_2B:
-                endings = conjugations[IMPER_ACT_CONT_2A]
-            for number in endings:
-                for person in endings[number]:
-                    for alt_ending in endings[number][person]:
-                        forms[number][person].append(root + alt_ending)
+    # if conjugation_name in [CON2B_ACT, IMPER_ACT_CONT_2B]:
+    #     if root + 'άς' in greek_corpus and root + 'άει' in greek_corpus:
+    #         endings = conjugations[CON2A_ACT]
+    #         if conjugation_name == IMPER_ACT_CONT_2B:
+    #             endings = conjugations[IMPER_ACT_CONT_2A]
+    #         for number in endings:
+    #             for person in endings[number]:
+    #                 for alt_ending in endings[number][person]:
+    #                     forms[number][person].append(root + alt_ending)
 
     if simple_aor:
         for number in endings.keys():

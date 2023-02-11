@@ -4,8 +4,7 @@ from ..resources import ACTIVE, PASSIVE, PRI, SEC, PL, SG, TER, EIMAI, EIMAI_PAR
     CON2_ACT_MODAL, MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
     CONJUGATION_IMP, FIN
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
-from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate, \
-    put_accent_on_the_antepenultimate
+from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate
 from ..resources import greek_corpus
 
 
@@ -142,6 +141,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
             else:
                 con_imp = con[CONJUGATION_IMP]
                 forms_imp = create_all_pers_forms(con_imp, root)
+
             forms_ind = create_all_pers_forms(con_ind, root)
 
         elif pass_verb:

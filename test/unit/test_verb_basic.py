@@ -229,6 +229,48 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_kanw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('κάνω'),
+            {'present': {'active': {'κάνω'}}, 'conjunctive': {'active': {'κάνω'}}, 'aorist': {'active': {'έκανα'}},
+             'paratatikos': {'active': {'έκανα'}}, 'act_pres_participle': {'κάνοντας'},
+             'passive_perfect_participle': {'καμωμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_kaiw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('καίω'),
+            {'present': {'active': {'καίω'}, 'passive': {'καίγομαι'}},
+             'conjunctive': {'active': {'κάψω'}, 'passive': {'καώ'}},
+             'aorist': {'active': {'έκαψα'}, 'passive': {'κάηκα'}},
+             'paratatikos': {'active': {'έκαιγα'}, 'passive': {'καιγόμουν'}}, 'act_pres_participle': {'καίγοντας'},
+             'pass_pres_participle': {'καιγόμενος'}, 'passive_perfect_participle': {'καμένος'}, 'modal': False},
+        )
+
+    def test_verb_agapao(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('αγαπάω'),
+            {'present': {'active': {'αγαπάω'}, 'passive': {'αγαπώμαι', 'αγαπιέμαι'}},
+             'conjunctive': {'active': {'αγαπήσω'}, 'passive': {'αγαπηθώ'}},
+             'aorist': {'active': {'αγάπησα'}, 'passive': {'αγαπήθηκα'}},
+             'paratatikos': {'active': {'αγαπούσα', 'αγάπαγα'}, 'passive': {'αγαπιόμουν'}},
+             'act_pres_participle': {'αγαπώντας'}, 'arch_act_pres_participle': {'αγαπών/αγαπώσα/αγαπών'},
+             'passive_perfect_participle': {'αγαπημένος'},
+             'passive_aorist_participle': {'αγαπηθείς/αγαπηθείσα/αγαπηθέν'}, 'modal': False}
+
+        )
+
+    def test_verb_epembenw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('επεμβαίνω'),
+            {'present': {'active': {'επεμβαίνω'}}, 'conjunctive': {'active': {'επεμβώ'}},
+             'aorist': {'active': {'επενέβη', 'επέμβηκα'}}, 'paratatikos': {'active': {'επενέβαινα'}},
+             'act_pres_participle': {'επεμβαίνοντας'},
+             'arch_act_pres_participle': {'επεμβαίνων/επεμβαίνουσα/επεμβαίνον'}, 'modal': False}
+
+        )
+
     def test_verb_thelw(self):
         self.assertDictEqual(
             verb.create_basic_forms('θέλω'),

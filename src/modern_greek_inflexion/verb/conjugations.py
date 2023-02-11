@@ -11,7 +11,7 @@ from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MOD
     AOR_ACT, PRESENT_PASSIVE_PART_2B, PRESENT_ACTIVE_PART_2C, PRESENT_PASSIVE_PART_2E, PRESENT_PASSIVE_PART_1, \
     PRESENT_PASSIVE_PART_2A, PRESENT_PASSIVE_PART_2D, PRESENT_PASSIVE_PART_2AB, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
     IMPER_ACT_CONT_2C, IMPER_PASS_CONT_2C, IMPER_ACT_AOR_A, IMPER_PASS_CONT_2A, IMPER_ACT_CONT_2D, IMPER_PASS_CONT_2B, \
-    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C
+    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D
 
 
 def create_imp_pass(perf_pass_root):
@@ -391,6 +391,7 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
         conjugation_ind = CON2C_ACT
         conjugation_imp = IMPER_ACT_CONT_2C
         conjugation_part = PRESENT_ACTIVE_PART_2C
+
     elif (verb[-1] == 'ώ') or (verb[-1:] == 'ω' and count_syllables(verb) == 1):
         root = verb[:-1]
 
@@ -398,10 +399,12 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
         conjugation_imp = IMPER_ACT_CONT_2B
         conjugation_part = PRESENT_ACTIVE_PART_2
         # contracted άω to ώ
-        if verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'ά' in greek_corpus or (
+        # if verb == 'πω':
+        #     print('BBBBBBBBBBBBB', conjugation_ind, put_accent_on_the_ultimate('πεις', accent_one_syllable=False) in greek_corpus)
+        if put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[:-1] + 'ά' in greek_corpus or (
                 verb[:-1] + 'άς' in greek_corpus and
                 verb[:-1] + 'άτε' in greek_corpus
-        ):
+        ) and aspect != PERF:
 
             conjugation_ind = CON2A_ACT
             conjugation_imp = IMPER_ACT_CONT_2A
@@ -456,6 +459,8 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
 
         if count_syllables(verb) == 1:
             conjugation_imp = IMPER_ACT_AOR_C
+        elif conjugation_ind == CON2B_ACT or verb in ['κατέβω', 'ανέβω']:
+            conjugation_imp = IMPER_ACT_AOR_D
         elif root == '':
             # sometimes there is no simple future form
             pass

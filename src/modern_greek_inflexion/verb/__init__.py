@@ -52,6 +52,7 @@ def create_all_forms(verb):
         conjunctive_basic_forms = basic_forms[CONJUNCTIVE]
         conjunctive = {}
         active_roots = None
+
         if ACTIVE in conjunctive_basic_forms:
             con_active_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[ACTIVE], ACTIVE)
 
