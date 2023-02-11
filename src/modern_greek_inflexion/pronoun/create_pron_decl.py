@@ -15,8 +15,7 @@ def create_all_pron_forms(bas_forms, strong=True):
 
     masc, fem, neut = bas_forms.split('/')
     forms = None
-    if masc == 'που':
-        print('pou')
+
     if masc != neut:
 
         if masc[-2:] in ['ός', 'ος'] or masc[-3:] == 'πας':
