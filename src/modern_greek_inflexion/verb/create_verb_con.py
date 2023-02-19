@@ -186,6 +186,7 @@ def create_roots_from_past(verb, lemma):
         return None
     deaugmented_stem = deaugment_stem(stem, lemma)
     deaugmented_stem_prefixed = deaugment_prefixed_stem(stem)
+
     if deaugmented_stem:
         res = deaugmented_stem
     elif deaugmented_stem_prefixed:
