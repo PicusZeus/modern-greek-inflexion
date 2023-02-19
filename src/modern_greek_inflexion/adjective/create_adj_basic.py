@@ -2,22 +2,22 @@ from modern_greek_accentuation.accentuation import is_accented, where_is_accent,
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-
+from modern_greek_accentuation.resources import ULTIMATE, ANTEPENULTIMATE, PENULTIMATE
 from ..exceptions import NotLegalAdjectiveException
-from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs
-
+from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB,\
+    ADVERB_COMPARATIVE, COMPARATIVE
 
 def create_all_basic_adj_forms(adj, aklito=False):
     """
     :param aklito: if relevant, boolean
     :param adj: masc nom sg form (`ωραίος`)
     :return: dictionary with keys:
-    'adj': masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
+    ADJ: masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
     separated with a coma
-    'comparative': if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
+    COMPARATIVE: if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
     form only in masc sing nom
-    'adverb': adverb form, if alternatives, then separated with coma
-    'adverb_comparative': if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
+    ADVERB: adverb form, if alternatives, then separated with coma
+    ADVERB_COMPARATIVE: if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
     """
 
 
@@ -40,7 +40,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
         adj = adj[:-1] + 'ής'
     accent = where_is_accent(adj, true_syllabification=False)
 
-    adj_temp = {'adj': 'masc,fem,neuter', 'comparative': '', 'adverb': '', 'adverb_comparative': ''}
+    adj_temp = {ADJ: 'masc,fem,neuter', COMPARATIVE: '', ADVERB: '', ADVERB_COMPARATIVE: ''}
 
     adj_forms = []
     # most basic case -os
@@ -49,26 +49,26 @@ def create_all_basic_adj_forms(adj, aklito=False):
         masc = adj
         adj_forms.append(masc)
 
-        if accent == 'ultimate':
+        if accent == ULTIMATE:
             fem = adj[:-2] + 'ή'
         else:
             fem = adj[:-2] + 'η'
 
         if adj[-3] in vowels and count_syllables(adj) <= 2:
-            if accent == 'ultimate':
+            if accent == ULTIMATE:
                 fem = adj[:-2] + 'ά'
             else:
                 fem = adj[:-2] + 'α'
 
         elif adj[-3] in vowels and count_syllables(adj) > 2 and not is_accented(modern_greek_syllabify(adj)[-3]):
-            if accent == 'ultimate':
+            if accent == ULTIMATE:
                 fem = adj[:-2] + 'ά'
             else:
                 fem = adj[:-2] + 'α'
 
         if adj[-3] in ['κ', 'θ', 'χ']:
 
-            if accent == 'ultimate':
+            if accent == ULTIMATE:
                 fem_alt = adj[:-2] + 'ιά'
             else:
                 fem_alt = adj[:-2] + 'ια'
@@ -84,7 +84,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
             else:
                 # for the most part forms on h should be correct, but adj is not very common, so is lacking from db
                 # check for -a by looking for genitive on as in db
-                if accent == 'ultimate':
+                if accent == ULTIMATE:
                     gen = adj[:-2] + 'άς'
                     beta_fem = adj[:-2] + 'ά'
                 else:
@@ -116,7 +116,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
                 fem = stem + 'ισσα'
             neuter = stem + 'ικο'
 
-        elif where_is_accent(adj) == 'ultimate' and (stem + 'ὶ' in greek_corpus or stem + 'ιά' in greek_corpus):
+        elif where_is_accent(adj) == ULTIMATE and (stem + 'ὶ' in greek_corpus or stem + 'ιά' in greek_corpus):
             # type, hs, ia, i, mostly colors
 
             masc = adj
@@ -127,8 +127,8 @@ def create_all_basic_adj_forms(adj, aklito=False):
             # type hs, hs, es
             masc, fem = adj, adj
             neuter = put_accent(stem + 'ες', accent, true_syllabification=False)
-            if accent != 'ultimate' and neuter not in greek_corpus:
-                neuter = put_accent(stem + 'ες', 'antepenultimate', true_syllabification=False)
+            if accent != ULTIMATE and neuter not in greek_corpus:
+                neuter = put_accent(stem + 'ες', ANTEPENULTIMATE, true_syllabification=False)
 
         elif stem + 'ού' in greek_corpus:
             # type kafetzhs kafetzou, but is it a adj?
@@ -140,7 +140,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
             """
             In cases where my corpus cannot help me, I will surmise that it's hs, a (or issa), iko
             """
-            if accent == 'penultimate':
+            if accent == PENULTIMATE:
                 if adj.endswith('ώδης'):
                     masc, fem = adj, adj
                     neuter = stem + 'ες'
@@ -150,7 +150,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
                     if stem + 'ισσα' in greek_corpus:
                         fem = stem + 'ισσα'
                     neuter = stem + 'ικο'
-            elif accent == 'ultimate':
+            elif accent == ULTIMATE:
                 masc, fem = adj, adj
                 neuter = stem + 'ές'
 
@@ -185,12 +185,12 @@ def create_all_basic_adj_forms(adj, aklito=False):
         masc = adj
         fem = None
         neuter = None
-        if accent == 'penultimate' or not accent:
+        if accent == PENULTIMATE or not accent:
             fem = stem + 'ουσα'
 
             neuter = stem + 'ον'
 
-        if accent == 'ultimate' or not accent:
+        if accent == ULTIMATE or not accent:
             fem = stem + 'ούσα'
             neuter = stem + 'ούν'
             neuter_alt_1 = stem + 'ών'
@@ -231,8 +231,8 @@ def create_all_basic_adj_forms(adj, aklito=False):
         fem_sa = adj[:-1] + 'σα'
 
         if count_syllables(adj) == 1:
-            pl_nta = put_accent(pl_nta, 'penultimate')
-            fem_sa = put_accent(fem_sa, 'penultimate')
+            pl_nta = put_accent(pl_nta, PENULTIMATE)
+            fem_sa = put_accent(fem_sa, PENULTIMATE)
         if pl_nta in greek_corpus or adj[-4:] == 'άπας':
             masc = adj
             fem = fem_sa
@@ -256,11 +256,11 @@ def create_all_basic_adj_forms(adj, aklito=False):
             masc = adj
             fem = adj[:-5] + 'ούσα'
             neuter = adj[:-3]
-        elif where_is_accent(adj) in ['ultimate', 'penultimate']:
+        elif where_is_accent(adj) in [ULTIMATE, PENULTIMATE]:
             masc = adj
             fem = adj[:-2] + 'ού'
             neuter = adj[:-1] + 'δικο'
-            if where_is_accent(adj) == 'penultimate':
+            if where_is_accent(adj) == PENULTIMATE:
                 fem = adj[:-1]
                 neuter = adj[:-2] + 'ικο'
 
@@ -312,7 +312,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
     # doesn't exist or I have too small dictionary, so it cannot be recognized
 
 
-    adj_temp['adj'] = '/'.join(adj_forms)
+    adj_temp[ADJ] = '/'.join(adj_forms)
 
     # παραθετικά
 
@@ -359,7 +359,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
         parathetika = irregular_comparatives[neuter]
 
     if parathetika:
-        adj_temp['comparative'] = parathetika
+        adj_temp[COMPARATIVE] = parathetika
 
     # επιρρήματα
 
@@ -369,7 +369,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
     if neuter[-1] in ['ο', 'ό']:
 
         accent = where_is_accent(neuter)
-        if accent != 'ultimate':
+        if accent != ULTIMATE:
             adverb = neuter[:-1] + 'α'
             alt_adv = put_accent_on_the_penultimate(neuter[:-1] + 'ως', true_syllabification=False)
         else:
@@ -420,7 +420,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
 
     epirrimata = ','.join(epirrimata)
     if epirrimata:
-        adj_temp['adverb'] = epirrimata
+        adj_temp[ADVERB] = epirrimata
 
     # comparative epirrimata
     adv_parathetika = None
@@ -454,7 +454,7 @@ def create_all_basic_adj_forms(adj, aklito=False):
         adv_parathetika = irregular_comparative_adverbs[neuter]
 
     if adv_parathetika:
-        adj_temp['adverb_comparative'] = adv_parathetika
+        adj_temp[ADVERB_COMPARATIVE] = adv_parathetika
 
     return adj_temp
 

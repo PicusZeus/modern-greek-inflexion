@@ -270,7 +270,16 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'επεμβαίνων/επεμβαίνουσα/επεμβαίνον'}, 'modal': False}
 
         )
+    def test_verb_kylaw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('κυλάω'),
+            {'present': {'active': {'κυλάω'}, 'passive': {'κυλιέμαι'}},
+             'conjunctive': {'active': {'κυλήσω'}, 'passive': {'κυλιστώ'}},
+             'aorist': {'active': {'κύλησα'}, 'passive': {'κυλίστηκα'}},
+             'paratatikos': {'active': {'κύλαγα', 'κυλούσα'}, 'passive': {'κυλιόμουν'}},
+             'act_pres_participle': {'κυλώντας'}, 'passive_perfect_participle': {'κυλισμένος'}, 'modal': False}
 
+        )
     def test_verb_thelw(self):
         self.assertDictEqual(
             verb.create_basic_forms('θέλω'),

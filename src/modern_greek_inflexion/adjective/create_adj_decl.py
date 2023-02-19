@@ -2,25 +2,15 @@ import copy
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
+from modern_greek_accentuation.resources import ANTEPENULTIMATE, ULTIMATE, PENULTIMATE
+from ..resources import greek_corpus, adj_basic_template, SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC
 
-from ..resources import greek_corpus, adj_basic_template
-
-
-
-SG = 'sg'
-PL = 'pl'
-FEM = 'fem'
-MASC = 'masc'
-NEUT = 'neut'
-NOM = 'nom'
-GEN = 'gen'
-ACC = 'acc'
-VOC = 'voc'
 # adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
 # 'adverb_comparative': 'ωμότερα/ωμότατα'}
 
+
 def put_accent_on_antepenultimate_in_all_forms(masc, forms):
-    if where_is_accent(masc) == 'antepenultimate':
+    if where_is_accent(masc) == ANTEPENULTIMATE:
         for num in forms.keys():
             for gender in forms[num].keys():
                 for case, form in forms[num][gender].items():
@@ -40,7 +30,7 @@ def alternative_forms_kxth(fem):
     }
     if fem[-2] in ['κ', 'χ', 'θ']:
         alt_form = fem[:-1] + 'ια'
-        if where_is_accent(fem) == 'ultimate':
+        if where_is_accent(fem) == ULTIMATE:
             alt_form = put_accent_on_the_ultimate(alt_form)
 
         if alt_form in greek_corpus:
@@ -259,7 +249,7 @@ def put_accent_on_unaccented_forms(forms):
                 f = forms[number][gender][case]
 
                 if not where_is_accent(f) and count_syllables(f) > 1:
-                    forms[number][gender][case] = put_accent(f, 'penultimate')
+                    forms[number][gender][case] = put_accent(f, PENULTIMATE)
 
     return forms
 
@@ -317,7 +307,7 @@ def create_all_adj_forms(adj):
         forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
         accent = where_is_accent(masc)
-        if accent == 'ultimate':
+        if accent == ULTIMATE:
             for num in forms.keys():
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():
@@ -356,7 +346,7 @@ def create_all_adj_forms(adj):
 
         return forms, None
 
-    elif (masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == 'ultimate') or masc == 'μέγας':
+    elif (masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == ULTIMATE) or masc == 'μέγας':
         # add alternativeσ, bathys
 
         forms[SG][MASC][NOM] = masc
@@ -397,7 +387,7 @@ def create_all_adj_forms(adj):
 
         return forms, alt_forms
 
-    elif masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == 'penultimate':
+    elif masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == PENULTIMATE:
         # oksys, okseos
 
         forms[SG][MASC][NOM] = masc
@@ -563,7 +553,7 @@ def create_all_adj_forms(adj):
         forms[PL][NEUT][GEN] = masc[:-2] + 'ων'
         forms[PL][NEUT][VOC] = masc[:-2] + 'η'
 
-        if where_is_accent(masc) == 'ultimate':
+        if where_is_accent(masc) == ULTIMATE:
             for num in forms.keys():
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():

@@ -11,7 +11,7 @@ from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MOD
     AOR_ACT, PRESENT_PASSIVE_PART_2B, PRESENT_ACTIVE_PART_2C, PRESENT_PASSIVE_PART_2E, PRESENT_PASSIVE_PART_1, \
     PRESENT_PASSIVE_PART_2A, PRESENT_PASSIVE_PART_2D, PRESENT_PASSIVE_PART_2AB, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
     IMPER_ACT_CONT_2C, IMPER_PASS_CONT_2C, IMPER_ACT_AOR_A, IMPER_PASS_CONT_2A, IMPER_ACT_CONT_2D, IMPER_PASS_CONT_2B, \
-    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D
+    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D, ROOT
 
 
 def create_imp_pass(perf_pass_root):
@@ -50,13 +50,14 @@ def create_regular_perf_root(verb, voice=ACTIVE):
     if verb[-1] in ['ω', 'ώ'] or verb[-2:] in ['ει', 'εί'] or verb[-5:] == 'είμαι':
         res = recognize_active_non_past_conjugation(verb)
 
+
     else:
         res = recognize_passive_present_continuous_conjugation(verb)
 
     if not res:
         return None
 
-    root = res['root']
+    root = res[ROOT]
     conjugation = res['conjugation_ind']
 
     if conjugation == MODAL:
@@ -197,10 +198,10 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         elif root[-2:] == 'ρν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
             perf_root = root[:-1] + 'άσ'
         elif conjugation in [CON2B_ACT, CON2A_ACT]:
-            perf_root = root + 'ίσ'
+            perf_root = root + 'ήσ'
 
             if perf_root + 'ω' not in greek_corpus:
-                perf_root = root + 'ήσ'
+                perf_root = root + 'ίσ'
 
         if not ((perf_root + 'ω' in greek_corpus) or (perf_root + 'ου' in greek_corpus) or
                 (perf_root + 'ει' in greek_corpus)):
@@ -326,6 +327,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         if root[-2:] in ['ρν', 'χν'] and (perf_root + 'ώ' not in greek_corpus):
             perf_root = root[:-1] + 'αστ'
         # εξαιρέσεις
+
         if not (perf_root + 'ώ' in greek_corpus):
 
             if conjugation in [CON2A_ACT, CON2B_ACT, CON2B_PASS, CON2B_PASS, CON2A_PASS, CON2AB]:
@@ -448,7 +450,7 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
 
     else:
         # else it's assumed it's modal
-        return {'aspect': aspect, 'tense': tense, 'voice': voice, 'root': verb,
+        return {'aspect': aspect, 'tense': tense, 'voice': voice, ROOT: verb,
                 'conjugation_ind': MODAL, 'conjugation_imp': '', 'conjugation_part': ''}
 
     if aspect == PERF:
@@ -477,7 +479,7 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
 
         conjugation_imp = IMPER_PASS_AOR_A
     return {'aspect': aspect, 'voice': voice, 'tense': tense,
-            'root': root,
+            ROOT: root,
             'conjugation_ind': conjugation_ind,
             'conjugation_imp': conjugation_imp,
             'conjugation_part': conjugation_part}
@@ -550,10 +552,10 @@ def recognize_passive_present_continuous_conjugation(verb):
         conjugation_part = ''
 
     else:
-        return {'aspect': IMPERF, 'voice': PASSIVE, 'tense': FIN, 'root': verb,
+        return {'aspect': IMPERF, 'voice': PASSIVE, 'tense': FIN, ROOT: verb,
                 'conjugation_ind': MODAL, 'conjugation_imp': '', 'conjugation_part': ''}
 
-    return {'aspect': IMPERF, 'voice': PASSIVE, 'tense': FIN, 'root': root,
+    return {'aspect': IMPERF, 'voice': PASSIVE, 'tense': FIN, ROOT: root,
             'conjugation_ind': conjugation_ind, 'conjugation_imp': conjugation_imp,
             'conjugation_part': conjugation_part}
 
@@ -584,7 +586,7 @@ def recognize_past_conjugation(verb, lemma, aspect=IMPERF, voice=ACTIVE):
     if voice == PASSIVE and aspect == IMPERF:
         root, conjugation_ind = recognize_passive_past_continuous_conjugation(lemma, verb)
 
-    return {'aspect': aspect, 'voice': voice, 'tense': PAST, 'root': root,
+    return {'aspect': aspect, 'voice': voice, 'tense': PAST, ROOT: root,
             'conjugation_ind': conjugation_ind}
 
 

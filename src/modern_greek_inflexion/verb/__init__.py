@@ -6,7 +6,7 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF
+from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, IMPERF
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
@@ -84,7 +84,7 @@ def create_all_forms(verb):
                 aor_active_forms[IND][SG].pop(SEC, None)
             aorist[ACTIVE] = aor_active_forms
         if PASSIVE in aorist_basic_forms:
-            aor_passive_forms = create_all_past_personal_forms(aorist_basic_forms[PASSIVE], verb, 'perf', PASSIVE)
+            aor_passive_forms = create_all_past_personal_forms(aorist_basic_forms[PASSIVE], verb, PERF, PASSIVE)
             aorist[PASSIVE] = aor_passive_forms
 
         all_forms[AORIST] = aorist
@@ -96,12 +96,12 @@ def create_all_forms(verb):
 
         if ACTIVE in paratatikos_basic_forms:
 
-            paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms[ACTIVE], verb, 'imperf',
+            paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms[ACTIVE], verb, IMPERF,
                                                                       ACTIVE)
             paratatikos[ACTIVE] = paratatikos_active_forms
         if PASSIVE in paratatikos_basic_forms:
             paratatikos_passive_forms = create_all_past_personal_forms(paratatikos_basic_forms[PASSIVE], verb,
-                                                                       'imperf', PASSIVE)
+                                                                       IMPERF, PASSIVE)
             paratatikos[PASSIVE] = paratatikos_passive_forms
         all_forms['paratatikos'] = paratatikos
 

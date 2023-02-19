@@ -1,5 +1,5 @@
 from .. import adjective
-from ..resources import irregular_adv
+from ..resources import irregular_adv, ADV, COMP_ADV, ADJ, COMP, SUPERL, SUPERL_ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..exceptions import NotInGreekException
 import re
@@ -22,18 +22,18 @@ def create_all(adverb):
     """
 
     if adverb in irregular_adv:
-        result = {'adv': {adverb}}
-        comp_adv, superl_adv = irregular_adv[adverb]['comp_adv'].split('/')
-        result['comp_adv'] = {comp_adv}
-        result['superl_adv'] = {superl_adv}
-        if 'comp' in irregular_adv[adverb]:
-            comp_base, superl_base = irregular_adv[adverb]['comp'].split('/')
-            comp = adjective.create_all(comp_base)['adj']
-            superl = adjective.create_all(superl_base)['adj']
-            result['comp'] = comp
-            result['superl'] = superl
+        result = {ADV: {adverb}}
+        comp_adv, superl_adv = irregular_adv[adverb][COMP_ADV].split('/')
+        result[COMP_ADV] = {comp_adv}
+        result[SUPERL_ADV] = {superl_adv}
+        if COMP in irregular_adv[adverb]:
+            comp_base, superl_base = irregular_adv[adverb][COMP].split('/')
+            comp = adjective.create_all(comp_base)[ADJ]
+            superl = adjective.create_all(superl_base)[ADJ]
+            result[COMP] = comp
+            result[SUPERL] = superl
 
         return result
     else:
 
-        return {'adv': {adverb}}
+        return {ADV: {adverb}}

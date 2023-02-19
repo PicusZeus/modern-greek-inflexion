@@ -45,6 +45,11 @@ CONJUNCTIVE = 'conjunctive'
 IND = 'ind'
 MODAL = 'modal'
 
+# accents
+ULTIMATE = 'ultimate'
+PENULTIMATE = 'penultimate'
+ANTEPENULTIMATE = 'antepenultimate'
+
 # var
 GENDER = 'gender'
 CONJUGATION_IND = 'conjugation_ind'
@@ -56,6 +61,12 @@ IMPER = 'imper'
 ADJ = 'adj'
 COMP = 'comp'
 COMP_ADV = 'comp_adv'
+ADVERB = 'adverb'
+ADV = 'adv'
+SUPERL = 'superl'
+SUPERL_ADV = 'superl_adv'
+COMPARATIVE = 'comparative'
+ADVERB_COMPARATIVE = 'adverb_comparative'
 # aspect
 
 PERF = 'perf'

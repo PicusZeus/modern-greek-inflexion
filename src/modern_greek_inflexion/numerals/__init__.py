@@ -3,6 +3,7 @@ from .create_num_list import create_num_adj
 from .. import adjective
 from ..helping_functions import merging_all_dictionaries
 from .. import noun
+from ..resources import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..exceptions import NotInGreekException
 import re
@@ -28,22 +29,22 @@ def create_all_adj_num(base_form):
         if base_form in ['δεύτερος', 'τρίτος', 'τέταρτος', 'πέμπτος', 'έκτος', 'έβδομος', 'όγδοος', 'ένατος',
                          'δέκατος'] or base_form[-4:] == 'στός':
             base_adj = create_num_adj(base_form, ordinal=True)
-            forms_adj = create_all_num_adj_forms(base_adj['adj'], ordinal=True)
+            forms_adj = create_all_num_adj_forms(base_adj[ADJ], ordinal=True)
             adverbs = [adv for adv in base_adj['adverb'].split(',')]
-            forms = {'adj': forms_adj, 'adv': set(adverbs)}
+            forms = {ADJ: forms_adj, ADV: set(adverbs)}
             forms = merging_all_dictionaries(forms)
         else:
             # they can be treated as common adjectives otherwise, special case is protos
             forms = adjective.create_all(base_form)
 
             if base_form == 'πρώτος':
-                forms['adv'] = {'πρώτον', 'πρώτα'}
+                forms[ADV] = {'πρώτον', 'πρώτα'}
             forms = merging_all_dictionaries(forms)
     else:
         base_adj = create_num_adj(base_form)
 
-        forms_adj = create_all_num_adj_forms(base_adj['adj'])
-        forms = {'adj': forms_adj}
+        forms_adj = create_all_num_adj_forms(base_adj[ADJ])
+        forms = {ADJ: forms_adj}
         forms = merging_all_dictionaries(forms)
 
     return forms

@@ -1,7 +1,7 @@
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 
 from ..adjective import create_all_basic_adj_forms
-from ..resources import greek_corpus
+from ..resources import greek_corpus, ADVERB
 
 
 def create_num_adj(numeral, ordinal=False):
@@ -16,13 +16,13 @@ def create_num_adj(numeral, ordinal=False):
         adverb = ''
         adverb_ordinal = numeral[:-1] + 'ν'
         if adverb_ordinal in greek_corpus:
-            if forms['adverb'] == 'πρώτα':
+            if forms[ADVERB] == 'πρώτα':
                 adverb = 'πρώτα,πρώτον'
             else:
                 adverb = adverb_ordinal
         elif numeral[-4:] != 'στός':
-            adverb = forms['adverb']
-        forms['adverb'] = adverb
+            adverb = forms[ADVERB]
+        forms[ADVERB] = adverb
     else:
         if numeral[-5:] in ['κόσια', 'χίλια']:
             masc = numeral[:-1] + 'οι'

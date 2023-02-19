@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.460 Minor improvements to code readability.
  * 0.5.450 Bugs in verbs, imperatives for longer verbs in con2b concjuntive, clash paw and pw, solved.
  * 0.5.425 Improved handling of passive perfect participles, when there are more than one.
  * 0.5.405 Fixed issues with monotonic constraints on pronouns and adverbs, removed gen pl from adj on hs, iko

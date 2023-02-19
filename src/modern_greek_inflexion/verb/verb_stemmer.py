@@ -10,7 +10,8 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists, \
     irregular_passive_aorists, deponens_with_active_perf_forms, irregular_active_paratatikos
 from ..resources import EIMAI, CON1_PASS, CON2AB_PASS, CON2A_PASS, CON2C_PASS, CON2B_PASS, CON1_ACT, \
-    CON1_ACT_MODAL, CON2_ACT_MODAL, CON2C_ACT, CON2B_ACT, CON2A_ACT, CON2D_ACT, ROOT, CONJUGATION_IND, CONJUGATION_IMP
+    CON1_ACT_MODAL, CON2_ACT_MODAL, CON2C_ACT, CON2B_ACT, CON2A_ACT, CON2D_ACT, ROOT, CONJUGATION_IND, PASSIVE, \
+    CON2D_PASS, CON2E_PASS
 
 
 def create_basic_present_forms(base_form, deponens=False, not_deponens=True, intransitive_active=False, modal_act=False,
@@ -118,6 +119,8 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         act_root = create_regular_perf_root(pres_form)
 
+
+
         if not intransitive_active:
             passive_root = create_regular_perf_root(pres_form, voice="passive")
         if act_root:
@@ -206,19 +209,19 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
     elif modal_med:
         perf_root = None
         if pres_form[-4:] == 'εται':
-            perf_root = create_regular_perf_root(root + 'ομαι', 'passive')
+            perf_root = create_regular_perf_root(root + 'ομαι', PASSIVE)
             if perf_root and perf_root + 'εί' not in greek_corpus:
-                perf_root = create_regular_perf_root(root + 'μαι', 'passive')
+                perf_root = create_regular_perf_root(root + 'μαι', PASSIVE)
         elif pres_form[-5:] == 'είται':
-            perf_root = create_regular_perf_root(root + 'ούμαι', 'passive')
+            perf_root = create_regular_perf_root(root + 'ούμαι', PASSIVE)
         elif pres_form[-4:] == 'άται':
-            perf_root = create_regular_perf_root(root + 'άμαι', 'passive')
+            perf_root = create_regular_perf_root(root + 'άμαι', PASSIVE)
             if perf_root and perf_root + 'εί' not in greek_corpus:
-                perf_root = create_regular_perf_root(root + 'ώμαι', 'passive')
+                perf_root = create_regular_perf_root(root + 'ώμαι', PASSIVE)
         elif pres_form[-4:] == 'αται':
-            perf_root = create_regular_perf_root(root + 'αμαι', 'passive')
+            perf_root = create_regular_perf_root(root + 'αμαι', PASSIVE)
         elif pres_form[-3:] == 'ται':
-            perf_root = create_regular_perf_root(root + 'μαι', 'passive')
+            perf_root = create_regular_perf_root(root + 'μαι', PASSIVE)
         passive_root = perf_root
 
         if perf_root:
@@ -474,10 +477,10 @@ def create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=F
             pass_par = [root + 'ούμουν', root + 'ιόμουν']
         elif pres_conjugation in [CON2C_PASS, CON2AB_PASS]:
             pass_par = [root + 'όμουν']
-        elif pres_conjugation == 'con2d_pass':
+        elif pres_conjugation == CON2D_PASS:
             pass_par = [put_accent_on_the_penultimate(root + 'μην'), root[:-1] + 'όμουν', root + 'όμουν']
             pass_par.extend(add_augment(pass_par[0]))
-        elif pres_conjugation == 'con2e_pass':
+        elif pres_conjugation == CON2E_PASS:
             pass_par = [root + 'άμην', root + 'όμουν']
         pass_par = [f for f in pass_par if f in greek_corpus]
         pass_par = list(set(pass_par))
@@ -597,9 +600,9 @@ def create_present_passive_participle(_, root, pres_conjugation):
     elif pres_conjugation in [CON2B_ACT, CON2B_PASS, CON2C_PASS, CON2D_ACT]:
 
         pres_part_pass = [part_root + 'ούμενος']
-    elif pres_conjugation == 'con2e_pass':
+    elif pres_conjugation == CON2E_PASS:
         pres_part_pass = [part_root + 'άμενος']
-    elif pres_conjugation == 'con2d_pass':
+    elif pres_conjugation == CON2D_PASS:
         pres_part_pass = [put_accent_on_the_antepenultimate(root + 'μενος')]
 
     # special case for xairomai

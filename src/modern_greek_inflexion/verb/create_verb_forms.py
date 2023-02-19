@@ -3,6 +3,7 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 from ..resources import ACTIVE, PASSIVE, PRI, SEC, PL, SG, TER, EIMAI, EIMAI_PARATATIKOS, IND, IMP, CON1_ACT, \
     CON2_ACT_MODAL, MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
     CONJUGATION_IMP, FIN
+from modern_greek_accentuation.resources import ULTIMATE
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate
 from ..resources import greek_corpus
@@ -188,7 +189,7 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
         conjugation = data[CONJUGATION_IND]
         if conjugation in [PARAT2_ACT, EIMAI_PARATATIKOS] \
                 or (voice == PASSIVE and aspect == IMPERF) \
-                or where_is_accent(data[ROOT]) == 'ultimate':
+                or where_is_accent(data[ROOT]) == ULTIMATE:
             simple_aor = False
         stem = data[ROOT]
         deaugmented_stem = create_roots_from_past(v, lemma)

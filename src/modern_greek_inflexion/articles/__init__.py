@@ -2,61 +2,62 @@
 simply a list
 """
 from modern_greek_accentuation.accentuation import convert_to_monotonic
+from ..resources import SG, PL, FEM, MASC, NEUT, NOM, ACC, GEN
 
 definite_article = {
-    'sg': {
-        'masc': {
-            'nom': {'ο'},
-            'acc': {'τον', 'το'},
-            'gen': {'του'}
+    SG: {
+        MASC: {
+            NOM: {'ο'},
+            ACC: {'τον', 'το'},
+            GEN: {'του'}
         },
-        'fem': {
-            'nom': {'η'},
-            'acc': {'την', 'τη'},
-            'gen': {'της'}
+        FEM: {
+            NOM: {'η'},
+            ACC: {'την', 'τη'},
+            GEN: {'της'}
         },
-        'neut': {
-            'nom': {'το'},
-            'acc': {'του'},
-            'gen': {'το'}
+        NEUT: {
+            NOM: {'το'},
+            ACC: {'του'},
+            GEN: {'το'}
         }
     },
-    'pl': {
-        'masc': {
-            'nom': {'οι'},
-            'acc': {'τους'},
-            'gen': {'των'}
+    PL: {
+        MASC: {
+            NOM: {'οι'},
+            ACC: {'τους'},
+            GEN: {'των'}
         },
-        'fem': {
-            'nom': {'οι', 'αι'},
-            'acc': {'τις', 'τας'},
-            'gen': {'των'}
+        FEM: {
+            NOM: {'οι', 'αι'},
+            ACC: {'τις', 'τας'},
+            GEN: {'των'}
         },
-        'neut': {
-            'nom': {'τα'},
-            'acc': {'τα'},
-            'gen': {'των'}
+        NEUT: {
+            NOM: {'τα'},
+            ACC: {'τα'},
+            GEN: {'των'}
         }
     }
 }
 
 
 indefinite_article = {
-    'sg': {
-        'masc': {
-            'nom': {'ένας'},
-            'acc': {'ένα', 'έναν'},
-            'gen': {'ενός'}
+    SG: {
+        MASC: {
+            NOM: {'ένας'},
+            ACC: {'ένα', 'έναν'},
+            GEN: {'ενός'}
         },
-        'fem': {
-            'nom': {'μια', 'μία'},
-            'acc': {'μια', 'μία', 'μιαν', 'μίαν'},
-            'gen': {'μιας', 'μίας'}
+        FEM: {
+            NOM: {'μια', 'μία'},
+            ACC: {'μια', 'μία', 'μιαν', 'μίαν'},
+            GEN: {'μιας', 'μίας'}
         },
-        'neut': {
-            'nom': {'ένα'},
-            'acc': {'ένα'},
-            'gen': {'ενός'}
+        NEUT: {
+            NOM: {'ένα'},
+            ACC: {'ένα'},
+            GEN: {'ενός'}
         }
     }
 }

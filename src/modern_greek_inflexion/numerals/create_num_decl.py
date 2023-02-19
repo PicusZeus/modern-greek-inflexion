@@ -2,7 +2,7 @@ import copy
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, where_is_accent, \
     put_accent_on_the_ultimate
-
+from modern_greek_accentuation.resources import ANTEPENULTIMATE, PENULTIMATE, ULTIMATE
 from ..adjective import create_all_adj_forms
 from ..resources import adj_basic_template
 from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT
@@ -26,10 +26,10 @@ def create_all_num_adj_forms(num_base_forms, ordinal=False):
             accent = where_is_accent(masc, true_syllabification=False)
             acc_masc = masc[:-2] + 'ους'
             gen_pl = masc[:-2] + 'ων'
-            if accent == 'ultimate':
+            if accent == ULTIMATE:
                 acc_masc = put_accent_on_the_ultimate(acc_masc)
                 gen_pl = put_accent_on_the_ultimate(gen_pl)
-            elif accent == 'antepenultimate':
+            elif accent == ANTEPENULTIMATE:
                 accs_masc = [acc_masc, put_accent_on_the_penultimate(acc_masc, true_syllabification=False)]
                 gens_pl = [gen_pl, put_accent_on_the_penultimate(gen_pl, true_syllabification=False)]
                 gen_pl = ','.join([g for g in gens_pl if g in greek_corpus])
