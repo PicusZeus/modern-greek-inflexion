@@ -254,6 +254,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
                 passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
 
+
         if act_root:
 
             if ',' in act_root:
@@ -337,7 +338,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                 passive_aor_forms = []
                 for stem in passive_root.split(','):
                     pass_aor_form = stem + 'ηκα'
-                    passive_aor_forms.extend(put_accent_on_the_antepenultimate(pass_aor_form))
+                    passive_aor_forms.append(put_accent_on_the_antepenultimate(pass_aor_form))
 
                     # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in
                     # corpus

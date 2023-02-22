@@ -270,6 +270,7 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'επεμβαίνων/επεμβαίνουσα/επεμβαίνον'}, 'modal': False}
 
         )
+
     def test_verb_kylaw(self):
         self.assertDictEqual(
             verb.create_basic_forms('κυλάω'),
@@ -280,6 +281,17 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'κυλώντας'}, 'passive_perfect_participle': {'κυλισμένος'}, 'modal': False}
 
         )
+
+    def test_verb_diagrafomai(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('διαγράφομαι'),
+            {'present': {'passive': {'διαγράφομαι'}}, 'conjunctive': {'passive': {'διαγραφώ', 'διαγραφτώ'}},
+             'aorist': {'passive': {'διαγράφηκα', 'διεγράφη', 'διαγράφτηκα'}},
+             'paratatikos': {'passive': {'διαγραφόμουν'}}, 'pass_pres_participle': {'διαγραφόμενος'},
+             'passive_perfect_participle': {'διαγραμμένος', 'διαγεγραμμένος'}, 'modal': False}
+
+        )
+
     def test_verb_thelw(self):
         self.assertDictEqual(
             verb.create_basic_forms('θέλω'),
