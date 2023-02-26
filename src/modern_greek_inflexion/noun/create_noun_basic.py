@@ -376,8 +376,7 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
             noun_temp[GEN_SG] = noun
             noun_temp[NOM_PL] = noun
 
-    elif gender == FEM and noun[-2:] in ['υς', 'ύς']:
-
+    elif gender == FEM and noun[-2:] in ['υς', 'ύς'] or noun in ['βοτρύς','ιχθύς','πέλεκυς', 'μυς']:
         gen_form = noun[:-1] + 'ος'
 
         thema = put_accent_on_the_ultimate(noun)
@@ -394,6 +393,7 @@ def create_all_basic_noun_forms(noun, aklito=False, gender=None, proper_name=Fal
         noun_temp[NOM_PL] = plur_form
 
     elif noun[-2:] in ['υς', 'ύς']:
+
         gender = MASC
         gen_form = put_accent_on_the_antepenultimate(noun[:-2] + "εως")
         plur_form = put_accent_on_the_penultimate(noun[:-2] + 'εις')

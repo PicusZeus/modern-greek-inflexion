@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.490 Added masc exceptions for us, os, and better handling of fem on is ews.
  * 0.5.485 Fixed bug with aorist forms of deponens when multiple roots
  * 0.5.475 Fixing issue with augmented prefixes (in modern-greek-accentuation library)
  * 0.5.460 Minor improvements to code readability.

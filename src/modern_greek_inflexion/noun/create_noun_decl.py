@@ -251,10 +251,18 @@ def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
                 noun_all[gender][PL][GEN] = gen_pl
 
             elif gen_sg[-3:] == 'εως' and nom_sg[-1] == 'ς':
-                noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
+                acc_sg_arch = nom_sg[:-1] + 'ν'
+                if nom_sg[-2:] == 'ις':
+                    noun_all[gender][SG][GEN] = gen_sg
+                    noun_all[gender][SG][ACC] = acc_sg_arch
+                else:
+                    noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
+                    if acc_sg_arch in greek_corpus:
+                        noun_all[gender][SG][ACC] = acc_sg_arch + nom_sg[:-1]
+                    else:
+                        noun_all[gender][SG][ACC] = nom_sg[:-1]
                 noun_all[gender][SG][VOC] = nom_sg[:-1]
                 noun_all[gender][PL][GEN] = gen_sg[:-1] + 'ν'
-                noun_all[gender][SG][ACC] = nom_sg[:-1]
 
             elif nom_sg == nom_pl:
                 # aklita

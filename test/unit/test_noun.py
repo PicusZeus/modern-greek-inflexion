@@ -369,6 +369,21 @@ class NounTests(TestCase):
 
         )
 
+    def test_polis(self):
+        self.assertDictEqual(
+            noun.create_all('πόλις'),
+            {'fem': {'sg': {'nom': {'πόλις'}, 'voc': {'πόλι'}, 'gen': {'πόλεως'}, 'acc': {'πόλιν'}},
+                     'pl': {'nom': {'πόλεις'}, 'voc': {'πόλεις'}, 'gen': {'πόλεων'}, 'acc': {'πόλεις'}}}}
+
+        )
+    def test_ixthus(self):
+        self.assertDictEqual(
+            noun.create_all('ιχθύς'),
+            {'masc': {'sg': {'nom': {'ιχθύς'}, 'voc': {'ιχθύ'}, 'acc': {'ιχθύ', 'ιχθύν'}, 'gen': {'ιχθύος'}},
+                      'pl': {'nom': {'ιχθύες'}, 'voc': {'ιχθύες'}, 'acc': {'ιχθύες'}, 'gen': {'ιχθύων'}}}}
+
+        )
+
     def test_presbhs(self):
         self.assertDictEqual(
             noun.create_all('πρέσβης'),
@@ -380,10 +395,10 @@ class NounTests(TestCase):
     def test_peira(self):
         self.assertDictEqual(
             noun.create_all('ξεχασιά', gender='fem_sg'),
-                {'fem': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
-                         'sg': {'acc': {'ξεχασιά'},
-                                'gen': {'ξεχασιάς'},
-                                'nom': {'ξεχασιά'},
-                                'voc': {'ξεχασιά'}}}}
+            {'fem': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                     'sg': {'acc': {'ξεχασιά'},
+                            'gen': {'ξεχασιάς'},
+                            'nom': {'ξεχασιά'},
+                            'voc': {'ξεχασιά'}}}}
 
-            )
+        )
