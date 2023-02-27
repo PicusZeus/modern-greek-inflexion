@@ -1187,6 +1187,28 @@ class VerbTestAll(TestCase):
 
         )
 
+    def test_aorist_verb_anago(self):
+        self.assertDictEqual(
+            verb.create_all_forms('ανάγω')['aorist'],
+            {'active': {'ind': {'sg': {'pri': {'ανήγαγα'}, 'sec': {'ανήγαγες'}, 'ter': {'ανήγαγε'}},
+                                'pl': {'pri': {'αναγάγαμε'}, 'sec': {'αναγάγατε'}, 'ter': {'αναγάγανε', 'ανήγαγαν'}}}},
+             'passive': {'ind': {'sg': {'pri': {'ανάχθηκα'}, 'sec': {'ανάχθηκες'}, 'ter': {'ανάχθηκε'}},
+                                 'pl': {'pri': {'αναχθήκαμε'}, 'sec': {'αναχθήκατε'},
+                                        'ter': {'ανάχθηκαν', 'αναχθήκανε'}}}}}
+
+        )
+    def test_aorist_verb_eisago(self):
+        self.assertDictEqual(
+            verb.create_all_forms('εισάγω')['aorist'],
+            {'active': {'ind': {'sg': {'pri': {'εισήγαγα'}, 'sec': {'εισήγαγες'}, 'ter': {'εισήγαγε'}},
+                                'pl': {'pri': {'εισαγάγαμε'}, 'sec': {'εισαγάγατε'},
+                                       'ter': {'εισήγαγαν', 'εισαγάγανε'}}}}, 'passive': {'ind': {
+                'sg': {'pri': {'εισάχθηκα', 'εισήχθην'}, 'sec': {'εισάχθηκες', 'εισήχθης'},
+                       'ter': {'εισάχθηκε', 'εισήχθη'}},
+                'pl': {'pri': {'εισαχθήκαμε', 'εισήχθημεν'}, 'sec': {'εισήχθητε', 'εισαχθήκατε'},
+                       'ter': {'εισάχθηκαν', 'εισαχθήκανε', 'εισήχθησαν'}}}}}
+
+        )
     def test_aorist_verb_ago(self):
         self.assertDictEqual(
             verb.create_all_forms('άγω')['aorist'],
