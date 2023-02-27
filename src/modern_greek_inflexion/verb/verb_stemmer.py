@@ -320,6 +320,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
 
             passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus]
 
+
         # if active_aor_forms:
         active_aor_forms = list(set(active_aor_forms))
         active_aor_forms = ','.join(active_aor_forms)
@@ -619,6 +620,8 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
     passive_perfect_participles = []
     reg_passive_perfect_participles = []
 
+
+
     # check for irregularities
     for pr_f in irregular_passive_perfect_participles.keys():
 
@@ -660,6 +663,7 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
                     passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-1] + 'μενος')
             elif passive_root[-2:] == 'χτ':
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-2] + 'γμενος')
+
             else:
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root + 'μένος')
 

@@ -73,6 +73,9 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         form = put_accent_on_the_antepenultimate(deaugmented_root + ending)
 
                         forms[number][person].append(form)
+                        not_deaugmented_form = put_accent_on_the_antepenultimate(root + ending)
+                        if not_deaugmented_form in greek_corpus:
+                            forms[number][person].append(form)
                     else:
                         form = put_accent_on_the_antepenultimate(root + ending)
 
@@ -185,6 +188,7 @@ def create_roots_from_past(verb, lemma):
     else:
         return None
     deaugmented_stem = deaugment_stem(stem, lemma)
+
     deaugmented_stem_prefixed = deaugment_prefixed_stem(stem)
 
     if deaugmented_stem:

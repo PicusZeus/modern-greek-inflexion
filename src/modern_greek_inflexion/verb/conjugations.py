@@ -62,7 +62,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if conjugation == MODAL:
         perf_root = root
-
+    no_perfect_root = False
     # an idea: to solve problem with irregular verbs that cannot be simply caught because they are combined with
     # some suffix
 
@@ -102,6 +102,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE:
         for pair in irregular_passive_roots:
+
             if ',' in pair[1]:
                 # that is if many stems
                 multiple_perf_roots = []
@@ -120,7 +121,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
                     multiple_stems = True
                     break
 
-            if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+            if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0] and pair[1]:
 
                 for r in pair[1].split(','):
 
@@ -401,8 +402,6 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
         conjugation_imp = IMPER_ACT_CONT_2B
         conjugation_part = PRESENT_ACTIVE_PART_2
         # contracted άω to ώ
-        # if verb == 'πω':
-        #     print('BBBBBBBBBBBBB', conjugation_ind, put_accent_on_the_ultimate('πεις', accent_one_syllable=False) in greek_corpus)
         if put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[:-1] + 'ά' in greek_corpus or (
                 verb[:-1] + 'άς' in greek_corpus and
                 verb[:-1] + 'άτε' in greek_corpus

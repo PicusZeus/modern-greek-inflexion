@@ -155,6 +155,18 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'αρνούμενος'},
              'modal': False}
         )
+    def test_verb_eisago(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('εισάγω'),
+            {'present': {'active': {'εισάγω'}, 'passive': {'εισάγομαι'}},
+             'conjunctive': {'active': {'εισαγάγω'}, 'passive': {'εισαχθώ'}},
+             'aorist': {'active': {'εισήγαγα'}, 'passive': {'εισήχθη', 'εισάχθηκα'}},
+             'paratatikos': {'active': {'εισήγα'}, 'passive': {'εισαγόμουν'}}, 'act_pres_participle': {'εισάγοντας'},
+             'arch_act_pres_participle': {'εισάγων/εισάγουσα/εισάγον'}, 'pass_pres_participle': {'εισαγόμενος'},
+             'passive_perfect_participle': {'εισηγμένος'},
+             'passive_aorist_participle': {'εισαχθείς/εισαχθείσα/εισαχθέν'}, 'modal': False}
+
+        )
 
     def test_verb_katexo(self):
         self.assertDictEqual(
@@ -282,6 +294,39 @@ class VerbTestBasic(TestCase):
 
         )
 
+
+    def test_verb_anexomai(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ανέχομαι'),
+            {'present': {'passive': {'ανέχομαι'}}, 'conjunctive': {'passive': {'ανεχτώ'}},
+             'aorist': {'passive': {'ανέχτηκα'}}, 'paratatikos': {'passive': {'ανεχόμουν'}},
+             'pass_pres_participle': {'ανεχόμενος'}, 'modal': False}
+        )
+
+    def test_verb_anago(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ανάγω'),
+            {'present': {'active': {'ανάγω'}, 'passive': {'ανάγομαι'}},
+             'conjunctive': {'active': {'αναγάγω'}, 'passive': {'αναχθώ'}},
+             'aorist': {'active': {'ανήγαγα'}, 'passive': {'ανάχθηκα'}},
+             'paratatikos': {'active': {'ανήγα'}, 'passive': {'αναγόμουν'}}, 'act_pres_participle': {'ανάγοντας'},
+             'arch_act_pres_participle': {'ανάγων/ανάγουσα/ανάγον'}, 'pass_pres_participle': {'αναγόμενος'},
+             'passive_perfect_participle': {'ανηγμένος'}, 'passive_aorist_participle': {'αναχθείς/αναχθείσα/αναχθέν'},
+             'modal': False}
+
+        )
+
+    def test_verb_apago(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('απάγω'),
+            {'present': {'active': {'απάγω'}, 'passive': {'απάγομαι'}},
+             'conjunctive': {'active': {'απαγάγω'}, 'passive': {'απαχθώ'}},
+             'aorist': {'active': {'απήγαγα'}, 'passive': {'απήχθη'}},
+             'paratatikos': {'active': {'απήγα'}, 'passive': {'απαγόμουν'}}, 'act_pres_participle': {'απάγοντας'},
+             'pass_pres_participle': {'απαγόμενος'}, 'passive_aorist_participle': {'απαχθείς/απαχθείσα/απαχθέν'},
+             'modal': False}
+
+        )
     def test_verb_diagrafomai(self):
         self.assertDictEqual(
             verb.create_basic_forms('διαγράφομαι'),
