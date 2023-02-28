@@ -63,12 +63,12 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_basic_forms('δουλεύω'),
             {'present': {'active': {'δουλεύω'}, 'passive': {'δουλεύομαι'}},
-             'conjunctive': {'active': {'δουλεύσω', 'δουλέψω'}, 'passive': {'δουλευτώ'}},
-             'aorist': {'active': {'δούλεψα', 'δούλευσα'}, 'passive': {'δουλεύτηκα'}},
+             'conjunctive': {'active': {'δουλέψω', 'δουλεύσω'}, 'passive': {'δουλευθώ', 'δουλευτώ'}},
+             'aorist': {'active': {'δούλευσα', 'δούλεψα'}, 'passive': {'δουλεύθηκα', 'δουλεύτηκα'}},
              'paratatikos': {'active': {'δούλευα'}, 'passive': {'δουλευόμουν'}}, 'act_pres_participle': {'δουλεύοντας'},
-             'passive_perfect_participle': {'δεδουλευμένος', 'δουλευμένος'},
-             'active_aorist_participle': {'δουλεύσας/δουλεύσασα/δουλεύσαν'},
-             'modal': False}
+             'passive_perfect_participle': {'δουλευμένος', 'δεδουλευμένος'},
+             'active_aorist_participle': {'δουλεύσας/δουλεύσασα/δουλεύσαν'}, 'modal': False}
+
         )
 
     def test_verb_blepo(self):
@@ -173,10 +173,23 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_basic_forms('διαλέγω'),
             {'present': {'active': {'διαλέγω'}, 'passive': {'διαλέγομαι'}},
-             'conjunctive': {'active': {'διαλέξω'}, 'passive': {'διαλεχτώ'}},
-             'aorist': {'active': {'διάλεξα'}, 'passive': {'διαλέχτηκα'}},
+             'conjunctive': {'active': {'διαλέξω'}, 'passive': {'διαλεχθώ', 'διαλεχτώ'}},
+             'aorist': {'active': {'διάλεξα'}, 'passive': {'διαλέχτηκα', 'διαλέχθηκα'}},
              'paratatikos': {'active': {'διάλεγα'}, 'passive': {'διαλεγόμουν'}}, 'act_pres_participle': {'διαλέγοντας'},
              'pass_pres_participle': {'διαλεγόμενος'}, 'passive_perfect_participle': {'διαλεγμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_elegxw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ελέγχω'),
+            {'present': {'active': {'ελέγχω'}, 'passive': {'ελέγχομαι'}},
+             'conjunctive': {'active': {'ελέγξω'}, 'passive': {'ελεγχτώ', 'ελεγχθώ'}},
+             'aorist': {'active': {'έλεγξα'}, 'passive': {'ελέγχτηκα', 'ελέγχθηκα'}},
+             'paratatikos': {'active': {'έλεγχα'}, 'passive': {'ελεγχόμουν'}}, 'act_pres_participle': {'ελέγχοντας'},
+             'arch_act_pres_participle': {'ελέγχων/ελέγχουσα/ελέγχον'}, 'pass_pres_participle': {'ελεγχόμενος'},
+             'passive_perfect_participle': {'ελεγμένος'},
+             'modal': False}
 
         )
 

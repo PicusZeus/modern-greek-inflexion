@@ -119,8 +119,6 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         act_root = create_regular_perf_root(pres_form)
 
-
-
         if not intransitive_active:
             passive_root = create_regular_perf_root(pres_form, voice="passive")
         if act_root:
@@ -158,6 +156,14 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     passive_perf_form = ','.join(passive_perf_forms)
                 else:
                     passive_perf_form = passive_root + 'ώ'
+                    if passive_root[-1] == 'τ' and (
+                            passive_root + 'ώ' in greek_corpus or passive_root + 'εί') \
+                            and (passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus):
+                        passive_perf_form = passive_perf_form + ',' + passive_root[:-1] + 'θώ'
+                        passive_root = passive_root + ',' + passive_root[:-1] + 'θ'
+                    elif passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus:
+                        passive_perf_form = passive_root[:-1] + 'θώ'
+                        passive_root = passive_root[:-1] + 'θ'
 
         conjunctive_basic_forms = active_perf_form + '/' + passive_perf_form
 
@@ -254,7 +260,6 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
                 passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
 
-
         if act_root:
 
             if ',' in act_root:
@@ -319,7 +324,6 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             # filter out
 
             passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus]
-
 
         # if active_aor_forms:
         active_aor_forms = list(set(active_aor_forms))
@@ -619,9 +623,6 @@ def create_present_passive_participle(_, root, pres_conjugation):
 def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
     passive_perfect_participles = []
     reg_passive_perfect_participles = []
-
-
-
     # check for irregularities
     for pr_f in irregular_passive_perfect_participles.keys():
 
@@ -661,15 +662,17 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
                     passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-1] + 'μενος')
                 if passive_perfect_participle not in greek_corpus:
                     passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-1] + 'μενος')
-            elif passive_root[-2:] == 'χτ':
-                passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-2] + 'γμενος')
+            elif passive_root[-3:] in ['γχτ', 'γχθ']:
 
+                passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-3] + 'γμενος')
+
+            elif passive_root[-2:] in ['χτ', 'χθ']:
+                passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-2] + 'γμενος')
 
             else:
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root + 'μένος')
 
-            reg_passive_perfect_participles = add_augment(passive_perfect_participle)
-
+            reg_passive_perfect_participles.extend(add_augment(passive_perfect_participle))
 
             reg_passive_perfect_participles = [f for f in reg_passive_perfect_participles if f in greek_corpus]
             if root[-3:] == 'ποι':
@@ -706,10 +709,8 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
             reg_passive_perfect_participles = ['παρμένος']
         reg_passive_perfect_participles = list(set(reg_passive_perfect_participles))
     if passive_perfect_participles:
-
         reg_passive_perfect_participles.extend(passive_perfect_participles)
     all_passive_perfect_participles = ','.join(reg_passive_perfect_participles)
-
 
     return all_passive_perfect_participles
 

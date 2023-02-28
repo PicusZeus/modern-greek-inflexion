@@ -95,6 +95,7 @@ def create_all_basic_forms(pres_form):
                                        intransitive_active=intransitive_active,
                                        modal_act=modal_act,
                                        modal_med=modal_med)
+
     if conjunctive_basic_forms:
 
         verb_temp[CONJUNCTIVE] = {}

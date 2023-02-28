@@ -269,6 +269,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
                     perf_root = root[:-2] + 'θ'
                     if perf_root + 'ώ' not in greek_corpus:
                         perf_root = root[:-2] + 'χτ'
+
                         if perf_root + 'ώ' not in greek_corpus:
                             perf_root = root[:-2] + 'στ'
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'σκ']:
@@ -318,6 +319,10 @@ def create_regular_perf_root(verb, voice=ACTIVE):
             perf_root = root + 'ωθ'
         if perf_root:
             perf_root = remove_all_diacritics(perf_root)
+        if perf_root[-2:] == "χτ":
+            if perf_root + 'εί' not in greek_corpus and perf_root[:-1] + 'θεί' in greek_corpus:
+                perf_root = perf_root[:-1] + 'Θ'
+
 
     if voice == PASSIVE and \
             conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,
