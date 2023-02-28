@@ -195,6 +195,7 @@ class VerbTestBasic(TestCase):
 
     def test_verb_diaftheirw(self):
         self.assertDictEqual(
+            verb.create_basic_forms('διαφθείρω'),
             {'present': {'active': {'διαφθείρω'}, 'passive': {'διαφθείρομαι'}},
              'conjunctive': {'active': {'διαφθείρω'}, 'passive': {'διαφθαρώ'}},
              'aorist': {'active': {'διέφθειρα'}, 'passive': {'διαφθάρηκα', 'διεφθάρη'}},
