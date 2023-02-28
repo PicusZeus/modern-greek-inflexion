@@ -126,6 +126,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
     forms = {}
 
     for v in verb:
+
         v = v.strip()
         if voice == ACTIVE and v:
             act_verb = v
@@ -135,6 +136,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
             con = recognize_active_non_past_conjugation(act_verb, aspect=PERF, tense=FIN, voice=ACTIVE)
             root = con[ROOT]
             con_ind = con[CONJUGATION_IND]
+
 
             if con_ind in [CON1_ACT_MODAL, MODAL, CON2_ACT_MODAL]:
 
@@ -147,6 +149,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
 
         elif pass_verb:
             con = recognize_active_non_past_conjugation(pass_verb, aspect=PERF, tense=FIN, voice=voice)
+
             root = con[ROOT]
             con_ind = con[CONJUGATION_IND]
             if con_ind in [CON1_ACT_MODAL, MODAL]:

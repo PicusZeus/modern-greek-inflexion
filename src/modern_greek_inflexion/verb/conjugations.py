@@ -402,17 +402,19 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
         conjugation_imp = IMPER_ACT_CONT_2B
         conjugation_part = PRESENT_ACTIVE_PART_2
         # contracted άω to ώ
-        if put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[:-1] + 'ά' in greek_corpus or (
+
+        if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[:-1] + 'ά' in greek_corpus or (
                 verb[:-1] + 'άς' in greek_corpus and
                 verb[:-1] + 'άτε' in greek_corpus
-        ) and aspect != PERF:
+        )) and aspect != PERF:
 
             conjugation_ind = CON2A_ACT
             conjugation_imp = IMPER_ACT_CONT_2A
             conjugation_part = PRESENT_ACTIVE_PART_2
 
 
-        elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus:
+
+        elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus and aspect != PERF:
 
             conjugation_ind = CON2D_ACT
             conjugation_imp = IMPER_ACT_CONT_2D

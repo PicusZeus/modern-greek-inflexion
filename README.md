@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.511 Fixed issue with passive future wrong con recognition, improved handling of augmentation of passive perf. part.
  * 0.5.500 Fixed issue with augmented prefixes where a changes to h.
  * 0.5.499 Fixed issue with participles and passive aorist in verbs that consist of exw and agw.
  * 0.5.490 Added masc exceptions for us, os, and better handling of fem on is ews.

@@ -155,6 +155,7 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'αρνούμενος'},
              'modal': False}
         )
+
     def test_verb_eisago(self):
         self.assertDictEqual(
             verb.create_basic_forms('εισάγω'),
@@ -165,6 +166,17 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'εισάγων/εισάγουσα/εισάγον'}, 'pass_pres_participle': {'εισαγόμενος'},
              'passive_perfect_participle': {'εισηγμένος'},
              'passive_aorist_participle': {'εισαχθείς/εισαχθείσα/εισαχθέν'}, 'modal': False}
+
+        )
+
+    def test_verb_dialego(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('διαλέγω'),
+            {'present': {'active': {'διαλέγω'}, 'passive': {'διαλέγομαι'}},
+             'conjunctive': {'active': {'διαλέξω'}, 'passive': {'διαλεχτώ'}},
+             'aorist': {'active': {'διάλεξα'}, 'passive': {'διαλέχτηκα'}},
+             'paratatikos': {'active': {'διάλεγα'}, 'passive': {'διαλεγόμουν'}}, 'act_pres_participle': {'διαλέγοντας'},
+             'pass_pres_participle': {'διαλεγόμενος'}, 'passive_perfect_participle': {'διαλεγμένος'}, 'modal': False}
 
         )
 
@@ -294,7 +306,6 @@ class VerbTestBasic(TestCase):
 
         )
 
-
     def test_verb_anexomai(self):
         self.assertDictEqual(
             verb.create_basic_forms('ανέχομαι'),
@@ -327,6 +338,7 @@ class VerbTestBasic(TestCase):
              'modal': False}
 
         )
+
     def test_verb_diagrafomai(self):
         self.assertDictEqual(
             verb.create_basic_forms('διαγράφομαι'),

@@ -664,10 +664,13 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
             elif passive_root[-2:] == 'χτ':
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root[:-2] + 'γμενος')
 
+
             else:
                 passive_perfect_participle = put_accent_on_the_penultimate(passive_root + 'μένος')
 
             reg_passive_perfect_participles = add_augment(passive_perfect_participle)
+
+
             reg_passive_perfect_participles = [f for f in reg_passive_perfect_participles if f in greek_corpus]
             if root[-3:] == 'ποι':
                 reg_passive_perfect_participles = [root + 'ημένος']
