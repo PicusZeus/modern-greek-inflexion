@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.516 added irregular root pair ftheir fthar
  * 0.5.515 added double handling for passive perfect roots that and with t, but can sometimes endwith th. Added pass perf particple handling for roots that end on gx.
  * 0.5.511 Fixed issue with passive future wrong con recognition, improved handling of augmentation of passive perf. part.
  * 0.5.500 Fixed issue with augmented prefixes where a changes to h.

@@ -193,6 +193,18 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_diaftheirw(self):
+        self.assertDictEqual(
+            {'present': {'active': {'διαφθείρω'}, 'passive': {'διαφθείρομαι'}},
+             'conjunctive': {'active': {'διαφθείρω'}, 'passive': {'διαφθαρώ'}},
+             'aorist': {'active': {'διέφθειρα'}, 'passive': {'διαφθάρηκα', 'διεφθάρη'}},
+             'paratatikos': {'active': {'διέφθειρα'}, 'passive': {'διαφθειρόμουν'}},
+             'act_pres_participle': {'διαφθείροντας'}, 'pass_pres_participle': {'διαφθειρόμενος'},
+             'passive_perfect_participle': {'διεφθαρμένος', 'διαφθαρμένος'},
+             'passive_aorist_participle': {'διαφθαρείς/διαφθαρείσα/διαφθαρέν'}, 'modal': False}
+
+        )
+
     def test_verb_katexo(self):
         self.assertDictEqual(
             verb.create_basic_forms('κατέχω'),
