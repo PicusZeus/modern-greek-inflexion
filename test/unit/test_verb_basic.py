@@ -258,6 +258,12 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_basic(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('πέμπω'),
+            {},
+            print(verb.create_basic_forms('πέμπω'))
+        )
     def test_verb_eggrafw(self):
         self.maxDiff = None
         self.assertDictEqual(

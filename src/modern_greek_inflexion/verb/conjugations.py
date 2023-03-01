@@ -262,7 +262,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE and conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL,
                                             CON2_PASS_MODAL, CON2D_ACT, CON2D_PASS] and not irregular:
-        if verb == 'κατεβάζω':
+        if verb == 'πέμπω':
             print('JJA', voice,'PASSISC', root)
         root = remove_all_diacritics(root)
         if root[-3:] == 'αιν':
@@ -313,7 +313,8 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
         elif root[-1] in ['β', 'π', 'φ', 'ψ']:
             perf_root = root[:-1] + 'φτ'
-
+            if perf_root + 'ώ' not in greek_corpus:
+                perf_root = root[:-1] + 'φθ'
         elif root[-2:] in ['ευ', 'αυ']:
             perf_root = root + 'τ'
 
