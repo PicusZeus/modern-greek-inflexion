@@ -223,7 +223,12 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'μεμφόμενος'}, 'modal': False}
 
         )
-
+    def test_verb_katalabainw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('καταλαβαίνω'),
+            {},
+            print(verb.create_basic_forms('καταλαβαίνω'))
+        )
     def test_verb_epanalambanw(self):
         self.assertDictEqual(
             verb.create_basic_forms('αναλαμβάνω'),
