@@ -180,6 +180,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
                 passive_perf_forms = []
                 for stem in passive_root.split(','):
+
                     passive_perf_form = stem + 'ώ'
 
                     if is_accented(stem):
@@ -187,14 +188,23 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
                     passive_perf_forms.append(passive_perf_form)
 
+
                 passive_perf_form = ','.join(passive_perf_forms)
             else:
                 passive_perf_form = passive_root + 'ώ'
                 # check accent
                 if is_accented(passive_root):
                     passive_perf_form = passive_root + 'ω'
+                if passive_root[-1] == 'τ':
+
+                    if passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus:
+                        passive_root = passive_root + ',' + passive_root[:-1] + 'θ'
+
+                        passive_perf_form = passive_perf_form + ',' + passive_perf_form[:-2] + 'θώ'
+
 
             conjunctive_basic_forms = '/' + passive_perf_form
+
             if pres_form[-7:] in deponens_with_active_perf_forms:
                 act_root = passive_root
                 passive_root = None
@@ -236,6 +246,11 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         if perf_root:
             conjunctive_basic_forms = '/' + passive_root + 'εί'
+
+    # if passive_root and passive_root[-1] == 'τ':
+    #     if passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus:
+    #         passive_root = passive_root + ',' + passive_root[-1:] + 'θ'
+
 
     return conjunctive_basic_forms, perf_root, act_root, passive_root
 

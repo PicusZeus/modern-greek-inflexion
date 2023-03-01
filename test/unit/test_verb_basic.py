@@ -206,6 +206,36 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_apolambano(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('απολαμβάνω'),
+            {'present': {'active': {'απολαμβάνω'}}, 'conjunctive': {'active': {'απολαύσω'}},
+             'aorist': {'active': {'απόλαυσα'}}, 'paratatikos': {'active': {'απολάμβανα'}},
+             'act_pres_participle': {'απολαμβάνοντας'}, 'modal': False}
+
+        )
+
+    def test_verb_memfomai(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('μέμφομαι'),
+            {'present': {'passive': {'μέμφομαι'}}, 'conjunctive': {'passive': {'μεμφτώ', 'μεμφθώ'}},
+             'aorist': {'passive': {'μέμφθηκα', 'μέμφτηκα'}}, 'paratatikos': {'passive': {'μεμφόμουν'}},
+             'pass_pres_participle': {'μεμφόμενος'}, 'modal': False}
+
+        )
+
+    def test_verb_epanalambanw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('αναλαμβάνω'),
+            {'present': {'active': {'αναλαμβάνω'}, 'passive': {'αναλαμβάνομαι'}},
+             'conjunctive': {'active': {'αναλάβω'}, 'passive': {'αναληφθώ'}},
+             'aorist': {'active': {'ανάλαβα', 'ανέλαβα'}, 'passive': {'ανελήφθη', 'αναλήφθηκα'}},
+             'paratatikos': {'active': {'αναλάμβανα', 'ανελάμβανα'}, 'passive': {'αναλαμβανόμουν'}},
+             'act_pres_participle': {'αναλαμβάνοντας'}, 'pass_pres_participle': {'αναλαμβανόμενος'},
+             'passive_aorist_participle': {'αναληφθείς/αναληφθείσα/αναληφθέν'}, 'modal': False}
+
+        )
+
     def test_verb_proteinw(self):
         self.assertDictEqual(
             verb.create_basic_forms('επιτίθεμαι'),
@@ -403,9 +433,10 @@ class VerbTestBasic(TestCase):
     def test_verb_anexomai(self):
         self.assertDictEqual(
             verb.create_basic_forms('ανέχομαι'),
-            {'present': {'passive': {'ανέχομαι'}}, 'conjunctive': {'passive': {'ανεχτώ'}},
-             'aorist': {'passive': {'ανέχτηκα'}}, 'paratatikos': {'passive': {'ανεχόμουν'}},
+            {'present': {'passive': {'ανέχομαι'}}, 'conjunctive': {'passive': {'ανεχτώ', 'ανεχθώ'}},
+             'aorist': {'passive': {'ανέχθηκα', 'ανέχτηκα'}}, 'paratatikos': {'passive': {'ανεχόμουν'}},
              'pass_pres_participle': {'ανεχόμενος'}, 'modal': False}
+
         )
 
     def test_verb_anago(self):

@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.519 Again bugs with thita/tau in deponens, fixed for now.
  * 0.5.518 improved handling of thita to tau mutual existence in pass roots. 
  * 0.5.517 fixed bazw, it has passive in historical times.
  * 0.5.516 added irregular root pair ftheir fthar
