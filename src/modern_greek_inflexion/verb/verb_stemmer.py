@@ -382,7 +382,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
 
                 passive_aor_forms = [put_accent_on_the_antepenultimate(passive_aor_forms)]
                 # archaic passive
-                archaic_passive_aor = passive_root + 'ην'
+                archaic_passive_aor = passive_root + 'η'
                 archaic_passive_aor = add_augment(archaic_passive_aor)
                 passive_aor_forms.extend(archaic_passive_aor)
             # filter out

@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.521 Fixed bug with aorist on hn, where basic form was given with hn not h.
  * 0.5.520 Labainw and lambanw fixed.
  * 0.5.519 Again bugs with thita/tau in deponens, fixed for now.
  * 0.5.518 improved handling of thita to tau mutual existence in pass roots. 

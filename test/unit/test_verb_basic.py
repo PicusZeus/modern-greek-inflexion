@@ -233,6 +233,7 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'καταλαβαίνοντας'}, 'modal': False}
 
         )
+
     def test_verb_katalambanw(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταλαμβάνω'),
@@ -242,6 +243,16 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'καταλάμβανα', 'κατελάμβανα'}, 'passive': {'καταλαμβανόμουν'}},
              'act_pres_participle': {'καταλαμβάνοντας'}, 'pass_pres_participle': {'καταλαμβανόμενος'},
              'passive_aorist_participle': {'καταληφθείς/καταληφθείσα/καταληφθέν'}, 'modal': False}
+
+        )
+
+    def test_verb_antilambanomai(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('αντιλαμβάνομαι'),
+            {'present': {'passive': {'αντιλαμβάνομαι'}}, 'conjunctive': {'passive': {'αντιληφθώ'}},
+             'aorist': {'passive': {'αντιλήφθηκα', 'αντελήφθη'}}, 'paratatikos': {'passive': {'αντιλαμβανόμουν'}},
+             'pass_pres_participle': {'αντιλαμβανόμενος'},
+             'passive_aorist_participle': {'αντιληφθείς/αντιληφθείσα/αντιληφθέν'}, 'modal': False}
 
         )
 
@@ -261,7 +272,7 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_basic_forms('επιτίθεμαι'),
             {'present': {'passive': {'επιτίθεμαι'}}, 'conjunctive': {'passive': {'επιτεθώ'}},
-             'aorist': {'passive': {'επιτέθηκα'}}, 'paratatikos': {'passive': {'επιτιθέμην'}},
+             'aorist': {'passive': {'επιτέθηκα', 'επετέθη'}}, 'paratatikos': {'passive': {'επιτιθέμην'}},
              'pass_pres_participle': {'επιτιθέμενος'}, 'passive_perfect_participle': {'επιτεθειμένος'},
              'passive_aorist_participle': {'επιτεθείς/επιτεθείσα/επιτεθέν'}, 'modal': False}
 
