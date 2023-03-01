@@ -262,8 +262,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE and conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL,
                                             CON2_PASS_MODAL, CON2D_ACT, CON2D_PASS] and not irregular:
-        if verb == 'πέμπω':
-            print('JJA', voice,'PASSISC', root)
+
         root = remove_all_diacritics(root)
         if root[-3:] == 'αιν':
             perf_root = root[:-3] + 'ανθ'
@@ -279,9 +278,9 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'σκ']:
             perf_root = root[:-2] + 'χτ'
 
-        elif len(root) > 5 and root[-6:] == 'δεικνυ':
-
-            perf_root = root[:-3] + 'χτ'
+        # elif len(root) > 5 and root[-6:] == 'δεικνυ':
+        #
+        #     perf_root = root[:-3] + 'χτ'
 
         elif root[-2:] in ['πτ', 'φτ']:
             perf_root = root[:-2] + 'φτ'
@@ -301,23 +300,25 @@ def create_regular_perf_root(verb, voice=ACTIVE):
             perf_root = root[:-1] + 'χτ'
             if perf_root + 'ώ' not in greek_corpus:
                 perf_root = root[:-1] + 'στ'
-                if verb == 'κατεβάζω':
-                    print('JJA', voice, 'ZCOISIISSI', perf_root + 'εί')
-                if perf_root + 'ώ' not in greek_corpus:
+
+                if perf_root + 'ώ' not in greek_corpus and root[:-1] + 'θώ' in greek_corpus:
                     perf_root = root[:-1] + 'θ'
 
         elif root[-1] in ['κ', 'χ', 'γ']:
+            if root[-2:] in ['γγ']:
+                root = root[:-1]
             perf_root = root[:-1] + 'χτ'
-            if perf_root + 'ώ' not in greek_corpus:
-                perf_root = root[:-1] + 'χτ'
+            if perf_root + 'εί' not in greek_corpus and root[:-1] + 'χθώ' in greek_corpus:
+                perf_root = root[:-1] + 'χθ'
 
         elif root[-1] in ['β', 'π', 'φ', 'ψ']:
             perf_root = root[:-1] + 'φτ'
-            if perf_root + 'ώ' not in greek_corpus:
+            if perf_root + 'ώ' not in greek_corpus and root[:-1] + 'φθώ' in greek_corpus:
                 perf_root = root[:-1] + 'φθ'
         elif root[-2:] in ['ευ', 'αυ']:
             perf_root = root + 'τ'
-
+            if perf_root + 'ώ' not in greek_corpus and root + 'θώ' in greek_corpus:
+                perf_root = root + 'θ'
         elif root[-1] in ['υ', 'ρ', 'λ', 'ι', 'μ', 'ε']:
             perf_root = root + 'ηθ'
             if perf_root + 'ώ' not in greek_corpus:

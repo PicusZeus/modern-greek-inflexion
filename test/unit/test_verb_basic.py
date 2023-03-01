@@ -170,6 +170,7 @@ class VerbTestBasic(TestCase):
         )
 
     def test_verb_dialego(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_basic_forms('διαλέγω'),
             {'present': {'active': {'διαλέγω'}, 'passive': {'διαλέγομαι'}},
@@ -177,6 +178,18 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'διάλεξα'}, 'passive': {'διαλέχτηκα', 'διαλέχθηκα'}},
              'paratatikos': {'active': {'διάλεγα'}, 'passive': {'διαλεγόμουν'}}, 'act_pres_participle': {'διαλέγοντας'},
              'pass_pres_participle': {'διαλεγόμενος'}, 'passive_perfect_participle': {'διαλεγμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_deiknuw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('δεικνύω'),
+            {'present': {'active': {'δεικνύω'}, 'passive': {'δεικνύομαι'}},
+             'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}}, 'aorist': {'active': {'έδειξα'}},
+             'paratatikos': {'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'},
+             'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'},
+             'active_aorist_participle': {'δείξας/δείξασα/δείξαν'},
+             'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False}
 
         )
 
@@ -190,6 +203,16 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'ελέγχων/ελέγχουσα/ελέγχον'}, 'pass_pres_participle': {'ελεγχόμενος'},
              'passive_perfect_participle': {'ελεγμένος'},
              'modal': False}
+
+        )
+
+    def test_verb_proteinw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('επιτίθεμαι'),
+            {'present': {'passive': {'επιτίθεμαι'}}, 'conjunctive': {'passive': {'επιτεθώ'}},
+             'aorist': {'passive': {'επιτέθηκα'}}, 'paratatikos': {'passive': {'επιτιθέμην'}},
+             'pass_pres_participle': {'επιτιθέμενος'}, 'passive_perfect_participle': {'επιτεθειμένος'},
+             'passive_aorist_participle': {'επιτεθείς/επιτεθείσα/επιτεθέν'}, 'modal': False}
 
         )
 
@@ -258,12 +281,28 @@ class VerbTestBasic(TestCase):
 
         )
 
-    def test_verb_basic(self):
+    def test_verb_pempw(self):
         self.assertDictEqual(
             verb.create_basic_forms('πέμπω'),
-            {},
-            print(verb.create_basic_forms('πέμπω'))
+            {'present': {'active': {'πέμπω'}, 'passive': {'πέμπομαι'}},
+             'conjunctive': {'active': {'πέμψω'}, 'passive': {'πεμφθώ'}},
+             'aorist': {'active': {'έπεμψα'}, 'passive': {'πέμφθηκα'}},
+             'paratatikos': {'active': {'έπεμπα'}, 'passive': {'πεμπόμουν'}}, 'act_pres_participle': {'πέμποντας'},
+             'modal': False}
+
         )
+
+    def test_verb_sfinggw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('σφίγγω'),
+            {'present': {'active': {'σφίγγω'}, 'passive': {'σφίγγομαι'}},
+             'conjunctive': {'active': {'σφίξω'}, 'passive': {'σφιχτώ'}},
+             'aorist': {'active': {'έσφιξα'}, 'passive': {'σφίχτηκα'}},
+             'paratatikos': {'active': {'έσφιγγα'}, 'passive': {'σφιγγόμουν'}}, 'act_pres_participle': {'σφίγγοντας'},
+             'passive_perfect_participle': {'σφιγμένος'}, 'modal': False}
+
+        )
+
     def test_verb_eggrafw(self):
         self.maxDiff = None
         self.assertDictEqual(
