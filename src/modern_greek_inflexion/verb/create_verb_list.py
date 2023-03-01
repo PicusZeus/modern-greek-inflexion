@@ -2,9 +2,10 @@ from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_f
     create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, \
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
     create_passive_aorist_participle
-from ..resources import greek_corpus
+from ..resources import greek_corpus, irregular_passive_roots
 from ..resources import ACTIVE, PASSIVE, DEPONENS, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
 from ..exceptions import NotLegalVerbException, NotInGreekException
+
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
@@ -65,6 +66,11 @@ def create_all_basic_forms(pres_form):
                                                                                             intransitive_active=intransitive_active,
                                                                                             modal_act=modal_act,
                                                                                             modal_med=modal_med)
+
+
+
+    if pres_form[:-1] in sum(irregular_passive_roots, []):
+        intransitive_active = False
 
     pres_act = pres_pass = None
     try:

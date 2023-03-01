@@ -206,6 +206,27 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_vazo(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('βάζω'),
+            {'present': {'active': {'βάζω'}}, 'conjunctive': {'active': {'βάλω'}, 'passive': {'βαλθώ'}},
+             'aorist': {'active': {'έβαλα'}, 'passive': {'βάλθηκα'}}, 'paratatikos': {'active': {'έβαζα'}},
+             'act_pres_participle': {'βάζοντας'}, 'passive_perfect_participle': {'βαλμένος'},
+             'active_aorist_participle': {'βαλών/βαλούσα/βαλόν'}, 'modal': False}
+
+        )
+
+    def test_verb_ανebazw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ανεβάζω'),
+            {'present': {'active': {'ανεβάζω'}, 'passive': {'ανεβάζομαι'}},
+             'conjunctive': {'active': {'ανεβάσω'}, 'passive': {'ανεβαστώ'}},
+             'aorist': {'active': {'ανέβασα'}, 'passive': {'ανεβάστηκα'}},
+             'paratatikos': {'active': {'ανέβαζα'}, 'passive': {'ανεβαζόμουν'}}, 'act_pres_participle': {'ανεβάζοντας'},
+             'passive_perfect_participle': {'ανεβασμένος'}, 'modal': False}
+
+        )
+
     def test_verb_katexo(self):
         self.assertDictEqual(
             verb.create_basic_forms('κατέχω'),
@@ -231,8 +252,10 @@ class VerbTestBasic(TestCase):
     def test_verb_spaw(self):
         self.assertDictEqual(
             verb.create_basic_forms('σπάω'),
-            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}}, 'aorist': {'active': {'έσπασα'}},
+            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}, 'passive': {'σπαστώ', 'σπασθώ'}},
+             'aorist': {'active': {'έσπασα'}, 'passive': {'σπάσθηκα', 'σπάστηκα'}},
              'paratatikos': {'active': {'έσπαγα'}}, 'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
+
         )
 
     def test_verb_eggrafw(self):

@@ -46,6 +46,8 @@ def create_regular_perf_root(verb, voice=ACTIVE):
     perf_root = None
     irregular = False
 
+
+
     multiple_stems = None
     if verb[-1] in ['ω', 'ώ'] or verb[-2:] in ['ει', 'εί'] or verb[-5:] == 'είμαι':
         res = recognize_active_non_past_conjugation(verb)
@@ -102,6 +104,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE:
         for pair in irregular_passive_roots:
+
 
             if ',' in pair[1]:
                 # that is if many stems
@@ -259,7 +262,8 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE and conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL,
                                             CON2_PASS_MODAL, CON2D_ACT, CON2D_PASS] and not irregular:
-
+        if verb == 'κατεβάζω':
+            print('JJA', voice,'PASSISC', root)
         root = remove_all_diacritics(root)
         if root[-3:] == 'αιν':
             perf_root = root[:-3] + 'ανθ'
@@ -293,9 +297,12 @@ def create_regular_perf_root(verb, voice=ACTIVE):
             perf_root = root[:-1] + 'στ'
 
         elif root[-1] == 'ζ':
+
             perf_root = root[:-1] + 'χτ'
             if perf_root + 'ώ' not in greek_corpus:
                 perf_root = root[:-1] + 'στ'
+                if verb == 'κατεβάζω':
+                    print('JJA', voice, 'ZCOISIISSI', perf_root + 'εί')
                 if perf_root + 'ώ' not in greek_corpus:
                     perf_root = root[:-1] + 'θ'
 

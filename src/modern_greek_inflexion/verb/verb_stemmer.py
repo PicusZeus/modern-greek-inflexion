@@ -8,7 +8,7 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
     create_regular_perf_root
 
 from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists, \
-    irregular_passive_aorists, deponens_with_active_perf_forms, irregular_active_paratatikos
+    irregular_passive_aorists, deponens_with_active_perf_forms, irregular_active_paratatikos, irregular_passive_roots
 from ..resources import EIMAI, CON1_PASS, CON2AB_PASS, CON2A_PASS, CON2C_PASS, CON2B_PASS, CON1_ACT, \
     CON1_ACT_MODAL, CON2_ACT_MODAL, CON2C_ACT, CON2B_ACT, CON2A_ACT, CON2D_ACT, ROOT, CONJUGATION_IND, PASSIVE, \
     CON2D_PASS, CON2E_PASS
@@ -119,8 +119,12 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         act_root = create_regular_perf_root(pres_form)
 
+
         if not intransitive_active:
             passive_root = create_regular_perf_root(pres_form, voice="passive")
+
+
+
         if act_root:
 
             if ',' in act_root:
@@ -146,7 +150,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         if not intransitive_active:
 
-            if passive_root:
+            if passive_root or pres_form in irregular_passive_roots:
 
                 if ',' in passive_root:
                     passive_perf_forms = []
