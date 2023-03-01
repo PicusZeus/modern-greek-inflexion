@@ -223,12 +223,28 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'μεμφόμενος'}, 'modal': False}
 
         )
+
     def test_verb_katalabainw(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταλαβαίνω'),
-            {},
-            print(verb.create_basic_forms('καταλαβαίνω'))
+            {'present': {'active': {'καταλαβαίνω'}, 'passive': {'καταλαβαίνομαι'}},
+             'conjunctive': {'active': {'καταλάβω'}}, 'aorist': {'active': {'κατάλαβα'}},
+             'paratatikos': {'active': {'καταλάβαινα'}, 'passive': {'καταλαβαινόμουν'}},
+             'act_pres_participle': {'καταλαβαίνοντας'}, 'modal': False}
+
         )
+    def test_verb_katalambanw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('καταλαμβάνω'),
+            {'present': {'active': {'καταλαμβάνω'}, 'passive': {'καταλαμβάνομαι'}},
+             'conjunctive': {'active': {'καταλάβω'}, 'passive': {'καταληφθώ'}},
+             'aorist': {'active': {'κατέλαβα'}, 'passive': {'καταλήφθηκα', 'κατελήφθη'}},
+             'paratatikos': {'active': {'καταλάμβανα', 'κατελάμβανα'}, 'passive': {'καταλαμβανόμουν'}},
+             'act_pres_participle': {'καταλαμβάνοντας'}, 'pass_pres_participle': {'καταλαμβανόμενος'},
+             'passive_aorist_participle': {'καταληφθείς/καταληφθείσα/καταληφθέν'}, 'modal': False}
+
+        )
+
     def test_verb_epanalambanw(self):
         self.assertDictEqual(
             verb.create_basic_forms('αναλαμβάνω'),
