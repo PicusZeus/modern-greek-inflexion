@@ -256,6 +256,40 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_symponw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('συμπονώ'),
+            {'present': {'active': {'συμπονώ'}, 'passive': {'συμπονούμαι', 'συμπονιέμαι'}},
+             'conjunctive': {'active': {'συμπονέσω'}, 'passive': {'συμπονηθώ'}},
+             'aorist': {'active': {'συμπόνεσα'}, 'passive': {'συμπονήθηκα'}},
+             'paratatikos': {'active': {'συμπόναγα', 'συμπονούσα'}}, 'act_pres_participle': {'συμπονώντας'},
+             'passive_aorist_participle': {'συμπονηθείς/συμπονηθείσα/συμπονηθέν'}, 'modal': False})
+
+    def test_verb_synkrinw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('συγκρίνω'),
+            {'present': {'active': {'συγκρίνω'}, 'passive': {'συγκρίνομαι'}},
+             'conjunctive': {'active': {'συγκρίνω'}, 'passive': {'συγκριθώ'}},
+             'aorist': {'active': {'συνέκρινα'}, 'passive': {'συγκρίθηκα'}},
+             'paratatikos': {'active': {'συνέκρινα'}, 'passive': {'συγκρινόμουν'}},
+             'act_pres_participle': {'συγκρίνοντας'}, 'pass_pres_participle': {'συγκρινόμενος'},
+             'passive_perfect_participle': {'συγκριμένος', 'συγκεκριμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_syntribw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('συντρίβω'),
+            {'present': {'active': {'συντρίβω'}, 'passive': {'συντρίβομαι'}},
+             'conjunctive': {'active': {'συντρίψω'}, 'passive': {'συντριφτώ', 'συντριβώ'}},
+             'aorist': {'active': {'συνέτριψα'}, 'passive': {'συνετρίβη', 'συντρίφτηκα'}},
+             'paratatikos': {'active': {'συνέτριβα'}, 'passive': {'συντριβόμουν'}},
+             'act_pres_participle': {'συντρίβοντας'}, 'passive_perfect_participle': {'συντετριμμένος', 'συντριμμένος'},
+             'modal': False},
+
+
+        )
+
     def test_verb_epanalambanw(self):
         self.assertDictEqual(
             verb.create_basic_forms('αναλαμβάνω'),

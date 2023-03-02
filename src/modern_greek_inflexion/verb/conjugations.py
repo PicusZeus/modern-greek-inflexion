@@ -81,6 +81,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
                 for stem in pair[1].split(','):
 
                     if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+
                         beta_perf_root = root[:-len(pair[0])] + stem
 
                         if (beta_perf_root + 'ω' in greek_corpus) or (
@@ -93,11 +94,13 @@ def create_regular_perf_root(verb, voice=ACTIVE):
                     irregular = True
                     multiple_stems = True
                     break
-
             if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+
                 beta_perf_root = root[:-len(pair[0])] + pair[1]
+
                 if (beta_perf_root + 'ω' in greek_corpus) or (
                         beta_perf_root + 'ώ' in greek_corpus):
+
                     perf_root = beta_perf_root
                     irregular = True
                     break
