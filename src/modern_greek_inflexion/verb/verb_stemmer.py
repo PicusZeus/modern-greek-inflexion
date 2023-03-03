@@ -259,6 +259,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
 def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False, not_deponens=True,
                               intransitive_active=False, modal_act=False, modal_med=False):
+
     aorist_basic_forms = None
     active_aor_forms, passive_aor_forms = [], []
 
@@ -304,10 +305,15 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
                 active_aor_forms.extend(archaic_aor_form)
 
             # filter_out
-            active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
+            active_aor_forms = [f for f in active_aor_forms if (f in greek_corpus or f[:-1] + 'ες' in greek_corpus)]
             if not active_aor_forms and pres_form[-3:] == 'άρω':
                 # common argo and english loans
                 active_aor_forms.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'α'))
+            if 'ρίσ' in act_root and pres_form[-3:] == 'άρω':
+                # common argo and english loans
+                active_aor_forms.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'α'))
+
+
 
             # there are at least two instances where this algorithm can be confused by irregular imperative forms
             irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα', 'τρέχα', 'φεύγα')

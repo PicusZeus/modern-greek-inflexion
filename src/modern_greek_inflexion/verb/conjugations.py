@@ -189,6 +189,14 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         elif root[-1] in ['ρ', 'λ', 'μ', 'ψ', 'σ']:
             perf_root = root
 
+            if root[-2:] == 'άρ':
+                # arisw
+                if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus:
+                    perf_root = perf_root + ',' + put_accent_on_the_ultimate(root + 'ισ')
+                    multiple_stems = True
+
+
+
         elif root in ['επέστη']:
             # ancient form
             perf_root = root
@@ -323,15 +331,19 @@ def create_regular_perf_root(verb, voice=ACTIVE):
             if perf_root + 'ώ' not in greek_corpus and root + 'θώ' in greek_corpus:
                 perf_root = root + 'θ'
         elif root[-1] in ['υ', 'ρ', 'λ', 'ι', 'μ', 'ε']:
-            perf_root = root + 'ηθ'
-            if perf_root + 'ώ' not in greek_corpus:
+            if root + 'ηθώ' in greek_corpus:
+                perf_root = root + 'ηθ'
+            if root + 'ώ' in greek_corpus:
                 perf_root = root + 'θ'
+            if root[-2:] == 'αρ':
+                if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus:
+                    perf_root = root + 'ιστ'
 
         if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'
         if perf_root:
             perf_root = remove_all_diacritics(perf_root)
-        if perf_root[-2:] == "χτ":
+        if perf_root and perf_root[-2:] == "χτ":
             if perf_root + 'εί' not in greek_corpus and perf_root[:-1] + 'θεί' in greek_corpus:
                 perf_root = perf_root[:-1] + 'Θ'
 

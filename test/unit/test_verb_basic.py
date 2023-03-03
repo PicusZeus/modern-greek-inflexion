@@ -301,6 +301,17 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_sokaro(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('σοκάρω'),
+            {'present': {'active': {'σοκάρω'}, 'passive': {'σοκάρομαι'}},
+             'conjunctive': {'active': {'σοκάρω', 'σοκαρίσω'}, 'passive': {'σοκαρισθώ', 'σοκαριστώ'}},
+             'aorist': {'active': {'σοκάρισα', 'σόκαρα'}, 'passive': {'σοκαρίσθηκα', 'σοκαρίστηκα'}},
+             'paratatikos': {'active': {'σόκαρα'}, 'passive': {'σοκαρόμουν'}}, 'act_pres_participle': {'σοκάροντας'},
+             'passive_perfect_participle': {'σοκαρισμένος'}, 'modal': False}
+
+        )
+
     def test_verb_epanalambanw(self):
         self.assertDictEqual(
             verb.create_basic_forms('αναλαμβάνω'),
