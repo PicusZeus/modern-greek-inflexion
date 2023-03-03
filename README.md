@@ -27,6 +27,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.527 Added logic to create imperative forms on ete for roots on r, n, if there is no form with te.
  * 0.5.526 Fixed bug when logic for t/th alternation was applied to different verbs
  * 0.5.525 Some addition to irregular roots
  * 0.5.521 Fixed bug with aorist on hn, where basic form was given with hn not h.

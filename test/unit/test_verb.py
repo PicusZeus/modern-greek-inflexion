@@ -707,8 +707,16 @@ class VerbTestAll(TestCase):
              'paratatikos': {'active': {'ind': {'sg': {'ter': {'συνέβαινε'}}}}}}
         )
 
-    def test_verb_parkaro(self):
+    def test_verb_xairw_imper(self):
         self.assertDictEqual(
+            verb.create_all_forms('χαίρω')['conjunctive']['active']['imp'],
+            {'sg': {'sec': {'χαίρε'}}, 'pl': {'sec': {'χαίρετε'}}}
+
+        )
+    def test_verb_parkaro(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+
             verb.create_all_forms('παρκάρω'),
             {'present': {'active': {'ind': {'sg': {'pri': {'παρκάρω'}, 'sec': {'παρκάρεις'}, 'ter': {'παρκάρει'}},
                                             'pl': {'pri': {'παρκάρουμε'}, 'sec': {'παρκάρετε'},
@@ -722,7 +730,7 @@ class VerbTestAll(TestCase):
              'conjunctive': {'active': {'ind': {'sg': {'pri': {'παρκάρω'}, 'sec': {'παρκάρεις'}, 'ter': {'παρκάρει'}},
                                                 'pl': {'pri': {'παρκάρουμε'}, 'sec': {'παρκάρετε'},
                                                        'ter': {'παρκάρουν', 'παρκάρουνε'}}},
-                                        'imp': {'sg': {'sec': {'πάρκαρε'}}, 'pl': {'sec': {'παρκάρτε'}}}}},
+                                        'imp': {'sg': {'sec': {'πάρκαρε'}}, 'pl': {'sec': {'παρκάρετε'}}}}},
              'aorist': {'active': {'ind': {'sg': {'pri': {'πάρκαρα'}, 'sec': {'πάρκαρες'}, 'ter': {'πάρκαρε'}},
                                            'pl': {'pri': {'παρκάραμε'}, 'sec': {'παρκάρατε'},
                                                   'ter': {'παρκάρανε', 'πάρκαραν'}}}}},

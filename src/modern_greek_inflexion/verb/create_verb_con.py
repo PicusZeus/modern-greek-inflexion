@@ -130,6 +130,12 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
 
     elif conjugation_name in [IMPER_ACT_CONT_1, IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B]:
         forms[SG][SEC][0] = put_accent_on_the_antepenultimate(forms[SG][SEC][0], true_syllabification=False)
+        if conjugation_name == IMPER_ACT_AOR_A:
+            sec_pl = forms[PL][SEC][0]
+            if sec_pl[-3:] not in ['στε', 'ψτε', 'ξτε']:
+                if sec_pl not in greek_corpus:
+                    forms[PL][SEC][0] = sec_pl[:-2] + 'ετε'
+
 
     elif conjugation_name in [IMPER_PASS_AOR_A]:
         if active_root and active_root[0][-1] in ['σ', 'ψ', 'ξ']:
