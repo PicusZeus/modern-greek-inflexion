@@ -11,7 +11,7 @@ from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MOD
     AOR_ACT, PRESENT_PASSIVE_PART_2B, PRESENT_ACTIVE_PART_2C, PRESENT_PASSIVE_PART_2E, PRESENT_PASSIVE_PART_1, \
     PRESENT_PASSIVE_PART_2A, PRESENT_PASSIVE_PART_2D, PRESENT_PASSIVE_PART_2AB, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
     IMPER_ACT_CONT_2C, IMPER_PASS_CONT_2C, IMPER_ACT_AOR_A, IMPER_PASS_CONT_2A, IMPER_ACT_CONT_2D, IMPER_PASS_CONT_2B, \
-    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D, ROOT
+    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D, ROOT, ARCH_SEC_AOR
 
 
 def create_imp_pass(perf_pass_root):
@@ -593,6 +593,9 @@ def recognize_past_conjugation(verb, lemma, aspect=IMPERF, voice=ACTIVE):
 
     elif verb[-1] in ['ν', 'η']:
         conjugation_ind = ARCH_PASS_AOR
+        if verb[-2:] == 'ον':
+            conjugation_ind = ARCH_SEC_AOR
+            root = verb[:-2]
 
     elif verb[-1] != 'α':
         conjugation_ind = MODAL

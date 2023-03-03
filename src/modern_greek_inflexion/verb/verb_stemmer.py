@@ -125,6 +125,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
 
 
+
         if act_root:
 
             if ',' in act_root:
@@ -160,12 +161,13 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     passive_perf_form = ','.join(passive_perf_forms)
                 else:
                     passive_perf_form = passive_root + 'ώ'
+
                     if passive_root[-1] == 'τ' and (
                             passive_root + 'ώ' in greek_corpus or passive_root + 'εί') \
                             and (passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus):
                         passive_perf_form = passive_perf_form + ',' + passive_root[:-1] + 'θώ'
                         passive_root = passive_root + ',' + passive_root[:-1] + 'θ'
-                    elif passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus:
+                    elif passive_root[-1] == 'τ' and (passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus):
                         passive_perf_form = passive_root[:-1] + 'θώ'
                         passive_root = passive_root[:-1] + 'θ'
 

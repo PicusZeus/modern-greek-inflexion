@@ -287,6 +287,17 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'συντρίβοντας'}, 'passive_perfect_participle': {'συντετριμμένος', 'συντριμμένος'},
              'modal': False},
 
+        )
+
+    def test_verb_xairw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('χαίρω'),
+            {'present': {'active': {'χαίρω'}, 'passive': {'χαίρομαι'}},
+             'conjunctive': {'active': {'χαίρω'}, 'passive': {'χαρώ'}},
+             'aorist': {'active': {'έχαιρα'}, 'passive': {'χάρηκα'}},
+             'paratatikos': {'active': {'έχαιρα'}, 'passive': {'χαιρόμουν'}}, 'act_pres_participle': {'χαίροντας'},
+             'arch_act_pres_participle': {'χαίρων/χαίρουσα/χαίρον'}, 'pass_pres_participle': {'χαρούμενος'},
+             'modal': False}
 
         )
 
