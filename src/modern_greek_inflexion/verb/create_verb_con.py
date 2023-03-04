@@ -138,11 +138,13 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
 
 
     elif conjugation_name in [IMPER_PASS_AOR_A]:
-        if active_root and active_root[0][-1] in ['σ', 'ψ', 'ξ']:
-            forms[SG][SEC] = [x + "ου" for x in active_root]
+        if active_root and [ar for ar in active_root if ar[-1] in ['σ', 'ψ', 'ξ']]:
+            forms[SG][SEC] = [x + "ου" for x in active_root if x[-1] in ['σ', 'ψ', 'ξ']]
         else:
             passive_aorist_recreated = create_imp_pass(root)
             forms[SG][SEC][0] = passive_aorist_recreated
+
+
 
     elif conjugation_name in [IMPER_ACT_CONT_2A]:
         forms[SG][SEC][0] = put_accent_on_the_penultimate(forms[SG][SEC][0])

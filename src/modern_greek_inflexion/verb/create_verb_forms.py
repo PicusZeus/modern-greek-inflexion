@@ -161,6 +161,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
                 con_imp = con[CONJUGATION_IMP]
                 forms_imp = create_all_pers_forms(con_imp, root, active_root=active_root_for_imp)
 
+
         else:
             raise ValueError
 

@@ -65,6 +65,7 @@ def create_all_forms(verb):
 
             con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[PASSIVE], PASSIVE,
                                                                         active_root_for_imp=active_roots)
+
             if basic_forms[MODAL]:
                 del con_passive_forms[IMP]
             conjunctive[PASSIVE] = con_passive_forms

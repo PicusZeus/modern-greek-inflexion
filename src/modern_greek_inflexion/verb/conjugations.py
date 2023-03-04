@@ -191,7 +191,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
             if root[-2:] == 'άρ':
                 # arisw
-                if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus:
+                if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus or put_accent_on_the_antepenultimate(root + 'ισε'):
                     perf_root = perf_root + ',' + put_accent_on_the_ultimate(root + 'ισ')
                     multiple_stems = True
 
@@ -274,6 +274,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
     if voice == PASSIVE and conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL,
                                             CON2_PASS_MODAL, CON2D_ACT, CON2D_PASS] and not irregular:
 
+        perf_root = None
         root = remove_all_diacritics(root)
         if root[-3:] == 'αιν':
             perf_root = root[:-3] + 'ανθ'
@@ -334,10 +335,11 @@ def create_regular_perf_root(verb, voice=ACTIVE):
             if root + 'ηθώ' in greek_corpus:
                 perf_root = root + 'ηθ'
             if root + 'ώ' in greek_corpus:
-                perf_root = root + 'θ'
+                perf_root = root
             if root[-2:] == 'αρ':
-                if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus:
+                if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus or root + 'ισμένος':
                     perf_root = root + 'ιστ'
+
 
         if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'

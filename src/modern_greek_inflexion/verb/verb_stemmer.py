@@ -309,6 +309,9 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             if not active_aor_forms and pres_form[-3:] == 'άρω':
                 # common argo and english loans
                 active_aor_forms.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'α'))
+                if 'ρίσ' in act_root:
+                    active_aor_forms.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'ισα'))
+
             if 'ρίσ' in act_root and pres_form[-3:] == 'άρω':
                 # common argo and english loans
                 active_aor_forms.append(put_accent_on_the_antepenultimate(pres_form[:-1] + 'α'))
@@ -327,6 +330,7 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
         if passive_root or passive_aor_forms:
 
             if passive_root and ',' in passive_root:
+
 
                 for stem in passive_root.split(','):
                     pass_aor_form = stem + 'ηκα'
@@ -349,7 +353,9 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
 
                 # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in corpus
                 archaic_passive_aor = passive_root + 'η'
+
                 archaic_passive_aor = add_augment(archaic_passive_aor)
+
                 passive_aor_forms.extend(archaic_passive_aor)
 
                 if 'ποιηθ' in passive_root:
@@ -358,6 +364,8 @@ def create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=False,
             # filter out
 
             passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus]
+            if not passive_aor_forms and passive_root:
+                passive_aor_forms.append(put_accent_on_the_antepenultimate(passive_root+'ηκα'))
 
         # if active_aor_forms:
         active_aor_forms = list(set(active_aor_forms))

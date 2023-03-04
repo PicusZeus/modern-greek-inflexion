@@ -185,11 +185,23 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_basic_forms('δεικνύω'),
             {'present': {'active': {'δεικνύω'}, 'passive': {'δεικνύομαι'}},
-             'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}}, 'aorist': {'active': {'έδειξα'}},
+             'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}},
+             'aorist': {'active': {'έδειξα'}, 'passive': {'δείχθηκα'}},
              'paratatikos': {'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'},
              'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'},
              'active_aorist_participle': {'δείξας/δείξασα/δείξαν'},
-             'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False}
+             'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False},
+
+        )
+
+    def test_verb_ago(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('άγω'),
+            {'present': {'active': {'άγω'}, 'passive': {'άγομαι'}},
+             'conjunctive': {'active': {'αγάγω'}, 'passive': {'αχθώ'}},
+             'aorist': {'active': {'ήγαγα'}, 'passive': {'ήχθη'}}, 'paratatikos': {'active': {'ήγα'}, 'passive': {'αγόμουν'}},
+             'act_pres_participle': {'άγοντας'}, 'arch_act_pres_participle': {'άγων/άγουσα/άγον'},
+             'pass_pres_participle': {'αγόμενος'}, 'modal': False}
 
         )
 
@@ -301,6 +313,17 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_parkaro(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('παρκάρω'),
+            {'present': {'active': {'παρκάρω'}, 'passive': {'παρκάρομαι'}},
+             'conjunctive': {'active': {'παρκαρίσω', 'παρκάρω'}, 'passive': {'παρκαριστώ'}},
+             'aorist': {'active': {'πάρκαρα', 'παρκάρισα'}, 'passive': {'παρκαρίστηκα'}},
+             'paratatikos': {'active': {'πάρκαρα'}, 'passive': {'παρκαρόμουν'}}, 'act_pres_participle': {'παρκάροντας'},
+             'passive_perfect_participle': {'παρκαρισμένος'}, 'modal': False}
+
+        )
+
     def test_verb_sokaro(self):
         self.assertDictEqual(
             verb.create_basic_forms('σοκάρω'),
@@ -382,11 +405,8 @@ class VerbTestBasic(TestCase):
     def test_verb_krossaro(self):
         self.assertDictEqual(
             verb.create_basic_forms('κροσσάρω'),
-            {'aorist': {'active': {'κρόσσαρα'}},
-             'conjunctive': {'active': {'κροσσάρω'}},
-             'modal': False,
-             'paratatikos': {'active': {'κρόσσαρα'}},
-             'present': {'active': {'κροσσάρω'}}}
+            {'present': {'active': {'κροσσάρω'}}, 'conjunctive': {'active': {'κροσσαρίσω', 'κροσσάρω'}},
+             'aorist': {'active': {'κρόσσαρα', 'κροσσάρισα'}}, 'paratatikos': {'active': {'κρόσσαρα'}}, 'modal': False}
 
         )
 
