@@ -3,7 +3,9 @@
 
 # Modern-greek-inflexion
 
-Python 3 library for recognizing inflexion types and for creating all possible inflected forms for Modern Greek words.
+Python 3 library for recognizing inflexion types and for creating all possible inflected forms for Modern Greek words (verbs, adjectives, nouns etc.).
+It has nothing to do with AI. To avoid creating non-existent (though maybe possible forms) it checks its results with a orthographic
+dictionary. The application is implemented in a web app you can find [here](https://ellinika.com.pl).
 
 ## Installation
 
@@ -27,6 +29,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.533 Added irregular passive roots (klept-klap, fer-ferth)
  * 0.5.532 Improved handling of verbs on aro (aor iso), also ago is created correctly.
  * 0.5.530 Added handling for loan verbs on aro to add a common perf root on risw.
  * 0.5.527 Added logic to create imperative forms on ete for roots on r, n, if there is no form with te.
