@@ -194,12 +194,47 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_nemw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('νέμω'),
+            {'present': {'active': {'νέμω'}, 'passive': {'νέμομαι'}},
+             'conjunctive': {'active': {'νείμω'}, 'passive': {'νεμηθώ'}},
+             'aorist': {'active': {'ένειμα'}, 'passive': {'νεμήθηκα'}},
+             'paratatikos': {'active': {'ένεμα'}, 'passive': {'νεμόμουν'}}, 'act_pres_participle': {'νέμοντας'},
+             'passive_perfect_participle': {'νεμημένος'}, 'passive_aorist_participle': {'νεμηθείς/νεμηθείσα/νεμηθέν'},
+             'modal': False}
+
+        )
+
+    def test_verb_kleptw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('κλέπτω'),
+            {'present': {'active': {'κλέπτω'}, 'passive': {'κλέπτομαι'}},
+             'conjunctive': {'active': {'κλέψω'}, 'passive': {'κλαπώ', 'κλεφτώ'}},
+             'aorist': {'active': {'έκλεψα'}, 'passive': {'κλέφτηκα', 'κλάπηκα', 'εκλάπη'}},
+             'paratatikos': {'passive': {'κλεπτόμουν'}}, 'act_pres_participle': {'κλέπτοντας'},
+             'passive_perfect_participle': {'κλεμμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_proferw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('προφέρω'),
+            {'present': {'active': {'προφέρω'}, 'passive': {'προφέρομαι'}},
+             'conjunctive': {'active': {'προφέρω'}, 'passive': {'προφερθώ'}},
+             'aorist': {'active': {'πρόφερα'}, 'passive': {'προφέρθηκα'}},
+             'paratatikos': {'active': {'πρόφερα'}, 'passive': {'προφερόμουν'}}, 'act_pres_participle': {'προφέροντας'},
+             'passive_perfect_participle': {'προφερμένος'}, 'modal': False}
+
+        )
+
     def test_verb_ago(self):
         self.assertDictEqual(
             verb.create_basic_forms('άγω'),
             {'present': {'active': {'άγω'}, 'passive': {'άγομαι'}},
              'conjunctive': {'active': {'αγάγω'}, 'passive': {'αχθώ'}},
-             'aorist': {'active': {'ήγαγα'}, 'passive': {'ήχθη'}}, 'paratatikos': {'active': {'ήγα'}, 'passive': {'αγόμουν'}},
+             'aorist': {'active': {'ήγαγα'}, 'passive': {'ήχθη'}},
+             'paratatikos': {'active': {'ήγα'}, 'passive': {'αγόμουν'}},
              'act_pres_participle': {'άγοντας'}, 'arch_act_pres_participle': {'άγων/άγουσα/άγον'},
              'pass_pres_participle': {'αγόμενος'}, 'modal': False}
 
