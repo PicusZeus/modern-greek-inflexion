@@ -720,7 +720,7 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
             if root[-3:] == 'ποι':
                 reg_passive_perfect_participles = [root + 'ημένος']
 
-    elif act_root:
+    if not reg_passive_perfect_participles and act_root:
 
         if act_root[-2:] in ['ύσ', 'άσ', 'ίσ']:
             passive_perfect_participle = put_accent_on_the_penultimate(act_root + 'μενος')

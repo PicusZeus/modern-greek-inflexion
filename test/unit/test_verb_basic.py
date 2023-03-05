@@ -190,6 +190,8 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'},
              'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'},
              'active_aorist_participle': {'δείξας/δείξασα/δείξαν'},
+             'passive_perfect_participle': {'δειγμένος'},
+
              'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False},
 
         )
@@ -225,6 +227,17 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'πρόφερα'}, 'passive': {'προφέρθηκα'}},
              'paratatikos': {'active': {'πρόφερα'}, 'passive': {'προφερόμουν'}}, 'act_pres_participle': {'προφέροντας'},
              'passive_perfect_participle': {'προφερμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_sthnw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('στήνω'),
+            {'present': {'active': {'στήνω'}, 'passive': {'στήνομαι'}},
+             'conjunctive': {'active': {'στήσω'}, 'passive': {'σταθώ'}},
+             'aorist': {'active': {'έστησα'}, 'passive': {'στάθηκα'}},
+             'paratatikos': {'active': {'έστηνα'}, 'passive': {'στηνόμουν'}}, 'act_pres_participle': {'στήνοντας'},
+             'passive_perfect_participle': {'στημένος'}, 'modal': False}
 
         )
 
