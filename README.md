@@ -29,6 +29,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.539 Added prefix antikata, improved inflexion on w, ois, oi
  * 0.5.537 Improved handling for isthmi
  * 0.5.535 If cannot create past pass part from pass root, try do it from act root (sthnw).
  * 0.5.533 Added irregular passive roots (klept-klap, fer-ferth)

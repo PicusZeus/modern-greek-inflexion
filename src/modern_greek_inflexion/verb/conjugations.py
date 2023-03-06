@@ -11,7 +11,8 @@ from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MOD
     AOR_ACT, PRESENT_PASSIVE_PART_2B, PRESENT_ACTIVE_PART_2C, PRESENT_PASSIVE_PART_2E, PRESENT_PASSIVE_PART_1, \
     PRESENT_PASSIVE_PART_2A, PRESENT_PASSIVE_PART_2D, PRESENT_PASSIVE_PART_2AB, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
     IMPER_ACT_CONT_2C, IMPER_PASS_CONT_2C, IMPER_ACT_AOR_A, IMPER_PASS_CONT_2A, IMPER_ACT_CONT_2D, IMPER_PASS_CONT_2B, \
-    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D, ROOT, ARCH_SEC_AOR
+    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D, ROOT, ARCH_SEC_AOR, \
+    CON2SA_PASS, IMPER_PASS_CONT_2SA
 
 
 def create_imp_pass(perf_pass_root):
@@ -542,6 +543,11 @@ def recognize_passive_present_continuous_conjugation(verb):
         conjugation_ind = CON2B_PASS
         conjugation_imp = IMPER_PASS_CONT_2B
         conjugation_part = PRESENT_PASSIVE_PART_2B
+        con_act = recognize_active_non_past_conjugation(verb[:-5] + 'ώ')
+        if con_act['conjugation_ind'] == CON2D_ACT:
+            conjugation_ind = CON2SA_PASS
+            conjugation_imp = IMPER_PASS_CONT_2SA
+
 
     elif verb[-4:] == 'άμαι':
         root = verb[:-4]

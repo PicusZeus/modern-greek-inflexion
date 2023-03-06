@@ -488,7 +488,7 @@ irregular_passive_roots = \
      ['νιστ', 'σταθ,ναστ'], ['ελαύν', 'ελαθ'], ['ιστάν', 'ασταθ'], ['δεικνύ', 'δειχθ'], ['δείκνυ', 'δειχθ'],
      ['μειγνύ', 'μειχθ'], ['γιγνώσκ', 'γνωσθ'], ['πηγνύ', 'παγ'], ['ενδείκνυ', 'ενδειχθ'], ['ευρίσκ', 'ευρεθ'],
      ['τρώ', 'φαγωθ'], ['τρώγ', 'φαγωθ'], ['σπά', 'σπαστ'], ['φυλ', 'φυλαχτ'], ['άγ', 'αχθ'], ['φθείρ', 'φθαρ'],
-     ['φθείρ', 'φθαρθ'], ['πλήττ', 'πλαγ,πληγ'], ['πλήσσ', 'πλαγ,πληγ']]
+     ['φθείρ', 'φθαρθ'], ['πλήττ', 'πλαγ,πληγ'], ['πλήσσ', 'πλαγ,πληγ'], ['σταίν', 'στ']]
 
 irregular_passive_perfect_participles = {'άγω': 'ηγμένος', 'έχομαι': None, 'αγανακτώ': 'αγανακτισμένος',
                                          'αποτυχαίνω': 'αποτυχημένος', 'κάνω': 'καμωμένος',
@@ -641,6 +641,7 @@ IMPER_ACT_AOR_D = 'imper_act_aor_d'
 IMPER_ACT_AOR_CA = 'imper_act_aor_ca'
 IMPER_PASS_AOR_A = 'imper_pass_aor_a'
 IMPER_PASS_AOR_B = 'imper_pass_aor_b'
+IMPER_PASS_CONT_2SA = 'imper_pass_cont_2sa'
 PRESENT_ACTIVE_PART_1 = 'present_active_part_1'
 PRESENT_ACTIVE_PART_2C = 'present_active_part_2c'
 PRESENT_ACTIVE_PART_2 = 'present_active_part_2'
@@ -666,7 +667,7 @@ conjugations = {
     CON2B_ACT: {SG: {PRI: ['ώ'], SEC: ['είς'], TER: ['εί']}, PL: {PRI: ['ούμε'], SEC: ['είτε'], TER: ['ούνε', 'ούν']}},
     CON2C_ACT: {SG: {PRI: ['ω'], SEC: ['ς'], TER: ['ει']}, PL: {PRI: ['με'], SEC: ['τε'], TER: ['νε', 'ν']}},
     CON2D_ACT: {SG: {PRI: ['ώ'], SEC: ['οίς'], TER: ['οί']},
-                PL: {PRI: ['ούμε', 'ούμεν'], SEC: ['οίτε', 'ούτε'], TER: ['ούνε', 'ούν']}},
+                PL: {PRI: ['ούμε', 'ούμεν'], SEC: ['ούτε'], TER: ['ούνε', 'ούν']}},
     CON1_ACT_MODAL: {SG: {TER: ['ει']}},
     CON2_ACT_MODAL: {SG: {TER: ['εί']}},
 
@@ -683,7 +684,7 @@ conjugations = {
                  PL: {PRI: ['όμαστε'], SEC: ['άστε', 'όσαστε'], TER: ['ούνται']}},
     CON2SA_PASS: {SG: {PRI: ['ούμαι'], SEC: ['ούσαι'], TER: ['ούται']}, PL: {PRI: ['ούμεθα'], SEC: ['ούσθε'],
                                                                              TER: ['ούνται']}},
-    CON2D_PASS: {SG: {PRI: ['μαι'], SEC: ['σαι'], TER: ['ται']}, PL: {PRI: ['μεθα'], SEC: ['στε'],
+    CON2D_PASS: {SG: {PRI: ['μαι'], SEC: ['σαι'], TER: ['ται']}, PL: {PRI: ['μεθα'], SEC: ['σθε'],
                                                                       TER: ['νται']}},
     CON2E_PASS: {SG: {PRI: ['αμαι'], SEC: ['ασαι'], TER: ['αται']}, PL: {PRI: ['άμεθα', 'όμαστε'],
                                                                          SEC: ['ασθε', 'αστε'],
@@ -716,7 +717,7 @@ conjugations = {
     IMPER_ACT_EIMAI: {SG: {TER: ['έστω']}},
     IMPER_ACT_CONT_2A: {SG: {SEC: ['α', 'αγε']}, PL: {SEC: ['άτε']}},
     IMPER_ACT_CONT_2B: {SG: {SEC: ['ει']}, PL: {SEC: ['είτε']}},
-    IMPER_ACT_CONT_2D: {SG: {SEC: ['ου']}, PL: {SEC: ['ούτε', 'οίτε']}},
+    IMPER_ACT_CONT_2D: { PL: {SEC: ['οίτε']}},
     IMPER_ACT_CONT_2C: {SG: {SEC: ['γε']}, PL: {SEC: ['γετε', 'τε']}},
     IMPER_PASS_CONT_2D: {SG: {SEC: ['σο']}, PL: {SEC: ['σθε']}},
     IMPER_PASS_CONT_2E: {PL: {SEC: ['ασθε']}},
@@ -724,6 +725,7 @@ conjugations = {
     IMPER_PASS_CONT_2A: {PL: {SEC: ['ιέστε']}},
     IMPER_PASS_CONT_2B: {PL: {SEC: ['είστε']}},
     IMPER_PASS_CONT_2C: {PL: {SEC: ['άστε']}},
+    IMPER_PASS_CONT_2SA: {PL: {SEC: ['ούσθε']}},
 
     IMPER_ACT_AOR_A: {SG: {SEC: ['ε']}, PL: {SEC: ['τε']}},
     IMPER_ACT_AOR_B: {SG: {SEC: ['ε']}, PL: {SEC: ['ετε']}},

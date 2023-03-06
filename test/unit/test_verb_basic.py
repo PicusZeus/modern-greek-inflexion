@@ -249,8 +249,30 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'κατάστησα', 'κατέστησα'}, 'passive': {'κατέστη'}},
              'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
              'act_pres_participle': {'καθιστώντας'}, 'passive_perfect_participle': {'κατεστημένος'}, 'modal': False}
+        )
+
+    def test_verb_antikathistw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('αντικαθιστώ'),
+            {'present': {'active': {'αντικαθιστώ'}, 'passive': {'αντικαθίσταμαι'}},
+             'conjunctive': {'active': {'αντικαταστήσω'}, 'passive': {'αντικαταστώ'}},
+             'aorist': {'active': {'αντικατάστησα', 'αντικατέστησα'}, 'passive': {'αντικατέστη'}},
+             'paratatikos': {'active': {'αντικαθιστούσα'}}, 'act_pres_participle': {'αντικαθιστώντας'},
+             'pass_pres_participle': {'αντικαθιστώμενος'},
+             'passive_perfect_participle': {'αντικαταστημένος', 'αντικατεστημένος'}, 'modal': False}
+        )
+
+    def test_verb_anastainw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ανασταίνω'),
+            {'present': {'active': {'ανασταίνω'}, 'passive': {'ανασταίνομαι'}}, 'conjunctive': {'active': {'αναστήσω'}},
+             'aorist': {'active': {'ανάστησα', 'ανέστησα'}},
+             'paratatikos': {'active': {'ανέσταινα', 'ανάσταινα'}, 'passive': {'ανασταινόμουν'}},
+             'act_pres_participle': {'ανασταίνοντας'}, 'passive_perfect_participle': {'αναστημένος'},
+             'active_aorist_participle': {'αναστήσας/αναστήσασα/αναστήσαν'}, 'modal': False}
 
         )
+
     def test_verb_ago(self):
         self.assertDictEqual(
             verb.create_basic_forms('άγω'),
@@ -260,7 +282,6 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'ήγα'}, 'passive': {'αγόμουν'}},
              'act_pres_participle': {'άγοντας'}, 'arch_act_pres_participle': {'άγων/άγουσα/άγον'},
              'pass_pres_participle': {'αγόμενος'}, 'modal': False}
-
         )
 
     def test_verb_elegxw(self):
@@ -313,7 +334,6 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'καταλάμβανα', 'κατελάμβανα'}, 'passive': {'καταλαμβανόμουν'}},
              'act_pres_participle': {'καταλαμβάνοντας'}, 'pass_pres_participle': {'καταλαμβανόμενος'},
              'passive_aorist_participle': {'καταληφθείς/καταληφθείσα/καταληφθέν'}, 'modal': False}
-
         )
 
     def test_verb_antilambanomai(self):
