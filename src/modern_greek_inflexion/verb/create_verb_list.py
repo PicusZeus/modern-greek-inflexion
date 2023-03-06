@@ -68,7 +68,6 @@ def create_all_basic_forms(pres_form):
                                                                                             modal_med=modal_med)
 
 
-
     if pres_form[:-1] in sum(irregular_passive_roots, []):
         intransitive_active = False
 

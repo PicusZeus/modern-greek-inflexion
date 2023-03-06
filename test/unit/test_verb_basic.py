@@ -241,6 +241,16 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_kathisto(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('καθιστώ'),
+            {'present': {'active': {'καθιστώ'}, 'passive': {'καθίσταμαι'}},
+             'conjunctive': {'active': {'καταστήσω'}, 'passive': {'καταστώ'}},
+             'aorist': {'active': {'κατάστησα', 'κατέστησα'}, 'passive': {'κατέστη'}},
+             'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
+             'act_pres_participle': {'καθιστώντας'}, 'passive_perfect_participle': {'κατεστημένος'}, 'modal': False}
+
+        )
     def test_verb_ago(self):
         self.assertDictEqual(
             verb.create_basic_forms('άγω'),

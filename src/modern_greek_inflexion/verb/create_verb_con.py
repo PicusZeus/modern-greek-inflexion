@@ -49,6 +49,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                 if ending == 'ει' and person == SEC:
                     form = put_accent_on_the_penultimate(form, true_syllabification=False)
                 forms[number][person].append(form)
+
     # check if a verb in 2nd conjugation active has alternative endings belonging to other type of the 2nd con
 
     if conjugation_name in [CON2A_ACT, IMPER_ACT_CONT_2A]:
@@ -158,7 +159,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     elif conjugation_name in [CON2E_PASS]:
         forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
         forms[PL][PRI][1] = put_accent_on_the_antepenultimate(forms[PL][PRI][1])
-        forms[PL][SEC][1] = put_accent_on_the_penultimate(forms[PL][SEC][1])
+        # forms[PL][SEC].append()
     elif conjugation_name in [IMPER_ACT_AOR_CA, IMPER_ACT_CONT_2B]:
         if root == 'ζ':
             forms[SG][TER] = ['ζήτω']
