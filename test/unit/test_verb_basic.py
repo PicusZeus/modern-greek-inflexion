@@ -219,6 +219,18 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_antiparaballw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('αντιπαραβάλλω'),
+            {'present': {'active': {'αντιπαραβάλλω'}, 'passive': {'αντιπαραβάλλομαι'}},
+             'conjunctive': {'active': {'αντιπαραβάλω'}, 'passive': {'αντιπαραβληθώ'}},
+             'aorist': {'active': {'αντιπαρέβαλα'}, 'passive': {'αντιπαραβλήθηκα'}},
+             'paratatikos': {'active': {'αντιπαρέβαλλα'}, 'passive': {'αντιπαραβαλλόμουν'}},
+             'act_pres_participle': {'αντιπαραβάλλοντας'}, 'pass_pres_participle': {'αντιπαραβαλλόμενος'},
+             'modal': False}
+
+        )
+
     def test_verb_proferw(self):
         self.assertDictEqual(
             verb.create_basic_forms('προφέρω'),

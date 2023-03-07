@@ -103,7 +103,7 @@ irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήτ
 
 irregular_adv = {
     'νωρίς': {COMP_ADV: 'νωρίτερα/'}, 'άνω': {COMP_ADV: 'ανώτερα/ανώτατα', COMP: 'ανώτερος/ανώτατος'},
-    'κάτω': {COMP_ADV: 'κατώτεαρα/κατώτατα', COMP: 'κατώτερος/κατώτατος'}}
+    'κάτω': {COMP_ADV: 'κατώτερα/κατώτατα', COMP: 'κατώτερος/κατώτατος'}}
 
 adj_basic_template = {SG: {
     MASC: {
@@ -717,7 +717,7 @@ conjugations = {
     IMPER_ACT_EIMAI: {SG: {TER: ['έστω']}},
     IMPER_ACT_CONT_2A: {SG: {SEC: ['α', 'αγε']}, PL: {SEC: ['άτε']}},
     IMPER_ACT_CONT_2B: {SG: {SEC: ['ει']}, PL: {SEC: ['είτε']}},
-    IMPER_ACT_CONT_2D: { PL: {SEC: ['οίτε']}},
+    IMPER_ACT_CONT_2D: {PL: {SEC: ['ούτε']}},
     IMPER_ACT_CONT_2C: {SG: {SEC: ['γε']}, PL: {SEC: ['γετε', 'τε']}},
     IMPER_PASS_CONT_2D: {SG: {SEC: ['σο']}, PL: {SEC: ['σθε']}},
     IMPER_PASS_CONT_2E: {PL: {SEC: ['ασθε']}},

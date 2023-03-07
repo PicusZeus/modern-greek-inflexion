@@ -47,12 +47,9 @@ def create_regular_perf_root(verb, voice=ACTIVE):
     perf_root = None
     irregular = False
 
-
-
     multiple_stems = None
     if verb[-1] in ['ω', 'ώ'] or verb[-2:] in ['ει', 'εί'] or verb[-5:] == 'είμαι':
         res = recognize_active_non_past_conjugation(verb)
-
 
     else:
         res = recognize_passive_present_continuous_conjugation(verb)
@@ -108,7 +105,6 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE:
         for pair in irregular_passive_roots:
-
 
             if ',' in pair[1]:
                 # that is if many stems
@@ -195,8 +191,6 @@ def create_regular_perf_root(verb, voice=ACTIVE):
                 if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus or put_accent_on_the_antepenultimate(root + 'ισε'):
                     perf_root = perf_root + ',' + put_accent_on_the_ultimate(root + 'ισ')
                     multiple_stems = True
-
-
 
         elif root in ['επέστη']:
             # ancient form
@@ -341,7 +335,6 @@ def create_regular_perf_root(verb, voice=ACTIVE):
                 if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus or root + 'ισμένος':
                     perf_root = root + 'ιστ'
 
-
         if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'
         if perf_root:
@@ -349,7 +342,6 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         if perf_root and perf_root[-2:] == "χτ":
             if perf_root + 'εί' not in greek_corpus and perf_root[:-1] + 'θεί' in greek_corpus:
                 perf_root = perf_root[:-1] + 'Θ'
-
 
     if voice == PASSIVE and \
             conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,
