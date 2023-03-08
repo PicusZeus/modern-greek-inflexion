@@ -18,15 +18,16 @@ from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MOD
 def create_imp_pass(perf_pass_root):
     # useful for deponentia
 
-    if perf_pass_root[-1] == 'θ':
-        form = perf_pass_root[:-1] + 'σου'
-    elif perf_pass_root[-2:] == 'φτ':
-        form = perf_pass_root[:-2] + 'ψου'
 
+
+    if perf_pass_root[-2:] in ['φτ', 'φθ']:
+        form = perf_pass_root[:-2] + 'ψου'
+    elif perf_pass_root[-2:] in ['χτ', 'χθ']:
+        form = perf_pass_root[:-2] + 'ξου'
     elif perf_pass_root[-2:] == 'στ':
         form = perf_pass_root[:-2] + 'σου'
-    elif perf_pass_root[-2:] == 'χτ':
-        form = perf_pass_root[:-2] + 'ξου'
+    elif perf_pass_root[-1] == 'θ':
+        form = perf_pass_root[:-1] + 'σου'
     elif perf_pass_root[-3:] == 'ευτ':
         form = perf_pass_root[:-3] + 'έψου'
 

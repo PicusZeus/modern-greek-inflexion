@@ -32,6 +32,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     :param simple_aor: sygmatic aorist
     :return:
     """
+
     forms = {}
 
     if not conjugation_name or conjugation_name in [MODAL, CON1_PASS_MODAL]:
@@ -143,6 +144,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
             forms[SG][SEC] = [x + "ου" for x in active_root if x[-1] in ['σ', 'ψ', 'ξ']]
         else:
             passive_aorist_recreated = create_imp_pass(root)
+
             forms[SG][SEC][0] = passive_aorist_recreated
 
 

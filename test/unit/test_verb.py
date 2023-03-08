@@ -994,6 +994,21 @@ class VerbTestAll(TestCase):
 
         )
 
+    def test_verb_sympitw_aor(self):
+        self.assertDictEqual(
+            verb.create_all_forms('συμπίπτω')['aorist'],
+            {'active': {'ind': {'sg': {'pri': {'συνέπεσα'}, 'sec': {'συνέπεσες'}, 'ter': {'συνέπεσε'}},
+                                'pl': {'pri': {'συμπέσαμε'}, 'sec': {'συμπέσατε'}, 'ter': {'συνέπεσαν', 'συμπέσανε'}}}}}
+
+        )
+
+    def test_verb_antilambanomai_imp(self):
+        self.assertDictEqual(
+            verb.create_all_forms('αντιλαμβάνομαι')['conjunctive']['passive']['imp'],
+            {'sg': {'sec': {'αντιλήψου'}}, 'pl': {'sec': {'αντιληφθείτε'}}}
+
+        )
+
     def test_verb_plhrw(self):
         self.assertDictEqual(
             verb.create_all_forms('πληρώ'),

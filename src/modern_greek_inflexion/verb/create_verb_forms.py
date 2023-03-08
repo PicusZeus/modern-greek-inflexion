@@ -201,11 +201,13 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
         stem = data[ROOT]
         deaugmented_stem = create_roots_from_past(v, lemma)
 
+
         if deaugmented_stem:
             if put_accent_on_the_penultimate(deaugmented_stem + 'ω') not in greek_corpus and v[-2:] != 'γα':
                 deaugmented_stem = None
 
         forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem, simple_aor=simple_aor)
+
         if forms_ind == MODAL:
             forms_ind = {SG: {TER: [v]}}
         forms = compound_alternative_forms(forms, sec_pos, forms_ind, None)
