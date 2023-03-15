@@ -231,6 +231,25 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_pethainw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('πεθαίνω'),
+            {'present': {'active': {'πεθαίνω'}}, 'conjunctive': {'active': {'πεθάνω'}},
+             'aorist': {'active': {'πέθανα'}}, 'paratatikos': {'active': {'πέθαινα'}},
+             'act_pres_participle': {'πεθαίνοντας'}, 'passive_perfect_participle': {'πεθαμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_pethainw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('παθαίνω'),
+            {'present': {'active': {'παθαίνω'}, 'passive': {'παθαίνομαι'}}, 'conjunctive': {'active': {'πάθω'}},
+             'aorist': {'active': {'έπαθα'}}, 'paratatikos': {'active': {'πάθαινα'}, 'passive': {'παθαινόμουν'}},
+             'act_pres_participle': {'παθαίνοντας'}, 'passive_perfect_participle': {'παθημένος'},
+             'active_aorist_participle': {'παθών/παθούσα/παθόν'}, 'modal': False}
+
+        )
+
     def test_verb_proferw(self):
         self.assertDictEqual(
             verb.create_basic_forms('προφέρω'),

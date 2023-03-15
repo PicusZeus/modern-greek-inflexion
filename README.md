@@ -29,6 +29,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.543 Fixed bug with participles of pathainw, pethenw
  * 0.5.542 Improved recreating of sigmatic roots for passive imper.
  * 0.5.541 added prefixes in accentuation model. Small improvements in verb module.
  * 0.5.540 updated accentuation module.

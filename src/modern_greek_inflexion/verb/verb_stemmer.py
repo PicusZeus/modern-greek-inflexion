@@ -670,6 +670,7 @@ def create_present_passive_participle(_, root, pres_conjugation):
 
 
 def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
+
     passive_perfect_participles = []
     reg_passive_perfect_participles = []
     # check for irregularities
@@ -745,10 +746,12 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
         elif act_root[-1] == 'ψ':
             passive_perfect_participle = put_accent_on_the_penultimate(act_root[:-1] + 'uμενος')
 
-        elif pres_form[-3:] == 'αίν':
-            passive_perfect_participle = put_accent_on_the_penultimate(act_root[:-3] + 'ημενος')
+        elif len(pres_form) > 4 and pres_form[-4:] == 'αίνω' and act_root[-2:] == 'άν':
+
+            passive_perfect_participle = put_accent_on_the_penultimate(act_root[:-2] + 'αμενος')
+
             if passive_perfect_participle not in greek_corpus:
-                passive_perfect_participle = put_accent_on_the_penultimate(act_root[:-3] + 'αμενος')
+                passive_perfect_participle = put_accent_on_the_penultimate(act_root[:-2] + 'ημενος')
         else:
             passive_perfect_participle = put_accent_on_the_penultimate(act_root + 'μενος')
         if passive_perfect_participle:
@@ -764,6 +767,7 @@ def create_passive_perfect_participle(pres_form, root, act_root, passive_root):
         reg_passive_perfect_participles = list(set(reg_passive_perfect_participles))
     if passive_perfect_participles:
         reg_passive_perfect_participles.extend(passive_perfect_participles)
+
     all_passive_perfect_participles = ','.join(reg_passive_perfect_participles)
 
     return all_passive_perfect_participles
