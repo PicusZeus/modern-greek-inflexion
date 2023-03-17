@@ -240,6 +240,16 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_perimenw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('περιμένω'),
+            {'present': {'active': {'περιμένω'}}, 'conjunctive': {'active': {'περιμένω'}},
+             'aorist': {'active': {'περίμενα'}}, 'paratatikos': {'active': {'περίμενα'}},
+             'act_pres_participle': {'περιμένοντας'}, 'arch_act_pres_participle': {'περιμένων/περιμένουσα/περιμένον'},
+             'modal': False}
+
+        )
+
     def test_verb_pethainw(self):
         self.assertDictEqual(
             verb.create_basic_forms('παθαίνω'),
