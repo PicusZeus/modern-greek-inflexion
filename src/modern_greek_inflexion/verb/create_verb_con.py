@@ -46,7 +46,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
             for ending in endings[number][person]:
                 form = root + ending
                 if count_syllables(ending) == 2 and ending == remove_all_diacritics(ending):
-                    form = put_accent_on_the_antepenultimate(form)
+                    form = put_accent_on_the_antepenultimate(form, true_syllabification=False)
                 if ending == 'ει' and person == SEC:
                     form = put_accent_on_the_penultimate(form, true_syllabification=False)
                 forms[number][person].append(form)
@@ -72,25 +72,27 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                 for ending in endings[number][person]:
 
                     if deaugmented_root and count_syllables(ending) > 1:
-                        form = put_accent_on_the_antepenultimate(deaugmented_root + ending)
+                        form = put_accent_on_the_antepenultimate(deaugmented_root + ending, true_syllabification=False)
 
                         forms[number][person].append(form)
-                        not_deaugmented_form = put_accent_on_the_antepenultimate(root + ending)
+                        not_deaugmented_form = put_accent_on_the_antepenultimate(root + ending, true_syllabification=False)
                         if not_deaugmented_form in greek_corpus:
                             forms[number][person].append(form)
                     else:
-                        form = put_accent_on_the_antepenultimate(root + ending)
+                        form = put_accent_on_the_antepenultimate(root + ending, true_syllabification=False)
 
                         forms[number][person].append(form)
 
                     if conjugation_name == ARCH_PASS_AOR and number == SG:
-                        forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0])
+                        forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0], true_syllabification=False)
 
-                    if form != put_accent_on_the_antepenultimate(form, true_syllabification=False):
-                        if deaugmented_root:
-                            form = deaugmented_root + ending
-                        forms[number][person].append(
-                            put_accent_on_the_antepenultimate(form, true_syllabification=False))
+                    form_i_non_syllable = put_accent_on_the_antepenultimate(form)
+                    if form_i_non_syllable != form and put_accent_on_the_antepenultimate(form) in greek_corpus:
+                        forms[number][person].append(form_i_non_syllable)
+                        # if deaugmented_root:
+                        #     form = deaugmented_root + ending
+                        # forms[number][person].append(
+                        #     put_accent_on_the_antepenultimate(form, true_syllabification=False))
 
     if conjugation_name in [CON1_PASS]:
         forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
@@ -131,7 +133,12 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
                         forms[number][person][index] = remove_all_diacritics(form)
 
     elif conjugation_name in [IMPER_ACT_CONT_1, IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B]:
-        forms[SG][SEC][0] = put_accent_on_the_antepenultimate(forms[SG][SEC][0], true_syllabification=False)
+        imper_2sg = put_accent_on_the_antepenultimate(forms[SG][SEC][0], true_syllabification=False)
+        forms[SG][SEC][0] = imper_2sg
+        form_i_non_syllable = put_accent_on_the_antepenultimate(imper_2sg)
+        if imper_2sg != form_i_non_syllable and form_i_non_syllable in greek_corpus:
+            forms[SG][SEC].append(form_i_non_syllable)
+
         if conjugation_name == IMPER_ACT_AOR_A:
             sec_pl = forms[PL][SEC][0]
             if sec_pl[-3:] not in ['στε', 'ψτε', 'ξτε']:
