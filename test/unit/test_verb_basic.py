@@ -271,6 +271,18 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_katapsixv(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('καταψύχω'),
+            {'present': {'active': {'καταψύχω'}, 'passive': {'καταψύχομαι'}},
+             'conjunctive': {'active': {'καταψύξω'}, 'passive': {'καταψυχθώ', 'καταψυχτώ'}},
+             'aorist': {'active': {'κατέψυξα'}, 'passive': {'καταψύχτηκα'}},
+             'paratatikos': {'active': {'κατέψυχα'}, 'passive': {'καταψυχόμουν'}},
+             'act_pres_participle': {'καταψύχοντας'}, 'passive_perfect_participle': {'κατεψυγμένος', 'καταψυγμένος'},
+             'modal': False}
+
+        )
+
     def test_verb_sthnw(self):
         self.assertDictEqual(
             verb.create_basic_forms('στήνω'),

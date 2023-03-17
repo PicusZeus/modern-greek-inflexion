@@ -1,1 +1,1 @@
-modern-greek-accentuation==0.592
+modern-greek-accentuation==0.593
