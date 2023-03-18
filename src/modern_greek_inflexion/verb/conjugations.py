@@ -76,7 +76,7 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         # there are no multiple stems in this category, so do not do anything
         for pair in irregular_active_roots:
             if not pair[1]:
-                if pair[0] == verb[:-1]:
+                if pair[0] == verb:
                     return None
                 continue
             if ',' in pair[1]:
@@ -110,7 +110,10 @@ def create_regular_perf_root(verb, voice=ACTIVE):
 
     if voice == PASSIVE:
         for pair in irregular_passive_roots:
-
+            if not pair[1]:
+                if pair[0] == verb:
+                    return None
+                continue
             if ',' in pair[1]:
                 # that is if many stems
                 multiple_perf_roots = []

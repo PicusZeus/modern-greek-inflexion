@@ -7,12 +7,15 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, IMPERF
+from ..exceptions import NotLegalVerbException
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
 def create_basic_forms(verb):
+
     return create_all_basic_forms(verb)
+
 
 
 def create_all_forms(verb):

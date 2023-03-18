@@ -289,6 +289,13 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_euthunomai(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ευθύνομαι'),
+            {'present': {'passive': {'ευθύνομαι'}}, 'paratatikos': {'passive': {'ευθυνόμουν'}}, 'modal': False}
+
+        )
+
     def test_verb_katapsixv(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταψύχω'),
