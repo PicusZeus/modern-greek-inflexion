@@ -271,6 +271,16 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_brithw(self):
+        # an example of an elliptive verb
+        self.assertDictEqual(
+            verb.create_basic_forms('βρίθω'),
+            {'present': {'active': {'βρίθω'}}, 'conjunctive': {}, 'aorist': {}, 'paratatikos': {'active': {'έβριθα'}},
+             'act_pres_participle': {'βρίθοντας'}, 'arch_act_pres_participle': {'βρίθων/βρίθουσα/βρίθον'},
+             'modal': False}
+
+        )
+
     def test_verb_katapsixv(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταψύχω'),
