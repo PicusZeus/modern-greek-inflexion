@@ -281,6 +281,14 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_kserw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ξέρω'),
+            {'present': {'active': {'ξέρω'}}, 'conjunctive': {}, 'aorist': {}, 'paratatikos': {'active': {'ήξερα'}},
+             'act_pres_participle': {'ξέροντας'}, 'modal': False}
+
+        )
+
     def test_verb_katapsixv(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταψύχω'),
