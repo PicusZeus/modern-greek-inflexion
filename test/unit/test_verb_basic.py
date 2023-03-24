@@ -299,8 +299,26 @@ class VerbTestBasic(TestCase):
     def test_verb_thabw(self):
         self.assertDictEqual(
             verb.create_basic_forms('θάβω'),
-            {},
-            print(verb.create_basic_forms('θάβω'))
+            {'present': {'active': {'θάβω'}, 'passive': {'θάβομαι'}},
+             'conjunctive': {'active': {'θάψω'}, 'passive': {'θαφθώ', 'θαφτώ', 'ταφώ'}},
+             'aorist': {'active': {'έθαψα'}, 'passive': {'θάφτηκα', 'θάφθηκα', 'τάφηκα', 'ετάφη'}},
+             'paratatikos': {'active': {'έθαβα'}, 'passive': {'θαβόμουν'}}, 'act_pres_participle': {'θάβοντας'},
+             'passive_perfect_participle': {'θαμμένος'}, 'active_aorist_participle': {'θάψας/θάψασα/θάψαν'},
+             'modal': False}
+
+        )
+
+    def test_verb_epitaxunw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('επιταχύνω'),
+            {'present': {'active': {'επιταχύνω'}, 'passive': {'επιταχύνομαι'}},
+             'conjunctive': {'active': {'επιταχύνω'}, 'passive': {'επιταχυνθώ'}},
+             'aorist': {'active': {'επιτάχυνα'}, 'passive': {'επιταχύνθηκα'}},
+             'paratatikos': {'active': {'επιτάχυνα'}, 'passive': {'επιταχυνόμουν'}},
+             'act_pres_participle': {'επιταχύνοντας'}, 'pass_pres_participle': {'επιταχυνόμενος'},
+             'passive_perfect_participle': {'επιταχυμένος'},
+             'passive_aorist_participle': {'επιταχυνθείς/επιταχυνθείσα/επιταχυνθέν'}, 'modal': False}
+
         )
 
     def test_verb_katapsixv(self):

@@ -165,6 +165,8 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         elif root[-1] in ['ν', 'θ', 'δ', 'τ']:
 
             perf_root = root[:-1] + 'σ'
+            if perf_root + 'ω' not in greek_corpus and root[-2:] == 'ύν':
+                perf_root = root
 
         elif root[-1] == 'ζ':
             perf_root = root[:-1] + 'ξ'
