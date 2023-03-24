@@ -29,6 +29,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.552 Fixes for verbs on -υν and some irregularities (θάβω).
  * 0.5.550 Handling of elliptic verbs introduced, a list was used, other minor upgrades.
  * 0.5.546 Fixed issue with accentuation when there is possibility, that 'i' can be reproduced as consonant (teleiwnw)
  * 0.5.545 Fixed bug that prevented augmentation in past perf participles that begin on ψ ξ.
