@@ -296,6 +296,13 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_thabw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('θάβω'),
+            {},
+            print(verb.create_basic_forms('θάβω'))
+        )
+
     def test_verb_katapsixv(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταψύχω'),
