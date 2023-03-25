@@ -321,6 +321,18 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_apallassw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('απαλλάσσω'),
+            {'present': {'active': {'απαλλάσσω'}, 'passive': {'απαλλάσσομαι'}},
+             'conjunctive': {'active': {'απαλλάξω'}, 'passive': {'απαλλαγώ', 'απαλλαχθώ', 'απαλλαχτώ'}},
+             'aorist': {'active': {'απάλλαξα'}, 'passive': {'απαλλάχθηκα', 'απηλλάγη', 'απαλλάχτηκα'}},
+             'paratatikos': {'active': {'απάλλασσα'}, 'passive': {'απαλλασσόμουν'}},
+             'act_pres_participle': {'απαλλάσσοντας'}, 'pass_pres_participle': {'απαλλασσόμενος'},
+             'passive_perfect_participle': {'απαλλαγμένος'}, 'modal': False}
+
+        )
+
     def test_verb_katapsixv(self):
         self.assertDictEqual(
             verb.create_basic_forms('καταψύχω'),
