@@ -1,7 +1,7 @@
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     recognize_past_conjugation
-from ..resources import ACTIVE, PASSIVE, PRI, SEC, PL, SG, TER, EIMAI, EIMAI_PARATATIKOS, IND, IMP, CON1_ACT, \
-    CON2_ACT_MODAL, MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
+from ..resources import ACTIVE, PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, IMP, \
+    MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
     CONJUGATION_IMP, FIN
 from modern_greek_accentuation.resources import ULTIMATE
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
@@ -99,7 +99,6 @@ def create_all_imperfect_personal_forms(verb, voice):
             con_ind = con[CONJUGATION_IND]
             forms_ind = create_all_pers_forms(con_ind, root)
 
-
             con_imp = con[CONJUGATION_IMP]
             forms_imp = create_all_pers_forms(con_imp, root)
 
@@ -138,7 +137,6 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
             con = recognize_active_non_past_conjugation(act_verb, aspect=PERF, tense=FIN, voice=ACTIVE)
             root = con[ROOT]
             con_ind = con[CONJUGATION_IND]
-
 
             if con_ind in [CON1_ACT_MODAL, MODAL, CON2_ACT_MODAL]:
 
@@ -200,7 +198,6 @@ def create_all_past_personal_forms(verb, lemma, aspect, voice):
             simple_aor = False
         stem = data[ROOT]
         deaugmented_stem = create_roots_from_past(v, lemma)
-
 
         if deaugmented_stem:
             if put_accent_on_the_penultimate(deaugmented_stem + 'ω') not in greek_corpus and v[-2:] != 'γα':

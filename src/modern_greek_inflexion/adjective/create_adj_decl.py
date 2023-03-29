@@ -5,8 +5,12 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from modern_greek_accentuation.resources import ANTEPENULTIMATE, ULTIMATE, PENULTIMATE
 from ..resources import greek_corpus, adj_basic_template, SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC
 
-# adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
-# 'adverb_comparative': 'ωμότερα/ωμότατα'}
+"""
+example
+adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
+'adverb_comparative': 'ωμότερα/ωμότατα'}
+"""
+
 
 
 def put_accent_on_antepenultimate_in_all_forms(masc, forms):

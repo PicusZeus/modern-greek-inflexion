@@ -142,6 +142,10 @@ adj_basic_template = {SG: {
             VOC: ''
         }
     }}
+"""
+these lists are not needed, if you have a correct list of words with such metadata as gender, that can be obtained 
+by scraping wikileksiko. Still, even though the lists ara also incomplete, I'll live them here, maybe there will come a need.
+"""
 
 feminine_h_eis = ('γύρη', 'κύστη', 'παλισάνδρη', 'πίστη', 'τίγρη', 'πόλη')
 
@@ -169,9 +173,6 @@ feminine_os = ('άμμος', 'οδός', 'διάλεκτος', 'είσοδος',
 feminine_or_masc = ('καπνοδόχος', 'άργιλος', 'τάφρος', 'κρύσταλλος', 'περιβαλλοντολόγος', 'απόστροφος', 'γιατρός',
                     'μηχανικός', 'ηθοποιός', 'νηπιαγογός', 'δικιγόρος',)
 
-# should there be added language names on ika?
-
-# mostly not needed if you use a db with data correctly tagged like wikileksiko dumps
 
 plur_tant_neut = ('Χριστούγεννα', 'χριστούγεννα', 'νιάτα', 'βαλκάνια', 'Ιωάννινα', 'Γιάννενα', 'Γιάννινα')
 
@@ -453,6 +454,7 @@ EAUTO = {
         ACC: 'εαυτούς'
     }
 }
+# these are not all the irregular verbs, but if you take into account compounds, most.
 
 irregular_active_roots = \
     [['βρίθω', None], ['ξέρω', None],
@@ -514,7 +516,6 @@ irregular_active_roots = \
 
 irregular_passive_roots = \
     [['υπέρκειμαι', None],
-
      ['πηγαινόρχομαι', None],
      ['πέρδομαι', None],
      ['επείγομαι', None],

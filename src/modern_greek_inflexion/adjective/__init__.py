@@ -10,7 +10,6 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
-
 def create_all_basic_forms(adj):
     return create_all_basic_adj_forms(adj)
 

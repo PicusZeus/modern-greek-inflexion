@@ -1,9 +1,7 @@
 import sys
-
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
-
 from ..resources import greek_corpus, irregular_imperative_forms, conjugations
 from .conjugations import create_imp_pass, recognize_past_conjugation
 from ..resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, ACTIVE, \
@@ -24,7 +22,6 @@ forms_imp = {
 def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_root=None, simple_aor=False):
 
     """
-
     :param conjugation_name: conjugation name
     :param root: verb root
     :param active_root: if pass, for imp, should be given if it's a special case, should be an array

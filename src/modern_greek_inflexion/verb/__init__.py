@@ -1,4 +1,3 @@
-
 from .. import adjective
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..helping_functions import merging_all_dictionaries
@@ -6,8 +5,8 @@ from .create_verb_forms import create_all_imperfect_personal_forms, create_all_p
     create_all_past_personal_forms
 from .create_verb_list import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import PRI, SEC, TER, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, IMPERF
-from ..exceptions import NotLegalVerbException
+from ..resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, IMPERF
+
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 

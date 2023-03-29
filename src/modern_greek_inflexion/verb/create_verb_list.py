@@ -3,7 +3,7 @@ from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_f
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
     create_passive_aorist_participle
 from ..resources import greek_corpus, irregular_passive_roots
-from ..resources import ACTIVE, PASSIVE, DEPONENS, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
+from ..resources import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
 from ..exceptions import NotLegalVerbException, NotInGreekException
 
 import re

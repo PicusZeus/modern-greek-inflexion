@@ -1,6 +1,5 @@
 from .. import adjective
 from ..resources import irregular_adv, ADV, COMP_ADV, ADJ, COMP, SUPERL, SUPERL_ADV
-from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..exceptions import NotInGreekException
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)

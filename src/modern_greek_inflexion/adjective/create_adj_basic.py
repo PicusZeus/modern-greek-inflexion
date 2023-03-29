@@ -4,8 +4,9 @@ from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import ULTIMATE, ANTEPENULTIMATE, PENULTIMATE
 from ..exceptions import NotLegalAdjectiveException
-from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB,\
+from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB, \
     ADVERB_COMPARATIVE, COMPARATIVE
+
 
 def create_all_basic_adj_forms(adj, aklito=False):
     """
@@ -19,8 +20,6 @@ def create_all_basic_adj_forms(adj, aklito=False):
     ADVERB: adverb form, if alternatives, then separated with coma
     ADVERB_COMPARATIVE: if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
     """
-
-
 
     if adj[-2:] == 'ον' and adj + 'τα' in greek_corpus:
         adj = adj[:-2] + 'ων'
@@ -303,14 +302,12 @@ def create_all_basic_adj_forms(adj, aklito=False):
     if aklito:
         masc, fem, neuter = adj, adj, adj
 
-
     try:
         adj_forms = [masc, fem, neuter]
     except:
         raise NotLegalAdjectiveException
     # if these are referenced before assignment, it means the adj cannot be processed, as it either
     # doesn't exist or I have too small dictionary, so it cannot be recognized
-
 
     adj_temp[ADJ] = '/'.join(adj_forms)
 
@@ -362,7 +359,6 @@ def create_all_basic_adj_forms(adj, aklito=False):
         adj_temp[COMPARATIVE] = parathetika
 
     # επιρρήματα
-
 
     alt_adv = None
 
@@ -457,5 +453,3 @@ def create_all_basic_adj_forms(adj, aklito=False):
         adj_temp[ADVERB_COMPARATIVE] = adv_parathetika
 
     return adj_temp
-
-
