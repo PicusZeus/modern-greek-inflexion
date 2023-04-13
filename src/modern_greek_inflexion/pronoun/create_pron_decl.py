@@ -4,7 +4,7 @@ from ..adjective import create_all_adj_forms
 from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
-def create_all_pron_forms(bas_forms, strong=True):
+def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
     """
 
     :param bas_forms: basic forms in all genders

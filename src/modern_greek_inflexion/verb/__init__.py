@@ -11,13 +11,12 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
-def create_basic_forms(verb):
+def create_basic_forms(verb: str) -> dict:
 
     return create_all_basic_forms(verb)
 
 
-
-def create_all_forms(verb):
+def create_all_forms(verb: str) -> dict:
 
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
     basic_forms = create_all_basic_forms(verb)

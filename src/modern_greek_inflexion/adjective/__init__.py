@@ -10,11 +10,11 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
-def create_all_basic_forms(adj):
+def create_all_basic_forms(adj: str) -> dict:
     return create_all_basic_adj_forms(adj)
 
 
-def create_all(adj, aklito=False):
+def create_all(adj: str, aklito=False) -> dict:
     """
     :param aklito: boolean
     :param adj: masc sg nom form

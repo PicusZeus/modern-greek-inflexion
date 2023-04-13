@@ -4,7 +4,7 @@ from ..adjective import create_all_basic_adj_forms
 from ..resources import greek_corpus, ADVERB
 
 
-def create_num_adj(numeral, ordinal=False):
+def create_num_adj(numeral: str, ordinal: bool = False) -> dict:
     """
     :param numeral: numeral
     :param ordinal: if it is an ordinal numeral

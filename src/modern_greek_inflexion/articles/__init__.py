@@ -63,7 +63,7 @@ indefinite_article = {
 }
 
 
-def create_all(article):
+def create_all(article: str) -> dict:
     article = convert_to_monotonic(article)
     if article not in ['ο', 'ένας']:
         raise Exception("it's not a Greek article")

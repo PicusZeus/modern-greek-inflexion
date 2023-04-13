@@ -8,9 +8,10 @@ from ..resources import adj_basic_template
 from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT
 
 
-def create_all_num_adj_forms(num_base_forms, ordinal=False):
+def create_all_num_adj_forms(num_base_forms: str, ordinal: bool = False) -> dict:
     """
-    :param num_base_forms masc/fem/neut:
+    :param ordinal: boolean
+    :param num_base_forms: masc/fem/neut
     :return: a dictionary of forms (like adj)
     """
     if ordinal:

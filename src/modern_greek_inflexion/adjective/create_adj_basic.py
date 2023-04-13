@@ -8,7 +8,7 @@ from ..resources import greek_corpus, irregular_comparatives, irregular_comparat
     ADVERB_COMPARATIVE, COMPARATIVE
 
 
-def create_all_basic_adj_forms(adj, aklito=False):
+def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
     """
     :param aklito: if relevant, boolean
     :param adj: masc nom sg form (`ωραίος`)

@@ -1,4 +1,8 @@
+from __future__ import annotations
+
 import sys
+from typing import List, Dict, Any
+
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
@@ -19,7 +23,8 @@ forms_imp = {
 }
 
 
-def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_root=None, simple_aor=False):
+def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | None = None,
+                          deaugmented_root: str | None = None, simple_aor: bool = False) -> dict:
 
     """
     :param conjugation_name: conjugation name
@@ -194,7 +199,7 @@ def create_all_pers_forms(conjugation_name, root, active_root=None, deaugmented_
     return forms
 
 
-def create_roots_from_past(verb, lemma):
+def create_roots_from_past(verb: str, lemma: str) -> list | None:
     # argument only in 1st person
 
     res = None
@@ -214,7 +219,8 @@ def create_roots_from_past(verb, lemma):
     return res
 
 
-def create_all_past_forms(verb, lemma, aspect, deponens=False):
+def create_all_past_forms(verb: str, lemma: str, aspect: str,
+                          deponens: bool = False) -> list[dict]:
     verb = verb.split('/')
     if len(verb) > 1:
         act_verbs, pass_verbs = verb

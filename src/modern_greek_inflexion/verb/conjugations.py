@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Dict, Any, Tuple
+
 from modern_greek_accentuation.accentuation import *
 
 from ..exceptions import NotLegalVerbException
@@ -15,10 +19,8 @@ from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MOD
     CON2SA_PASS, IMPER_PASS_CONT_2SA
 
 
-def create_imp_pass(perf_pass_root):
+def create_imp_pass(perf_pass_root: str) -> str:
     # useful for deponentia
-
-
 
     if perf_pass_root[-2:] in ['φτ', 'φθ']:
         form = perf_pass_root[:-2] + 'ψου'
@@ -42,7 +44,7 @@ def create_imp_pass(perf_pass_root):
         return ''
 
 
-def create_regular_perf_root(verb, voice=ACTIVE):
+def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
     perf_root = None
@@ -400,7 +402,8 @@ def create_regular_perf_root(verb, voice=ACTIVE):
         return None
 
 
-def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=ACTIVE):
+def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense: str = FIN,
+                                          voice: str = ACTIVE) -> dict[str | Any, str | Any]:
     # can be used for aspects: 'continuous', 'simple', 'simple_passive'
     # verb is expected to be in 1st person sg, else it's assumed it's modal verb
     verb = verb.strip()
@@ -445,8 +448,6 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
             conjugation_ind = CON2A_ACT
             conjugation_imp = IMPER_ACT_CONT_2A
             conjugation_part = PRESENT_ACTIVE_PART_2
-
-
 
         elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus and aspect != PERF:
 
@@ -520,7 +521,7 @@ def recognize_active_non_past_conjugation(verb, aspect=IMPERF, tense=FIN, voice=
             'conjugation_part': conjugation_part}
 
 
-def recognize_passive_present_continuous_conjugation(verb):
+def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | Any, str | Any]:
     verb = verb.strip()
 
     if verb != 'είμαι' and len(verb) < 6:
@@ -600,7 +601,8 @@ def recognize_passive_present_continuous_conjugation(verb):
             'conjugation_part': conjugation_part}
 
 
-def recognize_past_conjugation(verb, lemma, aspect=IMPERF, voice=ACTIVE):
+def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,
+                               voice: str = ACTIVE) -> dict[str | Any, str | Any]:
     verb = verb.strip()
     root = verb[:-1]
 
@@ -633,7 +635,7 @@ def recognize_past_conjugation(verb, lemma, aspect=IMPERF, voice=ACTIVE):
             'conjugation_ind': conjugation_ind}
 
 
-def recognize_passive_past_continuous_conjugation(lemma, verb):
+def recognize_passive_past_continuous_conjugation(lemma: str, verb: str) -> tuple[str, Any]:
     verb = verb.strip()
     root = None
     if len(verb) >= 7 and 'ιόμουν' in verb[-7:]:

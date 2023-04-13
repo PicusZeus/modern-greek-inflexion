@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     recognize_past_conjugation
 from ..resources import ACTIVE, PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, IMP, \
@@ -9,7 +11,8 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from ..resources import greek_corpus
 
 
-def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
+def compound_alternative_forms(forms: None | dict, sec_pos: str, forms_ind_or_con: dict,
+                               forms_imp: dict | None) -> dict:
     """
     compound all alternative forms into a set
     :return:
@@ -50,7 +53,7 @@ def compound_alternative_forms(forms, sec_pos, forms_ind_or_con, forms_imp):
     return forms
 
 
-def create_all_imperfect_personal_forms(verb, voice):
+def create_all_imperfect_personal_forms(verb: str, voice: str) -> dict:
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
@@ -112,7 +115,7 @@ def create_all_imperfect_personal_forms(verb, voice):
     return forms
 
 
-def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=None):
+def create_all_perf_non_past_personal_forms(verb: list, voice: str, active_root_for_imp: str | None = None) -> dict:
     """
     :param voice:
     :param active_root_for_imp: an array of possible roots
@@ -170,7 +173,7 @@ def create_all_perf_non_past_personal_forms(verb, voice, active_root_for_imp=Non
     return forms
 
 
-def create_all_past_personal_forms(verb, lemma, aspect, voice):
+def create_all_past_personal_forms(verb: set, lemma: str, aspect: str, voice: str) -> dict:
     """
     :param voice:
     :param verb: aorist or paratatikos in a set (can be multiple alternative forms)

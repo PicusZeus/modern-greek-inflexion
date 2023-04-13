@@ -1,9 +1,11 @@
+from typing import Dict, Any, Union
+
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import PENULTIMATE, ULTIMATE, ANTEPENULTIMATE
 from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, MASC, FEM, NEUT
 
 
-def put_accent_on_unaccented_forms(forms):
+def put_accent_on_unaccented_forms(forms: dict) -> dict:
     # one syllable words
     for number in forms.keys():
         for case in forms[number].keys():
@@ -13,15 +15,15 @@ def put_accent_on_unaccented_forms(forms):
     return forms
 
 
-def create_all_noun_forms(nom_sg, gen_sg, nom_pl, genders, proper_name=False):
+def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
+                          proper_name: bool = False) -> dict[Union[str, Any], dict[Any, Any]]:
     """
     :param nom_sg: nominative singular
     :param gen_sg: genitive singular
     :param nom_pl: nominative plural
     :param genders: FEM or MASC or NEUT, if more than one, than separated with ','
     :param proper_name: flag useful for creation of vocatives in proper names
-    :return: tuple with 3 elements: forms in all cases in dictionary, gender, and alternative forms in dictionary, if exist
-    I want to include alternatives in a main dictionary of forms by adding them with a coma separator
+
     """
     accent = where_is_accent(nom_sg, true_syllabification=False)
     noun_all = {}

@@ -11,7 +11,7 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
-def create_all_basic_forms(pres_form):
+def create_all_basic_forms(pres_form: str) -> dict:
     """
    :param pres_form: 1st person sg present
    :return: a dictionary {PRESENT: '', CONJUNCTIVE: '', AORIST: '', PARATATIKOS: ''} and others, for times it
@@ -67,7 +67,6 @@ def create_all_basic_forms(pres_form):
                                                                                             modal_act=modal_act,
                                                                                             modal_med=modal_med)
 
-
     if pres_form[:-1] in sum(irregular_passive_roots, []):
         intransitive_active = False
 
@@ -117,8 +116,7 @@ def create_all_basic_forms(pres_form):
     # aorist
 
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
-                                                   not_deponens=not_deponens, intransitive_active=intransitive_active,
-                                                   modal_act=modal_act, modal_med=modal_med)
+                                                   not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
 
     if aorist_basic_forms:
         verb_temp[AORIST] = {}

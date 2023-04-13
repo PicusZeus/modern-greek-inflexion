@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import copy
+from typing import Tuple, Dict, Any
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
@@ -12,8 +15,7 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 """
 
 
-
-def put_accent_on_antepenultimate_in_all_forms(masc, forms):
+def put_accent_on_antepenultimate_in_all_forms(masc: str, forms: dict) -> dict:
     if where_is_accent(masc) == ANTEPENULTIMATE:
         for num in forms.keys():
             for gender in forms[num].keys():
@@ -22,7 +24,7 @@ def put_accent_on_antepenultimate_in_all_forms(masc, forms):
     return forms
 
 
-def alternative_forms_kxth(fem):
+def alternative_forms_kxth(fem: str) -> dict | None:
     # κ, χ, θ ia, or h
     alt_forms = {SG: {
         FEM: {
@@ -48,7 +50,7 @@ def alternative_forms_kxth(fem):
     return None
 
 
-def alternative_forms_us(adj):
+def alternative_forms_us(adj: str) -> dict:
     # only for the us, ia, y type
     alt_forms = {SG: {
         MASC: {
@@ -111,7 +113,7 @@ def alternative_forms_us(adj):
     return alt_forms
 
 
-def alternative_forms_us2(adj):
+def alternative_forms_us2(adj: str) -> dict:
     # only for the us, ia, y type
     alt_forms = {SG: {
         MASC: {
@@ -131,7 +133,7 @@ def alternative_forms_us2(adj):
     return alt_forms
 
 
-def alternative_forms_wn(adj):
+def alternative_forms_wn(adj: str) -> dict:
     # wn, ousa on
     alt_forms = copy.deepcopy(adj_basic_template)
 
@@ -170,7 +172,7 @@ def alternative_forms_wn(adj):
     return alt_forms
 
 
-def alternative_forms_onas(adj):
+def alternative_forms_onas(adj: str) -> dict:
     alt_forms = {SG: {
         MASC: {
             NOM: '',
@@ -207,7 +209,7 @@ def alternative_forms_onas(adj):
     return alt_forms
 
 
-def alternative_forms_ou(fem):
+def alternative_forms_ou(fem: str) -> dict:
     """
     :param fem: its a feminine form with a ou ending
     :return:
@@ -243,7 +245,7 @@ def alternative_forms_ou(fem):
     return alt_forms
 
 
-def put_accent_on_unaccented_forms(forms):
+def put_accent_on_unaccented_forms(forms: dict) -> dict:
     if not forms:
         return forms
 
@@ -258,18 +260,17 @@ def put_accent_on_unaccented_forms(forms):
     return forms
 
 
-def create_all_adj_forms(adj):
+def create_all_adj_forms(adj: str) -> tuple[Any, dict | None] | tuple[Any, None] | tuple[Any, dict] | tuple[
+    dict, dict] | tuple[dict, None]:
     """
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesn't exist, it
      should be replaced with dash '-'
-    :return: two element array, first is a dictionary with all primary forms (forms[number][gender][case], the second
+    :return: two element tuple, first is a dictionary with all primary forms (forms[number][gender][case], the second
     one is a dictionary with alternative forms, if exists it has the same structure
     """
     forms = copy.deepcopy(adj_basic_template)
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
-
-
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
         fem = fem.split(',')[0]  # because in the list there are given alternatives, which i don't need
@@ -919,7 +920,7 @@ def create_all_adj_forms(adj):
         return forms, None
 
 
-def comparative_forms(comp_or_super):
+def comparative_forms(comp_or_super: str) -> dict:
     """
     :param comp_or_super: one form ending in os
     :return: all forms in a dict

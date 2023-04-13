@@ -10,10 +10,9 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
-def create_all_adj_num(base_form):
+def create_all_adj_num(base_form: str) -> dict:
 
     """
-
     :param base_form: base neuter form of a numeral, in case of ordinals, masc
     :return: dict with all possible forms
     """
@@ -50,7 +49,7 @@ def create_all_adj_num(base_form):
     return forms
 
 
-def create_all_noun_num(base_form):
+def create_all_noun_num(base_form: str) -> dict:
     """
     There is no real difference between noun and quant noun, so noun logic employed
     :param base_form: base form
