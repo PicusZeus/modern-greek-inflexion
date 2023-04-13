@@ -17,7 +17,7 @@ pip install modern-greek-inflexion
 
 ## Usage
 
-see [docs.rst](https://github.com/PicusZeus/modern_greek_inflexion/blob/master/docs.rst)
+see [docs.rst](https://github.com/PicusZeus/modern-greek-inflexion/blob/master/docs.rst)
 
 ## Unittests
 run 

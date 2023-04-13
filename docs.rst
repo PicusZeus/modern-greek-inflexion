@@ -64,7 +64,7 @@ Structure of a generated dictionary in the first level is laid out according to 
 
 * VOICE
 
-Next there is division into active and passive voice through keys "active" and "passive".
+Next there is a division into active and passive voice through keys "active" and "passive".
 
 >>> [voice for voice in ['active', 'passive'] if voice in verb.create_all_forms('διαβάζω')['present']]
 ['active', 'passive']
@@ -101,7 +101,7 @@ PARTICIPLES
 
 This function also returns all participles:
 
-Active present participle, that is an adverbial form, is given under a key "act_pres_participle", in a set.
+Active present participle, that is an adverbial form, is given under the key "act_pres_participle", in a set.
 
 >>> verb.create_all_forms('διαβάζω')['act_pres_participle']
 {'διαβάζοντας'}
@@ -159,14 +159,25 @@ If there are some alternative forms, they are divided with a coma.
 
 If you want to create all the forms, use "create_all" method.
 
-As a result you are given a dictionary with all forms derived from a lemma form (that has to be masc sing nom)
+As a result you are given a dictionary with all forms derived from a lemma form (that has to be masc sing nom).
 
+INDECLINABLE ADJECTIVES
+++++++++++++++++++++++++++++
+There are many indeclinable adjectives, and some of them can be confused with these, that can be declined. For the most
+part the program will recognize that an adjective is indeclinable, but if you have a list of adjectives and know that
+some of them are indeclinable, you can set the flag "aklito" to True on the "create_all" method, to be sure of the correct result.
+
+>>> adjective.create_all('ροζ', aklito=True)['adj']['sg']['fem']['gen']
+{'ροζ'}
 
 POSITIVE DEGREE
 +++++++++++++++++++
 
+The "create_all" method will create forms in positive degree, comparatives, superlatives and adverbs (if possible).
+Let's start from positive degree and see the structure of the returned data.
+
 Under the key "adj", all adjective forms are in the positive degree
-All forms are structured number => gender => case
+All forms are structured in this order: number => gender => case
 
 >>> adjective.create_all('καλός')['adj']['sg']['masc']['gen']
 {'καλού'}
@@ -236,6 +247,38 @@ of declination type, it returns gender, genitive singular and nom_plural.
 >>> noun.create_all_basic_forms('οδός')
 {'nom_sg': 'οδός', 'gen_sg': 'οδού', 'nom_pl': 'οδοί', 'gender': 'fem'}
 
+NOUN FLAGS
+++++++++++++++
+
+
+There are many instances where gender is difficult to guess ('οδός') also proper nouns
+can behave differently from common nouns, and let's add to that that there are some indeclinable nouns, that can be difficult
+to recognize programmatically. Many times the program will deal with them correctly, but there are limits to what can be
+done without an extensive dataset. So if you have data on that aspect of your nouns, you can set three flags, which will
+help the program to give correct results.
+
+* proper_name
+* gender
+* aklito
+
+The flag "proper_name" can be set to `Truth` if you are certain that it's a proper name:
+
+>>> noun.create_all('Νίκος', proper_name=True)['masc']['sg']['voc']
+{'Νίκο'}
+
+The flag "gender" can be set to 'fem', 'fem_sg', 'fem_pl', 'neut', 'neut_sg', 'neut_pl', 'masc', 'masc_sg', 'masc_pl'.
+The genders with added number indicate, that the noun has only singular or plural forms.
+
+>>> noun.create_all('θυρανοίξια', gender='neut_pl')['neut']['sg']['nom']
+{''}
+
+The flag "aklito" is similar to the one we can set on adjectives.
+
+>>> noun.create_all('ρεσεψιόν', gender='fem', aklito=True)['fem']['pl']['nom']
+{'ρεσεψιόν'}
+
+These flags can be set on ``create_all`` or on ``create_all_basic_forms`` methods.
+
 ALL FORMS
 ++++++++++++
 
@@ -275,7 +318,7 @@ And in the end you have a form (or forms if there are multiple options) in a set
 >>> [form for form in ['τάξης', 'τάξεως'] if form in noun.create_all('τάξη')['fem']['sg']['gen']]
 ['τάξης', 'τάξεως']
 
-If a paradigm is defective, that is if a noun do not create some form or can be found only in plural or singular, then
+If a paradigm is defective, that is if a noun does not create some form or can be found only in plural or singular, then
 structure of the dictionary exists, but the sets include empty string
 
 >>> noun.create_all('νους')['masc']['pl']['nom']
@@ -285,7 +328,7 @@ PROPER NOUN
 ==============
 
 Proper nouns behave mostly in the same way as nouns, but since in this group there are many exceptions in gender endings
-as well as many aklita, if you can use flags: ``proper_noun`` and ``proper_noun_gender``. The first one is boolean, and
+as well as many aklita, if you can, use flags: ``proper_noun`` and ``proper_noun_gender``. The first one is boolean, and
 can help especially in vocatives. The second one helps with indeclinable words borrowed from other languages and with
 common exceptions like names of islands.
 
@@ -372,17 +415,15 @@ ADVERBS
 
 >>> from modern_greek_inflexion import adverb
 
-Adverbs that are created by adjectives are created catered for in adjective module. here should be directed all other
-adverbs. Method used to give all forms is as always
-
 
 Adverbs that are created by adjectives are catered for in adjective module. here should be directed all other adverbs.
-Method used to give all forms is as always ``create_all``, but most of the time it will be only the given adverb itself.
+Method that is used to give all forms is as always ``create_all``, but most of the time it will be only the given adverb itself.
 
 >>> adverb.create_all('ποτέ')
 {'adv': {'ποτέ'}}
 
-In few cases when adverb forms comparatives or even superlatives
+In few cases when adverb forms comparatives or even superlatives, you will find them under the keys "comp", 'superl', and there are
+structured the same way as in the case of adjectives.
 
 >>> adverb.create_all('κάτω')['comp']['sg']['fem']['gen']
 {'κατώτερης'}
