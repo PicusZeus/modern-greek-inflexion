@@ -3,6 +3,19 @@ from modern_greek_inflexion import noun
 
 
 class NounTests(TestCase):
+
+    def test_noun_kalos(self):
+        self.assertDictEqual(
+            noun.create_all('κάλως', gender='masc'),
+            {'masc': {'sg': {'nom': {'κάλως'},
+                             'acc': {'κάλω', 'κάλων'},
+                             'gen': {'κάλω'}, 'voc': {'κάλω'}},
+                      'pl': {'nom': {''}, 'acc': {''}, 'gen': {''}, 'voc': {''}}}}
+
+        )
+
+
+
     def test_noun_gynaika(self):
         """should return dictionary with all possible cases"""
         self.assertDictEqual(

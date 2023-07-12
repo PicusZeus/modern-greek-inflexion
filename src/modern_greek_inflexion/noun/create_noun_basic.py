@@ -314,8 +314,15 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
 
         if noun in feminine_or_masc:
             noun_temp[GENDER] = MASC_FEM
+    elif noun[-2:] in ['ώς', 'ως'] and gender == MASC:
+        gen_form = noun[:-1]
+        # plural_form = noun
+        noun_temp[GENDER] = gender
+        # noun_temp[NOM_PL] = plural_form
+        noun_temp[GEN_SG] = gen_form
 
     elif noun[-2:] in ['ώς', 'ως']:
+
         noun_temp[GENDER] = NEUT
         plural_form = noun[:-1] + 'τα'
         gen_form = noun[:-1] + 'τος'
