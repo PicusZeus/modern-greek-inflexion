@@ -314,14 +314,14 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
 
         if noun in feminine_or_masc:
             noun_temp[GENDER] = MASC_FEM
-    elif noun[-2:] in ['ώς', 'ως'] and gender == MASC:
+    elif noun[-2:] in ['ώς', 'ως'] and (gender == MASC or gender == FEM):
         gen_form = noun[:-1]
         # plural_form = noun
         noun_temp[GENDER] = gender
         # noun_temp[NOM_PL] = plural_form
         noun_temp[GEN_SG] = gen_form
 
-    elif noun[-2:] in ['ώς', 'ως']:
+    elif noun[-2:] == 'ως':
 
         noun_temp[GENDER] = NEUT
         plural_form = noun[:-1] + 'τα'
@@ -345,11 +345,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             gen_form = put_accent(noun[:-2] + 'ους', accent)
             noun_temp[GEN_SG] = gen_form
             noun_temp[GENDER] = FEM
-        elif noun == 'άλως':
-            # its kind of exception
-            gen_form = 'άλω'
-            noun_temp[GEN_SG] = gen_form
-            noun_temp[GENDER] = FEM
+
 
     elif noun[-2:] in ['ις', 'ΐς', 'ίς']:
         noun_temp[GENDER] = FEM

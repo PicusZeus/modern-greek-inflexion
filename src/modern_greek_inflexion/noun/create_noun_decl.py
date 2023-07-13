@@ -73,7 +73,6 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
             return noun_all
 
-
         else:
 
             noun_all[gender] = {}
@@ -270,6 +269,10 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                 # aklita
                 noun_all[gender][SG][ACC] = nom_sg
                 noun_all[gender][PL][GEN] = nom_pl
+
+            elif nom_sg[-2:] == 'ως' and gen_sg[-1] == 'ω':
+                noun_all[gender][SG][ACC] = gen_sg
+                noun_all[gender][SG][VOC] = nom_sg
 
             elif nom_sg[-1:] == 'ς' and gender != NEUT:
                 # special cases:

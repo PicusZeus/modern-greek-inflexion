@@ -8,9 +8,9 @@ class NounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('κάλως', gender='masc'),
             {'masc': {'sg': {'nom': {'κάλως'},
-                             'acc': {'κάλω', 'κάλων'},
-                             'gen': {'κάλω'}, 'voc': {'κάλω'}},
-                      'pl': {'nom': {''}, 'acc': {''}, 'gen': {''}, 'voc': {''}}}}
+                             'acc': {'κάλω'},
+                             'gen': {'κάλω'}, 'voc': {'κάλως'}},
+                      'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}}}}
 
         )
 
