@@ -26,6 +26,13 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_gernw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('γέρνω'),
+            {'present': {'active': {'γέρνω'}}, 'conjunctive': {'active': {'γείρω'}}, 'aorist': {'active': {'έγειρα'}}, 'paratatikos': {'active': {'έγερνα'}}, 'act_pres_participle': {'γέρνοντας'}, 'modal': False}
+
+        )
+
     def test_verb_theto(self):
         self.assertDictEqual(
             verb.create_basic_forms('θέτω'),

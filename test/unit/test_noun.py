@@ -11,10 +11,7 @@ class NounTests(TestCase):
                              'acc': {'κάλω'},
                              'gen': {'κάλω'}, 'voc': {'κάλως'}},
                       'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}}}}
-
         )
-
-
 
     def test_noun_gynaika(self):
         """should return dictionary with all possible cases"""
