@@ -1,6 +1,7 @@
 ![Tests](https://github.com/PicusZeus/modern-greek-inflexion/actions/workflows/tests.yml/badge.svg)
- 
-
+![Downloads](https://img.shields.io/pypi/dm/modern-greek-inflexion)
+![python version](https://img.shields.io/pypi/pyversions/modern-greek-inflexion)
+![GitHub License](https://img.shields.io/github/license/picuszeus/modern-greek-inflexion)
 # Modern-greek-inflexion
 
 Python 3 library for recognizing inflexion types and for creating all possible inflected forms for Modern Greek words (verbs, adjectives, nouns etc.).
@@ -29,6 +30,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.554 Added irregular stem for gernw
  * 0.5.553 Fixes within irregular stems.
  * 0.5.552 Fixes for verbs on -υν and some irregularities (θάβω).
  * 0.5.550 Handling of elliptic verbs introduced, a list was used, other minor upgrades.
