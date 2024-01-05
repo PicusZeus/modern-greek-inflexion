@@ -30,6 +30,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.555 Added irregular stem δεω and fixed declination of participles on ών
  * 0.5.554 Added irregular stem for gernw
  * 0.5.553 Fixes within irregular stems.
  * 0.5.552 Fixes for verbs on -υν and some irregularities (θάβω).

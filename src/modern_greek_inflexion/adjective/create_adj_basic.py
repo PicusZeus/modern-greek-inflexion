@@ -194,6 +194,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             neuter = stem + 'ούν'
             neuter_alt_1 = stem + 'ών'
             neuter_alt_2 = stem + 'ούν'
+            neuter_alt_3 = stem + 'όν'
             if neuter + 'τα' in greek_corpus or neuter + 'τες' in greek_corpus:
                 fem = stem + 'ούσα'
             elif neuter_alt_1 + 'τα' in greek_corpus or neuter_alt_1 + 'τες' in greek_corpus or adj in ['ζων',
@@ -205,6 +206,9 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             elif neuter_alt_2 + 'τα' in greek_corpus or neuter_alt_2 + 'τες' in greek_corpus or neuter_alt_2 + 'των' in greek_corpus:
                 fem = stem + 'ούσα'
                 neuter = neuter_alt_2
+            elif neuter_alt_3 + 'τα' in greek_corpus:
+                fem = stem + 'ούσα'
+                neuter = neuter_alt_3
             if not accent:
                 neuter = remove_all_diacritics(neuter)
 

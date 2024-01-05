@@ -38,7 +38,6 @@ class VerbTestBasic(TestCase):
             verb.create_basic_forms('δέω'),
             {'present': {'active': {'δέω'}, 'passive': {'δέομαι'}}, 'conjunctive': {'active': {'δεήσω'}, 'passive': {'δεηθώ'}}, 'aorist': {'active': {'δέησα', 'εδέησα'}, 'passive': {'δεήθηκα'}}, 'paratatikos': {'passive': {'δεόμουν'}}, 'act_pres_participle': {'δέοντας'}, 'arch_act_pres_participle': {'δέων/δέουσα/δέον'}, 'pass_pres_participle': {'δεόμενος'}, 'active_aorist_participle': {'δεήσας/δεήσασα/δεήσαν'}, 'passive_aorist_participle': {'δεηθείς/δεηθείσα/δεηθέν'}, 'modal': False}
 
-
         )
 
     def test_verb_dew(self):

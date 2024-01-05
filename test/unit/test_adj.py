@@ -368,6 +368,19 @@ class AdjectiveTests(TestCase):
                            {'nom': {'ανακατωσούρες'}, 'acc': {'ανακατωσούρες'}, 'gen': {''}, 'voc': {'ανακατωσούρες'}}}}, 'adv': {'ανακατωσούρικα'}}
         )
 
+    def test_parwn(self):
+        self.assertDictEqual(
+            adjective.create_all('παρών'),
+            {'adj': {
+                'pl': {'masc': {'voc': {'παρόντες'}, 'nom': {'παρόντες'}, 'acc': {'παρόντες'}, 'gen': {'παρόντων'}},
+                       'fem': {'voc': {'παρούσες'}, 'nom': {'παρούσες'}, 'acc': {'παρούσες'}, 'gen': {'παρουσών'}},
+                       'neut': {'voc': {'παρόντα'}, 'nom': {'παρόντα'}, 'acc': {'παρόντα'}, 'gen': {'παρόντων'}}},
+                'sg': {'masc': {'voc': {'παρών'}, 'nom': {'παρών'}, 'acc': {'παρόντα'}, 'gen': {'παρόντος'}},
+                       'fem': {'voc': {'παρούσα'}, 'nom': {'παρούσα'}, 'acc': {'παρούσα'}, 'gen': {'παρούσας'}},
+                       'neut': {'voc': {'παρόν'}, 'nom': {'παρόν'}, 'acc': {'παρόν'}, 'gen': {'παρόντος'}}}}}
+
+        )
+
     def test_diattontas(self):
         self.assertDictEqual(
             adjective.create_all('διάττοντας'),
