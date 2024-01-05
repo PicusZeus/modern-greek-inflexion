@@ -93,6 +93,56 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_spatalo(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('σπαταλώ'),
+            {'present': {'active': {'σπαταλώ'}, 'passive': {'σπαταλώμαι', 'σπαταλιέμαι'}}, 'conjunctive': {'active': {'σπαταλήσω'}, 'passive': {'σπαταληθώ'}}, 'aorist': {'active': {'σπατάλησα'}, 'passive': {'σπαταλήθηκα'}}, 'paratatikos': {'active': {'σπαταλούσα', 'σπατάλαγα'}, 'passive': {'σπαταλιόμουν'}}, 'act_pres_participle': {'σπαταλώντας'}, 'passive_perfect_participle': {'σπαταλημένος', 'σπαταλεμένος'}, 'modal': False}
+
+        )
+
+    def test_verb_ximaw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('χιμάω'),
+            {'present': {'active': {'χιμάω'}}, 'conjunctive': {'active': {'χιμήξω'}}, 'aorist': {'active': {'χίμηξα'}}, 'paratatikos': {'active': {'χιμούσα'}}, 'act_pres_participle': {'χιμώντας'}, 'modal': False}
+
+        )
+
+    def test_verb_xumaw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('χυμάω'),
+            {'present': {'active': {'χυμάω'}}, 'conjunctive': {'active': {'χυμήξω'}}, 'aorist': {'active': {'χύμηξα'}},
+             'paratatikos': {'active': {'χυμούσα'}}, 'act_pres_participle': {'χυμώντας'}, 'modal': False}
+
+        )
+
+    def test_verb_βαρυγκομάω(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('βαρυγκομάω'),
+            {'present': {'active': {'βαρυγκομάω'}}, 'conjunctive': {'active': {'βαρυγκομήσω'}},
+             'aorist': {'active': {'βαρυγκόμησα'}}, 'paratatikos': {'active': {'βαρυγκομούσα'}},
+             'act_pres_participle': {'βαρυγκομώντας'}, 'passive_perfect_participle': {'βαρυγκομισμένος'},
+             'modal': False},
+        )
+
+    def test_verb_ζω(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ζω'),
+            {'present': {'active': {'ζω'}}, 'conjunctive': {'active': {'ζήσω'}},
+             'aorist': {'active': {'έζησα'}}, 'paratatikos': {'active': {'ζούσα'}},
+             'act_pres_participle': {'ζώντας'},
+             'arch_act_pres_participle': {'ζων/ζώσα/ζων'},
+             'passive_perfect_participle': {'βιωμένος'}, 'modal': False},
+
+        )
+
+    def test_verb_paxaino(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('παχαίνω'),
+            {'present': {'active': {'παχαίνω'}}, 'conjunctive': {'active': {'παχύνω'}},
+             'aorist': {'active': {'πάχυνα'}}, 'paratatikos': {'active': {'πάχαινα'}},
+             'act_pres_participle': {'παχαίνοντας'}, 'passive_perfect_participle': {'παχυμένος'}, 'modal': False}
+
+        )
     def test_verb_blepo(self):
         self.assertDictEqual(
             verb.create_basic_forms('βλέπω'),
@@ -206,15 +256,8 @@ class VerbTestBasic(TestCase):
     def test_verb_deiknuw(self):
         self.assertDictEqual(
             verb.create_basic_forms('δεικνύω'),
-            {'present': {'active': {'δεικνύω'}, 'passive': {'δεικνύομαι'}},
-             'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}},
-             'aorist': {'active': {'έδειξα'}, 'passive': {'δείχθηκα'}},
-             'paratatikos': {'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'},
-             'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'},
-             'active_aorist_participle': {'δείξας/δείξασα/δείξαν'},
-             'passive_perfect_participle': {'δειγμένος'},
+            {'present': {'active': {'δεικνύω'}, 'passive': {'δεικνύομαι'}}, 'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}}, 'aorist': {'active': {'έδειξα'}, 'passive': {'δείχθηκα'}}, 'paratatikos': {'active': {'δείκνυα'}, 'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'}, 'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'}, 'passive_perfect_participle': {'δειγμένος'}, 'active_aorist_participle': {'δείξας/δείξασα/δείξαν'}, 'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False}
 
-             'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False},
 
         )
 
@@ -236,7 +279,7 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'κλέπτω'}, 'passive': {'κλέπτομαι'}},
              'conjunctive': {'active': {'κλέψω'}, 'passive': {'κλαπώ', 'κλεφτώ'}},
              'aorist': {'active': {'έκλεψα'}, 'passive': {'κλέφτηκα', 'κλάπηκα', 'εκλάπη'}},
-             'paratatikos': {'passive': {'κλεπτόμουν'}}, 'act_pres_participle': {'κλέπτοντας'},
+             'paratatikos': {'active': {'έκλεπτα'}, 'passive': {'κλεπτόμουν'}}, 'act_pres_participle': {'κλέπτοντας'},
              'passive_perfect_participle': {'κλεμμένος'}, 'modal': False}
 
         )
@@ -620,17 +663,16 @@ class VerbTestBasic(TestCase):
     def test_verb_krossaro(self):
         self.assertDictEqual(
             verb.create_basic_forms('κροσσάρω'),
-            {'present': {'active': {'κροσσάρω'}}, 'conjunctive': {'active': {'κροσσαρίσω', 'κροσσάρω'}},
-             'aorist': {'active': {'κρόσσαρα', 'κροσσάρισα'}}, 'paratatikos': {'active': {'κρόσσαρα'}}, 'modal': False}
+            {'present': {'active': {'κροσσάρω'}}, 'conjunctive': {'active': {'κροσσαρίσω', 'κροσσάρω'}}, 'aorist': {'active': {'κροσσάρισα', 'κρόσσαρα'}}, 'paratatikos': {'active': {'κρόσσαρα'}}, 'act_pres_participle': {'κροσσάροντας'}, 'modal': False}
+
 
         )
 
     def test_verb_spaw(self):
         self.assertDictEqual(
             verb.create_basic_forms('σπάω'),
-            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}, 'passive': {'σπαστώ', 'σπασθώ'}},
-             'aorist': {'active': {'έσπασα'}, 'passive': {'σπάσθηκα', 'σπάστηκα'}},
-             'paratatikos': {'active': {'έσπαγα'}}, 'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
+            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}, 'passive': {'σπαστώ', 'σπασθώ'}}, 'aorist': {'active': {'έσπασα'}, 'passive': {'σπάσθηκα', 'σπάστηκα'}}, 'paratatikos': {'active': {'έσπαγα'}}, 'act_pres_participle': {'σπάγοντας'}, 'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
+
 
         )
 

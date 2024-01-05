@@ -214,16 +214,17 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
         perf_root = root + 'ήσ'
 
         # εξαιρέσεις
-        if root[-2:] == 'χν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
+        if root[-2:] in ['χν', 'ρν'] and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
             perf_root = root[:-1] + 'άσ'
 
-        elif root[-2:] == 'ρν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
-            perf_root = root[:-1] + 'άσ'
-        elif conjugation in [CON2B_ACT, CON2A_ACT]:
-            perf_root = root + 'ήσ'
+        # elif root[-2:] == 'ρν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
+        #     perf_root = root[:-1] + 'άσ'
+        if conjugation in [CON2A_ACT, CON2B_ACT] and perf_root + 'ω' not in greek_corpus and root + 'ήξω' in greek_corpus:
+            perf_root = root + 'ήξ'
 
-            if perf_root + 'ω' not in greek_corpus:
-                perf_root = root + 'ίσ'
+        elif conjugation in [CON2B_ACT, CON2A_ACT] and perf_root + 'ω' not in greek_corpus and root + 'ίσω' in greek_corpus:
+
+            perf_root = root + 'ίσ'
 
         if not ((perf_root + 'ω' in greek_corpus) or (perf_root + 'ου' in greek_corpus) or
                 (perf_root + 'ει' in greek_corpus)):
@@ -246,11 +247,14 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                                 (perf_root + 'ου' in greek_corpus) or
                                 perf_root + 'ει' in greek_corpus):
                             perf_root = root + 'ήξ'
+                            if not ((perf_root + 'ω' in greek_corpus) or
+                                    (perf_root + 'ου' in greek_corpus) or
+                                    perf_root + 'ει' in greek_corpus):
+                                perf_root = root + 'ήσ'
         # special case for compounds with ποιω that are not in my db for some reasons
 
         if root[-3:] == 'ποι' and conjugation in [CON2B_ACT, CON2B_PASS]:
             perf_root = root + 'ήσ'
-
     elif conjugation == CON2C_ACT and not perf_root:
         # my best guess is to remove 2 last syllables and to add αψα
 
@@ -395,7 +399,7 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
          (perf_root + 'ώ' in greek_corpus) or
          (perf_root + 'εί' in greek_corpus))) or \
             root[-3:] == 'ποι' or \
-            multiple_stems:
+            multiple_stems or (conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT] and voice == ACTIVE):
 
         return perf_root
     else:
@@ -472,7 +476,7 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
         root = verb[:-5]
         conjugation_ind = EIMAI
 
-        conjugation_imp = PRESENT_ACTIVE_PART_EIMAI
+        conjugation_part = PRESENT_ACTIVE_PART_EIMAI
 
     elif verb == '':
         # sometimes there is no simple future form

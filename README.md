@@ -30,6 +30,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.565 Changed wordlist (expanded), fixes in verb module (more liberal construction of aorist root) and in adjective module so that it can deal better with former participles used as adjectives now.
  * 0.5.555 Added irregular stem δεω and fixed declination of participles on ών
  * 0.5.554 Added irregular stem for gernw
  * 0.5.553 Fixes within irregular stems.

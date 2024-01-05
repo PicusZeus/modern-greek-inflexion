@@ -59,7 +59,7 @@ class ProperNounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('Βάιος', proper_name=True),
             {'masc': {'pl': {'voc': {''}, 'acc': {''}, 'nom': {''}},
-                      'sg': {'voc': {'Βάιε', 'Βάιο'}, 'acc': {'Βάιο'}, 'nom': {'Βάιος'}, 'gen': {'Βαΐου', 'Βάιου'}}}}
+                      'sg': {'voc': {'Βάιε', 'Βάιο'}, 'acc': {'Βάιο', 'Βάιον'}, 'nom': {'Βάιος'}, 'gen': {'Βαΐου', 'Βάιου'}}}}
         )
 
     def test_Filippos(self):

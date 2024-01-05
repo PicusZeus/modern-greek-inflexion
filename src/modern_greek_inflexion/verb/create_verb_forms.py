@@ -4,7 +4,7 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
     recognize_past_conjugation
 from ..resources import ACTIVE, PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, IMP, \
     MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
-    CONJUGATION_IMP, FIN
+    CONJUGATION_IMP, FIN, EIMAI
 from modern_greek_accentuation.resources import ULTIMATE
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate
