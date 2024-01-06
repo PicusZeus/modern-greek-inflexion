@@ -165,7 +165,7 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
                 },
             }}
 
-        elif masc in ['όπερ', 'τουθόπερ']:
+        elif masc in ['όπερ', 'τουθόπερ', 'ό']:
 
             forms = {SG: {
                 NEUT: {

@@ -15,6 +15,13 @@ class PronounTestAll(TestCase):
                     'neut': {'gen': {'οποίων'}, 'voc': {''}, 'acc': {'οποία'}, 'nom': {'οποία'}}}}
         )
 
+    def test_pron_o(self):
+        self.assertDictEqual(
+            pronoun.create_all('ό'),
+            {'sg': {'neut': {'nom': {'ό'}, 'acc': {'ό'}}}}
+
+        )
+
     def test_pron_ostis(self):
         self.assertDictEqual(
             pronoun.create_all('όστις'),
