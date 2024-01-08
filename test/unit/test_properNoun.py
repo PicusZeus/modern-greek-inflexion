@@ -1,5 +1,5 @@
 from unittest import TestCase
-
+from modern_greek_inflexion.resources import MASC, SURNAME, FEM, NEUT, FEM_SG
 from modern_greek_inflexion import noun
 
 
@@ -13,14 +13,14 @@ class ProperNounTests(TestCase):
 
     def test_Paxu(self):
         self.assertDictEqual(
-            noun.create_all('Παχύ', proper_name=True, gender='surname'),
+            noun.create_all('Παχύ', proper_name=True, gender=SURNAME),
             {'surname': {'pl': {'gen': {'Παχύ'}, 'acc': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}},
              'sg': {'acc': {'Παχύ'}, 'gen': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}}}}
         )
 
     def test_Papandreou(self):
         self.assertDictEqual(
-            noun.create_all('Παπανδρέου', proper_name=True, gender='surname'),
+            noun.create_all('Παπανδρέου', proper_name=True, gender=SURNAME),
 
 
         {'surname': {'pl': {'gen': {'Παπανδρέου'}, 'acc': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}},
@@ -29,14 +29,14 @@ class ProperNounTests(TestCase):
 
     def test_Dimas(self):
         self.assertDictEqual(
-            noun.create_all('Δημάς', proper_name=True, gender='surname'),
+            noun.create_all('Δημάς', proper_name=True, gender=SURNAME),
             {'surname': {'pl': {'acc': {'Δημάδες'},'gen': {'Δημάδων'}, 'nom': {'Δημάδες'},'voc': {'Δημάδες'}},
                          'sg': {'acc': {'Δημά'},'gen': {'Δημά'},'nom': {'Δημάς'}, 'voc': {'Δημά'}}}}
 
         )
     def test_Mykonos(self):
         self.assertDictEqual(
-            noun.create_all('Μύκονος', proper_name=True, gender='fem_sg'),
+            noun.create_all('Μύκονος', proper_name=True, gender=FEM_SG),
             {'fem': {'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}},
                      'sg': {'nom': {'Μύκονος'}, 'gen': {'Μύκονου', 'Μυκόνου'}, 'acc': {'Μύκονο'}, 'voc': {'Μύκονε'}}}}
         )
@@ -60,6 +60,13 @@ class ProperNounTests(TestCase):
             noun.create_all('Βάιος', proper_name=True),
             {'masc': {'pl': {'voc': {''}, 'acc': {''}, 'nom': {''}},
                       'sg': {'voc': {'Βάιε', 'Βάιο'}, 'acc': {'Βάιο', 'Βάιον'}, 'nom': {'Βάιος'}, 'gen': {'Βαΐου', 'Βάιου'}}}}
+        )
+
+    def test_Ihsous(self):
+        self.assertDictEqual(
+            noun.create_all('Ιησούς', proper_name=True, gender=MASC),
+            {'masc': {'sg': {'voc': {'Ιησού'}, 'gen': {'Ιησού'}, 'nom': {'Ιησούς'}, 'acc': {'Ιησού'}},
+                      'pl': {'voc': {''}, 'gen': {''}, 'nom': {''}, 'acc': {''}}}}
         )
 
     def test_Filippos(self):
@@ -87,14 +94,14 @@ class ProperNounTests(TestCase):
 
     def test_Paolo(self):
         self.assertDictEqual(
-            noun.create_all('Μύκονος', proper_name=True, gender='fem'),
+            noun.create_all('Μύκονος', proper_name=True, gender=FEM),
             {'fem': {'sg': {'voc': {'Μύκονε'}, 'gen': {'Μύκονου', 'Μυκόνου'}, 'nom': {'Μύκονος'}, 'acc': {'Μύκονο'}},
                      'pl': {'voc': {''}, 'nom': {''}, 'acc': {''}}}}
         )
 
     def test_Polonos(self):
         self.assertDictEqual(
-            noun.create_all('Πολωνός', gender='masc'),
+            noun.create_all('Πολωνός', gender=MASC),
             {'masc': {'sg': {'gen': {'Πολωνού'},
                              'nom': {'Πολωνός'},
                              'voc': {'Πολωνέ'},
@@ -123,6 +130,5 @@ class ProperNounTests(TestCase):
                                'gen': {'Αγγέλου', 'Άγγελου'},
                                'nom': {'Άγγελος'},
                                'voc': {'Άγγελε'}}}}
-
         )
 

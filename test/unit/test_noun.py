@@ -1,16 +1,16 @@
 from unittest import TestCase
 from modern_greek_inflexion import noun
-
+from modern_greek_inflexion.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL
 
 class NounTests(TestCase):
 
     def test_noun_kalos(self):
         self.assertDictEqual(
-            noun.create_all('κάλως', gender='masc'),
+            noun.create_all('κάλως', gender=MASC),
             {'masc': {'sg': {'nom': {'κάλως'},
                              'acc': {'κάλω'},
                              'gen': {'κάλω'}, 'voc': {'κάλως'}},
-                      'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}}}}
+                      'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}}}},
         )
 
     def test_noun_gynaika(self):
@@ -31,7 +31,7 @@ class NounTests(TestCase):
     def test_noun_thyronoiksia(self):
         """with pluralia tantum you have to say it explicitly"""
         self.assertDictEqual(
-            noun.create_all('θυρανοίξια', gender='neut_pl'),
+            noun.create_all('θυρανοίξια', gender=NEUT_PL),
             {'neut': {
                 'pl': {'voc': {'θυρανοίξια'}, 'acc': {'θυρανοίξια'}, 'gen': {'θυρανοιξίων'}, 'nom': {'θυρανοίξια'}},
                 'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}}}}
@@ -40,7 +40,7 @@ class NounTests(TestCase):
     def test_noun_xaos(self):
         """-os neuter sg tantum"""
         self.assertDictEqual(
-            noun.create_all('χάος', gender='neut_sg'),
+            noun.create_all('χάος', gender=NEUT_SG),
             {'neut': {
                 'pl': {'acc': {''}, 'nom': {''}, 'voc': {''}},
                 'sg': {'acc': {'χάος'}, 'gen': {'χάους'}, 'nom': {'χάος'}, 'voc': {'χάος'}}}
@@ -50,7 +50,7 @@ class NounTests(TestCase):
     def test_noun_olon(self):
         """-on neuter sg tantum"""
         self.assertDictEqual(
-            noun.create_all('όλον', gender='neut_sg'),
+            noun.create_all('όλον', gender=NEUT_SG),
             {'neut':
                  {'pl':
                       {'acc': {''}, 'nom': {''}, 'voc': {''}},
@@ -62,7 +62,7 @@ class NounTests(TestCase):
     def test_noun_hmifws(self):
         """-ws neuter sg tantum"""
         self.assertDictEqual(
-            noun.create_all('ημίφως', gender='neut_sg'),
+            noun.create_all('ημίφως', gender=NEUT_SG),
             {'neut':
                  {'pl':
                       {'acc': {''}, 'nom': {''}, 'voc': {''}},
@@ -71,7 +71,7 @@ class NounTests(TestCase):
 
     def test_noun_alytarchos(self):
         self.assertDictEqual(
-            noun.create_all('αλύταρχος', gender='masc'),
+            noun.create_all('αλύταρχος', gender=MASC),
             {'masc': {'sg': {'nom': {'αλύταρχος'}, 'acc': {'αλύταρχο'}, 'voc': {'αλύταρχε'}, 'gen': {'αλύταρχου'}},
                       'pl': {'nom': {'αλύταρχοι'}, 'acc': {'αλύταρχους'}, 'voc': {'αλύταρχοι'}, 'gen': {'αλύταρχων'}}}}
         )
@@ -158,7 +158,7 @@ class NounTests(TestCase):
         generate correct forms
         """
         self.assertDictEqual(
-            noun.create_all('υπέρθημα', gender='neut'),
+            noun.create_all('υπέρθημα', gender=NEUT),
             {'neut': {'sg': {'nom': {'υπέρθημα'}, 'gen': {'υπερθήματος'}, 'voc': {'υπέρθημα'}, 'acc': {'υπέρθημα'}},
                       'pl': {'nom': {'υπερθήματα'}, 'gen': {'υπερθημάτων'}, 'acc': {'υπερθήματα'},
                              'voc': {'υπερθήματα'}}}}
@@ -351,7 +351,7 @@ class NounTests(TestCase):
 
     def test_noun_farfalo(self):
         self.assertDictEqual(
-            noun.create_all('φαρφάλω', gender='fem'),
+            noun.create_all('φαρφάλω', gender=FEM),
             {'fem': {'pl': {'acc': {''}, 'nom': {''}, 'voc': {''}},
                      'sg': {'acc': {'φαρφάλω'},
                             'gen': {'φαρφάλως'},
@@ -362,7 +362,7 @@ class NounTests(TestCase):
 
     def test_noun_resepsion(self):
         self.assertDictEqual(
-            noun.create_all('ρεσεψιόν', gender='fem', aklito=True),
+            noun.create_all('ρεσεψιόν', gender=FEM, aklito=True),
             {'fem':
                  {'pl':
                       {'voc': {'ρεσεψιόν'}, 'gen': {'ρεσεψιόν'}, 'nom': {'ρεσεψιόν'}, 'acc': {'ρεσεψιόν'}},
@@ -404,7 +404,7 @@ class NounTests(TestCase):
 
     def test_peira(self):
         self.assertDictEqual(
-            noun.create_all('ξεχασιά', gender='fem_sg'),
+            noun.create_all('ξεχασιά', gender=FEM_SG),
             {'fem': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
                      'sg': {'acc': {'ξεχασιά'},
                             'gen': {'ξεχασιάς'},

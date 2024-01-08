@@ -15,12 +15,16 @@ NOM = 'nom'
 GEN = 'gen'
 ACC = 'acc'
 VOC = 'voc'
+
+
+# genders
 MASC = 'masc'
 FEM = 'fem'
 NEUT = 'neut'
-
-# genders
 MASC_FEM = 'masc,fem'
+
+SURNAME = 'surname'
+
 ND = 'nd'
 PRI = 'pri'
 SEC = 'sec'

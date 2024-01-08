@@ -346,7 +346,6 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             noun_temp[GEN_SG] = gen_form
             noun_temp[GENDER] = FEM
 
-
     elif noun[-2:] in ['ις', 'ΐς', 'ίς']:
         noun_temp[GENDER] = FEM
         plural_form = put_accent_on_the_penultimate(noun[:-2] + 'εις', true_syllabification=False)
@@ -378,6 +377,9 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             noun_temp[GENDER] = NEUT
             noun_temp[GEN_SG] = 'ωτός'
             noun_temp[NOM_PL] = 'ώτα'
+        elif proper_name and gender == MASC:
+            noun_temp[GEN_SG] = noun[:-1]
+
         else:
             # aklita
             noun_temp[GENDER] = NEUT
