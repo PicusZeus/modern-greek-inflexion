@@ -161,6 +161,15 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         masc, fem = adj, adj
         neuter = adj[:-1] + 'ν'
 
+    elif adj[-3:] == 'ούς':
+        masc = adj
+        if adj[-4] in vowels or adj[-4] == 'ρ':
+            fem = adj[:-3] + 'ά'
+        else:
+            fem = adj[:-3:] + 'ή'
+        neuter = adj[:-1] + 'ν'
+
+
     elif adj[-2:] in ['υς', 'ύς'] or adj in ['γλυκύ']:
         # my database is unfortunately not that great...
         stem = adj[:-2]
@@ -332,8 +341,13 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
     # παραθετικά
 
     stem = neuter
+
     if stem[-1] == 'ς':
         stem = stem[:-1] + 'σ'
+    elif stem[-3:] in ['ουν', 'ούν']:
+        stem = stem[:-1] + 'σ'
+    elif stem[-1] == 'ν':
+        stem = stem[:-1]
     parathetika = None
     alt_parathetiko = None
     uperthetiko = '-'
@@ -409,7 +423,21 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
     elif (masc[-2:] in ['ας', 'άς', 'ων', 'ών'] or masc[-3:] in ['εις', 'είς']) and fem[-2:] == 'σα' and neuter[
         -1] == 'ν':
         # ancient adverbs
-        adverb = put_accent_on_the_penultimate(neuter + 'τως')
+
+        if put_accent_on_the_penultimate(neuter + 'τως') in greek_corpus:
+            adverb = put_accent_on_the_penultimate(neuter + 'τως')
+        else:
+            adverb = ''
+
+    elif masc[-3:] in ['ους', 'ούς']:
+        if accent == ULTIMATE and masc[:-3] + 'ώς' in greek_corpus:
+            adverb = masc[:-3] + 'ώς'
+        elif put_accent_on_the_penultimate(masc[:-3] + 'οως') in greek_corpus:
+            adverb = put_accent_on_the_penultimate(masc[:-3] + 'οως')
+        else:
+            adverb = ''
+
+
     else:
         # for aklita
         adverb = neuter

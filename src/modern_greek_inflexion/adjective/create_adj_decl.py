@@ -323,30 +323,31 @@ def create_all_adj_forms(adj: str) -> tuple[Any, dict | None] | tuple[Any, None]
         return forms, alt_forms
 
     elif masc[-3:] == 'ους' and neut[-3:] == 'ουν':
-
+        pl_fem_masc = masc[:-3] + 'οες'
+        pl_gen = put_accent_on_the_penultimate(masc[:-2] + 'ων')
         forms[SG][MASC][NOM] = masc
         forms[SG][MASC][ACC] = masc[:-1]
-        forms[SG][MASC][GEN] = masc[:-1] + 'ν'
+        forms[SG][MASC][GEN] = masc[:-1]
         forms[SG][MASC][VOC] = masc
         forms[SG][FEM][NOM] = masc
         forms[SG][FEM][ACC] = masc[:-1]
-        forms[SG][FEM][GEN] = masc[:-1] + 'ν'
+        forms[SG][FEM][GEN] = masc[:-1]
         forms[SG][FEM][VOC] = masc
         forms[SG][NEUT][NOM] = neut
         forms[SG][NEUT][GEN] = neut[:-1]
         forms[SG][NEUT][ACC] = neut
         forms[SG][NEUT][VOC] = neut
-        forms[PL][MASC][NOM] = masc[:-3] + 'οι'
-        forms[PL][MASC][ACC] = masc
-        forms[PL][MASC][GEN] = masc[:-3] + 'ων'
-        forms[PL][MASC][VOC] = masc[:-3] + 'οι'
-        forms[PL][FEM][NOM] = masc[:-3] + 'οι'
-        forms[PL][FEM][ACC] = masc
-        forms[PL][FEM][GEN] = masc[:-3] + 'ων'
-        forms[PL][FEM][VOC] = masc[:-3] + 'οι'
+        forms[PL][MASC][NOM] = pl_fem_masc
+        forms[PL][MASC][ACC] = pl_fem_masc
+        forms[PL][MASC][GEN] = pl_gen
+        forms[PL][MASC][VOC] = pl_fem_masc
+        forms[PL][FEM][NOM] = pl_fem_masc
+        forms[PL][FEM][ACC] = pl_fem_masc
+        forms[PL][FEM][GEN] = pl_gen
+        forms[PL][FEM][VOC] = pl_fem_masc
         forms[PL][NEUT][NOM] = masc[:-3] + 'οα'
         forms[PL][NEUT][ACC] = masc[:-3] + 'οα'
-        forms[PL][NEUT][GEN] = masc[:-3] + 'ων'
+        forms[PL][NEUT][GEN] = pl_gen
         forms[PL][NEUT][VOC] = masc[:-3] + 'οα'
 
         return forms, None
@@ -358,7 +359,8 @@ def create_all_adj_forms(adj: str) -> tuple[Any, dict | None] | tuple[Any, None]
         forms[SG][MASC][ACC] = masc[:-1]
 
         forms[SG][MASC][VOC] = masc[:-1]
-
+        if masc[-3:] in ['ους', 'ούς']:
+            forms[SG][MASC][VOC] = masc
         forms[SG][MASC][GEN] = fem[:-1] + 'ου'
         forms[SG][FEM][NOM] = fem
         forms[SG][FEM][ACC] = fem
