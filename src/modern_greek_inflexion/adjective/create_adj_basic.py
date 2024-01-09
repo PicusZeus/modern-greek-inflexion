@@ -93,7 +93,11 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
                 if gen in greek_corpus:
                     fem = beta_fem
 
+        elif adj[-3] not in vowels and put_accent(adj[:-2] + 'η', accent) not in greek_corpus and put_accent(adj[:-2] + 'ας', accent) in greek_corpus:
+            fem = put_accent(adj[:-2] + 'α', accent)
             # if it's lacking from the db, still the best guess is to leave the form on -h
+
+
 
         adj_forms.append(fem)
 

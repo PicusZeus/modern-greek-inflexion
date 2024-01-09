@@ -30,6 +30,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Change Log
+ * 0.5.568 Fixed issues with less regular adjective femina on a after consonants
  * 0.5.567 Fixes in proper_nouns on ous
  * 0.5.566 Small fixes to pronoun handling
  * 0.5.565 Changed wordlist (expanded), fixes in verb module (more liberal construction of aorist root) and in adjective module so that it can deal better with former participles used as adjectives now.

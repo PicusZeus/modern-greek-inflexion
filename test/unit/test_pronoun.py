@@ -5,6 +5,7 @@ from modern_greek_inflexion import pronoun
 
 class PronounTestAll(TestCase):
     def test_pron_opoios(self):
+        self.maxDiff = None
         self.assertDictEqual(
             pronoun.create_all('οποίος'),
             {'sg': {'fem': {'gen': {'οποίας'}, 'voc': {''}, 'acc': {'οποία', 'οποίαν'}, 'nom': {'οποία'}},
