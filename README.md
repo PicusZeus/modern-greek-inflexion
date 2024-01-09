@@ -5,8 +5,7 @@
 # Modern-greek-inflexion
 
 Python 3 library for recognizing inflexion types and for creating all possible inflected forms for Modern Greek words (verbs, adjectives, nouns etc.).
-It has nothing to do with AI. To avoid creating non-existent (though maybe possible forms) it checks its results with a orthographic
-dictionary. The application is implemented in a web app you can find [here](https://ellinika.com.pl).
+The application is implemented in a web app you can find [here](https://ellinika.com.pl).
 
 ## Installation
 
