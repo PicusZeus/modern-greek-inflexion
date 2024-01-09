@@ -28,7 +28,12 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## To Do
+The only way to say if some adjectives on -os have a common masc-fem form on -os is to have at least partial least of such adjectives. Maybe it would be possible to get it from somewhere.
+
+
 ## Change Log
+ * 0.5.571 Quite a few fixes concerning mainly arxaioprepes types of adjective inflexions, 
  * 0.5.570 Fixed issues with aklita on i
  * 0.5.569 Fixed issues with adj on ous (arxaioprepes)
  * 0.5.568 Fixed issues with less regular adjective femina on a after consonants

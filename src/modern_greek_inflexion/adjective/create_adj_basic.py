@@ -1,3 +1,4 @@
+from icecream import ic
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
@@ -96,6 +97,9 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         elif adj[-3] not in vowels and put_accent(adj[:-2] + 'η', accent) not in greek_corpus and put_accent(adj[:-2] + 'ας', accent) in greek_corpus:
             fem = put_accent(adj[:-2] + 'α', accent)
             # if it's lacking from the db, still the best guess is to leave the form on -h
+
+        if (adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or adj.endswith('ουργός'):
+            fem = masc
 
         adj_forms.append(fem)
 
@@ -241,13 +245,19 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         # pas, pasa pan and active aorist participles
         # pas pasa pan
 
+
         pl_nta = adj[:-1] + 'ντα'
         fem_sa = adj[:-1] + 'σα'
-
+        if adj == 'κλέψας':
+            ic('TUTAJ', pl_nta, adj[:-1] + 'σα' in greek_corpus)
         if count_syllables(adj) == 1:
             pl_nta = put_accent(pl_nta, PENULTIMATE)
             fem_sa = put_accent(fem_sa, PENULTIMATE)
-        if pl_nta in greek_corpus or adj.endswith('άπας'):
+        if (pl_nta in greek_corpus or
+                adj.endswith('άπας') or
+                (adj[-4:] != 'ντας' and
+                 adj[-3:] in ['ψας', 'σας', 'ξας'] and
+                 put_accent_on_the_antepenultimate(adj[:-1] + 'δικο') not in greek_corpus)):
             masc = adj
             fem = fem_sa
             neuter = adj[:-1] + 'ν'
@@ -266,7 +276,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             masc = adj
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
-        elif adj.endswith('σαντας'):
+        elif len(adj) > 6 and adj[-6:] in ['σαντας', 'ξαντας', 'ψαντας']:
             # modernized active aorist participles
             masc = adj
             fem = adj[:-4] + 'σα'
@@ -309,7 +319,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         masc, fem = adj, adj
         neuter = '-'
 
-    elif adj in ['εύχαρις', 'επίχαρις', 'άχαρις']:
+    elif adj[-2:] == 'ις':
         masc, fem = adj, adj
         neuter = adj[:-1]
 
