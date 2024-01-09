@@ -35,8 +35,8 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             adj = adj[:-2] + 'άς'
         elif put_accent_on_the_penultimate(adj[:-2] + 'ης') in greek_corpus:
             adj = put_accent_on_the_penultimate(adj[:-2] + 'ης')
-    elif adj[-1] == 'ί' and adj[:-1] + 'ής' in greek_corpus:
-        adj = adj[:-1] + 'ής'
+    # elif adj[-1] == 'ί' and adj[:-1] + 'ής' in greek_corpus:
+    #     adj = adj[:-1] + 'ής'
     accent = where_is_accent(adj, true_syllabification=False)
 
     adj_temp = {ADJ: 'masc,fem,neuter', COMPARATIVE: '', ADVERB: '', ADVERB_COMPARATIVE: ''}
@@ -96,8 +96,6 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         elif adj[-3] not in vowels and put_accent(adj[:-2] + 'η', accent) not in greek_corpus and put_accent(adj[:-2] + 'ας', accent) in greek_corpus:
             fem = put_accent(adj[:-2] + 'α', accent)
             # if it's lacking from the db, still the best guess is to leave the form on -h
-
-
 
         adj_forms.append(fem)
 
@@ -230,7 +228,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             masc, fem = adj, adj
             neuter = adj[:-2] + 'ον'
 
-    elif adj[-3:] == 'είς':
+    elif adj.endswith('είς'):
         # passive aorist participles
         # if not adj[:-3] + 'έντα' in greek_corpus:
         #     raise NotLegalAdjectiveException
@@ -249,7 +247,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         if count_syllables(adj) == 1:
             pl_nta = put_accent(pl_nta, PENULTIMATE)
             fem_sa = put_accent(fem_sa, PENULTIMATE)
-        if pl_nta in greek_corpus or adj[-4:] == 'άπας':
+        if pl_nta in greek_corpus or adj.endswith('άπας'):
             masc = adj
             fem = fem_sa
             neuter = adj[:-1] + 'ν'
@@ -264,21 +262,21 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             fem = 'μαγάλη'
             neuter = 'μέγα'
 
-        elif adj[-4:] == 'ονας':
+        elif adj.endswith('ονας'):
             masc = adj
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
-        elif len(adj) > 6 and adj[-6:] == 'σαντας':
+        elif adj.endswith('σαντας'):
             # modernized active aorist participles
             masc = adj
             fem = adj[:-4] + 'σα'
             neuter = adj[:-3]
 
-        elif adj[-5:] == 'οντας':
+        elif adj.endswith('οντας'):
             masc = adj
             fem = put_accent_on_the_antepenultimate(adj[:-5] + 'ουσα')
             neuter = adj[:-3]
-        elif adj[-5:] == 'ώντας':
+        elif adj.endswith('ώντας'):
             masc = adj
             fem = put_accent_on_the_antepenultimate(adj[:-5] + 'ούσα')
             neuter = adj[:-3]
@@ -319,7 +317,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         masc, fem = adj, adj
         neuter = adj[:-1] + 'ν'
 
-    elif adj[-2:] == 'ωρ':
+    elif adj.endswith('ωρ'):
         masc, fem = adj, adj
         neuter = '-'
 
@@ -342,11 +340,11 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
 
     stem = neuter
 
-    if stem[-1] == 'ς':
+    if stem.endswith('ς'):
         stem = stem[:-1] + 'σ'
     elif stem[-3:] in ['ουν', 'ούν']:
         stem = stem[:-1] + 'σ'
-    elif stem[-1] == 'ν':
+    elif stem.endswith('ν'):
         stem = stem[:-1]
     parathetika = None
     alt_parathetiko = None
@@ -394,7 +392,10 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
 
     alt_adv = None
 
-    if neuter[-1] in ['ο', 'ό']:
+    if aklito or masc == neuter:
+        adverb = neuter
+
+    elif neuter[-1] in ['ο', 'ό']:
 
         accent = where_is_accent(neuter)
         if accent != ULTIMATE:

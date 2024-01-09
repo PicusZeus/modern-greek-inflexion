@@ -90,8 +90,14 @@ class AdjectiveTests(TestCase):
                        'fem': {'gen': {'σιδηράς'}, 'nom': {'σιδηρά'}, 'acc': {'σιδηρά'}, 'voc': {'σιδηρά'}}},
                   'pl': {'masc': {'gen': {'σιδηρών'}, 'nom': {'σιδηροί'}, 'acc': {'σιδηρούς'}, 'voc': {'σιδηροί'}},
                          'neut': {'gen': {'σιδηρών'}, 'nom': {'σιδηρά'}, 'acc': {'σιδηρά'}, 'voc': {'σιδηρά'}},
-                         'fem': {'gen': {'σιδηρών'}, 'nom': {'σιδηρές'}, 'acc': {'σιδηρές'}, 'voc': {'σιδηρές'}}}}}
+                         'fem': {'gen': {'σιδηρών'}, 'nom': {'σιδηρές'}, 'acc': {'σιδηρές'}, 'voc': {'σιδηρές'}}}}},
 
+        )
+
+    def test_adj_portokali(self):
+        self.assertDictEqual(
+            adjective.create_all_basic_adj_forms('πορτοκαλί'),
+            {'adj': 'πορτοκαλί/πορτοκαλί/πορτοκαλί', 'comparative': '', 'adverb': 'πορτοκαλί', 'adverb_comparative': ''}
         )
 
     def test_adj_porfyroxrous(self):
