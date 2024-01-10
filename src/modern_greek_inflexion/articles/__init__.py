@@ -2,7 +2,7 @@
 simply a list
 """
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import SG, PL, FEM, MASC, NEUT, NOM, ACC, GEN
+from ..resources.resources import SG, PL, FEM, MASC, NEUT, NOM, ACC, GEN
 
 definite_article = {
     SG: {

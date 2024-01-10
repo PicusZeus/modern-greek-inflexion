@@ -4,7 +4,7 @@ from .create_adj_decl import create_all_adj_forms
 from ..exceptions import NotInGreekException
 from ..helping_functions import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources import ADJ, ADVERB, COMP, COMP_ADV, ADV, COMPARATIVE, ADVERB_COMPARATIVE, SUPERL, SUPERL_ADV
+from ..resources.resources import ADJ, ADVERB, COMP, COMP_ADV, ADV, COMPARATIVE, ADVERB_COMPARATIVE, SUPERL, SUPERL_ADV
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)

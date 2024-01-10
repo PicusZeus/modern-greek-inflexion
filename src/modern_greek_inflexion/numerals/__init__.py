@@ -3,7 +3,7 @@ from .create_num_list import create_num_adj
 from .. import adjective
 from ..helping_functions import merging_all_dictionaries
 from .. import noun
-from ..resources import ADJ, ADV
+from ..resources.resources import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..exceptions import NotInGreekException
 import re

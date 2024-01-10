@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 import sys
-from typing import List, Dict, Any
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
     count_syllables, remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
-from ..resources import greek_corpus, irregular_imperative_forms, conjugations
+from ..resources.resources import greek_corpus
+
+from ..resources.verb import conjugations, irregular_imperative_forms
 from .conjugations import create_imp_pass, recognize_past_conjugation
-from ..resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, ACTIVE, \
+from ..resources.resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, ACTIVE, \
     IMPERF, PASSIVE, CON1_PASS_MODAL, IND, CON2D_PASS, CON2E_PASS, PARAT1_PASS, PARAT2B_PASS, PARAT2D_PASS, \
     ARCH_PASS_AOR, IMPER_ACT_CONT_2A, IMPER_PASS_AOR_A, IMPER_ACT_AOR_CA, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
     IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, PARAT2B_LOGIA, ROOT, DEPONENS

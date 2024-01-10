@@ -2,10 +2,10 @@ import copy
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, where_is_accent, \
     put_accent_on_the_ultimate
-from modern_greek_accentuation.resources import ANTEPENULTIMATE, PENULTIMATE, ULTIMATE
+from modern_greek_accentuation.resources import ANTEPENULTIMATE, ULTIMATE
 from ..adjective import create_all_adj_forms
-from ..resources import adj_basic_template
-from ..resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT
+from ..resources.resources import adj_basic_template
+from ..resources.resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT
 
 
 def create_all_num_adj_forms(num_base_forms: str, ordinal: bool = False) -> dict:

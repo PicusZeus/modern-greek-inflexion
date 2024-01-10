@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import copy
-from typing import Tuple, Dict, Any
+from typing import Any
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.resources import ANTEPENULTIMATE, ULTIMATE, PENULTIMATE, vowels
-from ..resources import greek_corpus, adj_basic_template, SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC
+from ..resources.resources import greek_corpus, adj_basic_template, SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC
 
 """
 example

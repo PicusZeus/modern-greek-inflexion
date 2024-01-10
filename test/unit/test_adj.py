@@ -1,5 +1,5 @@
 from unittest import TestCase
-from modern_greek_inflexion.resources import greek_corpus
+# from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion import adjective
 from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjectiveException
 from icecream import ic

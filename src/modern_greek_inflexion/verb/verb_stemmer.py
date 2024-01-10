@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Union, Tuple, Any, Optional
+from typing import Union, Any, Optional
 
 from modern_greek_accentuation.syllabify import modern_greek_syllabify, count_syllables
 from modern_greek_accentuation.accentuation import is_accented, put_accent_on_the_antepenultimate, \
@@ -11,11 +11,10 @@ from modern_greek_accentuation.resources import vowels
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     create_regular_perf_root
 
-from ..resources import greek_corpus, irregular_passive_perfect_participles, irregular_active_aorists, \
-    irregular_passive_aorists, deponens_with_active_perf_forms, irregular_active_paratatikos, irregular_passive_roots
-from ..resources import EIMAI, CON1_PASS, CON2AB_PASS, CON2A_PASS, CON2C_PASS, CON2B_PASS, CON1_ACT, \
-    CON1_ACT_MODAL, CON2_ACT_MODAL, CON2C_ACT, CON2B_ACT, CON2A_ACT, CON2D_ACT, ROOT, CONJUGATION_IND, PASSIVE, \
-    CON2D_PASS, CON2E_PASS
+from ..resources.resources import greek_corpus
+from ..resources.verb import (irregular_passive_roots, irregular_passive_perfect_participles, irregular_active_aorists,
+                              irregular_active_paratatikos, deponens_with_active_perf_forms, irregular_passive_aorists)
+from ..resources.variables import *
 
 
 def create_basic_present_forms(base_form: str, deponens: bool = False, not_deponens: bool = True,

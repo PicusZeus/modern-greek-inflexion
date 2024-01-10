@@ -1,7 +1,8 @@
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
 from ..adjective import create_all_adj_forms
-from ..resources import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
+from ..resources.pronouns import *
+from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
 def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
@@ -31,10 +32,10 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
 
             if masc == 'αυτός':
                 if strong:
-                    from ..resources import AUTOS_STRONG
+                    from modern_greek_inflexion.resources.resources import AUTOS_STRONG
                     forms = AUTOS_STRONG
                 else:
-                    from ..resources import AUTOS_WEAK
+                    from modern_greek_inflexion.resources.resources import AUTOS_WEAK
                     forms = AUTOS_WEAK
 
             if masc == 'ποιος':
@@ -95,14 +96,13 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
             forms[SG][NEUT][GEN] = prefix_mn + 'ενός'
 
         elif masc == 'τις':
-            from ..resources import TIS
+            from modern_greek_inflexion.resources.resources import TIS
             forms = TIS
 
         elif masc == 'όστις':
-            from ..resources import OSTIS
             forms = OSTIS
         elif masc == 'όσπερ':
-            from ..resources import OSPER
+
             forms = OSPER
         elif masc[-2:] in ['οι', 'οί']:
             forms = {PL: {MASC: {}, FEM: {}, NEUT: {}}}
@@ -140,17 +140,13 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
             forms = {ND: {ND: {ND: masc}}}
         elif masc == 'εγώ':
             if strong:
-                from ..resources import EGO_STRONG
                 forms = EGO_STRONG
             else:
-                from ..resources import EGO_WEAK
                 forms = EGO_WEAK
         elif masc == 'εσύ':
             if strong:
-                from ..resources import ESU_STRONG
                 forms = ESU_STRONG
             else:
-                from ..resources import ESU_WEAK
                 forms = ESU_WEAK
 
         elif masc == 'αλλήλων':

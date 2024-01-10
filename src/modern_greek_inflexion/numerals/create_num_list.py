@@ -1,7 +1,7 @@
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 
 from ..adjective import create_all_basic_adj_forms
-from ..resources import greek_corpus, ADVERB
+from ..resources.resources import greek_corpus, ADVERB
 
 
 def create_num_adj(numeral: str, ordinal: bool = False) -> dict:

@@ -1,22 +1,13 @@
 from __future__ import annotations
 
-from typing import Dict, Any, Tuple
+from typing import Any
 
 from modern_greek_accentuation.accentuation import *
 
 from ..exceptions import NotLegalVerbException
-from ..resources import greek_corpus, irregular_passive_roots, irregular_active_roots
-from ..resources import EIMAI, PRESENT_ACTIVE_PART_EIMAI, CON1_ACT, CON1_ACT_MODAL, CON2_ACT_MODAL, CON2A_ACT, \
-    CON2B_ACT, CON2C_ACT, IMPER_ACT_EIMAI, PARAT2_ACT, EIMAI_PARATATIKOS, CON2B_PASS, CON1_PASS, CON2C_PASS, \
-    CON2A_PASS, CON2AB_PASS, MODAL, ACTIVE, IMPERF, PERF, PASSIVE, CON1_PASS_MODAL, CON2_PASS_MODAL, CON2D_ACT, \
-    CON2D_PASS, PARAT2E_PASS, CON2E_PASS, PARAT2A_PASS, PARAT1_PASS, PARAT2B_PASS_LOGIA, PARAT2B_PASS, PARAT2C_PASS, \
-    PARAT2D_PASS, PRESENT_ACTIVE_PART_1, CON2AB, PAST, ARCH_PASS_AOR, IMPER_ACT_CONT_2A, FIN, \
-    IMPER_PASS_AOR_A, IMPER_PASS_CONT_1, IMPER_ACT_AOR_CA, PRESENT_ACTIVE_PART_2, PARAT_ACT_MODAL, \
-    AOR_ACT, PRESENT_PASSIVE_PART_2B, PRESENT_ACTIVE_PART_2C, PRESENT_PASSIVE_PART_2E, PRESENT_PASSIVE_PART_1, \
-    PRESENT_PASSIVE_PART_2A, PRESENT_PASSIVE_PART_2D, PRESENT_PASSIVE_PART_2AB, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
-    IMPER_ACT_CONT_2C, IMPER_PASS_CONT_2C, IMPER_ACT_AOR_A, IMPER_PASS_CONT_2A, IMPER_ACT_CONT_2D, IMPER_PASS_CONT_2B, \
-    IMPER_PASS_CONT_2D, IMPER_PASS_CONT_2E, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, IMPER_ACT_AOR_D, ROOT, ARCH_SEC_AOR, \
-    CON2SA_PASS, IMPER_PASS_CONT_2SA
+from ..resources.resources import greek_corpus
+from ..resources.verb import irregular_active_roots, irregular_passive_roots
+from ..resources.variables import *
 
 
 def create_imp_pass(perf_pass_root: str) -> str:

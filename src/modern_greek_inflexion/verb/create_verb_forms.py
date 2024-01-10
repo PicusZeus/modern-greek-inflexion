@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     recognize_past_conjugation
-from ..resources import ACTIVE, PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, IMP, \
+from ..resources.resources import ACTIVE, PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, IMP, \
     MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
-    CONJUGATION_IMP, FIN, EIMAI
+    CONJUGATION_IMP, FIN
 from modern_greek_accentuation.resources import ULTIMATE
 from .create_verb_con import create_all_pers_forms, create_roots_from_past
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate
-from ..resources import greek_corpus
+from ..resources.resources import greek_corpus
 
 
 def compound_alternative_forms(forms: None | dict, sec_pos: str, forms_ind_or_con: dict,

@@ -1,11 +1,11 @@
-from icecream import ic
+# from icecream import ic
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_accentuation.resources import ULTIMATE, ANTEPENULTIMATE, PENULTIMATE
 from ..exceptions import NotLegalAdjectiveException
-from ..resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB, \
+from ..resources.resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB, \
     ADVERB_COMPARATIVE, COMPARATIVE
 
 
