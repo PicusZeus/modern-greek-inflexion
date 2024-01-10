@@ -2,7 +2,7 @@ from typing import Any, Union
 
 from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
-from modern_greek_accentuation.resources import PENULTIMATE, ULTIMATE, ANTEPENULTIMATE
+from modern_greek_accentuation.resources import PENULTIMATE, ULTIMATE, ANTEPENULTIMATE, vowels
 from ..resources.resources import greek_corpus, SG, PL, NOM, GEN, ACC, VOC, MASC, FEM, NEUT
 
 
@@ -111,25 +111,39 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         if masc_voc.lower() in greek_corpus:
                             noun_all[gender][SG][VOC] = properN_masc_voc + ',' + masc_voc
 
+                elif nom_sg[-3] in ['κ', 'ι'] and accent == ANTEPENULTIMATE:
+                    if masc_voc in greek_corpus:
+                        noun_all[gender][SG][VOC] = masc_voc + ',' + nom_sg[:-1]
+                    else:
+                        noun_all[gender][SG][VOC] = nom_sg[:-1]
+
                 if nom_pl:
+                    g_pl = []
                     gens = gen_sg.split(',')
                     accent_pl = where_is_accent(nom_pl, true_syllabification=False)
                     if accent_pl == ANTEPENULTIMATE and (len(gens) > 1 or
                                                          where_is_accent(gen_sg,
                                                                          true_syllabification=False) == PENULTIMATE):
-                        gen_pl = put_accent(nom_pl[:-2] + 'ων', PENULTIMATE, true_syllabification=False)
+                        g_pl.append(put_accent(nom_pl[:-2] + 'ων', PENULTIMATE, true_syllabification=False))
+
+                        g_pl.append(put_accent(nom_pl[:-2] + 'ων', PENULTIMATE, true_syllabification=True))
                     else:
-                        gen_pl = put_accent(nom_pl[:-2] + 'ων', accent_pl, true_syllabification=False)
+                        g_pl.append(put_accent(nom_pl[:-2] + 'ων', accent_pl, true_syllabification=False))
 
                     acc_pl = [put_accent(g[:-2] + 'ους', where_is_accent(g, true_syllabification=False),
                                          true_syllabification=False) for g in gens]
                     acc_pl = ','.join(acc_pl)
 
-                    noun_all[gender][PL][GEN] = gen_pl
+                    noun_all[gender][PL][GEN] = ','.join(g_pl)
                     noun_all[gender][PL][ACC] = acc_pl
 
-            elif nom_sg[-1:] == 'ς' and nom_pl and nom_pl[-2:] in ['ές', 'ες', 'οι'] and gen_sg and \
-                    gen_sg == nom_sg[:-1]:
+            # elif nom_sg == 'παππούς':
+            #
+            #     ic(nom_sg, nom_sg[-1:] == 'ς', nom_pl, nom_pl[-2:] in ['ές', 'ες', 'οι'], gen_sg == nom_sg[:-1])
+
+            elif (nom_sg[-1:] == 'ς' and nom_pl and nom_pl[-2:] in ['ές', 'ες', 'οι'] and
+                  gen_sg and gen_sg == nom_sg[:-1]):
+
                 sg_accent = where_is_accent(nom_sg, true_syllabification=False)
 
                 isosyllabic = count_syllables(nom_sg) == count_syllables(nom_pl)
@@ -139,10 +153,13 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     if logia_gen in greek_corpus:
                         noun_all[gender][SG][GEN] = ','.join([gen_sg, logia_gen])
 
-                if nom_sg.endswith('ής'):
+                elif nom_sg.endswith('ής'):
                     logia_gen = nom_sg[:-2] + 'ού'
                     if gender == FEM:
                         noun_all[gender][SG][GEN] = logia_gen
+
+                # elif gen_sg.endswith('ος'):
+                #     noun_all[gender][SG][ACC] = gen_sg[:-2] + 'α'
 
 
 
@@ -159,6 +176,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         acc_pl.append(n_pl)
                     elif n_pl.endswith('οι'):
                         acc_pl.append(n_pl[:-2] + 'ους')
+                        # g_pl.append(n_pl[:-2] + 'ων')
 
                     if count_syllables(nom_sg) == count_syllables(n_pl) and (nom_sg[-2:] in ['ης', 'ής', 'ας', 'άς']):
                         gen_pl = put_accent(gen_pl, ULTIMATE)
@@ -172,8 +190,6 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         gen_pl = put_accent(gen_pl, pl_accent, true_syllabification=False)
                         g_pl.append(gen_pl)
 
-
-
                 voc_on_a = False
                 if nom_sg[-3:] in ['τής', 'χης']:
                     voc_a = put_accent(nom_sg[:-2] + 'ά', accent)
@@ -186,6 +202,16 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     noun_all[gender][SG][VOC] = voc_on_a
                 noun_all[gender][PL][GEN] = ','.join(g_pl)
                 noun_all[gender][PL][ACC] = ','.join(acc_pl)
+
+
+
+            elif nom_sg.endswith('ις') and gender in [FEM, MASC]:
+                noun_all[gender][SG][ACC] = nom_sg[:-1] + 'ν'
+                noun_all[gender][SG][VOC] = nom_sg[:-1]
+                if nom_pl.endswith('εις'):
+                    noun_all[gender][PL][GEN] = nom_pl[:-2] + 'ων'
+                else:
+                    noun_all[gender][PL][GEN] = put_accent(nom_pl[:-2] + 'ων', PENULTIMATE)
 
             elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != NEUT:
 
@@ -290,25 +316,62 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                 if nom_sg[-2:] == 'ις':
                     noun_all[gender][SG][GEN] = gen_sg
                     noun_all[gender][SG][ACC] = acc_sg_arch
-                else:
-                    noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
-                    if acc_sg_arch in greek_corpus:
-                        noun_all[gender][SG][ACC] = acc_sg_arch + nom_sg[:-1]
-                    else:
+                elif gender == MASC:
+                    noun_all[gender][SG][GEN] = gen_sg
+                    if nom_sg[-2] not in ['υ', 'ύ']:
                         noun_all[gender][SG][ACC] = nom_sg[:-1]
+                        if gender == MASC:
+                            noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
+                    else:
+                        noun_all[gender][SG][ACC] = acc_sg_arch
+                    if nom_sg.endswith('υς') and nom_sg[:-1] in greek_corpus:
+                        noun_all[gender][SG][GEN] = gen_sg + ',' + nom_sg[:-1]
+                    # if acc_sg_arch in greek_corpus:
+
+                        noun_all[gender][SG][ACC] = acc_sg_arch + ',' + nom_sg[:-1]
+
                 noun_all[gender][SG][VOC] = nom_sg[:-1]
                 noun_all[gender][PL][GEN] = gen_sg[:-1] + 'ν'
+            elif nom_sg[-2:] == 'ως' and gen_sg[-1] == 'ω':
 
+                noun_all[gender][SG][ACC] = gen_sg
+                noun_all[gender][SG][VOC] = nom_sg
+                noun_all[gender][PL][GEN] = gen_sg + 'ν'
             elif nom_sg == nom_pl:
                 # aklita
                 noun_all[gender][SG][ACC] = nom_sg
                 noun_all[gender][PL][GEN] = nom_pl
 
-            elif nom_sg[-2:] == 'ως' and gen_sg[-1] == 'ω':
-                noun_all[gender][SG][ACC] = gen_sg
+
+
+            elif gen_sg[-2:] in ['ος', 'ός'] and gen_sg[-3] not in vowels:
+                # archaic gen on os after consonant
                 noun_all[gender][SG][VOC] = nom_sg
 
+                if gender != NEUT:
+
+                    noun_all[gender][SG][ACC] = gen_sg[:-2] + 'α'
+                    if not accent:
+                        # it means a single syllable noun
+                        noun_all[gender][SG][ACC] = put_accent(gen_sg[:-2] + 'α', PENULTIMATE)
+
+                    if nom_sg.endswith('ωρ'):
+                        noun_all[gender][SG][VOC] = nom_sg[:-2] + 'ορ'
+                    elif nom_sg.endswith('ηρ'):
+                        noun_all[gender][SG][VOC] = nom_sg[:-2] + 'ερ'
+
+
+                if gender == NEUT:
+                    noun_all[gender][PL][GEN] = put_accent(nom_pl[:-1] + 'ων', PENULTIMATE)
+                    if not accent:
+                        noun_all[gender][PL][GEN] = put_accent(nom_pl[:-1] + 'ων', ULTIMATE)
+                else:
+                    noun_all[gender][PL][GEN] = put_accent(nom_pl[:-2] + 'ων', PENULTIMATE)
+                    if not accent:
+                        noun_all[gender][PL][GEN] = put_accent(nom_pl[:-2] + 'ων', ULTIMATE)
+
             elif nom_sg[-1:] == 'ς' and gender != NEUT:
+
                 # special cases:
                 noun_all[gender][SG][ACC] = nom_sg[:-1]
                 if nom_sg[:-1] + 'ν' in greek_corpus:

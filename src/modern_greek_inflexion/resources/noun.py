@@ -12,8 +12,13 @@ irregular_nouns = {'σέβας': {NOM_SG: 'σέβας', NOM_PL: 'σέβη', GEN_
                    'δόρυ': {NOM_SG: 'δόρυ', NOM_PL: 'δόρατα', GEN_SG: 'δόρατος', GENDER: NEUT},
                    'ήμισυ': {NOM_SG: 'ήμισυ', NOM_PL: '', GEN_SG: 'ημίσεος', GENDER: NEUT},
                    'γης': {NOM_SG: 'γης', NOM_PL: 'γαίες', GEN_SG: 'γης', GENDER: FEM},
-                   'γη': {NOM_SG: 'γη', NOM_PL: 'γαίες', GEN_SG: 'γης', GENDER: FEM}
+                   'γη': {NOM_SG: 'γη', NOM_PL: 'γαίες', GEN_SG: 'γης', GENDER: FEM},
+                   'αλλάς': {NOM_SG: 'αλλάς', NOM_PL: 'αλλάντες', GEN_SG: 'αλλάντος', GENDER: MASC},
+                   'χρως': {NOM_SG: 'χρως', NOM_PL: '', GEN_SG: 'χρωτός,χρωός', GENDER: MASC},
+                    'κάλως': {NOM_SG: 'κάλως', NOM_PL: 'κάλως', GEN_SG: 'κάλω', GENDER: MASC}
                    }
+
+irregular_3rd_decl_roots = {'απτέρυξ': 'πτέρυγ', 'κύων': 'κυν', 'είρων': 'είρων', 'ινδικτιών': 'ινδικτιών'}
 
 plur_tant_neut = ('Χριστούγεννα', 'χριστούγεννα', 'νιάτα', 'βαλκάνια', 'Ιωάννινα', 'Γιάννενα', 'Γιάννινα')
 
