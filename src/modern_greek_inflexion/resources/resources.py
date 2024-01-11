@@ -3,11 +3,23 @@ import os
 from .variables import *
 
 this_dir, this_filename = os.path.split(__file__)
-data_path = os.path.join(this_dir, 'el_GR.pickle')
+el_GR_path = os.path.join(this_dir, 'el_GR.pickle')
+n_without_gen_pl_path = os.path.join(this_dir, 'nouns_without_gen_pl.pickle')
+n_with_proparoksitona_gen_pl_path = os.path.join(this_dir, 'nouns_with_proparoksit_gen_pl.pickle')
+n_with_paroksitona_gen_pl_path = os.path.join(this_dir, 'nouns_with_paroksit_gen_pl.pickle')
+n_with_paroksitona_gen_pl_move_path = os.path.join(this_dir, 'nouns_with_paroksit_gen_pl_move.pickle')
+n_with_oksitona_gen_pl_move_path = os.path.join(this_dir, 'nouns_with_oksit_gen_pl_move.pickle')
+n_os_voc_o_path = os.path.join(this_dir, 'nouns_os_vocative_o.pickle')
+n_h_eis_path = os.path.join(this_dir, 'nouns_feminina_h_eis.pickle')
 
-greek_corpus = pickle.load(open(data_path, 'rb'))
-
-
+greek_corpus = pickle.load(open(el_GR_path, 'rb'))
+nouns_without_gen_pl = pickle.load(open(n_without_gen_pl_path, 'rb'))
+nouns_with_proparoksitona_gen_pl = pickle.load(open(n_with_proparoksitona_gen_pl_path, 'rb'))
+nouns_with_paroksitona_gen_pl = pickle.load(open(n_with_paroksitona_gen_pl_path, 'rb'))
+nouns_with_paroksitona_gen_pl_move = pickle.load(open(n_with_paroksitona_gen_pl_move_path, 'rb'))
+nouns_with_oksitona_gen_pl_move = pickle.load(open(n_with_oksitona_gen_pl_move_path, 'rb'))
+nouns_os_voc_o = pickle.load(open(n_os_voc_o_path, 'rb'))
+nouns_h_eis = pickle.load(open(n_h_eis_path, 'rb'))
 
 forms_with_alternatives = ('ακόμη', 'ακόμα', 'και', 'κι', 'τίποτα', 'τίποτε')
 dictionary_with_alt = {'ακόμη': 'ακόμα', 'και': 'κι', 'τίποτα': 'τίποτε'}
@@ -76,8 +88,8 @@ feminine_h_eis = ('γύρη', 'κύστη', 'παλισάνδρη', 'πίστη'
 
 
 
-feminine_or_masc = ('καπνοδόχος', 'άργιλος', 'τάφρος', 'κρύσταλλος', 'περιβαλλοντολόγος', 'απόστροφος', 'γιατρός',
-                    'μηχανικός', 'ηθοποιός', 'νηπιαγογός', 'δικιγόρος',)
+# feminine_or_masc = ('καπνοδόχος', 'άργιλος', 'τάφρος', 'κρύσταλλος', 'περιβαλλοντολόγος', 'απόστροφος', 'γιατρός',
+#                     'μηχανικός', 'ηθοποιός', 'νηπιαγογός', 'δικιγόρος',)
 
 
 

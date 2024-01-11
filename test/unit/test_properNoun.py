@@ -1,4 +1,7 @@
 from unittest import TestCase
+
+from icecream import ic
+
 from modern_greek_inflexion.resources.resources import MASC, SURNAME, FEM, FEM_SG
 from modern_greek_inflexion import noun
 
@@ -7,8 +10,10 @@ class ProperNounTests(TestCase):
     def test_Nikos(self):
         self.assertDictEqual(
             noun.create_all('Νίκος', proper_name=True),
-            {'masc': {'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}},
-                      'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}}
+            {'masc': {'pl': {'nom': {'Νίκοι'}, 'acc': {'Νίκους'}, 'voc': {'Νίκοι'}, 'gen': {'Νίκων'}},
+                      'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}},
+            ic(noun.create_all('Νίκος', proper_name=True))
+
         )
 
     def test_Paxu(self):
@@ -58,8 +63,15 @@ class ProperNounTests(TestCase):
     def test_Baios(self):
         self.assertDictEqual(
             noun.create_all('Βάιος', proper_name=True),
-            {'masc': {'pl': {'voc': {''}, 'acc': {''}, 'nom': {''}},
-                      'sg': {'voc': {'Βάιε', 'Βάιο'}, 'acc': {'Βάιο', 'Βάιον'}, 'nom': {'Βάιος'}, 'gen': {'Βαΐου', 'Βάιου'}}}}
+            {'masc': {'pl': {'acc': {'Βαΐους', 'Βάιους'},
+                             'gen': {'Βάιων', 'Βαΐων'},
+                             'nom': {'Βάιοι'},
+                             'voc': {'Βάιοι'}},
+                      'sg': {'acc': {'Βάιο', 'Βάιον'},
+                             'gen': {'Βάιου', 'Βαΐου'},
+                             'nom': {'Βάιος'},
+                             'voc': {'Βάιο', 'Βάιε'}}}}
+
         )
 
     def test_Ihsous(self):
@@ -80,21 +92,21 @@ class ProperNounTests(TestCase):
 
     def test_Froso(self):
         self.assertDictEqual(
-            noun.create_all('Φρόσω', proper_name=True),
+            noun.create_all('Φρόσω', gender=FEM_SG, proper_name=True),
             {'fem': {'pl': {'acc': {''}, 'nom': {''}, 'voc': {''}},
                      'sg': {'nom': {'Φρόσω'}, 'voc': {'Φρόσω'}, 'gen': {'Φρόσως'}, 'acc': {'Φρόσω'}}}}
         )
 
     def test_Barsobia(self):
         self.assertDictEqual(
-            noun.create_all('Βαρσοβία', proper_name=True),
+            noun.create_all('Βαρσοβία', proper_name=True, gender=FEM_SG),
             {'fem': {'pl': {'acc': {''}, 'nom': {''}, 'gen': {''}, 'voc': {''}},
                      'sg': {'acc': {'Βαρσοβία'}, 'nom': {'Βαρσοβία'}, 'gen': {'Βαρσοβίας'}, 'voc': {'Βαρσοβία'}}}}
         )
 
     def test_Paolo(self):
         self.assertDictEqual(
-            noun.create_all('Μύκονος', proper_name=True, gender=FEM),
+            noun.create_all('Μύκονος', proper_name=True, gender=FEM_SG),
             {'fem': {'sg': {'voc': {'Μύκονε'}, 'gen': {'Μύκονου', 'Μυκόνου'}, 'nom': {'Μύκονος'}, 'acc': {'Μύκονο'}},
                      'pl': {'voc': {''}, 'nom': {''}, 'acc': {''}}}}
         )
