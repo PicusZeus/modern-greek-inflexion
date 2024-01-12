@@ -45,6 +45,7 @@ MODAL = 'modal'
 ULTIMATE = 'ultimate'
 PENULTIMATE = 'penultimate'
 ANTEPENULTIMATE = 'antepenultimate'
+INCORRECT_ACCENT = 'incorrect_accent'
 
 # var
 GENDER = 'gender'
@@ -80,6 +81,8 @@ MASC_SG = 'masc_sg'
 NEUT_SG = 'neut_sg'
 ONLY_SG = 'only_sg'
 
+
+# conjugations
 EIMAI = 'eimai'
 EIMAI_PARATATIKOS = "eimai_paratatikos"
 PRESENT_ACTIVE_PART_EIMAI = "present_active_part_eimai"

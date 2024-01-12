@@ -43,7 +43,7 @@ def alternative_forms_ios(adj: str):
     alt_forms = {SG: {
         FEM: {}, MASC: {}, NEUT: {}
     }}
-    masc_gen = put_accent_on_the_penultimate(neut+'υ', true_syllabification=False)
+    masc_gen = put_accent_on_the_penultimate(neut + 'υ', true_syllabification=False)
     fem_gen = put_accent_on_the_penultimate(fem + 'ς', true_syllabification=False)
     if masc_gen in greek_corpus:
         alt_forms[SG][MASC][GEN] = masc_gen
@@ -79,8 +79,8 @@ def alternative_forms_kxth(fem: str) -> dict | None:
 
     return None
 
-def alternative_forms_modern_3rd(adj):
 
+def alternative_forms_modern_3rd(adj):
     alt_forms = {SG: {
         MASC: {
         },
@@ -105,6 +105,7 @@ def alternative_forms_modern_3rd(adj):
         alt_forms[SG][FEM][GEN] = fem[:-1] + 'ης'
 
     return alt_forms
+
 
 def alternative_forms_us(adj: str) -> dict:
     # only for the us, ia, y type
@@ -227,6 +228,7 @@ def alternative_forms_wn(adj: str) -> dict:
 
     return alt_forms
 
+
 def alternative_forms_tis(adj, thema):
     alt_forms = {SG: {
         MASC: {
@@ -255,8 +257,6 @@ def alternative_forms_tis(adj, thema):
     alt_forms[PL][MASC][GEN] = gen_pl
     alt_forms[PL][FEM][GEN] = gen_pl
     alt_forms[PL][NEUT][GEN] = gen_pl
-
-
 
     return alt_forms
 
@@ -296,7 +296,6 @@ def alternative_forms_onas(adj: str) -> dict:
         alt_forms[SG][MASC][VOC] = fem
 
     return alt_forms
-
 
 
 def alternative_forms_ou(fem: str) -> dict:
@@ -350,8 +349,8 @@ def put_accent_on_unaccented_forms(forms: dict) -> dict:
     return forms
 
 
-def create_all_adj_forms(adj: str) -> tuple[Any, dict | None] | tuple[Any, None] | tuple[Any, dict] | tuple[
-    dict, dict] | tuple[dict, None]:
+def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None] | tuple[Any, dict] |
+                                       tuple[dict, dict] | tuple[dict, None]):
     """
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesn't exist, it
      should be replaced with dash '-'
@@ -407,7 +406,6 @@ def create_all_adj_forms(adj: str) -> tuple[Any, dict | None] | tuple[Any, None]
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():
                         forms[num][gender][case] = put_accent_on_the_ultimate(form)
-
 
         alt_forms = alternative_forms_kxth(fem)
         if fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):

@@ -1,3 +1,4 @@
+# from icecream import ic
 
 from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
@@ -40,19 +41,22 @@ def create_all(adj: str, aklito=False) -> dict:
     super_adv = []
 
     all_basic_adj_forms = create_all_basic_adj_forms(adj, aklito=aklito)
+    if all_basic_adj_forms[ADJ]:
 
-    all_adj_infl_forms = create_all_adj_forms(all_basic_adj_forms[ADJ])
+        all_adj_infl_forms = create_all_adj_forms(all_basic_adj_forms[ADJ])
 
-    forms.append(all_adj_infl_forms[0])
+        forms.append(all_adj_infl_forms[0])
 
-    if all_adj_infl_forms[1]:
-        forms.append(all_adj_infl_forms[1])
+        if all_adj_infl_forms[1]:
+            forms.append(all_adj_infl_forms[1])
 
     basic_compar = all_basic_adj_forms[COMPARATIVE]
     if basic_compar:
+
         compars, superlatives = basic_compar.split('/')
         if compars != '-':
             for compar in compars.split(','):
+
                 base = create_all_basic_adj_forms(compar)
                 all_inf_comp_forms, alternatives = create_all_adj_forms(base[ADJ])
 
@@ -82,9 +86,10 @@ def create_all(adj: str, aklito=False) -> dict:
             for adv_superlative in adv_superlatives.split(','):
                 super_adv.append(adv_superlative)
     result = {}
+    if forms:
+        forms = merging_all_dictionaries(*forms)
 
-    forms = merging_all_dictionaries(*forms)
-    result[ADJ] = forms
+        result[ADJ] = forms
     if comp_forms:
 
         comp_forms = merging_all_dictionaries(*comp_forms)

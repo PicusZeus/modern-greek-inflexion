@@ -1,4 +1,5 @@
 # from icecream import ic
+
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
@@ -7,6 +8,7 @@ from modern_greek_accentuation.resources import ULTIMATE, ANTEPENULTIMATE, PENUL
 from ..exceptions import NotLegalAdjectiveException
 from ..resources.resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB, \
     ADVERB_COMPARATIVE, COMPARATIVE
+from ..resources.variables import INCORRECT_ACCENT
 
 
 def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
@@ -36,10 +38,15 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             adj = adj[:-2] + 'άς'
         elif put_accent_on_the_penultimate(adj[:-2] + 'ης') in greek_corpus:
             adj = put_accent_on_the_penultimate(adj[:-2] + 'ης')
-    # elif adj[-1] == 'ί' and adj[:-1] + 'ής' in greek_corpus:
-    #     adj = adj[:-1] + 'ής'
-    accent = where_is_accent(adj, true_syllabification=False)
 
+    accent = where_is_accent(adj, true_syllabification=False)
+    if accent == INCORRECT_ACCENT:
+        raise NotLegalAdjectiveException
+    if adj[-1] in ['υ', 'ύ'] and not aklito:
+        raise NotLegalAdjectiveException
+
+    # default
+    masc, fem, neuter = adj, adj, adj
     adj_temp = {ADJ: 'masc,fem,neuter', COMPARATIVE: '', ADVERB: '', ADVERB_COMPARATIVE: ''}
 
     adj_forms = []
@@ -94,11 +101,15 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
                 if gen in greek_corpus:
                     fem = beta_fem
 
-        elif adj[-3] not in vowels and put_accent(adj[:-2] + 'η', accent) not in greek_corpus and put_accent(adj[:-2] + 'ας', accent) in greek_corpus:
+        elif (adj[-3] not in vowels and put_accent(adj[:-2] + 'η', accent) not in greek_corpus and
+              put_accent(adj[:-2] + 'ας', accent) in greek_corpus):
+
             fem = put_accent(adj[:-2] + 'α', accent)
             # if it's lacking from the db, still the best guess is to leave the form on -h
 
-        if (adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or adj.endswith('ουργός'):
+        if ((adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or
+                adj.endswith('ουργός')):
+
             fem = masc
 
         adj_forms.append(fem)
@@ -171,18 +182,11 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             fem = adj[:-3:] + 'ή'
         neuter = adj[:-1] + 'ν'
 
-
-    elif adj[-2:] in ['υς', 'ύς'] or adj in ['γλυκύ']:
+    elif adj[-2:] in ['υς', 'ύς']:
         # my database is unfortunately not that great...
         stem = adj[:-2]
         masc = adj
         neuter = adj[:-1]
-        if adj in ['γλυκύ']:
-            # unfortunately there are some mistakes in my word list wherever forms are given as lemma
-            # and so I have to correct them in this way
-            stem = adj[:-1]
-            masc = adj + 'ς'
-            neuter = adj
 
         fem = stem + 'ιά'
 
@@ -191,7 +195,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             fem_eia = stem + 'εία'
             if fem_eia in greek_corpus:
                 fem = fem_eia
-            if adj[-5:] == 'πολύς':
+            if adj.endswith('πολύς'):
                 fem = adj[:-5] + 'πολλή'
 
     elif adj[-2:] in ['ων', 'ών']:
@@ -234,8 +238,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
 
     elif adj.endswith('είς'):
         # passive aorist participles
-        # if not adj[:-3] + 'έντα' in greek_corpus:
-        #     raise NotLegalAdjectiveException
+
         masc = adj
         fem = adj[:-1] + 'σα'
         neuter = adj[:-3] + 'έν'
@@ -245,11 +248,9 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         # pas, pasa pan and active aorist participles
         # pas pasa pan
 
-
         pl_nta = adj[:-1] + 'ντα'
         fem_sa = adj[:-1] + 'σα'
-        if adj == 'κλέψας':
-            ic('TUTAJ', pl_nta, adj[:-1] + 'σα' in greek_corpus)
+
         if count_syllables(adj) == 1:
             pl_nta = put_accent(pl_nta, PENULTIMATE)
             fem_sa = put_accent(fem_sa, PENULTIMATE)
@@ -276,7 +277,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             masc = adj
             fem = adj[:-4] + 'ων'
             neuter = adj[:-2]
-        elif len(adj) > 6 and adj[-6:] in ['σαντας', 'ξαντας', 'ψαντας']:
+        elif adj.endswith('σαντας') or adj.endswith('ξαντας') or adj.endswith('ψαντας'):
             # modernized active aorist participles
             masc = adj
             fem = adj[:-4] + 'σα'
@@ -298,10 +299,10 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
                 fem = adj[:-1]
                 neuter = adj[:-2] + 'ικο'
 
-        else:
+        elif not aklito:
             raise NotLegalAdjectiveException
-
-    elif adj in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς', 'ενεστώς']:
+    # in ['προβεβηκώς', 'κεχηνώς', 'τεθνεώς', 'αφεστώς', 'ενεστώς']
+    elif adj.endswith('ώς') and not aklito:
         masc = adj
         fem = adj[:-1] + 'σα'
         neuter = adj
@@ -313,36 +314,28 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         fem = adj
         neuter = masc[:-2] + 'εν'
 
-    elif adj in ['περίφροντις', 'φέρελπις', 'άφροντις', 'φιλόπατρις', 'μόνορχις', 'παλίμπαις', 'πολύφροντις',
-                 'αρνησίπατρις', 'άπολις', 'άπατρις', 'αφιλόπατρις', 'ενήλιξ', 'πυρρόθριξ', 'δασύθριξ', 'ουλόθριξ',
-                 'κεντρόφυξ', 'πυρρόθριξ', 'υπερήλιξ', 'βλαξ', 'ομήλιξ', 'υπερμέτρωψ', 'κεντρόφυξ', 'μεσήλιξ']:
+    elif adj[-2:] in ['ις', 'ιξ', 'υξ', 'αξ', 'ωψ', 'ωρ'] and not aklito:
+        """ancient 3rd declension"""
+        neuter_3rd = adj[:-1]
+        """only for -is"""
+        if adj.endswith('ις'):
+            neuter = neuter_3rd
+        else:
+            neuter = '-'
         masc, fem = adj, adj
-        neuter = '-'
 
-    elif adj[-2:] == 'ις':
-        masc, fem = adj, adj
-        neuter = adj[:-1]
-
-    elif adj in ['ίλεως']:
+    elif adj.endswith('εως') and not aklito:
+        # attic
         masc, fem = adj, adj
         neuter = adj[:-1] + 'ν'
 
-    elif adj.endswith('ωρ'):
-        masc, fem = adj, adj
-        neuter = '-'
-
     else:
-        masc, fem, neuter = adj, adj, adj
+        masc, fem, neuter = [adj, adj, adj]
 
     if aklito:
         masc, fem, neuter = adj, adj, adj
 
-    try:
-        adj_forms = [masc, fem, neuter]
-    except:
-        raise NotLegalAdjectiveException
-    # if these are referenced before assignment, it means the adj cannot be processed, as it either
-    # doesn't exist or I have too small dictionary, so it cannot be recognized
+    adj_forms = [masc, fem, neuter]
 
     adj_temp[ADJ] = '/'.join(adj_forms)
 
@@ -402,7 +395,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
 
     alt_adv = None
 
-    if aklito or masc == neuter:
+    if aklito:
         adverb = neuter
 
     elif neuter[-1] in ['ο', 'ό']:
@@ -427,12 +420,12 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         adverb = put_accent_on_the_penultimate(neuter[:-1] + 'εως')
         if adverb not in greek_corpus:
             adverb = adj_forms[1]
-    elif neuter[-1] == 'ί':
+    elif neuter.endswith('ί') and masc.endswith('ς'):
         # colors
         adverb = put_accent_on_the_ultimate(adj_forms[2] + 'α')
 
-    elif (masc[-2:] in ['ας', 'άς', 'ων', 'ών'] or masc[-3:] in ['εις', 'είς']) and fem[-2:] == 'σα' and neuter[
-        -1] == 'ν':
+    elif ((masc[-2:] in ['ας', 'άς', 'ων', 'ών'] or masc[-3:] in ['εις', 'είς']) and
+          fem[-2:] == 'σα' and neuter[-1] == 'ν'):
         # ancient adverbs
 
         if put_accent_on_the_penultimate(neuter + 'τως') in greek_corpus:
@@ -448,9 +441,8 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         else:
             adverb = ''
 
-
     else:
-        # for aklita
+        # for aklita without flags
         adverb = neuter
 
     if neuter in ['λίγο', 'πολύ', 'ήσσον', 'κάλλιον']:

@@ -1,8 +1,11 @@
 from unittest import TestCase
+
+# from icecream import ic
+
 # from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion import adjective
 from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjectiveException
-from icecream import ic
+# from icecream import ic
 
 
 class AdjectiveTests(TestCase):
@@ -53,6 +56,35 @@ class AdjectiveTests(TestCase):
              'superl_adv': {'ωραιότατα'}}
         )
 
+    def test_adj_klepsas(self):
+        self.assertDictEqual(
+            adjective.create_all('κλέψας'),
+            {'adj': {'pl': {'fem': {'acc': {'κλέψασες'},
+                                    'gen': {'κλεψασών'},
+                                    'nom': {'κλέψασες'},
+                                    'voc': {'κλέψασες'}},
+                            'masc': {'acc': {'κλέψαντες'},
+                                     'gen': {'κλεψάντων'},
+                                     'nom': {'κλέψαντες'},
+                                     'voc': {'κλέψαντες'}},
+                            'neut': {'acc': {'κλέψαντα'},
+                                     'gen': {'κλεψάντων'},
+                                     'nom': {'κλέψαντα'},
+                                     'voc': {'κλέψαντα'}}},
+                     'sg': {'fem': {'acc': {'κλέψασα'},
+                                    'gen': {'κλέψασας'},
+                                    'nom': {'κλέψασα'},
+                                    'voc': {'κλέψασα'}},
+                            'masc': {'acc': {'κλέψαντα'},
+                                     'gen': {'κλέψαντος'},
+                                     'nom': {'κλέψας'},
+                                     'voc': {'κλέψας'}},
+                            'neut': {'acc': {'κλέψαν'},
+                                     'gen': {'κλέψαντος'},
+                                     'nom': {'κλέψαν'},
+                                     'voc': {'κλέψαν'}}}}}
+
+        )
     def test_adj_monopous(self):
         self.assertDictEqual(
             adjective.create_all('μονόπους'),
@@ -101,14 +133,31 @@ class AdjectiveTests(TestCase):
     def test_adj_ferelpis(self):
         self.assertDictEqual(
             adjective.create_all('φέρελπις'),
-            {'adj': {
-                'sg': {'masc': {'gen': {'φερέλπιδος'}, 'voc': {'φέρελπις'}, 'acc': {'φερέλπιδα'}, 'nom': {'φέρελπις'}},
-                       'neut': {'gen': {''}, 'voc': {''}, 'acc': {''}, 'nom': {''}},
-                       'fem': {'gen': {'φερέλπιδος'}, 'voc': {'φέρελπις'}, 'acc': {'φερέλπιδα'}, 'nom': {'φέρελπις'}}},
-                'pl': {'masc': {'gen': {'φερέλπιδων'}, 'voc': {'φερέλπιδες'}, 'acc': {'φερέλπιδες'},
-                                'nom': {'φερέλπιδες'}}, 'neut': {'gen': {''}, 'voc': {''}, 'acc': {''}, 'nom': {''}},
-                       'fem': {'gen': {'φερέλπιδων'}, 'voc': {'φερέλπιδες'}, 'acc': {'φερέλπιδες'},
-                               'nom': {'φερέλπιδες'}}}}}
+            {'adj': {'pl': {'fem': {'acc': {'φερέλπιδες'},
+                                    'gen': {'φερελπίδων', 'φερέλπιδων'},
+                                    'nom': {'φερέλπιδες'},
+                                    'voc': {'φερέλπιδες'}},
+                            'masc': {'acc': {'φερέλπιδες'},
+                                     'gen': {'φερελπίδων', 'φερέλπιδων'},
+                                     'nom': {'φερέλπιδες'},
+                                     'voc': {'φερέλπιδες'}},
+                            'neut': {'acc': {'φερέλπιδα'},
+                                     'gen': {'φερελπίδων', 'φερέλπιδων'},
+                                     'nom': {'φερέλπιδα'},
+                                     'voc': {'φερέλπιδα'}}},
+                     'sg': {'fem': {'acc': {'φέρελπι'},
+                                    'gen': {'φερέλπιδος'},
+                                    'nom': {'φέρελπις'},
+                                    'voc': {'φέρελπι'}},
+                            'masc': {'acc': {'φέρελπι'},
+                                     'gen': {'φερέλπιδος'},
+                                     'nom': {'φέρελπις'},
+                                     'voc': {'φέρελπι'}},
+                            'neut': {'acc': {'φέρελπι'},
+                                     'gen': {'φερέλπιδος'},
+                                     'nom': {'φέρελπι'},
+                                     'voc': {'φέρελπι'}}}}}
+
         )
 
     def test_adj_sidirous(self):
@@ -603,7 +652,6 @@ class AdjectiveTests(TestCase):
                          'gen': {'συνανατραφέντος'}},
                 'neut': {'voc': {'συνανατραφέν'}, 'nom': {'συνανατραφέν'}, 'acc': {'συνανατραφέν'},
                          'gen': {'συνανατραφέντος'}}}}}
-
         )
 
     def test_diattontas(self):

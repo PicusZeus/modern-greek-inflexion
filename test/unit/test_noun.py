@@ -1,9 +1,12 @@
 from unittest import TestCase
 
-from icecream import ic
+# from icecream import ic
 
 from modern_greek_inflexion import noun
-from modern_greek_inflexion.resources.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM, greek_corpus
+from modern_greek_inflexion.resources.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
+
+
+# from modern_greek_inflexion.resources.resources import greek_corpus
 
 
 class NounTests(TestCase):
@@ -30,8 +33,7 @@ class NounTests(TestCase):
             noun.create_all('ρήγας', gender='masc'),
             {'masc':
                  {'sg': {'nom': {'ρήγας'}, 'gen': {'ρήγα'}, 'voc': {'ρήγα'}, 'acc': {'ρήγα'}},
-                      'pl': {'nom': {'ρηγάδες'}, 'gen': {'ρηγάδων'}, 'voc': {'ρηγάδες'}, 'acc': {'ρηγάδες'}}}})
-
+                  'pl': {'nom': {'ρηγάδες'}, 'gen': {'ρηγάδων'}, 'voc': {'ρηγάδες'}, 'acc': {'ρηγάδες'}}}})
 
     def test_noun_mpousi(self):
         self.assertDictEqual(
@@ -46,7 +48,6 @@ class NounTests(TestCase):
             {'masc': {
                 'pl': {'nom': {'γυαλάκηδες'}, 'acc': {'γυαλάκηδες'}, 'voc': {'γυαλάκηδες'}, 'gen': {'γυαλάκηδων'}},
                 'sg': {'nom': {'γυαλάκιας'}, 'voc': {'γυαλάκια'}, 'gen': {'γυαλάκια'}, 'acc': {'γυαλάκια'}}}},
-
 
         )
 
@@ -68,14 +69,15 @@ class NounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('αντιπάπας'),
             {'masc': {'pl': {'acc': {'αντιπάπες'},
-                                'gen': {'αντιπαπών'},
-                                'nom': {'αντιπάπες'},
-                                'voc': {'αντιπάπες'}},
-                         'sg': {'acc': {'αντιπάπα'},
-                                'gen': {'αντιπάπα'},
-                                'nom': {'αντιπάπας'},
-                                'voc': {'αντιπάπα'}}}}
+                             'gen': {'αντιπαπών'},
+                             'nom': {'αντιπάπες'},
+                             'voc': {'αντιπάπες'}},
+                      'sg': {'acc': {'αντιπάπα'},
+                             'gen': {'αντιπάπα'},
+                             'nom': {'αντιπάπας'},
+                             'voc': {'αντιπάπα'}}}}
         )
+
     def test_noun_limenarxhs(self):
         self.assertDictEqual(
             noun.create_all('λιμενάρχης', gender=MASC_FEM),
@@ -97,6 +99,7 @@ class NounTests(TestCase):
                              'voc': {'λιμενάρχα'}}}}
 
         )
+
     def test_noun_kidemonas(self):
         self.assertDictEqual(
             noun.create_all('κηδεμόνας', gender=MASC_FEM),
@@ -116,7 +119,88 @@ class NounTests(TestCase):
                              'gen': {'κηδεμόνα', 'κηδεμόνος'},
                              'nom': {'κηδεμόνας'},
                              'voc': {'κηδεμόνα'}}}},
-            ic(noun.create_all('χειρ'), 'λάθοι' in greek_corpus)
+            # ic(noun.create_all('νυξ', gender=FEM, aklito=False))
+        )
+
+    def test_noun_magio(self):
+        self.assertDictEqual(
+            noun.create_all('μαγιό', gender=NEUT, aklito=True),
+            {'neut': {'pl': {'acc': {'μαγιό'},
+                             'gen': {'μαγιό'},
+                             'nom': {'μαγιό'},
+                             'voc': {'μαγιό'}},
+                      'sg': {'acc': {'μαγιό'},
+                             'gen': {'μαγιό'},
+                             'nom': {'μαγιό'},
+                             'voc': {'μαγιό'}}}}
+
+        )
+
+    def test_noun_anthos(self):
+        self.assertDictEqual(
+            noun.create_all('άνθος'),
+            {'neut': {'pl': {'acc': {'άνθη'},
+                             'gen': {'ανθέων'},
+                             'nom': {'άνθη'},
+                             'voc': {'άνθη'}},
+                      'sg': {'acc': {'άνθος'},
+                             'gen': {'άνθους'},
+                             'nom': {'άνθος'},
+                             'voc': {'άνθος'}}}}
+
+        )
+
+    def test_noun_agxos(self):
+        self.assertDictEqual(
+            noun.create_all('άγχος'),
+            {'neut': {'pl': {'acc': {'άγχη'}, 'nom': {'άγχη'}, 'voc': {'άγχη'}},
+                      'sg': {'acc': {'άγχος'},
+                             'gen': {'άγχους'},
+                             'nom': {'άγχος'},
+                             'voc': {'άγχος'}}}}
+
+        )
+
+    def test_noun_embadon(self):
+        self.assertDictEqual(
+            noun.create_all('εμβαδόν'),
+            {'neut': {'pl': {'acc': {'εμβαδά'},
+                             'gen': {'εμβαδών'},
+                             'nom': {'εμβαδά'},
+                             'voc': {'εμβαδά'}},
+                      'sg': {'acc': {'εμβαδόν'},
+                             'gen': {'εμβαδού'},
+                             'nom': {'εμβαδόν'},
+                             'voc': {'εμβαδόν'}}}}
+
+        )
+
+    def test_noun_mili(self):
+        self.assertDictEqual(
+            noun.create_all('μίλι'),
+            {'neut': {'pl': {'acc': {'μίλια'},
+                             'gen': {'μιλίων'},
+                             'nom': {'μίλια'},
+                             'voc': {'μίλια'}},
+                      'sg': {'acc': {'μίλι'},
+                             'gen': {'μιλίου'},
+                             'nom': {'μίλι'},
+                             'voc': {'μίλι'}}}}
+
+        )
+
+    def test_noun_alas(self):
+        self.assertDictEqual(
+            noun.create_all('άλας', gender=NEUT),
+            {'neut': {'pl': {'acc': {'άλατα'},
+                             'gen': {'αλάτων'},
+                             'nom': {'άλατα'},
+                             'voc': {'άλατα'}},
+                      'sg': {'acc': {'άλας'},
+                             'gen': {'άλατος'},
+                             'nom': {'άλας'},
+                             'voc': {'άλας'}}}}
+
         )
 
     def test_noun_xaris(self):
@@ -132,6 +216,7 @@ class NounTests(TestCase):
                             'voc': {'χάρι'}}}}
 
         )
+
     def test_noun_kathgoroumenh(self):
         self.assertDictEqual(
             noun.create_all('κατηγορουμένη'),
@@ -145,6 +230,7 @@ class NounTests(TestCase):
                             'voc': {'κατηγορουμένη'}}}}
 
         )
+
     def test_noun_erwmenh(self):
         self.assertDictEqual(
             noun.create_all('ερωμένη'),
@@ -173,7 +259,6 @@ class NounTests(TestCase):
 
         )
 
-
     def test_noun_nufi(self):
         self.assertDictEqual(
             noun.create_all('νύφη'),
@@ -187,6 +272,7 @@ class NounTests(TestCase):
                             'voc': {'νύφη'}}}}
 
         )
+
     def test_noun_barymangas(self):
         self.assertDictEqual(
             noun.create_all('βαρύμαγκας'),
@@ -200,6 +286,7 @@ class NounTests(TestCase):
                              'voc': {'βαρύμαγκα'}}}}
 
         )
+
     def test_noun_amforeas(self):
         self.assertDictEqual(
             noun.create_all('αμφορέας'),
@@ -213,6 +300,7 @@ class NounTests(TestCase):
                              'voc': {'αμφορέα'}}}}
 
         )
+
     def test_noun_pestrofa(self):
         self.assertDictEqual(
             noun.create_all('πέστροφα'),
@@ -226,6 +314,7 @@ class NounTests(TestCase):
                             'voc': {'πέστροφα'}}}}
 
         )
+
     def test_noun_arthridida(self):
         self.assertDictEqual(
             noun.create_all('αρθρίτιδα'),
@@ -239,6 +328,7 @@ class NounTests(TestCase):
                             'voc': {'αρθρίτιδα'}}}}
 
         )
+
     def test_noun_mama(self):
         self.assertDictEqual(
             noun.create_all('μαμά'),
@@ -296,7 +386,7 @@ class NounTests(TestCase):
 
     def test_noun_upezwkws(self):
         self.assertDictEqual(
-            noun.create_all('υπεζωκώς'),
+            noun.create_all('υπεζωκώς', gender=MASC),
             {'masc': {'pl': {'acc': {'υπεζωκότες'},
                              'gen': {'υπεζωκότων'},
                              'nom': {'υπεζωκότες'},
@@ -307,6 +397,7 @@ class NounTests(TestCase):
                              'voc': {'υπεζωκώς'}}}}
 
         )
+
     def test_noun_therapeuon(self):
         self.assertDictEqual(
             noun.create_all('θεράπων'),
@@ -320,6 +411,7 @@ class NounTests(TestCase):
                              'voc': {'θεράπων'}}}}
 
         )
+
     def test_noun_propappous(self):
         self.assertDictEqual(
             noun.create_all('προπάππους'),
@@ -347,6 +439,7 @@ class NounTests(TestCase):
                              'voc': {'απόπλου'}}}}
 
         )
+
     def test_noun_ripsaspis(self):
         self.assertDictEqual(
             noun.create_all('ρίψασπις', gender=MASC),
@@ -361,7 +454,6 @@ class NounTests(TestCase):
 
         )
 
-
     def test_noun_kapetanios(self):
         self.assertDictEqual(
             noun.create_all('καπετάνιος'),
@@ -375,6 +467,7 @@ class NounTests(TestCase):
                              'voc': {'καπετάνιο', 'καπετάνιε'}}}}
 
         )
+
     def test_noun_mpouloukpashs(self):
         self.assertDictEqual(
             noun.create_all('μπουλούκμπασης'),
@@ -388,6 +481,7 @@ class NounTests(TestCase):
                              'voc': {'μπουλούκμπαση'}}}}
 
         )
+
     def test_noun_prutanhs(self):
         self.assertDictEqual(
             noun.create_all('πρύτανης', gender=MASC_FEM),
@@ -408,7 +502,6 @@ class NounTests(TestCase):
                              'nom': {'πρύτανης'},
                              'voc': {'πρύτανη'}}}},
 
-
         )
 
     def test_noun_tsapanhs(self):
@@ -423,9 +516,8 @@ class NounTests(TestCase):
                              'nom': {'τσοπάνης'},
                              'voc': {'τσοπάνη'}}}}
 
-
-
         )
+
     def test_noun_noikokurhs(self):
         self.assertDictEqual(
             noun.create_all('νοικοκύρης'),
@@ -439,6 +531,7 @@ class NounTests(TestCase):
                              'voc': {'νοικοκύρη'}}}}
 
         )
+
     def test_noun_laxeiopolis(self):
         self.assertDictEqual(
             noun.create_all('λαχειοπώλης'),
@@ -466,7 +559,6 @@ class NounTests(TestCase):
                              'voc': {'χωροφύλακα'}}}}
 
         )
-
 
     def test_noun_pateras(self):
         self.assertDictEqual(
@@ -501,7 +593,7 @@ class NounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('θυρανοίξια', gender=NEUT_PL),
             {'neut': {
-                'pl': {'voc': {'θυρανοίξια'}, 'acc': {'θυρανοίξια'}, 'gen': {'θυρανοιξίων'}, 'nom': {'θυρανοίξια'}},
+                'pl': {'voc': {'θυρανοίξια'}, 'acc': {'θυρανοίξια'}, 'gen': {'θυρανοιξιών'}, 'nom': {'θυρανοίξια'}},
                 'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}}}}
         )
 
@@ -526,6 +618,20 @@ class NounTests(TestCase):
                       {'acc': {'όλον'}, 'gen': {'όλου'}, 'nom': {'όλον'}, 'voc': {'όλον'}}
                   }
              })
+
+    def test_noun_paron(self):
+        self.assertDictEqual(
+            noun.create_all('παρόν', gender=NEUT),
+            {'neut': {'pl': {'acc': {'παρόντα'},
+                             'gen': {'παρόντων'},
+                             'nom': {'παρόντα'},
+                             'voc': {'παρόντα'}},
+                      'sg': {'acc': {'παρόν'},
+                             'gen': {'παρόντος'},
+                             'nom': {'παρόν'},
+                             'voc': {'παρόν'}}}}
+
+        )
 
     def test_noun_hmifws(self):
         """-ws neuter sg tantum"""
@@ -604,7 +710,7 @@ class NounTests(TestCase):
 
     def test_noun_bhks(self):
         self.assertDictEqual(
-            noun.create_all('βηξ'),
+            noun.create_all('βηξ', gender=MASC),
             {'masc': {'pl': {'acc': {'βήχες'},
                              'gen': {'βηχών'},
                              'nom': {'βήχες'},
@@ -678,7 +784,8 @@ class NounTests(TestCase):
             noun.create_all('γραμματέας', gender=MASC_FEM),
             {'masc': {
                 'pl': {'voc': {'γραμματείς'}, 'nom': {'γραμματείς'}, 'acc': {'γραμματείς'}, 'gen': {'γραμματέων'}},
-                'sg': {'voc': {'γραμματέα'}, 'nom': {'γραμματέας'}, 'acc': {'γραμματέα'}, 'gen': {'γραμματέα', 'γραμματέως'}}},
+                'sg': {'voc': {'γραμματέα'}, 'nom': {'γραμματέας'}, 'acc': {'γραμματέα'},
+                       'gen': {'γραμματέα', 'γραμματέως'}}},
                 'fem': {
                     'pl': {'voc': {'γραμματείς'}, 'nom': {'γραμματείς'}, 'acc': {'γραμματείς'}, 'gen': {'γραμματέων'}},
                     'sg': {'voc': {'γραμματέα'}, 'nom': {'γραμματέας'}, 'acc': {'γραμματέα'},
@@ -861,7 +968,7 @@ class NounTests(TestCase):
     def test_noun_hmisi(self):
         self.assertDictEqual(
             noun.create_all('ήμισυ'),
-            {'neut': {'pl': {'nom': {''}, 'acc': {''}, 'voc': {''}, 'gen': {''}},
+            {'neut': {'pl': {'nom': {'ημίσεα'}, 'acc': {'ημίσεα'}, 'voc': {'ημίσεα'}, 'gen': {'ημισέων'}},
                       'sg': {'nom': {'ήμισυ'}, 'gen': {'ημίσεος'}, 'voc': {'ήμισυ'}, 'acc': {'ήμισυ'}}}}
         )
 
@@ -955,6 +1062,7 @@ class NounTests(TestCase):
                      'pl': {'nom': {'πόλεις'}, 'voc': {'πόλεις'}, 'gen': {'πόλεων'}, 'acc': {'πόλεις'}}}}
 
         )
+
     def test_ixthus(self):
         self.assertDictEqual(
             noun.create_all('ιχθύς'),

@@ -33,6 +33,7 @@ The only way to say if some adjectives on -os have a common masc-fem form on -os
 
 
 ## Change Log
+ * 0.6.1   Extensively revised and fixed adjective and noun modules, now it covers multiple plural forms, also the app now deals better with accentuation of genitives, especially in feminine gender. Now uses extensive lists scraped from Wikileksiko for correct accentuation and for such issues as existence of genitives and the form of vocative ending in declension on -os.
  * 0.5.571 Quite a few fixes concerning mainly arxaioprepes types of adjective inflexions, 
  * 0.5.570 Fixed issues with aklita on i
  * 0.5.569 Fixed issues with adj on ous (arxaioprepes)
