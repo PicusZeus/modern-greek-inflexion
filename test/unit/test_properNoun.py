@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from icecream import ic
+
 # from icecream import ic
 
 from modern_greek_inflexion.resources.resources import MASC, SURNAME, FEM, FEM_SG
@@ -12,6 +14,16 @@ class ProperNounTests(TestCase):
             noun.create_all('Νίκος', proper_name=True),
             {'masc': {'pl': {'nom': {'Νίκοι'}, 'acc': {'Νίκους'}, 'voc': {'Νίκοι'}, 'gen': {'Νίκων'}},
                       'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}},
+        )
+
+    def test_Axilleus(self):
+        self.assertDictEqual(
+            noun.create_all('Αχιλλεύς', proper_name=True),
+            {'masc': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                      'sg': {'acc': {'Αχιλλέα'},
+                             'gen': {'Αχιλλέως'},
+                             'nom': {'Αχιλλεύς'},
+                             'voc': {'Αχιλλεύ'}}}}
 
         )
 

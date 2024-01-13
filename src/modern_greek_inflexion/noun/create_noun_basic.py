@@ -24,6 +24,8 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             gender = MASC_FEM
         elif noun in plur_tant_neut:
             gender = NEUT_PL
+        elif noun.endswith('ικα') or noun.endswith('ικά'):
+            gender = NEUT_PL
 
     elif noun.lower() in aklita_gender.keys():
         gender = aklita_gender[noun.lower()]
@@ -411,8 +413,9 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         plural_form = noun[:-3] + 'είς'
         gen_form = noun[:-3] + 'έως'
         noun_temp[GENDER] = MASC
-        if plural_form in greek_corpus and gen_form in greek_corpus:
-            noun_temp[NOM_PL] = plural_form
+        if not aklito or plural_form in greek_corpus or gen_form in greek_corpus:
+            if not proper_name:
+                noun_temp[NOM_PL] = plural_form
             noun_temp[GEN_SG] = gen_form
         if noun == 'Ζευς':
             noun_temp[GEN_SG] = 'Διός,Δίος'
@@ -734,6 +737,8 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             stems.append(noun)
             stems.append(noun[:-2] + 'όν')
             stems.append(noun[:-2] + 'όντ')
+            stems.append(noun[:-2] + 'ούντ')
+            stems.append(noun[:-2] + 'ώντ')
             if not gender:
                 gender = MASC
         elif noun[-1] == 'ν':

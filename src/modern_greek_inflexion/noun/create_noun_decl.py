@@ -499,9 +499,9 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
             elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί', 'αι', 'αί'] or
                                  nom_pl[-1:] in ['α', 'η', 'ά', 'ή'] or
                                  nom_pl.endswith('εις')):
-
+                accent = where_is_accent(nom_pl, true_syllabification=False)
                 if nom_pl[-2:] in ['οι', 'οί']:
-                    accent = where_is_accent(nom_pl, true_syllabification=False)
+
                     acc_pl = put_accent(nom_pl[:-2] + 'ους', accent, true_syllabification=False)
 
                     if accent == ANTEPENULTIMATE:

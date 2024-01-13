@@ -1,9 +1,11 @@
 from unittest import TestCase
 
+from icecream import ic
+
 # from icecream import ic
 
 from modern_greek_inflexion import noun
-from modern_greek_inflexion.resources.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
+from modern_greek_inflexion.resources.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM, greek_corpus
 
 
 class NounTests(TestCase):
@@ -72,7 +74,18 @@ class NounTests(TestCase):
                       'sg': {'acc': {'αντιπάπα'},
                              'gen': {'αντιπάπα'},
                              'nom': {'αντιπάπας'},
-                             'voc': {'αντιπάπα'}}}}
+                             'voc': {'αντιπάπα'}}}},
+        )
+
+    def test_noun_serbika(self):
+        self.assertDictEqual(
+            noun.create_all('σερβικά'),
+            {'neut': {'pl': {'acc': {'σερβικά'},
+                             'gen': {'σερβικών'},
+                             'nom': {'σερβικά'},
+                             'voc': {'σερβικά'}},
+                      'sg': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}}}}
+
         )
 
     def test_noun_limenarxhs(self):
@@ -93,8 +106,20 @@ class NounTests(TestCase):
                       'sg': {'acc': {'λιμενάρχη'},
                              'gen': {'λιμενάρχου', 'λιμενάρχη'},
                              'nom': {'λιμενάρχης'},
-                             'voc': {'λιμενάρχα'}}}}
+                             'voc': {'λιμενάρχα'}}}},
+        )
 
+    def test_noun_diafwnwn(self):
+        self.assertDictEqual(
+            noun.create_all('διαφωνών'),
+            {'masc': {'pl': {'acc': {'διαφωνούντες'},
+                             'gen': {'διαφωνούντων'},
+                             'nom': {'διαφωνούντες'},
+                             'voc': {'διαφωνούντες'}},
+                      'sg': {'acc': {'διαφωνούντα'},
+                             'gen': {'διαφωνούντος'},
+                             'nom': {'διαφωνών'},
+                             'voc': {'διαφωνών'}}}}
         )
 
     def test_noun_kidemonas(self):
