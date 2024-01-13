@@ -39,7 +39,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         elif put_accent_on_the_penultimate(adj[:-2] + 'ης') in greek_corpus:
             adj = put_accent_on_the_penultimate(adj[:-2] + 'ης')
 
-    accent = where_is_accent(adj, true_syllabification=False)
+    accent = where_is_accent(adj, true_syllabification=True)
     if accent == INCORRECT_ACCENT:
         raise NotLegalAdjectiveException
     if adj[-1] in ['υ', 'ύ'] and not aklito:

@@ -768,8 +768,9 @@ class NounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('παιδί'),
             {'neut': {'sg': {'nom': {'παιδί'}, 'acc': {'παιδί'}, 'voc': {'παιδί'}, 'gen': {'παιδιού'}},
-                      'pl': {'nom': {'παιδιά'}, 'acc': {'παιδιά'}, 'voc': {'παιδιά'}, 'gen': {'παιδιών'}}}}
+                      'pl': {'nom': {'παιδιά'}, 'acc': {'παιδιά'}, 'voc': {'παιδιά'}, 'gen': {'παιδιών'}}}},
         )
+
 
     def test_noun_dolario(self):
         self.assertDictEqual(
@@ -816,7 +817,6 @@ class NounTests(TestCase):
                     'pl': {'voc': {'γραμματείς'}, 'nom': {'γραμματείς'}, 'acc': {'γραμματείς'}, 'gen': {'γραμματέων'}},
                     'sg': {'voc': {'γραμματέα'}, 'nom': {'γραμματέας'}, 'acc': {'γραμματέα'},
                            'gen': {'γραμματέως'}}}},
-            # ic(noun.create_all('γραμματέας'))
         )
 
     def test_noun_synenteuksi(self):
@@ -955,7 +955,7 @@ class NounTests(TestCase):
 
     def test_noun_gegonos(self):
         self.assertDictEqual(
-            noun.create_all('γεγονός'),
+            noun.create_all('γεγονός', gender=NEUT),
             {'neut': {'pl': {'gen': {'γεγονότων'}, 'acc': {'γεγονότα'}, 'nom': {'γεγονότα'}, 'voc': {'γεγονότα'}},
                       'sg': {'gen': {'γεγονότος'}, 'voc': {'γεγονός'}, 'nom': {'γεγονός'}, 'acc': {'γεγονός'}}}}
         )
@@ -1092,7 +1092,7 @@ class NounTests(TestCase):
     def test_ixthus(self):
         self.assertDictEqual(
             noun.create_all('ιχθύς'),
-            {'': {'pl': {'acc': {'ιχθύες'},
+            {'masc': {'pl': {'acc': {'ιχθύες'},
                          'gen': {'ιχθύων'},
                          'nom': {'ιχθύες'},
                          'voc': {'ιχθύες'}},

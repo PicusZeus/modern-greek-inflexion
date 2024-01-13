@@ -496,7 +496,9 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     gen_pl = put_accent(nom_pl[:-1] + 'ων', PENULTIMATE)
                     noun_all[gender][PL][GEN] = gen_pl
 
-            elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί'] or nom_pl[-1:] in ['α', 'η', 'ά', 'ή']):
+            elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί', 'αι', 'αί'] or
+                                 nom_pl[-1:] in ['α', 'η', 'ά', 'ή'] or
+                                 nom_pl.endswith('εις')):
 
                 if nom_pl[-2:] in ['οι', 'οί']:
                     accent = where_is_accent(nom_pl, true_syllabification=False)
@@ -511,30 +513,43 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
                     noun_all[gender][PL][ACC] = acc_pl
 
-                thema = nom_pl[:-2]
-                if nom_pl[-1] in ['α', 'η', 'ά', 'ή']:
-                    thema = nom_pl[:-1]
-                if nom_pl.endswith('ια'):
-                    gen_pl = put_accent(thema + 'ων', ULTIMATE)
-                else:
-                    accent = where_is_accent(nom_pl, true_syllabification=False)
-                    gen_pl = put_accent(thema + 'ων', accent, true_syllabification=False)
+                if nom_pl[-2:] in ['οι', 'οί'] or nom_pl[-1] in ['α', 'ά']:
 
-                if nom_pl[-1] in ['η', 'ή']:
-                    gen_pl = put_accent(gen_pl, ULTIMATE)
+                    if nom_pl.endswith('ι') or nom_pl.endswith('ί'):
+                        gen_pl = nom_pl[:-2] + 'ων'
+                    else:
+                        gen_pl = nom_pl[:-1] + 'ων'
 
-                if accent == ANTEPENULTIMATE:
-                    gen_pl_alt = put_accent(gen_pl, PENULTIMATE, true_syllabification=False)
-                    if gen_pl in greek_corpus and gen_pl_alt in greek_corpus:
-                        gen_pl = gen_pl + ',' + gen_pl_alt
-                    elif gen_pl not in greek_corpus:
-                        gen_pl = gen_pl_alt
-
-                if nom_pl[-2:] in ['ες', 'ές']:
-                    if nom_pl[-4:-2] not in ['άδ', 'ήτ']:
+                    if nom_pl.endswith('ια'):
+                        gen_pl = put_accent(gen_pl, ULTIMATE)
+                    elif accent == ANTEPENULTIMATE:
+                        gen_pl_alt = put_accent(gen_pl, PENULTIMATE, true_syllabification=False)
+                        if gen_pl in greek_corpus and gen_pl_alt in greek_corpus:
+                            gen_pl = gen_pl + ',' + gen_pl_alt
+                        elif gen_pl not in greek_corpus:
+                            gen_pl = gen_pl_alt
+                    elif accent == ULTIMATE:
                         gen_pl = put_accent(gen_pl, ULTIMATE)
 
-                noun_all[gender][PL][GEN] = gen_pl
+                    noun_all[gender][PL][GEN] = gen_pl
+                elif nom_pl[-2:] in ['ες', 'ές', 'αι', 'αί']:
+                    gen_pl = put_accent(nom_pl[:-2] + 'ων', ULTIMATE)
+
+                    if accent != ULTIMATE and nom_pl[-4:-2] in ['άδ', 'ήτ']:
+                        gen_pl = put_accent(gen_pl, PENULTIMATE)
+
+                    noun_all[gender][PL][GEN] = gen_pl
+
+                elif nom_pl[-1] in ['η', 'ή']:
+
+                    gen_pl = put_accent(nom_pl[:-1] + 'ων', ULTIMATE)
+                    noun_all[gender][PL][GEN] = gen_pl
+
+                else:
+                    gen_pl = nom_pl[:-2] + 'ων'
+                    noun_all[gender][PL][GEN] = gen_pl
+
+
 
             """
             irregularities

@@ -14,7 +14,9 @@ class AdjectiveTests(TestCase):
         self.assertRaises(NotInGreekException, adjective.create_all, 'kakos')
 
     def test_pammegethhs(self):
-        self.assertRaises(NotLegalAdjectiveException, adjective.create_all, 'ζούδιαρης')
+        self.assertRaises(NotLegalAdjectiveException, adjective.create_all, 'ζούδιαρηδης')
+
+
 
     def test_adj_oraios(self):
         self.assertDictEqual(
@@ -53,7 +55,38 @@ class AdjectiveTests(TestCase):
                                  'nom': {'ωραιότατο'}}}},
              'adv': {'ωραία'},
              'comp_adv': {'ωραιότερα'},
-             'superl_adv': {'ωραιότατα'}}
+             'superl_adv': {'ωραιότατα'}},
+        )
+
+    def test_adj_bathiskiwtos(self):
+        self.assertDictEqual(
+            adjective.create_all('βαθύσκιωτος'),
+            {'adj': {'pl': {'fem': {'acc': {'βαθύσκιωτες'},
+                                    'gen': {'βαθύσκιωτων'},
+                                    'nom': {'βαθύσκιωτες'},
+                                    'voc': {'βαθύσκιωτες'}},
+                            'masc': {'acc': {'βαθύσκιωτους'},
+                                     'gen': {'βαθύσκιωτων'},
+                                     'nom': {'βαθύσκιωτοι'},
+                                     'voc': {'βαθύσκιωτοι'}},
+                            'neut': {'acc': {'βαθύσκιωτα'},
+                                     'gen': {'βαθύσκιωτων'},
+                                     'nom': {'βαθύσκιωτα'},
+                                     'voc': {'βαθύσκιωτα'}}},
+                     'sg': {'fem': {'acc': {'βαθύσκιωτη'},
+                                    'gen': {'βαθύσκιωτης'},
+                                    'nom': {'βαθύσκιωτη'},
+                                    'voc': {'βαθύσκιωτη'}},
+                            'masc': {'acc': {'βαθύσκιωτο'},
+                                     'gen': {'βαθύσκιωτου'},
+                                     'nom': {'βαθύσκιωτος'},
+                                     'voc': {'βαθύσκιωτε'}},
+                            'neut': {'acc': {'βαθύσκιωτο'},
+                                     'gen': {'βαθύσκιωτου'},
+                                     'nom': {'βαθύσκιωτο'},
+                                     'voc': {'βαθύσκιωτο'}}}},
+             'adv': {'βαθύσκιωτα'}}
+
         )
 
     def test_adj_klepsas(self):

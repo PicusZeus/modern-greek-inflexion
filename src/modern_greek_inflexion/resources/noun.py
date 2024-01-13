@@ -39,6 +39,7 @@ irregular_nouns = {'σέβας': {NOM_SG: 'σέβας', NOM_PL: 'σέβη', GEN_
                    'νιότη': {NOM_SG: 'νιότη', NOM_PL: ',νιότα', GEN_SG: 'νιότης', GENDER: MASC},
                    'γάλα': {NOM_SG: 'γάλα', NOM_PL: 'γάλατα,γάλακτα', GEN_SG: 'γάλατος', GENDER: MASC},
                    'εσπέρας': {NOM_SG: 'εσπέρας', NOM_PL: '', GEN_SG: '', GENDER: MASC},
+'Γης': {NOM_SG: 'Γης', NOM_PL: 'Γαίες', GEN_SG: 'Γης', GENDER: FEM},
                    }
 
 irregular_gen_sg = {'πατέρας': 'πατρός,πατέρα', 'πατήρ': 'πατρός', 'γάλα': 'γάλατος,γάλακτος'}
