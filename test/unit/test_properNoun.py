@@ -34,7 +34,7 @@ class ProperNounTests(TestCase):
                             'gen': {'Θετίδων'},
                             'nom': {'Θέτιδες'},
                             'voc': {'Θέτιδες'}},
-                     'sg': {'acc': {'Θέτιν'},
+                     'sg': {'acc': {'Θέτιδα'},
                             'gen': {'Θέτιδος'},
                             'nom': {'Θέτις'},
                             'voc': {'Θέτι'}}}}
@@ -59,7 +59,7 @@ class ProperNounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('Παχύ', proper_name=True, gender=SURNAME),
             {'surname': {'pl': {'gen': {'Παχύ'}, 'acc': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}},
-             'sg': {'acc': {'Παχύ'}, 'gen': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}}}},
+                         'sg': {'acc': {'Παχύ'}, 'gen': {'Παχύ'}, 'nom': {'Παχύ'}, 'voc': {'Παχύ'}}}},
 
         )
 
@@ -77,23 +77,23 @@ class ProperNounTests(TestCase):
 
         )
 
-
     def test_Papandreou(self):
         self.assertDictEqual(
             noun.create_all('Παπανδρέου', proper_name=True, gender=SURNAME),
 
-
-        {'surname': {'pl': {'gen': {'Παπανδρέου'}, 'acc': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}},
-                     'sg': {'acc': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}}}}
+            {'surname': {
+                'pl': {'gen': {'Παπανδρέου'}, 'acc': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}},
+                'sg': {'acc': {'Παπανδρέου'}, 'gen': {'Παπανδρέου'}, 'nom': {'Παπανδρέου'}, 'voc': {'Παπανδρέου'}}}}
         )
 
     def test_Dimas(self):
         self.assertDictEqual(
             noun.create_all('Δημάς', proper_name=True, gender=SURNAME),
-            {'surname': {'pl': {'acc': {'Δημάδες'},'gen': {'Δημάδων'}, 'nom': {'Δημάδες'},'voc': {'Δημάδες'}},
-                         'sg': {'acc': {'Δημά'},'gen': {'Δημά'},'nom': {'Δημάς'}, 'voc': {'Δημά'}}}}
+            {'surname': {'pl': {'acc': {'Δημάδες'}, 'gen': {'Δημάδων'}, 'nom': {'Δημάδες'}, 'voc': {'Δημάδες'}},
+                         'sg': {'acc': {'Δημά'}, 'gen': {'Δημά'}, 'nom': {'Δημάς'}, 'voc': {'Δημά'}}}}
 
         )
+
     def test_Mykonos(self):
         self.assertDictEqual(
             noun.create_all('Μύκονος', proper_name=True, gender=FEM_SG),
@@ -165,7 +165,7 @@ class ProperNounTests(TestCase):
             noun.create_all('Φίλιππος', proper_name=True),
             {'masc': {
                 'sg': {'nom': {'Φίλιππος'}, 'acc': {'Φίλιππο'}, 'voc': {'Φίλιππε'}, 'gen': {'Φιλίππου', 'Φίλιππου'}},
-                'pl': {'nom': {'Φίλιπποι'}, 'acc': {'Φιλίππους', 'Φίλιππους'}, 'voc': {'Φίλιπποι'},
+                'pl': {'nom': {'Φίλιπποι'}, 'acc': {'Φιλίππους'}, 'voc': {'Φίλιπποι'},
                        'gen': {'Φιλίππων'}}}}
         )
 
@@ -182,8 +182,6 @@ class ProperNounTests(TestCase):
             {'fem': {'pl': {'acc': {''}, 'nom': {''}, 'gen': {''}, 'voc': {''}},
                      'sg': {'acc': {'Βαρσοβία'}, 'nom': {'Βαρσοβία'}, 'gen': {'Βαρσοβίας'}, 'voc': {'Βαρσοβία'}}}}
         )
-
-
 
     def test_Polonos(self):
         self.assertDictEqual(
@@ -202,19 +200,19 @@ class ProperNounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('Αλεξαντρού', proper_name=True),
             {'fem': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
-                    'sg': {'acc': {'Αλεξαντρού'}, 'gen': {'Αλεξαντρούς'},
-                    'nom': {'Αλεξαντρού'}, 'voc': {'Αλεξαντρού'}}}}
+                     'sg': {'acc': {'Αλεξαντρού'}, 'gen': {'Αλεξαντρούς'},
+                            'nom': {'Αλεξαντρού'}, 'voc': {'Αλεξαντρού'}}}}
         )
+
     def test_Angelos(self):
         self.assertDictEqual(
             noun.create_all('Άγγελος', proper_name=True),
-            {'masc': {'pl': {'acc': {'Αγγέλους', 'Άγγελους'},
-                                                'gen': {'Αγγέλων'},
-                                                'nom': {'Άγγελοι'},
-                                                'voc': {'Άγγελοι'}},
-                        'sg': {'acc': {'Άγγελο'},
-                               'gen': {'Αγγέλου', 'Άγγελου'},
-                               'nom': {'Άγγελος'},
-                               'voc': {'Άγγελε'}}}}
+            {'masc': {'pl': {'acc': {'Άγγελους'},
+                             'gen': {'Άγγελων'},
+                             'nom': {'Άγγελοι'},
+                             'voc': {'Άγγελοι'}},
+                      'sg': {'acc': {'Άγγελο'},
+                             'gen': {'Άγγελου'},
+                             'nom': {'Άγγελος'},
+                             'voc': {'Άγγελε'}}}}
         )
-

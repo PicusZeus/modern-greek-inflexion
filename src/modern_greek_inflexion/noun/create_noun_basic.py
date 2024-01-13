@@ -7,7 +7,7 @@ from modern_greek_accentuation.resources import vowels, PENULTIMATE, ANTEPENULTI
 from ..resources.noun import irregular_nouns, aklita_gender, plur_tant_neut, irregular_3rd_decl_roots
 from ..resources.variables import *
 from ..resources.resources import greek_corpus, nouns_h_eis, nouns_neut_i_paroksitona, \
-    nouns_neut_i_without_gen, nouns_feminina_os, nouns_masc_fem
+    nouns_neut_i_without_gen, nouns_feminina_os, nouns_masc_fem, nouns_with_proparoksitona_gen_pl
 
 from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
@@ -92,7 +92,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         # also some proper names in greek_corpus are, as is proper, capitalized
         if gen_form in greek_corpus or gender == MASC or number_of_syllables > 4:
             gens_sg.append(gen_form)
-        if accent == ANTEPENULTIMATE:
+        if accent == ANTEPENULTIMATE and noun not in nouns_with_proparoksitona_gen_pl:
             gen_form_alt = put_accent(gen_form, PENULTIMATE, true_syllabification=False)
             if gen_form_alt in greek_corpus:
                 gens_sg.append(gen_form_alt)
@@ -466,6 +466,8 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             else:
                 noun_temp[NOM_PL] = plural_form_d
                 noun_temp[GEN_SG] = gen_form_d
+                if not accent:
+                    noun_temp[GEN_SG] = put_accent(gen_form_d, ULTIMATE)
 
     elif noun[-3:] in ['ους', 'ούς']:
         if 'πλους' in noun or 'νους' in noun and noun != 'μπόνους':

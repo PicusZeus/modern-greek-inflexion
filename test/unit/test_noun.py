@@ -84,10 +84,22 @@ class NounTests(TestCase):
                              'gen': {'σερβικών'},
                              'nom': {'σερβικά'},
                              'voc': {'σερβικά'}},
-                      'sg': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}}}}
-
+                      'sg': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}}}},
         )
 
+    def test_noun_pais(self):
+        self.assertDictEqual(
+            noun.create_all('παις', gender=MASC),
+            {'masc': {'pl': {'acc': {'παίδες'},
+                             'gen': {'παίδων'},
+                             'nom': {'παίδες'},
+                             'voc': {'παίδες'}},
+                      'sg': {'acc': {'παίδα'},
+                             'gen': {'παιδός'},
+                             'nom': {'παις'},
+                             'voc': {'παι'}}}}
+
+        )
     def test_noun_limenarxhs(self):
         self.assertDictEqual(
             noun.create_all('λιμενάρχης', gender=MASC_FEM),
@@ -469,7 +481,7 @@ class NounTests(TestCase):
                              'gen': {'ριψασπίδων'},
                              'nom': {'ριψάσπιδες'},
                              'voc': {'ριψάσπιδες'}},
-                      'sg': {'acc': {'ρίψασπιν'},
+                      'sg': {'acc': {'ριψάσπιδα'},
                              'gen': {'ριψάσπιδος'},
                              'nom': {'ρίψασπις'},
                              'voc': {'ρίψασπι'}}}}
@@ -479,15 +491,14 @@ class NounTests(TestCase):
     def test_noun_kapetanios(self):
         self.assertDictEqual(
             noun.create_all('καπετάνιος'),
-            {'masc': {'pl': {'acc': {'καπετάνιους'},
-                             'gen': {'καπεταναίων', 'καπετανιοι'},
+            {'masc': {'pl': {'acc': {'καπετάνιους', 'καπεταναίους'},
+                             'gen': {'καπεταναίων', 'καπετάνιων'},
                              'nom': {'καπετάνιοι', 'καπεταναίοι'},
                              'voc': {'καπετάνιοι', 'καπεταναίοι'}},
                       'sg': {'acc': {'καπετάνιο'},
                              'gen': {'καπετάνιου'},
                              'nom': {'καπετάνιος'},
-                             'voc': {'καπετάνιο', 'καπετάνιε'}}}}
-
+                             'voc': {'καπετάνιο', 'καπετάνιε'}}}},
         )
 
     def test_noun_mpouloukpashs(self):
