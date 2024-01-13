@@ -7,7 +7,7 @@ from modern_greek_accentuation.resources import vowels, PENULTIMATE, ANTEPENULTI
 from ..resources.noun import irregular_nouns, aklita_gender, plur_tant_neut, irregular_3rd_decl_roots
 from ..resources.variables import *
 from ..resources.resources import greek_corpus, nouns_h_eis, nouns_neut_i_paroksitona, \
-    nouns_neut_i_without_gen, nouns_feminina_os
+    nouns_neut_i_without_gen, nouns_feminina_os, nouns_masc_fem
 
 from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
@@ -19,8 +19,12 @@ greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: str | None = None,
                                 proper_name: bool = False):
 
-    if noun in plur_tant_neut:
-        gender = NEUT_PL
+
+    if not gender:
+        if noun in nouns_masc_fem:
+            gender = MASC_FEM
+        elif noun in plur_tant_neut:
+            gender = NEUT_PL
 
     elif noun.lower() in aklita_gender.keys():
         gender = aklita_gender[noun.lower()]
@@ -412,9 +416,6 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         if noun == 'Ζευς':
             noun_temp[GEN_SG] = 'Διός,Δίος'
             noun_temp[NOM_PL] = ''
-
-        if noun in feminine_or_masc:
-            noun_temp[GENDER] = MASC_FEM
 
     elif noun[-2:] in ['ις', 'ΐς', 'ίς']:
         noun_temp[GENDER] = FEM

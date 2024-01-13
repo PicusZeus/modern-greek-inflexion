@@ -6,9 +6,6 @@ from modern_greek_inflexion import noun
 from modern_greek_inflexion.resources.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
 
 
-# from modern_greek_inflexion.resources.resources import greek_corpus
-
-
 class NounTests(TestCase):
 
     def test_noun_kalos(self):
@@ -619,6 +616,8 @@ class NounTests(TestCase):
                   }
              })
 
+
+
     def test_noun_paron(self):
         self.assertDictEqual(
             noun.create_all('παρόν', gender=NEUT),
@@ -629,7 +628,20 @@ class NounTests(TestCase):
                       'sg': {'acc': {'παρόν'},
                              'gen': {'παρόντος'},
                              'nom': {'παρόν'},
-                             'voc': {'παρόν'}}}}
+                             'voc': {'παρόν'}}}},
+
+        )
+
+    def test_noun_alieus(self):
+        self.assertDictEqual(noun.create_all('αλιεύς'),
+            {'masc': {'pl': {'acc': {'αλιείς'},
+                             'gen': {'αλιέων'},
+                             'nom': {'αλιείς'},
+                             'voc': {'αλιείς'}},
+                      'sg': {'acc': {'αλιέα'},
+                             'gen': {'αλιέως'},
+                             'nom': {'αλιεύς'},
+                             'voc': {'αλιεύ'}}}}
 
         )
 
@@ -689,8 +701,22 @@ class NounTests(TestCase):
     def test_noun_asthenhs(self):
         self.assertDictEqual(
             noun.create_all('ασθενής'),
-            {'masc': {'sg': {'voc': {'ασθενή'}, 'gen': {'ασθενούς', 'ασθενή'}, 'nom': {'ασθενής'}, 'acc': {'ασθενή'}},
-                      'pl': {'voc': {'ασθενείς'}, 'acc': {'ασθενείς'}, 'nom': {'ασθενείς'}, 'gen': {'ασθενών'}}}},
+            {'fem': {'pl': {'acc': {'ασθενείς'},
+                            'gen': {'ασθενών'},
+                            'nom': {'ασθενείς'},
+                            'voc': {'ασθενείς'}},
+                     'sg': {'acc': {'ασθενή'},
+                            'gen': {'ασθενούς'},
+                            'nom': {'ασθενής'},
+                            'voc': {'ασθενή'}}},
+             'masc': {'pl': {'acc': {'ασθενείς'},
+                             'gen': {'ασθενών'},
+                             'nom': {'ασθενείς'},
+                             'voc': {'ασθενείς'}},
+                      'sg': {'acc': {'ασθενή'},
+                             'gen': {'ασθενούς', 'ασθενή'},
+                             'nom': {'ασθενής'},
+                             'voc': {'ασθενή'}}}}
 
         )
 
@@ -724,11 +750,11 @@ class NounTests(TestCase):
 
     def test_noun_gymnasiarxhs(self):
         self.assertDictEqual(
-            noun.create_all('γυμνασιάρχης'),
+            noun.create_all('γυμνασιάρχης', gender=MASC),
             {'masc': {
                 'sg': {'acc': {'γυμνασιάρχη'}, 'gen': {'γυμνασιάρχη'}, 'voc': {'γυμνασιάρχα'}, 'nom': {'γυμνασιάρχης'}},
                 'pl': {'acc': {'γυμνασιάρχες'}, 'gen': {'γυμνασιαρχών'}, 'voc': {'γυμνασιάρχες'},
-                       'nom': {'γυμνασιάρχες'}}}}
+                       'nom': {'γυμνασιάρχες'}}}},
         )
 
     def test_noun_andras(self):
@@ -768,7 +794,7 @@ class NounTests(TestCase):
             noun.create_all('υπέρθημα', gender=NEUT),
             {'neut': {'sg': {'nom': {'υπέρθημα'}, 'gen': {'υπερθήματος'}, 'voc': {'υπέρθημα'}, 'acc': {'υπέρθημα'}},
                       'pl': {'nom': {'υπερθήματα'}, 'gen': {'υπερθημάτων'}, 'acc': {'υπερθήματα'},
-                             'voc': {'υπερθήματα'}}}}
+                             'voc': {'υπερθήματα'}}}},
         )
 
     def test_noun_lathos(self):
@@ -1080,9 +1106,22 @@ class NounTests(TestCase):
     def test_presbhs(self):
         self.assertDictEqual(
             noun.create_all('πρέσβης'),
-            {'masc': {'sg': {'gen': {'πρέσβεως', 'πρέσβη'}, 'nom': {'πρέσβης'}, 'voc': {'πρέσβη'}, 'acc': {'πρέσβη'}},
-                      'pl': {'acc': {'πρέσβεις'}, 'gen': {'πρέσβεων'}, 'nom': {'πρέσβεις'}, 'voc': {'πρέσβεις'}}}},
-            # ic(noun.create_all('πρέσβης'))
+            {'fem': {'pl': {'acc': {'πρέσβεις'},
+                            'gen': {'πρέσβεων'},
+                            'nom': {'πρέσβεις'},
+                            'voc': {'πρέσβεις'}},
+                     'sg': {'acc': {'πρέσβη'},
+                            'gen': {'πρέσβεως'},
+                            'nom': {'πρέσβης'},
+                            'voc': {'πρέσβη'}}},
+             'masc': {'pl': {'acc': {'πρέσβεις'},
+                             'gen': {'πρέσβεων'},
+                             'nom': {'πρέσβεις'},
+                             'voc': {'πρέσβεις'}},
+                      'sg': {'acc': {'πρέσβη'},
+                             'gen': {'πρέσβη', 'πρέσβεως'},
+                             'nom': {'πρέσβης'},
+                             'voc': {'πρέσβη'}}}}
 
         )
 

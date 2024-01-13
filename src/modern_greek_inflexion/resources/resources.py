@@ -16,6 +16,7 @@ n_h_eis_path = os.path.join(this_dir, 'nouns_feminina_h_eis.pickle')
 n_neut_i_paroksitona = os.path.join(this_dir, 'nouns_oudetera_i_paroksitona.pickle')
 n_neut_i_without_gen = os.path.join(this_dir, 'nouns_oudetera_i_without_gen.pickle')
 n_feminina_os = os.path.join(this_dir, 'nouns_feminina_os.pickle')
+n_nouns_masc_fem = os.path.join(this_dir, 'nouns_masc_fem.pickle')
 
 greek_corpus = pickle.load(open(el_GR_path, 'rb'))
 nouns_without_gen_pl = pickle.load(open(n_without_gen_pl_path, 'rb'))
@@ -28,6 +29,8 @@ nouns_h_eis = pickle.load(open(n_h_eis_path, 'rb'))
 nouns_neut_i_paroksitona = pickle.load(open(n_neut_i_paroksitona, 'rb'))
 nouns_neut_i_without_gen = pickle.load(open(n_neut_i_without_gen, 'rb'))
 nouns_feminina_os = pickle.load(open(n_feminina_os, 'rb'))
+nouns_masc_fem = pickle.load(open(n_nouns_masc_fem, 'rb'))
+
 
 forms_with_alternatives = ('ακόμη', 'ακόμα', 'και', 'κι', 'τίποτα', 'τίποτε')
 dictionary_with_alt = {'ακόμη': 'ακόμα', 'και': 'κι', 'τίποτα': 'τίποτε'}
