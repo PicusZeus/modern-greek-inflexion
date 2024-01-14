@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from icecream import ic
-
 # from icecream import ic
 
 from modern_greek_inflexion import noun
@@ -153,7 +151,33 @@ class NounTests(TestCase):
                              'gen': {'κηδεμόνα', 'κηδεμόνος'},
                              'nom': {'κηδεμόνας'},
                              'voc': {'κηδεμόνα'}}}},
-            # ic(noun.create_all('νυξ', gender=FEM, aklito=False))
+        )
+
+    def test_noun_ris(self):
+        self.assertDictEqual(
+            noun.create_all('ρις'),
+            {'fem': {'pl': {'acc': {'ρίνες'},
+                            'gen': {'ρινών'},
+                            'nom': {'ρίνες'},
+                            'voc': {'ρίνες'}},
+                         'sg': {'acc': {'ρίνα'},
+                            'gen': {'ρινός'},
+                            'nom': {'ρις'},
+                            'voc': {'ρι'}}}}
+
+        )
+    def test_noun_polh(self):
+        self.assertDictEqual(
+            noun.create_all('πόλη'),
+            {'fem': {'pl': {'acc': {'πόλεις'},
+                            'gen': {'πόλεων'},
+                            'nom': {'πόλεις'},
+                            'voc': {'πόλεις'}},
+                     'sg': {'acc': {'πόλη'},
+                            'gen': {'πόλεως', 'πόλης'},
+                            'nom': {'πόλη'},
+                            'voc': {'πόλη'}}}}
+
         )
 
     def test_noun_magio(self):

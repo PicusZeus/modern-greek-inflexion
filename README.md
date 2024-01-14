@@ -33,6 +33,7 @@ The only way to say if some adjectives on -os have a common masc-fem form on -os
 
 
 ## Change Log
+ * 0.6.4   Further improvements in the third declension, especially for nouns on -is
  * 0.6.3   Fixed minor issues, pluralia tantum now covered more extensively
  * 0.6.2   Fixed an issue with the lacking list of masc_fem nouns
  * 0.6.1   Extensively revised and fixed adjective and noun modules, now it covers multiple plural forms, also the app now deals better with accentuation of genitives, especially in feminine gender. Now uses extensive lists scraped from Wikileksiko for correct accentuation and for such issues as existence of genitives and the form of vocative ending in declension on -os.

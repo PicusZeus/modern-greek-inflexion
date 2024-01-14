@@ -51,7 +51,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
     :return: dictionary with keys: nom_sg, gen_sg, nom_pl and gender. Alternative forms are divided with coma
     """
 
-    noun = convert_to_monotonic(noun)
+    noun = convert_to_monotonic(noun, one_syllable_rule=False)
     if not greek_pattern.match(noun):
         raise NotInGreekException
     noun_temp = {NOM_SG: noun, GEN_SG: '', NOM_PL: '', GENDER: ''}
@@ -435,41 +435,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         noun_temp[NOM_SG] = ''
         noun_temp[GEN_SG] = ''
 
-    elif noun[-2:] in ['ις', 'ΐς', 'ίς']:
-        noun_temp[GENDER] = FEM
-        plural_form = put_accent_on_the_penultimate(noun[:-2] + 'εις', true_syllabification=False)
-
-        gen_form = noun[:-2] + 'εως'
-        modern_form = put_accent_on_the_antepenultimate(noun[:-1] + 'ότητα')
-        # since many of ancient nouns on is gave modern -othta
-        if noun == 'μις':
-            # special case
-            plural_form = noun
-            gen_form = noun
-
-        if gen_form in greek_corpus or plural_form in greek_corpus or modern_form in greek_corpus:
-            noun_temp[NOM_PL] = plural_form
-            noun_temp[GEN_SG] = gen_form
-
-        elif not aklito:
-            # maybe gen on ιτος or idos
-            gen_form_t = put_accent(noun[:-1] + 'τος', ANTEPENULTIMATE)
-            gen_form_d = put_accent(noun[:-1] + 'δος', ANTEPENULTIMATE)
-            plural_form_t = put_accent(noun[:-1] + 'τες', ANTEPENULTIMATE)
-            plural_form_d = put_accent(noun[:-1] + 'δες', ANTEPENULTIMATE)
-            if plural_form_t in greek_corpus or gen_form_t in greek_corpus:
-                noun_temp[NOM_PL] = plural_form_t
-                noun_temp[GEN_SG] = gen_form_t
-            elif noun.endswith('όρνις'):
-                noun_temp[NOM_PL] = noun[:-1] + 'θες'
-                noun_temp[GEN_SG] = noun[:-1] + 'θος'
-            else:
-                noun_temp[NOM_PL] = plural_form_d
-                noun_temp[GEN_SG] = gen_form_d
-                if not accent:
-                    noun_temp[GEN_SG] = put_accent(gen_form_d, ULTIMATE)
-
-    elif noun[-3:] in ['ους', 'ούς']:
+    elif noun[-3:] in ['ους', 'ούς'] and not aklito:
         if 'πλους' in noun or 'νους' in noun and noun != 'μπόνους':
             noun_temp[GENDER] = MASC
             noun_temp[GEN_SG] = noun[:-1]
@@ -479,6 +445,9 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             noun_temp[GENDER] = MASC
             noun_temp[GEN_SG] = noun[:-3] + 'οδος'
             noun_temp[NOM_PL] = noun[:-3] + 'οδες'
+            if noun == 'πους':
+                noun_temp[GEN_SG] = 'ποδός'
+                noun_temp[NOM_PL] = 'πόδες'
         elif noun == 'ους':
             # το αυτί χρειάζεται να είναι μόνο του
             noun_temp[GENDER] = NEUT
@@ -722,7 +691,12 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             # ουσιαστικοποιημένες αρχαίες μετοχες
             stems.append(noun[:-1] + 'τ')
             stems.append(noun[:-2] + 'ότ')
-
+        elif noun.endswith('ις'):
+            if not gender:
+                gender = FEM
+            stems.append(noun[:-1] + 'τ')
+            stems.append(noun[:-1] + 'δ')
+            stems.append(noun[:-1] + 'θ')
         elif noun.endswith('ς'):
             if not gender:
                 gender = NEUT
@@ -799,6 +773,12 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
 
         # elif noun.endswith('ων') and not aklito:
             #probably the best guess is still third declension
+        elif noun.endswith('ις'):
+            gen_form_ews = noun[:-2] + 'εως'
+            plural_form_eis = put_accent_on_the_penultimate(noun[:-2] + 'εις', true_syllabification=False)
+            # if gen_form_ews in greek_corpus or plural_form_eis in greek_corpus:
+            noun_temp[NOM_PL] = plural_form_eis
+            noun_temp[GEN_SG] = gen_form_ews
 
         elif noun.endswith('όν') or noun.endswith('ον'):
 

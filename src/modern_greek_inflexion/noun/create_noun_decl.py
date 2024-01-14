@@ -140,7 +140,8 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     for n_pl in nom_pl.split(','):
 
                         accent_pl = where_is_accent(n_pl, true_syllabification=False)
-                        sinizisi = where_is_accent(n_pl, true_syllabification=False) != where_is_accent(n_pl, true_syllabification=True)
+                        sinizisi = where_is_accent(n_pl, true_syllabification=False) != where_is_accent(n_pl,
+                                                                                                        true_syllabification=True)
 
                         if (accent_pl == PENULTIMATE or accent_pl == ULTIMATE or
                                 nom_sg in nouns_with_proparoksitona_gen_pl):
@@ -173,7 +174,6 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                             if sinizisi and acc_paroksit in greek_corpus:
                                 g_pl.append(acc_paroksit)
 
-
                     acc_pl = ','.join(acc_pl)
                     gen_pl = ','.join(g_pl)
 
@@ -182,7 +182,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
             elif (nom_sg[-1:] == 'ς' and nom_pl and nom_pl[-2:] in ['ές', 'ες', 'οι'] and
                   gen_sg and gen_sg == nom_sg[:-1]):
-                    # both pari and imparisyllaba -s, -es
+                # both pari and imparisyllaba -s, -es
 
                 if (accent == ANTEPENULTIMATE or accent == PENULTIMATE) and parisyllabic and nom_sg.endswith('ας'):
                     # old 3rd declension on ης, ας
@@ -278,18 +278,22 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
             elif nom_sg.endswith('ις') and gender in [FEM, MASC]:
 
                 #  ancient Greek 3rd declension
-                # acc_n = nom_sg[:-1]
                 acc_n = nom_sg[:-1] + 'ν'
-                acc_a = put_accent(nom_sg[:-1] + 'δα', ANTEPENULTIMATE)
-                if acc_n in greek_corpus:
-                    noun_all[gender][SG][ACC] = acc_n
-                else:
-                    noun_all[gender][SG][ACC] = acc_a
-                noun_all[gender][SG][VOC] = nom_sg[:-1]
-                if nom_pl.endswith('εις'):
+                if gen_sg.endswith('εως'):
                     noun_all[gender][PL][GEN] = nom_pl[:-2] + 'ων'
-                else:
-                    noun_all[gender][PL][GEN] = put_accent(nom_pl[:-2] + 'ων', PENULTIMATE)
+                    noun_all[gender][SG][ACC] = acc_n
+
+                elif gen_sg.endswith('ος') or gen_sg.endswith('ός'):
+                    if acc_n in greek_corpus:
+                        noun_all[gender][SG][ACC] = acc_n
+                    else:
+                        noun_all[gender][SG][ACC] = put_accent(gen_sg[:-2] + 'α', ANTEPENULTIMATE)
+                    if where_is_accent(gen_sg) == ULTIMATE and nom_sg != 'παις':
+                        noun_all[gender][PL][GEN] = put_accent(nom_pl[:-2] + 'ων', ULTIMATE)
+                    else:
+                        noun_all[gender][PL][GEN] = put_accent(nom_pl[:-2] + 'ων', PENULTIMATE)
+
+                noun_all[gender][SG][VOC] = nom_sg[:-1]
 
             elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != NEUT:
 
@@ -305,7 +309,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     if n_pl[-2:] in ['ες', 'ές'] and parisyllabic:
 
                         g_pl = n_pl[:-2] + 'ων'
-                        if (nom_sg[-3:] in ['ίδα','άδα'] or
+                        if (nom_sg[-3:] in ['ίδα', 'άδα'] or
                                 nom_sg in nouns_with_proparoksitona_gen_pl or
                                 nom_sg in nouns_with_paroksitona_gen_pl):
 
@@ -583,8 +587,6 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                 else:
                     gen_pl = nom_pl[:-2] + 'ων'
                     noun_all[gender][PL][GEN] = gen_pl
-
-
 
             """
             irregularities

@@ -37,8 +37,7 @@ class ProperNounTests(TestCase):
                      'sg': {'acc': {'Θέτιδα'},
                             'gen': {'Θέτιδος'},
                             'nom': {'Θέτις'},
-                            'voc': {'Θέτι'}}}}
-
+                            'voc': {'Θέτι'}}}},
         )
 
     def test_Polonos(self):

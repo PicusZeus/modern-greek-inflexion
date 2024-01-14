@@ -147,7 +147,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
                 neuter = put_accent(stem + 'ες', ANTEPENULTIMATE, true_syllabification=False)
 
         elif stem + 'ού' in greek_corpus:
-            # type kafetzhs kafetzou, but is it a adj?
+            # type kafetzhs kafetzou
             masc = adj
             fem = adj[:-2] + 'ού'
             neuter = adj[:-1] + 'δικο'
