@@ -342,6 +342,7 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                 if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus or root + 'ισμένος':
                     perf_root = root + 'ιστ'
 
+
         if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'
         if perf_root:
@@ -349,6 +350,9 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
         if perf_root and perf_root[-2:] == "χτ":
             if perf_root + 'εί' not in greek_corpus and perf_root[:-1] + 'θεί' in greek_corpus:
                 perf_root = perf_root[:-1] + 'Θ'
+
+        if not perf_root and root + 'στώ' in greek_corpus:
+            perf_root = root + 'στ'
 
     if voice == PASSIVE and \
             conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,

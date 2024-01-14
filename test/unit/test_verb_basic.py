@@ -1,5 +1,7 @@
 from unittest import TestCase, main
 
+# from icecream import ic
+
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 
@@ -14,6 +16,19 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'τραγουδούσα', 'τραγούδαγα'}, 'passive': {'τραγουδιόμουν'}},
              'act_pres_participle': {'τραγουδώντας'}, 'passive_perfect_participle': {'τραγουδημένος'},
              'modal': False},
+        )
+
+    def test_verb_thwrakizw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('θωρακίζω'),
+            {'act_pres_participle': {'θωρακίζοντας'},
+             'aorist': {'active': {'θωράκισα'}, 'passive': {'θωρακίστηκα'}},
+             'conjunctive': {'active': {'θωρακίσω'}, 'passive': {'θωρακισθώ', 'θωρακιστώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'θωράκιζα'}, 'passive': {'θωρακιζόμουν'}},
+             'passive_perfect_participle': {'τεθωρακισμένος', 'θωρακισμένος'},
+             'present': {'active': {'θωρακίζω'}, 'passive': {'θωρακίζομαι'}}}
+
         )
 
     def test_verb_kathisto(self):
@@ -111,7 +126,36 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_basic_forms('χυμάω'),
             {'present': {'active': {'χυμάω'}}, 'conjunctive': {'active': {'χυμήξω'}}, 'aorist': {'active': {'χύμηξα'}},
-             'paratatikos': {'active': {'χυμούσα'}}, 'act_pres_participle': {'χυμώντας'}, 'modal': False}
+             'paratatikos': {'active': {'χυμούσα'}}, 'act_pres_participle': {'χυμώντας'}, 'modal': False},
+
+        )
+
+    def test_verb_apokleiw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('αποκλείω'),
+            {'act_pres_participle': {'αποκλείοντας'},
+             'aorist': {'active': {'απέκλεισα', 'απόκλεισα'},
+                        'passive': {'αποκλείστηκα', 'αποκλείσθηκα'}},
+             'conjunctive': {'active': {'αποκλείσω'},
+                             'passive': {'αποκλεισθώ', 'αποκλειστώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'απέκλεια'}, 'passive': {'αποκλειόμουν'}},
+             'pass_pres_participle': {'αποκλειόμενος'},
+             'passive_perfect_participle': {'αποκλεισμένος'},
+             'present': {'active': {'αποκλείω'}, 'passive': {'αποκλείομαι'}}},
+
+        )
+
+    def test_verb_xew(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('χέω'),
+            {'act_pres_participle': {'χέοντας'},
+             'aorist': {'active': {'έχυσα'}, 'passive': {'χύθηκα'}},
+             'conjunctive': {'active': {'χύσω'}, 'passive': {'χυθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'έχεα'}},
+             'passive_perfect_participle': {'χυμένος'},
+             'present': {'active': {'χέω'}}}
 
         )
 

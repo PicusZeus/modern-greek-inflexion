@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from icecream import ic
-
 # from icecream import ic
 
 from modern_greek_inflexion.resources.resources import MASC, SURNAME, FEM, FEM_SG
@@ -23,8 +21,45 @@ class ProperNounTests(TestCase):
                       'sg': {'acc': {'Αχιλλέα'},
                              'gen': {'Αχιλλέως'},
                              'nom': {'Αχιλλεύς'},
-                             'voc': {'Αχιλλεύ'}}}}
+                             'voc': {'Αχιλλεύ'}}}},
 
+        )
+
+    def test_Leas(self):
+        self.assertDictEqual(noun.create_all('Λέας', proper_name=True),
+                             {'masc': {'pl': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                                       'sg': {'acc': {'Λέα'},
+                                              'gen': {'Λέα'},
+                                              'nom': {'Λέας'},
+                                              'voc': {'Λέα'}}}}
+                             )
+
+    def test_Gnwmwn(self):
+        self.assertDictEqual(
+            noun.create_all('Γνώμων', proper_name=True),
+            {'masc': {'pl': {'acc': {'Γνώμονες'},
+                             'gen': {'Γνωμόνων'},
+                             'nom': {'Γνώμονες'},
+                             'voc': {'Γνώμονες'}},
+                      'sg': {'acc': {'Γνώμονα'},
+                             'gen': {'Γνώμονος'},
+                             'nom': {'Γνώμων'},
+                             'voc': {'Γνώμων'}}}}
+
+        )
+
+    def test_Yios(self):
+        self.assertDictEqual(
+
+            noun.create_all('Υιός', proper_name=True),
+            {'masc': {'pl': {'acc': {'Υιούς'},
+                             'gen': {'Υιών'},
+                             'nom': {'Υιοί'},
+                             'voc': {'Υιοί'}},
+                      'sg': {'acc': {'Υιό'},
+                             'gen': {'Υιού'},
+                             'nom': {'Υιός'},
+                             'voc': {'Υιέ'}}}}
         )
 
     def test_Thetis(self):

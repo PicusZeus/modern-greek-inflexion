@@ -399,6 +399,9 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             gen_sg = gen_form_a
             if gender == MASC_FEM:
                 gen_sg = noun[:-3] + 'έως'
+            if proper_name and nom_pl not in greek_corpus:
+                nom_pl = ''
+
 
         else:
             nom_pl = plural_form_a
@@ -885,6 +888,10 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
     check one more time these, that do not have flag aklito, but are surmised to be, maybe removing a prefix we will
     # be able to find out the correct declension type
     """
+    if not aklito and proper_name and gender != SURNAME and noun_temp[NOM_PL] == noun_temp[NOM_SG]:
+        # maybe changing to lower case can help
+        noun_temp = capitalize_basic_forms(create_all_basic_noun_forms(noun.lower()))
+
     if not aklito and noun_temp[NOM_PL] == noun_temp[NOM_SG]:
         for prefix in prefixes:
             pr_l = len(prefix)
