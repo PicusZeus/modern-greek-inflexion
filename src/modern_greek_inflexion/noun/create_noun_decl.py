@@ -172,7 +172,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                                 acc_pl.append(acc_paroksit)
 
                             if sinizisi and acc_paroksit in greek_corpus:
-                                g_pl.append(acc_paroksit)
+                                acc_pl.append(acc_paroksit)
 
                     acc_pl = ','.join(acc_pl)
                     gen_pl = ','.join(g_pl)

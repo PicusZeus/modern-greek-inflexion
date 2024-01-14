@@ -5,7 +5,6 @@ from unittest import TestCase
 # from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion import adjective
 from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjectiveException
-# from icecream import ic
 
 
 class AdjectiveTests(TestCase):
@@ -493,7 +492,7 @@ class AdjectiveTests(TestCase):
                              'gen': {'βαριών', 'βαρέων'}},
                     'fem': {'voc': {'βαριές', 'βαρείες'}, 'nom': {'βαριές', 'βαρείες'}, 'acc': {'βαριές', 'βαρείες'},
                             'gen': {'βαριών', 'βαρειών'}},
-                    'masc': {'voc': {'βαρείς', 'βαριόι'}, 'nom': {'βαρείς', 'βαριόι'}, 'acc': {'βαρείς', 'βαριούς'},
+                    'masc': {'voc': {'βαρείς', 'βαριοί'}, 'nom': {'βαρείς', 'βαριοί'}, 'acc': {'βαρείς', 'βαριούς'},
                              'gen': {'βαριών', 'βαρέων'}}}}, 'comp': {
                 'sg': {'neut': {'voc': {'βαρύτερο'}, 'nom': {'βαρύτερο'}, 'acc': {'βαρύτερο'}, 'gen': {'βαρύτερου'}},
                        'fem': {'voc': {'βαρύτερη'}, 'nom': {'βαρύτερη'}, 'acc': {'βαρύτερη'}, 'gen': {'βαρύτερης'}},
@@ -648,8 +647,7 @@ class AdjectiveTests(TestCase):
                 'neut': {'acc': {'μακρότατα', 'μακρύτατα'}, 'nom': {'μακρότατα', 'μακρύτατα'},
                          'gen': {'μακρότατων', 'μακρύτατων'}, 'voc': {'μακρότατα', 'μακρύτατα'}}}},
              'adv': {'μακρά', 'μακρώς'}, 'comp_adv': {'μακρότερα', 'μακρύτερα'},
-             'superl_adv': {'μακρότατα', 'μακρύτατα'}},
-        )
+             'superl_adv': {'μακρότατα', 'μακρύτατα'}})
 
     def test_eunous(self):
         self.assertDictEqual(

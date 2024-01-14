@@ -43,6 +43,7 @@ irregular_nouns = {'σέβας': {NOM_SG: 'σέβας', NOM_PL: 'σέβη', GEN_
                    'γυνή': {NOM_SG: 'γυνή', NOM_PL: 'γυναίκες', GEN_SG: 'γυναικός', GENDER: FEM},
                    'Ζευς': {NOM_SG: 'Ζευς', NOM_PL: '', GEN_SG: 'Διός,Δίος', GENDER: MASC},
                    'μις': {NOM_SG: 'μις', NOM_PL: 'μις', GEN_SG: 'μις', GENDER: MASC},
+                   'συς': {NOM_SG: 'συς', NOM_PL: 'σύες', GEN_SG: 'συός', GENDER: MASC},
 
                    }
 

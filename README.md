@@ -33,6 +33,7 @@ The only way to say if some adjectives on -os have a common masc-fem form on -os
 
 
 ## Change Log
+ * 0.6.6   Minor bug fixing
  * 0.6.5   Improved handling of proper names, and reduplicated participles.
  * 0.6.4   Further improvements in the third declension, especially for nouns on -is
  * 0.6.3   Fixed minor issues, pluralia tantum now covered more extensively

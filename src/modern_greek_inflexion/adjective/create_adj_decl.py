@@ -405,7 +405,7 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
             for num in forms.keys():
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():
-                        forms[num][gender][case] = put_accent_on_the_ultimate(form)
+                        forms[num][gender][case] = put_accent(form, ULTIMATE, true_syllabification=False)
 
         alt_forms = alternative_forms_kxth(fem)
         if fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):
@@ -453,7 +453,6 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
                         forms[num][gender][case] = put_accent_on_the_ultimate(form)
 
         return forms, None
-
 
     elif masc[-3:] == 'ους' and neut[-3:] == 'ουν':
         if masc[-4] == 'π':
@@ -556,7 +555,7 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
             for num in forms.keys():
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():
-                        forms[num][gender][case] = put_accent_on_the_ultimate(form)
+                        forms[num][gender][case] = put_accent(form, ULTIMATE, true_syllabification=True)
 
         alt_forms = alternative_forms_us(adj)
 

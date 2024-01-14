@@ -707,9 +707,9 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             stems.append(noun[:-1] + 'τ')
 
         elif noun.endswith('ων'):
-            stems.append(noun)
-            stems.append(noun[:-2] + 'ον')
             stems.append(noun[:-2] + 'οντ')
+            stems.append(noun[:-2] + 'ον')
+            stems.append(noun)
             if not gender:
                 gender = MASC
         elif noun.endswith('ών'):

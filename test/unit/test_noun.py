@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from icecream import ic
+
 # from icecream import ic
 
 from modern_greek_inflexion import noun
@@ -95,7 +97,31 @@ class NounTests(TestCase):
                       'sg': {'acc': {'παίδα'},
                              'gen': {'παιδός'},
                              'nom': {'παις'},
-                             'voc': {'παι'}}}}
+                             'voc': {'παι'}}}},
+
+        )
+
+    def test_noun_egkuos(self):
+        self.assertDictEqual(
+            noun.create_all('έγκυος', gender=FEM),
+            {'fem': {'pl': {'acc': {'εγκύους', 'έγκυους'},
+                            'gen': {'εγκύων', 'έγκυων'},
+                            'nom': {'έγκυοι'},
+                            'voc': {'έγκυοι'}},
+                     'sg': {'acc': {'έγκυο'},
+                            'gen': {'εγκύου'},
+                            'nom': {'έγκυος'},
+                            'voc': {'έγκυε'}}}}
+
+        )
+
+    def test_noun_sus(self):
+        self.assertDictEqual(
+            noun.create_all('συς'),
+            {'fem': {'pl': {'gen': {'συών'}, 'nom': {'σύες'}, 'voc': {'σύες'}, 'acc': {'σύες'}},
+                     'sg': {'gen': {'συός'}, 'nom': {'συς'}, 'voc': {'συ'}, 'acc': {'συ', 'συν'}}},
+             'masc': {'pl': {'gen': {'συών'}, 'nom': {'σύες'}, 'voc': {'σύες'}, 'acc': {'σύες'}},
+                      'sg': {'gen': {'συός'}, 'nom': {'συς'}, 'voc': {'συ'}, 'acc': {'συ', 'συν'}}}}
 
         )
     def test_noun_limenarxhs(self):
