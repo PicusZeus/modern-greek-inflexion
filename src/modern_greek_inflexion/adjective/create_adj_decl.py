@@ -5,9 +5,10 @@ from typing import Any
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
-from modern_greek_accentuation.resources import ANTEPENULTIMATE, ULTIMATE, PENULTIMATE, vowels
-from ..resources.resources import greek_corpus, adj_basic_template, SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC
-
+from modern_greek_accentuation.resources import vowels
+from ..resources.resources import greek_corpus
+from ..resources.adj import adj_basic_template
+from ..resources.variables import SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC, ANTEPENULTIMATE, ULTIMATE, PENULTIMATE
 """
 example
 adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',

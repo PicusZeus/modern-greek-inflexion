@@ -33,12 +33,14 @@ class PronounTestAll(TestCase):
                     'neut': {'nom': {'άτινα', 'άττα'}, 'gen': {'ώντινων'}, 'acc': {'άτινα', 'άττα'}},
                     'fem': {'nom': {'αίτινες'}, 'gen': {'ώντινων'}, 'acc': {'άστινας'}}}}
         )
+
     def test_pron_pouq(self):
         self.assertDictEqual(
             pronoun.create_all('πού'),
             {'nd': {'nd': {'nd': {'πού'}}}}
 
         )
+
     def test_pron_osper(self):
         self.assertDictEqual(
             pronoun.create_all('όσπερ'),
@@ -94,6 +96,19 @@ class PronounTestAll(TestCase):
                             'acc': {'καμιά', 'καμιάν', 'καμίαν', 'καμία'}}}}
         )
 
+    def test_pron_tis(self):
+        self.assertDictEqual(
+            pronoun.create_all('τις'),
+            {'sg':
+                 {'masc': {'acc': {'τίνα'}, 'gen': {'τίνος'}, 'nom': {'τις'}},
+                  'fem': {'acc': {'τίνα'}, 'gen': {'τίνος'}, 'nom': {'τις'}},
+                  'neut': {'acc': {'τι'}, 'gen': {'τίνος'}, 'nom': {'τι'}}},
+             'pl': {'masc': {'acc': {'τίνας'}, 'gen': {'τίνων'}, 'nom': {'τίνες'}},
+                    'fem': {'acc': {'τίνας'}, 'gen': {'τίνων'}, 'nom': {'τίνες'}},
+                    'neut': {'acc': {'τίνα'}, 'gen': {'τίνων'}, 'nom': {'τίνα'}}}}
+
+        )
+
     def test_pron_katheti(self):
         self.assertDictEqual(
             pronoun.create_all('καθετί'),
@@ -105,13 +120,13 @@ class PronounTestAll(TestCase):
         self.assertDictEqual(
             pronoun.create_all('που'),
             {'pl': {'fem': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
-                                   'masc': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
-                                   'neut': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}}},
-                     'sg': {'fem': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
-                                      'masc': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
-                                      'neut': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}}}}
+                    'masc': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                    'neut': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}}},
+             'sg': {'fem': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                    'masc': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}},
+                    'neut': {'acc': {'που'}, 'gen': {''}, 'nom': {'που'}, 'voc': {''}}}}
 
-            )
+        )
 
     def test_pron_pote(self):
         self.assertDictEqual(
@@ -121,5 +136,3 @@ class PronounTestAll(TestCase):
 
             }
         )
-
-

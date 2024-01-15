@@ -5,6 +5,8 @@ from .variables import *
         Nouns have aklito flag you should use instead (if possible)
 """
 
+
+
 aklita_gender = {'μαδιάμ': FEM, 'μωάμεθ': MASC, 'μάνατζερ': MASC, 'σερ': MASC, 'σεφ': MASC,
                  'ντετέκτιβ': MASC, 'ντεντέκτιβ': MASC, 'ρεπόρτερ': MASC, 'πλαζ': FEM,
                  'σεζόν': FEM, 'σπεσιαλιτέ': FEM, 'ρεσεψιόν': FEM}

@@ -6,8 +6,9 @@ from modern_greek_accentuation.accentuation import where_is_accent, put_accent_o
 from modern_greek_accentuation.resources import vowels, PENULTIMATE, ANTEPENULTIMATE, ULTIMATE
 from ..resources.noun import irregular_nouns, aklita_gender, plur_tant_neut, irregular_3rd_decl_roots
 from ..resources.variables import *
-from ..resources.resources import greek_corpus, nouns_h_eis, nouns_neut_i_paroksitona, \
-    nouns_neut_i_without_gen, nouns_feminina_os, nouns_masc_fem, nouns_with_proparoksitona_gen_pl
+from ..resources.resources import greek_corpus
+
+from ..resources.resources import noun_grammar_lists, nouns_masc_fem
 
 from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
@@ -84,7 +85,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         # gens_sg also used as flag that it is indeed os ou
         noun_temp[GENDER] = MASC
         if not gender:
-            if noun in nouns_feminina_os:
+            if noun in noun_grammar_lists[FEMININA_OS]:
                 noun_temp[GENDER] = FEM
         # the problem is that many long words on -os that are part of some kind of jargon and do not have any other form
         # declined in the corpus, i will assume then that words above 4 syllables do exist, but only in singular, the
@@ -92,7 +93,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         # also some proper names in greek_corpus are, as is proper, capitalized
         if gen_form in greek_corpus or gender == MASC or number_of_syllables > 4:
             gens_sg.append(gen_form)
-        if accent == ANTEPENULTIMATE and noun not in nouns_with_proparoksitona_gen_pl:
+        if accent == ANTEPENULTIMATE and noun not in noun_grammar_lists[PROPAROKSITONA_GEN_PL]:
             gen_form_alt = put_accent(gen_form, PENULTIMATE, true_syllabification=False)
             if gen_form_alt in greek_corpus:
                 gens_sg.append(gen_form_alt)
@@ -126,7 +127,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             if plural_form in greek_corpus or gen_form in greek_corpus or gender == NEUT:
                 noun_temp[NOM_PL] = plural_form
 
-                if noun not in nouns_neut_i_without_gen:
+                if noun not in noun_grammar_lists[PAROKSITONA_GEN_NEUT_I]:
                     noun_temp[GEN_SG] = gen_form
                 noun_temp[GENDER] = NEUT
                 neuter_os = True
@@ -544,7 +545,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
             noun_temp[GEN_SG] = ''
             noun_temp[GENDER] = NEUT
 
-        if noun in nouns_h_eis or noun[-2:] in ['ση', 'ξη', 'ψη']:
+        if noun in noun_grammar_lists[FEMININA_H_EIS] or noun[-2:] in ['ση', 'ξη', 'ψη']:
             # it has to be if, because it can be earlier falsly recognized as a correct form on es, because of som aorists
             # in sec person sg
             noun_temp[NOM_PL] = plural_form_b
@@ -607,7 +608,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
     elif not aklito and noun[-1] in ['ι', 'ί', 'ΐ'] and noun[-2:] not in ['οι', 'οί', 'αι', 'αί']:
         noun_temp[GENDER] = NEUT
         plural_form = noun + 'α'
-        if noun in nouns_neut_i_paroksitona:
+        if noun in noun_grammar_lists[PAROKSITONA_GEN_NEUT_I]:
             gen_form = put_accent(noun + 'ου', PENULTIMATE, true_syllabification=False)
 
         else:
@@ -625,7 +626,7 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
         # in greek corpus there are lacking some upokoristika
         # if not aklito or plural_form in greek_corpus or noun[-3:] in ['άκι', 'ίκι', 'άρι', 'έκι', 'ήρι', 'ίδι', 'ύρι']:
         noun_temp[NOM_PL] = plural_form
-        if noun not in nouns_neut_i_without_gen:
+        if noun not in noun_grammar_lists[WITHOUT_GEN_NEUT_I]:
             noun_temp[GEN_SG] = gen_form
 
 

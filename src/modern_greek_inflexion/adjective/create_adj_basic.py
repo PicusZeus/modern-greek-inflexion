@@ -4,11 +4,10 @@ from modern_greek_accentuation.accentuation import is_accented, where_is_accent,
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from modern_greek_accentuation.resources import ULTIMATE, ANTEPENULTIMATE, PENULTIMATE
 from ..exceptions import NotLegalAdjectiveException
-from ..resources.resources import greek_corpus, irregular_comparatives, irregular_comparative_adverbs, ADJ, ADVERB, \
-    ADVERB_COMPARATIVE, COMPARATIVE
-from ..resources.variables import INCORRECT_ACCENT
+from ..resources.resources import greek_corpus
+from ..resources.variables import ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE, ANTEPENULTIMATE, PENULTIMATE
+from ..resources.adj import irregular_comparatives, irregular_comparative_adverbs
 
 
 def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:

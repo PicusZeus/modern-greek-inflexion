@@ -32,10 +32,10 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
 
             if masc == 'αυτός':
                 if strong:
-                    from modern_greek_inflexion.resources.resources import AUTOS_STRONG
+                    from modern_greek_inflexion.resources.pronouns import AUTOS_STRONG
                     forms = AUTOS_STRONG
                 else:
-                    from modern_greek_inflexion.resources.resources import AUTOS_WEAK
+                    from modern_greek_inflexion.resources.pronouns import AUTOS_WEAK
                     forms = AUTOS_WEAK
 
             if masc == 'ποιος':
@@ -73,8 +73,8 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
 
         elif masc[-4:] == 'ένας' or masc[-3:] == 'είς':
             forms = {SG: {MASC: {},
-                            FEM: {},
-                            NEUT: {}}
+                          FEM: {},
+                          NEUT: {}}
                      }
             if masc[-4:] == 'ένας':
                 prefix_mn = masc[:-4]
@@ -96,7 +96,7 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
             forms[SG][NEUT][GEN] = prefix_mn + 'ενός'
 
         elif masc == 'τις':
-            from modern_greek_inflexion.resources.resources import TIS
+            from modern_greek_inflexion.resources.pronouns import TIS
             forms = TIS
 
         elif masc == 'όστις':

@@ -8,7 +8,6 @@ GEN = 'gen'
 ACC = 'acc'
 VOC = 'voc'
 
-
 # genders
 MASC = 'masc'
 FEM = 'fem'
@@ -81,7 +80,6 @@ MASC_SG = 'masc_sg'
 NEUT_SG = 'neut_sg'
 ONLY_SG = 'only_sg'
 
-
 # conjugations
 EIMAI = 'eimai'
 EIMAI_PARATATIKOS = "eimai_paratatikos"
@@ -147,3 +145,14 @@ PAST_PASSIVE_PART = 'past_passive_part'
 CON1_PASS_MODAL = 'con1_pass_modal'
 CON2_PASS_MODAL = 'con2_pass_modal'
 PARAT2B_LOGIA = 'parat2b_logia'
+
+WITHOUT_GEN_PL = 'without_gen_pl'
+PROPAROKSITONA_GEN_PL = 'proparoksitona_gen_pl'
+PAROKSITONA_GEN_PL = 'paroksitona_gen_pl'
+PAROKSITONA_GEN_PL_MOVING = 'paroksitona_gen_pl_moving'
+OKSITONA_GEN_PL_MASC = 'oksitona_gen_pl_masc'
+VOCATIVE_MASC_SG_O = 'vocative_masc_sg_o'
+FEMININA_H_EIS = 'feminina_h_eis'
+FEMININA_OS = 'feminina_os'
+PAROKSITONA_GEN_NEUT_I = 'paroksitona_gen_neut_i'
+WITHOUT_GEN_NEUT_I = 'without_gen_neut_i'

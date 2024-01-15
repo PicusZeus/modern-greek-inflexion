@@ -2,125 +2,30 @@ import pickle
 import os
 from .variables import *
 
-
 # these lists should be replaced with one comprehensive data class
 this_dir, this_filename = os.path.split(__file__)
 el_GR_path = os.path.join(this_dir, 'el_GR.pickle')
-n_without_gen_pl_path = os.path.join(this_dir, 'nouns_without_gen_pl.pickle')
-n_with_proparoksitona_gen_pl_path = os.path.join(this_dir, 'nouns_with_proparoksit_gen_pl.pickle')
-n_with_paroksitona_gen_pl_path = os.path.join(this_dir, 'nouns_with_paroksit_gen_pl.pickle')
-n_with_paroksitona_gen_pl_move_path = os.path.join(this_dir, 'nouns_with_paroksit_gen_pl_move.pickle')
-n_with_oksitona_gen_pl_move_path = os.path.join(this_dir, 'nouns_with_oksit_gen_pl_move.pickle')
-n_os_voc_o_path = os.path.join(this_dir, 'nouns_os_vocative_o.pickle')
-n_h_eis_path = os.path.join(this_dir, 'nouns_feminina_h_eis.pickle')
-n_neut_i_paroksitona = os.path.join(this_dir, 'nouns_oudetera_i_paroksitona.pickle')
-n_neut_i_without_gen = os.path.join(this_dir, 'nouns_oudetera_i_without_gen.pickle')
-n_feminina_os = os.path.join(this_dir, 'nouns_feminina_os.pickle')
+
+n_grammar_lists_path = os.path.join(this_dir, 'grammar_lists.pickle')
+
 n_nouns_masc_fem = os.path.join(this_dir, 'nouns_masc_fem.pickle')
 
 greek_corpus = pickle.load(open(el_GR_path, 'rb'))
-nouns_without_gen_pl = pickle.load(open(n_without_gen_pl_path, 'rb'))
-nouns_with_proparoksitona_gen_pl = pickle.load(open(n_with_proparoksitona_gen_pl_path, 'rb'))
-nouns_with_paroksitona_gen_pl = pickle.load(open(n_with_paroksitona_gen_pl_path, 'rb'))
-nouns_with_paroksitona_gen_pl_move = pickle.load(open(n_with_paroksitona_gen_pl_move_path, 'rb'))
-nouns_with_oksitona_gen_pl_move = pickle.load(open(n_with_oksitona_gen_pl_move_path, 'rb'))
-nouns_os_voc_o = pickle.load(open(n_os_voc_o_path, 'rb'))
-nouns_h_eis = pickle.load(open(n_h_eis_path, 'rb'))
-nouns_neut_i_paroksitona = pickle.load(open(n_neut_i_paroksitona, 'rb'))
-nouns_neut_i_without_gen = pickle.load(open(n_neut_i_without_gen, 'rb'))
-nouns_feminina_os = pickle.load(open(n_feminina_os, 'rb'))
-nouns_masc_fem = pickle.load(open(n_nouns_masc_fem, 'rb'))
+noun_grammar_lists = pickle.load(open(n_grammar_lists_path, 'rb'))
 
+nouns_masc_fem = pickle.load(open(n_nouns_masc_fem, 'rb'))
 
 forms_with_alternatives = ('ακόμη', 'ακόμα', 'και', 'κι', 'τίποτα', 'τίποτε')
 dictionary_with_alt = {'ακόμη': 'ακόμα', 'και': 'κι', 'τίποτα': 'τίποτε'}
-
-irregular_comparatives = {'καλό': 'καλύτερος/άριστος',
-                          'κακό': 'χειρότερος,ήσσων/χείριστος,ήκιστος',
-                          'απλό': 'απλούστερος/απλούστατος',
-                          'μεγάλο': 'μεγαλύτερος/μέγιστος',
-                          'πολύ': 'περισσότερος/-',
-                          'λίγο': 'λιγότερος/ελάχιστος',
-                          'μέγα': 'μεγαλύτερος/μέγιστος',
-                          'πρώτο': 'πρωτύτερος/πρώτιστος',
-                          'ταχύ': 'ταχύτερος/ταχύτατος,τάχιστος'}
-
-irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήττον/κάκιστα,ήκιστα',
-                                 'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
-                                 'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
 
 irregular_adv = {
     'νωρίς': {COMP_ADV: 'νωρίτερα/'}, 'άνω': {COMP_ADV: 'ανώτερα/ανώτατα', COMP: 'ανώτερος/ανώτατος'},
     'κάτω': {COMP_ADV: 'κατώτερα/κατώτατα', COMP: 'κατώτερος/κατώτατος'}}
 
-adj_basic_template = {SG: {
-    MASC: {
-        NOM: '',
-        GEN: '',
-        ACC: '',
-        VOC: ''
-    },
-    FEM: {
-        NOM: '',
-        GEN: '',
-        ACC: '',
-        VOC: ''},
-    NEUT: {
-        NOM: '',
-        GEN: '',
-        ACC: '',
-        VOC: ''}
-},
-    PL: {
-        MASC: {
-            NOM: '',
-            GEN: '',
-            ACC: '',
-            VOC: ''},
-        FEM: {
-            NOM: '',
-            GEN: '',
-            ACC: '',
-            VOC: ''
-        },
-        NEUT: {
-            NOM: '',
-            GEN: '',
-            ACC: '',
-            VOC: ''
-        }
-    }}
-
-
 aklita_num_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
                            'δεκαοχτώ': 'δεκαοκτώ', 'δεκαεννιά': 'δεκαεννέα', 'δεκαεφτά': 'δεκαεπτά'}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # these are not all the irregular verbs, but if you take into account compounds, most.
-
-
-
-
-
-
-
-
-
-
-
 
 
 """UNUSED"""
