@@ -64,15 +64,15 @@ class NounTests(TestCase):
 
     def test_noun_antipapas(self):
         self.assertDictEqual(
-            noun.create_all('αντιπάπας'),
-            {'masc': {'pl': {'acc': {'αντιπάπες'},
-                             'gen': {'αντιπαπών'},
-                             'nom': {'αντιπάπες'},
-                             'voc': {'αντιπάπες'}},
-                      'sg': {'acc': {'αντιπάπα'},
-                             'gen': {'αντιπάπα'},
-                             'nom': {'αντιπάπας'},
-                             'voc': {'αντιπάπα'}}}},
+            noun.create_all('αντίπαπας'),
+            {'masc': {'pl': {'acc': {'αντιπαπάδες'},
+                             'gen': {'αντιπαπάδων'},
+                             'nom': {'αντιπαπάδες'},
+                             'voc': {'αντιπαπάδες'}},
+                      'sg': {'acc': {'αντίπαπα'},
+                             'gen': {'αντίπαπα'},
+                             'nom': {'αντίπαπας'},
+                             'voc': {'αντίπαπα'}}}}
         )
 
     def test_noun_serbika(self):
