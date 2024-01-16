@@ -1,5 +1,6 @@
 from unittest import TestCase, main
 
+
 # from icecream import ic
 
 from modern_greek_inflexion.exceptions import NotInGreekException
@@ -16,6 +17,19 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'τραγουδούσα', 'τραγούδαγα'}, 'passive': {'τραγουδιόμουν'}},
              'act_pres_participle': {'τραγουδώντας'}, 'passive_perfect_participle': {'τραγουδημένος'},
              'modal': False},
+
+        )
+
+    def test_verb_bexw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('βέχω'),
+            {'act_pres_participle': {'βέχοντας'},
+             'aorist': {},
+             'conjunctive': {},
+             'modal': False,
+             'paratatikos': {'active': {'έβεχα'}},
+             'present': {'active': {'βέχω'}}}
+
         )
 
     def test_verb_thwrakizw(self):
@@ -28,6 +42,20 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'θωράκιζα'}, 'passive': {'θωρακιζόμουν'}},
              'passive_perfect_participle': {'τεθωρακισμένος', 'θωρακισμένος'},
              'present': {'active': {'θωρακίζω'}, 'passive': {'θωρακίζομαι'}}}
+
+        )
+
+
+    def test_verb_methuskw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('μεθύσκω'),
+            {'act_pres_participle': {'μεθύσκοντας'},
+             'aorist': {},
+             'conjunctive': {},
+             'modal': False,
+             'paratatikos': {'active': {'μέθυσκα'}},
+             'present': {'active': {'μεθύσκω'}, 'passive': {'μεθύσκομαι'}}},
+
 
         )
 

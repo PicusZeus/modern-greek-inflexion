@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from modern_greek_accentuation.accentuation import *
+from modern_greek_accentuation.resources import prefixes_before_augment
 
 from ..exceptions import NotLegalVerbException
 from ..resources.resources import greek_corpus
@@ -77,13 +78,12 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                 for stem in pair[1].split(','):
 
                     if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+                        if root[:-len(pair[0])] in prefixes_before_augment:
+                            beta_perf_root = root[:-len(pair[0])] + stem
 
-                        beta_perf_root = root[:-len(pair[0])] + stem
-
-                        if (beta_perf_root + 'ω' in greek_corpus) or (
-                                beta_perf_root + 'ώ' in greek_corpus
-                        ):
-                            multiple_perf_roots.append(beta_perf_root)
+                            if (beta_perf_root + 'ω' in greek_corpus) or (
+                                    beta_perf_root + 'ώ' in greek_corpus):
+                                multiple_perf_roots.append(beta_perf_root)
 
                 if multiple_perf_roots:
                     perf_root = ','.join(multiple_perf_roots)
@@ -96,7 +96,6 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
 
                 if (beta_perf_root + 'ω' in greek_corpus) or (
                         beta_perf_root + 'ώ' in greek_corpus):
-
                     perf_root = beta_perf_root
                     irregular = True
                     break
@@ -166,9 +165,9 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
             if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                 perf_root = root[:-1] + 'σ'
 
-        elif root[-1] in ['σκ']:
+        elif root.endswith('σκ') and root[:-2] + 'ξω' in greek_corpus:
             perf_root = root[:-2] + 'ξ'
-        elif root[-1] in ['κ', 'χ', 'γ']:
+        elif root[-1] in ['κ', 'χ', 'γ'] and not root.endswith('σκ'):
             perf_root = root[:-1] + 'ξ'
         elif root[-1] in ['β', 'π', 'φ']:
             perf_root = root[:-1] + 'ψ'
@@ -191,13 +190,16 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
 
             if root[-2:] == 'άρ':
                 # arisw
-                if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus or put_accent_on_the_antepenultimate(root + 'ισε'):
+                if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus or put_accent_on_the_antepenultimate(
+                        root + 'ισε'):
                     perf_root = perf_root + ',' + put_accent_on_the_ultimate(root + 'ισ')
                     multiple_stems = True
 
         elif root in ['επέστη']:
             # ancient form
             perf_root = root
+
+
 
     elif conjugation in [CON2A_ACT, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
             not perf_root:
@@ -210,10 +212,12 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
 
         # elif root[-2:] == 'ρν' and conjugation in [CON2A_ACT, CON2A_PASS] and perf_root + 'ω' not in greek_corpus:
         #     perf_root = root[:-1] + 'άσ'
-        if conjugation in [CON2A_ACT, CON2B_ACT] and perf_root + 'ω' not in greek_corpus and root + 'ήξω' in greek_corpus:
+        if conjugation in [CON2A_ACT,
+                           CON2B_ACT] and perf_root + 'ω' not in greek_corpus and root + 'ήξω' in greek_corpus:
             perf_root = root + 'ήξ'
 
-        elif conjugation in [CON2B_ACT, CON2A_ACT] and perf_root + 'ω' not in greek_corpus and root + 'ίσω' in greek_corpus:
+        elif conjugation in [CON2B_ACT,
+                             CON2A_ACT] and perf_root + 'ω' not in greek_corpus and root + 'ίσω' in greek_corpus:
 
             perf_root = root + 'ίσ'
 
@@ -342,7 +346,6 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                 if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus or root + 'ισμένος':
                     perf_root = root + 'ιστ'
 
-
         if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'
         if perf_root:
@@ -389,16 +392,16 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
     if not perf_root:
         return
 
-    if (perf_root and
-        ((perf_root + 'ω' in greek_corpus) or
-         (perf_root + 'ώ' in greek_corpus) or
-         (perf_root + 'εί' in greek_corpus))) or \
-            root[-3:] == 'ποι' or \
-            multiple_stems or (conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT] and voice == ACTIVE):
+    if perf_root:
+        if (perf_root + 'ω' in greek_corpus or
+            perf_root + 'ώ' in greek_corpus or
+            perf_root + 'εί' in greek_corpus or
+            multiple_stems or
+                (count_syllables(root) > 1 and conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT] and voice == ACTIVE)):
 
-        return perf_root
-    else:
-        return None
+            return perf_root
+    # else:
+    #     return None
 
 
 def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense: str = FIN,
@@ -439,10 +442,11 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
         conjugation_part = PRESENT_ACTIVE_PART_2
         # contracted άω to ώ
 
-        if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[:-1] + 'ά' in greek_corpus or (
-                verb[:-1] + 'άς' in greek_corpus and
-                verb[:-1] + 'άτε' in greek_corpus
-        )) and aspect != PERF:
+        if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[
+                                                                                                             :-1] + 'ά' in greek_corpus or (
+                    verb[:-1] + 'άς' in greek_corpus and
+                    verb[:-1] + 'άτε' in greek_corpus
+            )) and aspect != PERF:
 
             conjugation_ind = CON2A_ACT
             conjugation_imp = IMPER_ACT_CONT_2A

@@ -38,6 +38,8 @@ class VerbTestAll(TestCase):
              'paratatikos': {'active': {'ind': {'sg': {'ter': {'έβρεχε'}}}}}}
         )
 
+
+
     def test_verb_modal_pass_melletai(self):
         self.assertDictEqual(
             verb.create_all_forms('μέλλεται'),
