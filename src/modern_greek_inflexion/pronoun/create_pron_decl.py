@@ -1,8 +1,7 @@
-from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
 from ..adjective import create_all_adj_forms
-from ..helping_functions import dict_of_dicts_merge, merging_all_dictionaries
+from ..helping_functions import merging_all_dictionaries
 from ..resources.pronouns import *
 from ..resources.resources import greek_corpus
 from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
@@ -16,6 +15,7 @@ def remove_vocatives(forms):
                 if case == VOC:
                     forms[number][gender][case] = ''
     return forms
+
 
 def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
     """
@@ -94,9 +94,9 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
                     forms = AUTOS_WEAK
 
             if masc == 'ποιος':
-                gen_fem_sg = {'ποιας','ποιανής','τίνος'}
-                gen_neut_sg = gen_masc_sg = {'ποιου','ποιανού','τίνος'}
-                gen_pl = {'ποιων','ποιανών','τίνων'}
+                gen_fem_sg = {'ποιας', 'ποιανής', 'τίνος'}
+                gen_neut_sg = gen_masc_sg = {'ποιου', 'ποιανού', 'τίνος'}
+                gen_pl = {'ποιων', 'ποιανών', 'τίνων'}
                 forms[SG][MASC][GEN] = gen_masc_sg
                 forms[SG][FEM][GEN] = gen_fem_sg
                 forms[SG][NEUT][GEN] = gen_neut_sg
@@ -203,7 +203,7 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
             return merging_all_dictionaries(forms)
 
 
-        elif masc in ['κάτι', 'τι', 'ίντα', 'ήντα', 'είντα',]:
+        elif masc in ['κάτι', 'τι', 'ίντα', 'ήντα', 'είντα', ]:
             return {SG:
                         {MASC: {NOM: {masc}, ACC: {masc}},
                          FEM: {NOM: {masc}, ACC: {masc}},
@@ -212,7 +212,8 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
                          FEM: {NOM: {masc}, ACC: {masc}},
                          NEUT: {NOM: {masc}, ACC: {masc}}}}
 
-        elif masc in ['καθετί', 'κατιτίς', 'κατιτί', 'τίποτα', 'τίποτε', 'τουθόπερ', 'οτιδήποτε', 'τίποτες', 'ίντα', 'ό,τι']:
+        elif masc in ['καθετί', 'κατιτίς', 'κατιτί', 'τίποτα', 'τίποτε', 'τουθόπερ', 'οτιδήποτε', 'τίποτες', 'ίντα',
+                      'ό,τι']:
             return {SG: {NEUT: {NOM: {masc}, ACC: {masc}}}}
         elif masc in ['οπού', 'όπου', 'πότε', 'όποτε', 'κάποτε', 'ποτέ', 'πάντα', 'πού', 'κάπου', 'πουθενά', 'παντού']:
             # adv

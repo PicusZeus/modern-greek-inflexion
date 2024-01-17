@@ -1,9 +1,9 @@
 from unittest import TestCase
 
-from icecream import ic
+# from icecream import ic
 
 from modern_greek_inflexion import pronoun
-from modern_greek_inflexion.resources.resources import greek_corpus
+# from modern_greek_inflexion.resources.resources import greek_corpus
 
 
 class PronounTestAll(TestCase):
@@ -35,7 +35,6 @@ class PronounTestAll(TestCase):
              'pl': {'masc': {'nom': {'οίτινες'}, 'gen': {'ώντινων'}, 'acc': {'ούστινας'}},
                     'neut': {'nom': {'άτινα', 'άττα'}, 'gen': {'ώντινων'}, 'acc': {'άτινα', 'άττα'}},
                     'fem': {'nom': {'αίτινες'}, 'gen': {'ώντινων'}, 'acc': {'άστινας'}}}},
-            ic(pronoun.create_all('ούτος'))
         )
 
     def test_pron_pas(self):
@@ -226,7 +225,6 @@ class PronounTestAll(TestCase):
              'pl': {'masc': {'acc': {'τίνας'}, 'gen': {'τίνων'}, 'nom': {'τίνες'}},
                     'fem': {'acc': {'τίνας'}, 'gen': {'τίνων'}, 'nom': {'τίνες'}},
                     'neut': {'acc': {'τίνα'}, 'gen': {'τίνων'}, 'nom': {'τίνα'}}}},
-            ic(pronoun.create_all('δαύτος'))
 
         )
 

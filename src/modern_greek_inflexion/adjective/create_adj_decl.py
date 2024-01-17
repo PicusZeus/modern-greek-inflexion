@@ -3,13 +3,13 @@ from __future__ import annotations
 import copy
 from typing import Any
 
-from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.resources import vowels
 from ..resources.resources import greek_corpus
 from ..resources.adj import adj_basic_template
 from ..resources.variables import SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC, ANTEPENULTIMATE, ULTIMATE, PENULTIMATE
+
 """
 example
 adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
@@ -66,7 +66,6 @@ def alternative_forms_kxth(fem: str, accent: str) -> dict | None:
             VOC: ''}
     }
     }
-
 
     alt_form = fem[:-1] + 'ια'
 
@@ -411,8 +410,7 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
                     for case, form in forms[num][gender].items():
                         forms[num][gender][case] = put_accent(form, ULTIMATE, true_syllabification=False)
         alt_forms = None
-        if masc == 'δικός':
-            ic(fem)
+
         if fem[-2] in ['θ', 'κ', 'χ']:
             alt_forms = alternative_forms_kxth(fem, accent)
 
