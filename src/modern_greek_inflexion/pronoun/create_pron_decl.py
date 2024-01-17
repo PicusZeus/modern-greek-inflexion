@@ -33,7 +33,10 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
         if masc == 'ούτος':
             return OUTOS
 
-        if masc[-2:] in ['ός', 'ος'] or masc.endswith('πας'):
+        elif masc == 'ος':
+            return OS
+
+        elif masc[-2:] in ['ός', 'ος'] or masc.endswith('πας'):
 
             forms, alternatives = create_all_adj_forms(bas_forms)
 

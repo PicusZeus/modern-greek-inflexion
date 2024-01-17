@@ -15,7 +15,10 @@ def create_basic_forms(pron: str) -> str | None:
     if not greek_pattern.match(pron):
         raise NotInGreekException
 
-    if pron[-2:] in ['ος', 'ός'] or pron[-3:] in ['πας'] and pron != 'τίνος':
+    if pron == 'ος':
+        bas_forms = 'ος/η/ο'
+
+    elif pron[-2:] in ['ος', 'ός'] or pron[-3:] in ['πας'] and pron != 'τίνος':
         # like poios
         bas_forms = adjective.create_all_basic_adj_forms(pron)['adj']
     elif pron[-2:] in ['οι', 'οί']:
