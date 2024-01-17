@@ -29,9 +29,6 @@ def dict_of_dicts_merge(x, y):
     return z
 
 
-
-
-
 def merging_all_dictionaries(*dics):
     if len(dics) > 2:
         first = dics[0]

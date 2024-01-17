@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 from typing import Any
 
+from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.resources import vowels
@@ -55,7 +56,7 @@ def alternative_forms_ios(adj: str):
     return alt_forms
 
 
-def alternative_forms_kxth(fem: str) -> dict | None:
+def alternative_forms_kxth(fem: str, accent: str) -> dict | None:
     # κ, χ, θ ia, or h
     alt_forms = {SG: {
         FEM: {
@@ -65,18 +66,20 @@ def alternative_forms_kxth(fem: str) -> dict | None:
             VOC: ''}
     }
     }
-    if fem[-2] in ['κ', 'χ', 'θ']:
-        alt_form = fem[:-1] + 'ια'
-        if where_is_accent(fem) == ULTIMATE:
-            alt_form = put_accent_on_the_ultimate(alt_form)
 
-        if alt_form in greek_corpus:
-            alt_forms[SG][FEM][NOM] = alt_form
-            alt_forms[SG][FEM][ACC] = alt_form
-            alt_forms[SG][FEM][GEN] = alt_form + 'ς'
-            alt_forms[SG][FEM][VOC] = alt_form
 
-            return alt_forms
+    alt_form = fem[:-1] + 'ια'
+
+    if accent == ULTIMATE:
+        alt_form = put_accent_on_the_ultimate(alt_form, true_syllabification=False)
+
+    if alt_form in greek_corpus:
+        alt_forms[SG][FEM][NOM] = alt_form
+        alt_forms[SG][FEM][ACC] = alt_form
+        alt_forms[SG][FEM][GEN] = alt_form + 'ς'
+        alt_forms[SG][FEM][VOC] = alt_form
+
+        return alt_forms
 
     return None
 
@@ -361,6 +364,7 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
     forms = copy.deepcopy(adj_basic_template)
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
+    accent = where_is_accent(masc)
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
         fem = fem.split(',')[0]  # because in the list there are given alternatives, which i don't need
@@ -401,15 +405,18 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
         forms[PL][NEUT][GEN] = neut[:-1] + 'ων'
         forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
-        accent = where_is_accent(masc)
         if accent == ULTIMATE:
             for num in forms.keys():
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():
                         forms[num][gender][case] = put_accent(form, ULTIMATE, true_syllabification=False)
+        alt_forms = None
+        if masc == 'δικός':
+            ic(fem)
+        if fem[-2] in ['θ', 'κ', 'χ']:
+            alt_forms = alternative_forms_kxth(fem, accent)
 
-        alt_forms = alternative_forms_kxth(fem)
-        if fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):
+        elif fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):
             alt_forms = alternative_forms_r(fem, accent)
         elif fem[-2] == 'ι' and accent == PENULTIMATE:
             alt_forms = alternative_forms_ios(adj)
@@ -446,7 +453,6 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
         forms[PL][NEUT][GEN] = neut[:-1] + 'ων'
         forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
-        accent = where_is_accent(masc)
         if accent == ULTIMATE:
             for num in forms.keys():
                 for gender in forms[num].keys():
@@ -747,10 +753,16 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
         neuters = neut.split(',')
         neut = neuters[0]
         thema = neut + 'τ'
+        gen_sg = thema + 'ος'
 
         forms[SG][MASC][NOM] = masc
         forms[SG][MASC][ACC] = thema + 'α'
-        forms[SG][MASC][GEN] = thema + 'ος'
+        if not accent and put_accent(gen_sg, ULTIMATE) in greek_corpus:
+            forms[SG][MASC][GEN] = put_accent(gen_sg, ULTIMATE)
+            forms[SG][NEUT][GEN] = put_accent(gen_sg, ULTIMATE)
+        else:
+            forms[SG][MASC][GEN] = gen_sg
+            forms[SG][NEUT][GEN] = gen_sg
         forms[SG][MASC][VOC] = masc
 
         forms[SG][FEM][NOM] = fem
@@ -758,7 +770,6 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
         forms[SG][FEM][GEN] = fem + 'ς'
         forms[SG][FEM][VOC] = fem
         forms[SG][NEUT][NOM] = neut
-        forms[SG][NEUT][GEN] = thema + 'ος'
         forms[SG][NEUT][ACC] = neut
         forms[SG][NEUT][VOC] = neut
         forms[PL][MASC][NOM] = thema + 'ες'

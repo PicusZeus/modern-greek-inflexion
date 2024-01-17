@@ -1,4 +1,5 @@
 # from icecream import ic
+from icecream import ic
 
 from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
@@ -50,6 +51,7 @@ def create_all(adj: str, aklito=False) -> dict:
         if all_adj_infl_forms[1]:
             forms.append(all_adj_infl_forms[1])
 
+
     basic_compar = all_basic_adj_forms[COMPARATIVE]
     if basic_compar:
 
@@ -87,6 +89,7 @@ def create_all(adj: str, aklito=False) -> dict:
                 super_adv.append(adv_superlative)
     result = {}
     if forms:
+
         forms = merging_all_dictionaries(*forms)
 
         result[ADJ] = forms

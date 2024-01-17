@@ -158,6 +158,13 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_ikanopoiw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('ικανοποιώ'),
+            {'present': {'active': {'ικανοποιώ'}, 'passive': {'ικανοποιούμαι'}}, 'conjunctive': {'active': {'ικανοποιήσω'}, 'passive': {'ικανοποιηθώ'}}, 'aorist': {'active': {'ικανοποίησα'}, 'passive': {'ικανοποιήθηκα'}}, 'paratatikos': {'active': {'ικανοποιούσα'}, 'passive': {'ικανοποιούμουν', 'ικανοποιόμουν'}}, 'act_pres_participle': {'ικανοποιώντας'}, 'pass_pres_participle': {'ικανοποιούμενος'}, 'passive_perfect_participle': {'ικανοποιημένος'}, 'passive_aorist_participle': {'ικανοποιηθείς/ικανοποιηθείσα/ικανοποιηθέν'}, 'modal': False}
+
+        )
+
     def test_verb_apokleiw(self):
         self.assertDictEqual(
             verb.create_basic_forms('αποκλείω'),

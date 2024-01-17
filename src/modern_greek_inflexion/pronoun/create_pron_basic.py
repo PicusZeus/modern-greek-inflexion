@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent
+from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent, remove_all_diacritics
 from .. import adjective
 from ..exceptions import NotInGreekException
 import re
@@ -42,14 +42,19 @@ def create_basic_forms(pron: str) -> str | None:
             masc_length = 3
         masc = pron
         fem = pron[:-masc_length] + 'εμία'
+
         if len(pron) > 4 and pron[-(masc_length + 1)] == 'ν':
             fem = pron[:-(masc_length + 1)] + 'μία'
-        if pron == 'ένας':
+        elif pron.startswith('πασα'):
+            fem = pron[:-masc_length] + 'μία'
+        elif pron == 'ένας':
             fem = 'μία'
 
         neut = pron[:-masc_length] + 'ένα'
-
-        fem = fem + ',' + put_accent_on_the_ultimate(fem)
+        if fem != 'μία':
+            fem = fem + ',' + put_accent_on_the_ultimate(fem)
+        else:
+            fem = fem + ',' + remove_all_diacritics(fem)
 
         bas_forms = masc + '/' + fem + '/' + neut
 
