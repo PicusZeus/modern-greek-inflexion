@@ -1,5 +1,4 @@
 # from icecream import ic
-from icecream import ic
 
 from .create_adj_basic import create_all_basic_adj_forms
 from .create_adj_decl import create_all_adj_forms
