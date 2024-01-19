@@ -33,6 +33,7 @@ The only way to say if some adjectives on -os have a common masc-fem form on -os
 
 
 ## Change Log
+ * 0.6.10  New conjugation only for verbs of type kathistw, better handling, doesnt generate non existent inflected forms. 
  * 0.6.9   Improved handling of movable accent in some of adjective groups and of feminine -os adjectives.
  * 0.6.8   Minor review of pronoun module
  * 0.6.7   Minor bug fixing

@@ -1,7 +1,5 @@
 from unittest import TestCase, main
 
-from icecream import ic
-
 # from icecream import ic
 
 from modern_greek_inflexion.exceptions import NotInGreekException
