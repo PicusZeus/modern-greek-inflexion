@@ -1,5 +1,6 @@
 from unittest import TestCase, main
 
+from icecream import ic
 
 # from icecream import ic
 
@@ -45,7 +46,6 @@ class VerbTestBasic(TestCase):
 
         )
 
-
     def test_verb_methuskw(self):
         self.assertDictEqual(
             verb.create_basic_forms('μεθύσκω'),
@@ -55,7 +55,6 @@ class VerbTestBasic(TestCase):
              'modal': False,
              'paratatikos': {'active': {'μέθυσκα'}},
              'present': {'active': {'μεθύσκω'}, 'passive': {'μεθύσκομαι'}}},
-
 
         )
 
@@ -72,14 +71,20 @@ class VerbTestBasic(TestCase):
     def test_verb_gernw(self):
         self.assertDictEqual(
             verb.create_basic_forms('γέρνω'),
-            {'present': {'active': {'γέρνω'}}, 'conjunctive': {'active': {'γείρω'}}, 'aorist': {'active': {'έγειρα'}}, 'paratatikos': {'active': {'έγερνα'}}, 'act_pres_participle': {'γέρνοντας'}, 'modal': False}
+            {'present': {'active': {'γέρνω'}}, 'conjunctive': {'active': {'γείρω'}}, 'aorist': {'active': {'έγειρα'}},
+             'paratatikos': {'active': {'έγερνα'}}, 'act_pres_participle': {'γέρνοντας'}, 'modal': False}
 
         )
 
     def test_verb_dew(self):
         self.assertDictEqual(
             verb.create_basic_forms('δέω'),
-            {'present': {'active': {'δέω'}, 'passive': {'δέομαι'}}, 'conjunctive': {'active': {'δεήσω'}, 'passive': {'δεηθώ'}}, 'aorist': {'active': {'δέησα', 'εδέησα'}, 'passive': {'δεήθηκα'}}, 'paratatikos': {'passive': {'δεόμουν'}}, 'act_pres_participle': {'δέοντας'}, 'arch_act_pres_participle': {'δέων/δέουσα/δέον'}, 'pass_pres_participle': {'δεόμενος'}, 'active_aorist_participle': {'δεήσας/δεήσασα/δεήσαν'}, 'passive_aorist_participle': {'δεηθείς/δεηθείσα/δεηθέν'}, 'modal': False}
+            {'present': {'active': {'δέω'}, 'passive': {'δέομαι'}},
+             'conjunctive': {'active': {'δεήσω'}, 'passive': {'δεηθώ'}},
+             'aorist': {'active': {'δέησα', 'εδέησα'}, 'passive': {'δεήθηκα'}}, 'paratatikos': {'passive': {'δεόμουν'}},
+             'act_pres_participle': {'δέοντας'}, 'arch_act_pres_participle': {'δέων/δέουσα/δέον'},
+             'pass_pres_participle': {'δεόμενος'}, 'active_aorist_participle': {'δεήσας/δεήσασα/δεήσαν'},
+             'passive_aorist_participle': {'δεηθείς/δεηθείσα/δεηθέν'}, 'modal': False}
 
         )
 
@@ -139,14 +144,20 @@ class VerbTestBasic(TestCase):
     def test_verb_spatalo(self):
         self.assertDictEqual(
             verb.create_basic_forms('σπαταλώ'),
-            {'present': {'active': {'σπαταλώ'}, 'passive': {'σπαταλώμαι', 'σπαταλιέμαι'}}, 'conjunctive': {'active': {'σπαταλήσω'}, 'passive': {'σπαταληθώ'}}, 'aorist': {'active': {'σπατάλησα'}, 'passive': {'σπαταλήθηκα'}}, 'paratatikos': {'active': {'σπαταλούσα', 'σπατάλαγα'}, 'passive': {'σπαταλιόμουν'}}, 'act_pres_participle': {'σπαταλώντας'}, 'passive_perfect_participle': {'σπαταλημένος', 'σπαταλεμένος'}, 'modal': False}
+            {'present': {'active': {'σπαταλώ'}, 'passive': {'σπαταλώμαι', 'σπαταλιέμαι'}},
+             'conjunctive': {'active': {'σπαταλήσω'}, 'passive': {'σπαταληθώ'}},
+             'aorist': {'active': {'σπατάλησα'}, 'passive': {'σπαταλήθηκα'}},
+             'paratatikos': {'active': {'σπαταλούσα', 'σπατάλαγα'}, 'passive': {'σπαταλιόμουν'}},
+             'act_pres_participle': {'σπαταλώντας'}, 'passive_perfect_participle': {'σπαταλημένος', 'σπαταλεμένος'},
+             'modal': False}
 
         )
 
     def test_verb_ximaw(self):
         self.assertDictEqual(
             verb.create_basic_forms('χιμάω'),
-            {'present': {'active': {'χιμάω'}}, 'conjunctive': {'active': {'χιμήξω'}}, 'aorist': {'active': {'χίμηξα'}}, 'paratatikos': {'active': {'χιμούσα'}}, 'act_pres_participle': {'χιμώντας'}, 'modal': False}
+            {'present': {'active': {'χιμάω'}}, 'conjunctive': {'active': {'χιμήξω'}}, 'aorist': {'active': {'χίμηξα'}},
+             'paratatikos': {'active': {'χιμούσα'}}, 'act_pres_participle': {'χιμώντας'}, 'modal': False}
 
         )
 
@@ -161,7 +172,13 @@ class VerbTestBasic(TestCase):
     def test_verb_ikanopoiw(self):
         self.assertDictEqual(
             verb.create_basic_forms('ικανοποιώ'),
-            {'present': {'active': {'ικανοποιώ'}, 'passive': {'ικανοποιούμαι'}}, 'conjunctive': {'active': {'ικανοποιήσω'}, 'passive': {'ικανοποιηθώ'}}, 'aorist': {'active': {'ικανοποίησα'}, 'passive': {'ικανοποιήθηκα'}}, 'paratatikos': {'active': {'ικανοποιούσα'}, 'passive': {'ικανοποιούμουν', 'ικανοποιόμουν'}}, 'act_pres_participle': {'ικανοποιώντας'}, 'pass_pres_participle': {'ικανοποιούμενος'}, 'passive_perfect_participle': {'ικανοποιημένος'}, 'passive_aorist_participle': {'ικανοποιηθείς/ικανοποιηθείσα/ικανοποιηθέν'}, 'modal': False}
+            {'present': {'active': {'ικανοποιώ'}, 'passive': {'ικανοποιούμαι'}},
+             'conjunctive': {'active': {'ικανοποιήσω'}, 'passive': {'ικανοποιηθώ'}},
+             'aorist': {'active': {'ικανοποίησα'}, 'passive': {'ικανοποιήθηκα'}},
+             'paratatikos': {'active': {'ικανοποιούσα'}, 'passive': {'ικανοποιούμουν', 'ικανοποιόμουν'}},
+             'act_pres_participle': {'ικανοποιώντας'}, 'pass_pres_participle': {'ικανοποιούμενος'},
+             'passive_perfect_participle': {'ικανοποιημένος'},
+             'passive_aorist_participle': {'ικανοποιηθείς/ικανοποιηθείσα/ικανοποιηθέν'}, 'modal': False}
 
         )
 
@@ -222,6 +239,7 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'παχαίνοντας'}, 'passive_perfect_participle': {'παχυμένος'}, 'modal': False}
 
         )
+
     def test_verb_blepo(self):
         self.assertDictEqual(
             verb.create_basic_forms('βλέπω'),
@@ -335,8 +353,13 @@ class VerbTestBasic(TestCase):
     def test_verb_deiknuw(self):
         self.assertDictEqual(
             verb.create_basic_forms('δεικνύω'),
-            {'present': {'active': {'δεικνύω'}, 'passive': {'δεικνύομαι'}}, 'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}}, 'aorist': {'active': {'έδειξα'}, 'passive': {'δείχθηκα'}}, 'paratatikos': {'active': {'δείκνυα'}, 'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'}, 'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'}, 'passive_perfect_participle': {'δειγμένος'}, 'active_aorist_participle': {'δείξας/δείξασα/δείξαν'}, 'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False}
-
+            {'present': {'active': {'δεικνύω'}, 'passive': {'δεικνύομαι'}},
+             'conjunctive': {'active': {'δείξω'}, 'passive': {'δειχθώ'}},
+             'aorist': {'active': {'έδειξα'}, 'passive': {'δείχθηκα'}},
+             'paratatikos': {'active': {'δείκνυα'}, 'passive': {'δεικνυόμουν'}}, 'act_pres_participle': {'δεικνύοντας'},
+             'arch_act_pres_participle': {'δεικνύων/δεικνύουσα/δεικνύον'}, 'pass_pres_participle': {'δεικνυόμενος'},
+             'passive_perfect_participle': {'δειγμένος'}, 'active_aorist_participle': {'δείξας/δείξασα/δείξαν'},
+             'passive_aorist_participle': {'δειχθείς/δειχθείσα/δειχθέν'}, 'modal': False}
 
         )
 
@@ -507,18 +530,21 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'καταστήσω'}, 'passive': {'καταστώ'}},
              'aorist': {'active': {'κατάστησα', 'κατέστησα'}, 'passive': {'κατέστη'}},
              'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
-             'act_pres_participle': {'καθιστώντας'}, 'passive_perfect_participle': {'κατεστημένος'}, 'modal': False}
+             'act_pres_participle': {'καθιστώντας'}, 'arch_act_pres_participle': {'καθιστών/καθιστώσα/καθιστών'},
+             'passive_perfect_participle': {'κατεστημένος'}, 'pass_pres_participle': {'καθιστάμενος'},
+             'modal': False},
         )
 
     def test_verb_antikathistw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_basic_forms('αντικαθιστώ'),
             {'present': {'active': {'αντικαθιστώ'}, 'passive': {'αντικαθίσταμαι'}},
              'conjunctive': {'active': {'αντικαταστήσω'}, 'passive': {'αντικαταστώ'}},
              'aorist': {'active': {'αντικατάστησα', 'αντικατέστησα'}, 'passive': {'αντικατέστη'}},
              'paratatikos': {'active': {'αντικαθιστούσα'}}, 'act_pres_participle': {'αντικαθιστώντας'},
-             'pass_pres_participle': {'αντικαθιστώμενος'},
-             'passive_perfect_participle': {'αντικαταστημένος', 'αντικατεστημένος'}, 'modal': False}
+             'pass_pres_participle': {'αντικαθιστώμενος', 'αντικαθιστάμενος'},
+             'passive_perfect_participle': {'αντικαταστημένος', 'αντικατεστημένος'}, 'modal': False},
         )
 
     def test_verb_anastainw(self):
@@ -742,16 +768,19 @@ class VerbTestBasic(TestCase):
     def test_verb_krossaro(self):
         self.assertDictEqual(
             verb.create_basic_forms('κροσσάρω'),
-            {'present': {'active': {'κροσσάρω'}}, 'conjunctive': {'active': {'κροσσαρίσω', 'κροσσάρω'}}, 'aorist': {'active': {'κροσσάρισα', 'κρόσσαρα'}}, 'paratatikos': {'active': {'κρόσσαρα'}}, 'act_pres_participle': {'κροσσάροντας'}, 'modal': False}
-
+            {'present': {'active': {'κροσσάρω'}}, 'conjunctive': {'active': {'κροσσαρίσω', 'κροσσάρω'}},
+             'aorist': {'active': {'κροσσάρισα', 'κρόσσαρα'}}, 'paratatikos': {'active': {'κρόσσαρα'}},
+             'act_pres_participle': {'κροσσάροντας'}, 'modal': False}
 
         )
 
     def test_verb_spaw(self):
         self.assertDictEqual(
             verb.create_basic_forms('σπάω'),
-            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}, 'passive': {'σπαστώ', 'σπασθώ'}}, 'aorist': {'active': {'έσπασα'}, 'passive': {'σπάσθηκα', 'σπάστηκα'}}, 'paratatikos': {'active': {'έσπαγα'}}, 'act_pres_participle': {'σπάγοντας'}, 'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
-
+            {'present': {'active': {'σπάω'}}, 'conjunctive': {'active': {'σπάσω'}, 'passive': {'σπαστώ', 'σπασθώ'}},
+             'aorist': {'active': {'έσπασα'}, 'passive': {'σπάσθηκα', 'σπάστηκα'}},
+             'paratatikos': {'active': {'έσπαγα'}}, 'act_pres_participle': {'σπάγοντας'},
+             'passive_perfect_participle': {'σπασμένος'}, 'modal': False}
 
         )
 
@@ -939,9 +968,4 @@ class VerbTestBasic(TestCase):
 
         )
 
-    # def test_verb(self):
-    #     self.assertDictEqual(
-    #         verb.create_basic_forms('προβάλλω'),
-    #         {},
-    #         print(verb.create_basic_forms('εκτίθεμαι'))
-    #     )
+

@@ -448,7 +448,10 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
                     verb[:-1] + 'άτε' in greek_corpus
             )) and aspect != PERF:
 
-            conjugation_ind = CON2A_ACT
+            if verb[:-1] + 'άω' in greek_corpus:
+                conjugation_ind = CON2A_ACT
+            else:
+                conjugation_ind = CON2A_ACT_LOGIA
             conjugation_imp = IMPER_ACT_CONT_2A
             conjugation_part = PRESENT_ACTIVE_PART_2
 

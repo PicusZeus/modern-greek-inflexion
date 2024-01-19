@@ -68,6 +68,9 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
             pres_pass_form_alt_2 = root + 'ώμαι'
             pres_pass_form_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
 
+        elif pres_conjugation == CON2A_ACT_LOGIA:
+            pres_pass_form_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
+            pres_pass_form_alt_2 = root + 'ώμαι'
         elif pres_conjugation == CON2B_ACT:
             pres_pass_form = root + 'ούμαι'
             pres_pass_form_alt_1 = root + 'ιέμαι'
@@ -484,6 +487,10 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             act_par = [root + 'ούσα', put_accent_on_the_antepenultimate(root + 'αγα')]
             pass_par = [root + 'ιόμουν', root + 'άμην']
 
+        elif pres_conjugation == CON2A_ACT_LOGIA:
+            act_par = [root + 'ούσα']
+            pass_par = [root + 'άμην']
+
         elif pres_conjugation in [CON2B_ACT, CON2D_ACT]:
             act_par = [root + 'ούσα']
             pass_par = [root + 'ούμουν']
@@ -600,7 +607,7 @@ def create_present_active_participle(_: str, root: str, pres_conjugation: str) -
     if pres_conjugation == CON1_ACT:
         pres_part_act = root + 'οντας'
 
-    elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2D_ACT]:
+    elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2A_ACT_LOGIA]:
         pres_part_act = root + 'ώντας'
 
     elif pres_conjugation == CON2C_ACT and root != 'πά':
@@ -635,6 +642,9 @@ def create_present_active_participle_arch(_: str, root: str, pres_conjugation: s
             arch_pres_part_act = root + 'ών/' + root + 'ώσα/' + root + 'ών'
         elif root + 'ων' in greek_corpus and root + 'ώντα' in greek_corpus:
             arch_pres_part_act = root + 'ων/' + root + 'ώσα/' + root + 'ων'
+    elif pres_conjugation == CON2A_ACT_LOGIA:
+        if root + 'ών' in greek_corpus:
+            arch_pres_part_act = root + 'ών/' + root + 'ώσα/' + root + 'ών'
 
     elif pres_conjugation == CON2C_ACT:
         if root + 'γων' in greek_corpus and root + 'γοντα' in greek_corpus:
@@ -659,6 +669,9 @@ def create_present_passive_participle(_: str, root: str, pres_conjugation: str) 
 
     if pres_conjugation in [CON1_ACT, CON1_PASS]:
         pres_part_pass = [part_root + 'όμενος']
+
+    elif pres_conjugation == CON2A_ACT_LOGIA:
+        pres_part_pass = [part_root + 'άμενος', part_root + 'ώμενος']
 
     elif pres_conjugation in [CON2A_ACT, CON2AB_PASS, CON2A_PASS]:
         pres_part_pass = [part_root + 'ώμενος', part_root + 'ούμενος']

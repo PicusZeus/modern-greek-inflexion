@@ -88,6 +88,7 @@ IMPER_ACT_EIMAI = 'imper_act_eimai'
 CON2AB = 'con2ab'
 CON1_ACT = "con1_act"
 CON2A_ACT = 'con2a_act'
+CON2A_ACT_LOGIA = 'con2a_act_logia'
 CON2B_ACT = 'con2b_act'
 CON2C_ACT = 'con2c_act'
 CON2D_ACT = 'con2d_act'

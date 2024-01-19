@@ -9,7 +9,8 @@ from ..resources.resources import greek_corpus
 
 from ..resources.verb import conjugations, irregular_imperative_forms
 from .conjugations import create_imp_pass, recognize_past_conjugation
-from ..resources.resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, ACTIVE, \
+from ..resources.resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, \
+    ACTIVE, \
     IMPERF, PASSIVE, CON1_PASS_MODAL, IND, CON2D_PASS, CON2E_PASS, PARAT1_PASS, PARAT2B_PASS, PARAT2D_PASS, \
     ARCH_PASS_AOR, IMPER_ACT_CONT_2A, IMPER_PASS_AOR_A, IMPER_ACT_AOR_CA, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
     IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, PARAT2B_LOGIA, ROOT, DEPONENS
@@ -26,7 +27,6 @@ forms_imp = {
 
 def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | None = None,
                           deaugmented_root: str | None = None, simple_aor: bool = False) -> dict:
-
     """
     :param conjugation_name: conjugation name
     :param root: verb root
@@ -65,6 +65,7 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
             for number in endings:
                 for person in endings[number]:
                     for alt_ending in endings[number][person]:
+
                         forms[number][person].append(root + alt_ending)
 
     if simple_aor:
@@ -78,7 +79,8 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                         form = put_accent_on_the_antepenultimate(deaugmented_root + ending, true_syllabification=False)
 
                         forms[number][person].append(form)
-                        not_deaugmented_form = put_accent_on_the_antepenultimate(root + ending, true_syllabification=False)
+                        not_deaugmented_form = put_accent_on_the_antepenultimate(root + ending,
+                                                                                 true_syllabification=False)
                         if not_deaugmented_form in greek_corpus:
                             forms[number][person].append(form)
                     else:
@@ -87,7 +89,8 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                         forms[number][person].append(form)
 
                     if conjugation_name == ARCH_PASS_AOR and number == SG:
-                        forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0], true_syllabification=False)
+                        forms[number][person][0] = put_accent_on_the_penultimate(forms[number][person][0],
+                                                                                 true_syllabification=False)
 
                     form_i_non_syllable = put_accent_on_the_antepenultimate(form)
                     if form_i_non_syllable != form and put_accent_on_the_antepenultimate(form) in greek_corpus:
@@ -148,7 +151,6 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                 if sec_pl not in greek_corpus:
                     forms[PL][SEC][0] = sec_pl[:-2] + 'ετε'
 
-
     elif conjugation_name in [IMPER_PASS_AOR_A]:
         if active_root and [ar for ar in active_root if ar[-1] in ['σ', 'ψ', 'ξ']]:
             forms[SG][SEC] = [x + "ου" for x in active_root if x[-1] in ['σ', 'ψ', 'ξ']]
@@ -157,11 +159,13 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
 
             forms[SG][SEC][0] = passive_aorist_recreated
 
-
-
     elif conjugation_name in [IMPER_ACT_CONT_2A]:
         forms[SG][SEC][0] = put_accent_on_the_penultimate(forms[SG][SEC][0])
-        forms[SG][SEC][1] = put_accent_on_the_antepenultimate(forms[SG][SEC][1])
+        if put_accent_on_the_antepenultimate(forms[SG][SEC][1]) in greek_corpus:
+
+            forms[SG][SEC][1] = put_accent_on_the_antepenultimate(forms[SG][SEC][1])
+        else:
+            del forms[SG][SEC][1]
         if len(forms[SG][SEC]) == 3:
             forms[SG][SEC][2] = put_accent_on_the_penultimate(forms[SG][SEC][2])
         # accent
