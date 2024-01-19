@@ -3,10 +3,11 @@ from typing import Any, Union
 # from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import vowels
-from ..resources.resources import greek_corpus, noun_grammar_lists
+from ..resources.resources import greek_corpus
+
 from ..resources.variables import *
 
-from ..resources.noun import irregular_gen_sg, irregular_voc_sg
+from ..resources.noun import irregular_gen_sg, irregular_voc_sg, noun_grammar_lists
 
 
 def put_accent_on_unaccented_forms(forms: dict) -> dict:

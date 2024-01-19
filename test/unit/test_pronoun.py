@@ -172,6 +172,7 @@ class PronounTestAll(TestCase):
         )
 
     def test_pron_idios(self):
+        self.maxDiff = None
         self.assertDictEqual(
             pronoun.create_all('ίδιος'),
             {'pl': {'fem': {'acc': {'ίδιες'},
@@ -189,7 +190,7 @@ class PronounTestAll(TestCase):
              'sg': {'fem': {'acc': {'ίδια', 'ιδίαν'},
                             'gen': {'ιδίας', 'ίδιας'},
                             'nom': {'ιδία', 'ίδια'},
-                            'voc': {'ίδια'}},
+                            'voc': {'ίδια', 'ιδία'}},
                     'masc': {'acc': {'ίδιο', 'ίδιον'},
                              'gen': {'ίδιου', 'ιδίου'},
                              'nom': {'ίδιος'},
@@ -197,7 +198,7 @@ class PronounTestAll(TestCase):
                     'neut': {'acc': {'ίδιο'},
                              'gen': {'ίδιου', 'ιδίου'},
                              'nom': {'ίδιο'},
-                             'voc': {'ίδιο'}}}}
+                             'voc': {'ίδιο'}}}},
 
         )
 

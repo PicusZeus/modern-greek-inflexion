@@ -6,14 +6,7 @@ from .variables import *
 this_dir, this_filename = os.path.split(__file__)
 el_GR_path = os.path.join(this_dir, 'el_GR.pickle')
 
-n_grammar_lists_path = os.path.join(this_dir, 'grammar_lists.pickle')
-
-n_nouns_masc_fem = os.path.join(this_dir, 'nouns_masc_fem.pickle')
-
 greek_corpus = pickle.load(open(el_GR_path, 'rb'))
-noun_grammar_lists = pickle.load(open(n_grammar_lists_path, 'rb'))
-
-nouns_masc_fem = pickle.load(open(n_nouns_masc_fem, 'rb'))
 
 forms_with_alternatives = ('ακόμη', 'ακόμα', 'και', 'κι', 'τίποτα', 'τίποτε')
 dictionary_with_alt = {'ακόμη': 'ακόμα', 'και': 'κι', 'τίποτα': 'τίποτε'}

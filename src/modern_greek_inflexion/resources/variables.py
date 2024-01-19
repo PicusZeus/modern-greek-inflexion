@@ -156,3 +156,6 @@ FEMININA_H_EIS = 'feminina_h_eis'
 FEMININA_OS = 'feminina_os'
 PAROKSITONA_GEN_NEUT_I = 'paroksitona_gen_neut_i'
 WITHOUT_GEN_NEUT_I = 'without_gen_neut_i'
+
+ADJ_FEM_OS_ONLY = "adj_fem_os_only"
+ADJ_FEM_OS_ALSO = "adj_fem_os_also"

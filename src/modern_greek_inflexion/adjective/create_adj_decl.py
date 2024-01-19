@@ -17,12 +17,11 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 """
 
 
-def put_accent_on_antepenultimate_in_all_forms(masc: str, forms: dict) -> dict:
-    if where_is_accent(masc) == ANTEPENULTIMATE:
-        for num in forms.keys():
-            for gender in forms[num].keys():
-                for case, form in forms[num][gender].items():
-                    forms[num][gender][case] = put_accent_on_the_antepenultimate(form)
+def put_accent_in_all_forms(forms: dict, aceent) -> dict:
+    for num in forms.keys():
+        for gender in forms[num].keys():
+            for case, form in forms[num][gender].items():
+                forms[num][gender][case] = put_accent(form, accent_name=aceent, true_syllabification=True)
     return forms
 
 
@@ -44,16 +43,46 @@ def alternative_forms_ios(adj: str):
     masc, fem, neut = adj.split('/')
     alt_forms = {SG: {
         FEM: {}, MASC: {}, NEUT: {}
-    }}
+    }, PL: {
+        FEM: {}, MASC: {}, NEUT: {}
+    }
+    }
     masc_gen = put_accent_on_the_penultimate(neut + 'υ', true_syllabification=False)
+    masc_gen_pl = put_accent_on_the_penultimate(neut[:-1] + 'ων', true_syllabification=False)
+    masc_acc_pl = put_accent_on_the_penultimate(neut[:-1] + 'ους', true_syllabification=False)
+    fem_nom = put_accent_on_the_penultimate(fem, true_syllabification=False)
     fem_gen = put_accent_on_the_penultimate(fem + 'ς', true_syllabification=False)
     if masc_gen in greek_corpus:
         alt_forms[SG][MASC][GEN] = masc_gen
         alt_forms[SG][NEUT][GEN] = masc_gen
-    if fem_gen in greek_corpus:
+        alt_forms[PL][MASC][GEN] = masc_gen_pl
+        alt_forms[PL][NEUT][GEN] = masc_gen_pl
+        alt_forms[PL][FEM][GEN] = masc_gen_pl
+        alt_forms[PL][MASC][ACC] = masc_acc_pl
+
+    if fem_nom in greek_corpus:
+        alt_forms[SG][FEM][NOM] = fem_nom
         alt_forms[SG][FEM][GEN] = fem_gen
+        if fem_nom + 'ν' not in greek_corpus:
+            alt_forms[SG][FEM][ACC] = fem_nom
+        alt_forms[SG][FEM][VOC] = fem_nom
 
     return alt_forms
+
+
+def alternative_fem_os(fem_os: str, accent: str) -> dict:
+    alt_forms = {SG: {FEM: {}}, PL: {FEM: {}}}
+    alt_forms[SG][FEM][NOM] = fem_os
+    alt_forms[SG][FEM][ACC] = fem_os[:-1]
+    alt_forms[SG][FEM][GEN] = fem_os[:-2] + 'ου'
+    alt_forms[SG][FEM][VOC] = fem_os[:-2] + 'ε'
+
+    alt_forms[PL][FEM][NOM] = fem_os[:-2] + 'οι'
+    alt_forms[PL][FEM][ACC] = fem_os[:-2] + 'ους'
+    alt_forms[PL][FEM][GEN] = fem_os[:-2] + 'ων'
+    alt_forms[PL][FEM][VOC] = fem_os[:-2] + 'οι'
+
+    return put_accent_in_all_forms(alt_forms, accent)
 
 
 def alternative_forms_kxth(fem: str, accent: str) -> dict | None:
@@ -361,17 +390,20 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
     one is a dictionary with alternative forms, if exists it has the same structure
     """
     forms = copy.deepcopy(adj_basic_template)
+    fem_alt = None
     # ωμός / ωμή / ωμό
     masc, fem, neut = adj.split('/')
+    if ',' in fem:
+        [fem, fem_alt] = fem.split(',')
     accent = where_is_accent(masc)
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
-        fem = fem.split(',')[0]  # because in the list there are given alternatives, which i don't need
-        if fem == '-':
-            # in my lists it sometimes happens, so this will be a solution
-            fem = masc[:-2] + 'η'
-            if fem[-2] in ['ι', 'ί']:
-                fem = masc[:-2] + 'α'
+        # if fem == '-':
+        #     # in my lists it sometimes happens, so this will be a solution
+        #     fem = masc[:-2] + 'η'
+        #     if fem[-2] in ['ι', 'ί']:
+        #         fem = masc[:-2] + 'α'
+
         # os, h/a, o
         forms[SG][MASC][NOM] = masc
         forms[SG][MASC][ACC] = masc[:-1]
@@ -408,15 +440,19 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
             for num in forms.keys():
                 for gender in forms[num].keys():
                     for case, form in forms[num][gender].items():
-                        forms[num][gender][case] = put_accent(form, ULTIMATE, true_syllabification=False)
+                        forms[num][gender][case] = put_accent(form, ULTIMATE, true_syllabification=True)
         alt_forms = None
 
-        if fem[-2] in ['θ', 'κ', 'χ']:
-            alt_forms = alternative_forms_kxth(fem, accent)
+        if fem_alt and fem_alt.endswith('ς'):
+            # if masc == ''
+            # fem -os
+            alt_forms = alternative_fem_os(fem_alt, accent)
 
+        elif fem[-2] in ['θ', 'κ', 'χ']:
+            alt_forms = alternative_forms_kxth(fem, accent)
         elif fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):
             alt_forms = alternative_forms_r(fem, accent)
-        elif fem[-2] == 'ι' and accent == PENULTIMATE:
+        elif (fem[-2] == 'ι' and accent in [PENULTIMATE, ANTEPENULTIMATE]) or fem.endswith('μενη') or fem.endswith('στη'):
             alt_forms = alternative_forms_ios(adj)
         return forms, alt_forms
 
@@ -990,8 +1026,8 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
         forms[PL][FEM][ACC] = thema + 'ες'
         forms[PL][FEM][GEN] = put_accent_on_the_ultimate(thema + 'ων')
         forms[PL][FEM][VOC] = thema + 'ες'
-
-        forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
+        if accent == ANTEPENULTIMATE:
+            forms = put_accent_in_all_forms(forms, ANTEPENULTIMATE)
         return forms, None
 
     elif masc[-2:] == 'ας' and fem[-2:] == 'να' and neut[-2:] == 'αν':
@@ -1061,8 +1097,8 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
         forms[PL][NEUT][ACC] = thema + 'α'
         forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
         forms[PL][NEUT][VOC] = thema + 'α'
-
-        forms = put_accent_on_antepenultimate_in_all_forms(masc, forms)
+        if accent == ANTEPENULTIMATE:
+            forms = put_accent_in_all_forms(forms, accent)
 
         alternative_forms = alternative_forms_tis(adj, thema)
 

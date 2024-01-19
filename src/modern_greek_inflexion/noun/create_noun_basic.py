@@ -8,7 +8,7 @@ from ..resources.noun import irregular_nouns, aklita_gender, plur_tant_neut, irr
 from ..resources.variables import *
 from ..resources.resources import greek_corpus
 
-from ..resources.resources import noun_grammar_lists, nouns_masc_fem
+from ..resources.noun import noun_grammar_lists, nouns_masc_fem
 
 from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic

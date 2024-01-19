@@ -1,10 +1,20 @@
 from .variables import *
+import os, pickle
+
+this_dir, this_filename = os.path.split(__file__)
 
 """
      should use this list only if there is no other option, it's too small, but it's better than nothing. 
         Nouns have aklito flag you should use instead (if possible)
 """
 
+n_grammar_lists_path = os.path.join(this_dir, 'noun_grammar_lists.pickle')
+
+n_nouns_masc_fem = os.path.join(this_dir, 'nouns_masc_fem.pickle')
+
+noun_grammar_lists = pickle.load(open(n_grammar_lists_path, 'rb'))
+
+nouns_masc_fem = pickle.load(open(n_nouns_masc_fem, 'rb'))
 
 
 aklita_gender = {'μαδιάμ': FEM, 'μωάμεθ': MASC, 'μάνατζερ': MASC, 'σερ': MASC, 'σεφ': MASC,

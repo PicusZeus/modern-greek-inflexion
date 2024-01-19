@@ -1,13 +1,13 @@
 # from icecream import ic
-
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from ..exceptions import NotLegalAdjectiveException
 from ..resources.resources import greek_corpus
-from ..resources.variables import ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE, ANTEPENULTIMATE, PENULTIMATE
-from ..resources.adj import irregular_comparatives, irregular_comparative_adverbs
+from ..resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE,
+                                   ANTEPENULTIMATE, PENULTIMATE, ADJ_FEM_OS_ONLY, ADJ_FEM_OS_ALSO)
+from ..resources.adj import irregular_comparatives, irregular_comparative_adverbs, adj_grammar_lists
 
 
 def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
@@ -79,10 +79,10 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             else:
                 fem_alt = adj[:-2] + 'ια'
 
-            if fem in greek_corpus and fem_alt in greek_corpus:
-                fem = fem + ',' + fem_alt
+            # if fem in greek_corpus and fem_alt in greek_corpus:
+            #     fem = fem + ',' + fem_alt
 
-            elif fem not in greek_corpus and fem_alt in greek_corpus:
+            if fem not in greek_corpus and fem_alt in greek_corpus:
                 fem = fem_alt
 
             elif fem in greek_corpus and fem_alt not in greek_corpus:
@@ -106,7 +106,11 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             fem = put_accent(adj[:-2] + 'α', accent)
             # if it's lacking from the db, still the best guess is to leave the form on -h
 
-        if ((adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or
+        if adj in adj_grammar_lists[ADJ_FEM_OS_ALSO]:
+
+            fem = fem + ',' + masc
+
+        elif adj in adj_grammar_lists[ADJ_FEM_OS_ONLY] or ((adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or
                 adj.endswith('ουργός')):
 
             fem = masc
