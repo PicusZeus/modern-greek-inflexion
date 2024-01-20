@@ -33,6 +33,7 @@ The only way to say if some adjectives on -os have a common masc-fem form on -os
 
 
 ## Change Log
+ * 0.6.13  Updated accentuation module, fixed issues with improper reduplication of pparticiples and some bug fixing in verb module.
  * 0.6.12  Updated grammar lists for correct accentuation of proparoxytona nouns on -os, fixed bug affecting one syllable forms of verbs.
  * 0.6.11  Better handling of archaic passive aorist, now creates it for more verbs with existing such a form.
  * 0.6.10  New conjugation type only for verbs of type kathistw, better handling, doesnt generate non existent inflected forms. 

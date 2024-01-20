@@ -18,6 +18,20 @@ class VerbTestBasic(TestCase):
              'modal': False},
 
         )
+    def test_verb_drw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('δρω'),
+            {'present': {'active': {'δρω'}},
+             'conjunctive': {'active': {'δράσω'}},
+             'aorist': {'active': {'έδρασα'}},
+             'paratatikos': {'active': {'δρούσα'}},
+             'act_pres_participle': {'δρώντας'},
+             'arch_act_pres_participle': {'δρών/δρώσα/δρών'},
+             'pass_pres_participle': {'δρώμενος'}, 'modal': False}
+
+
+        )
+
 
     def test_verb_titrwskw(self):
         self.assertDictEqual(

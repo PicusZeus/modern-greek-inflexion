@@ -550,8 +550,8 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
         conjugation_ind = CON2B_PASS
         conjugation_imp = IMPER_PASS_CONT_2B
         conjugation_part = PRESENT_PASSIVE_PART_2B
-        con_act = recognize_active_non_past_conjugation(verb[:-5] + 'ώ')
-        if con_act['conjugation_ind'] == CON2D_ACT:
+        # con_act = recognize_active_non_past_conjugation(verb[:-5] + 'ώ')
+        if root + 'οίς' in greek_corpus or root + 'ούται' in greek_corpus:
             conjugation_ind = CON2SA_PASS
             conjugation_imp = IMPER_PASS_CONT_2SA
 

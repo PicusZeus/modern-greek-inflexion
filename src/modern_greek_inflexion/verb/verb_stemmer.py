@@ -486,7 +486,11 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             pass_par = [put_accent_on_the_penultimate(root + 'όμουν')]
 
         elif pres_conjugation == CON2A_ACT:
-            act_par = [root + 'ούσα', put_accent_on_the_antepenultimate(root + 'αγα')]
+            act_par = [root + 'ούσα']
+            par_ga = put_accent_on_the_antepenultimate(root + 'αγα')
+            if count_syllables(par_ga, true_syllabification=False) > 2:
+                act_par.append(par_ga)
+
             pass_par = [root + 'ιόμουν', root + 'άμην']
 
         elif pres_conjugation == CON2A_ACT_LOGIA:
@@ -508,8 +512,6 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             act_par = [root + 'ήμουν']
 
         act_par_all = [f for f in act_par if f in greek_corpus]
-
-
 
         if pres_conjugation == EIMAI:
             act_par_all = [root + 'ήμουν']
