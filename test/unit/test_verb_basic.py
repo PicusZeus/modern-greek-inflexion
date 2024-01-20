@@ -19,6 +19,14 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_titrwskw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('τιτρώσκω'),
+            {'present': {'active': {'τιτρώσκω'}}, 'conjunctive': {'passive': {'τρωθώ'}},
+             'aorist': {'passive': {'ετρώθη'}}, 'paratatikos': {'active': {'ετίτρωσκα'}},
+             'act_pres_participle': {'τιτρώσκοντας'}, 'modal': False}
+        )
+
     def test_verb_bexw(self):
         self.assertDictEqual(
             verb.create_basic_forms('βέχω'),
@@ -862,9 +870,10 @@ class VerbTestBasic(TestCase):
             verb.create_basic_forms('καίω'),
             {'present': {'active': {'καίω'}, 'passive': {'καίγομαι'}},
              'conjunctive': {'active': {'κάψω'}, 'passive': {'καώ'}},
-             'aorist': {'active': {'έκαψα'}, 'passive': {'κάηκα'}},
+             'aorist': {'active': {'έκαψα'}, 'passive': {'καήκα', 'κάηκα'}},
              'paratatikos': {'active': {'έκαιγα'}, 'passive': {'καιγόμουν'}}, 'act_pres_participle': {'καίγοντας'},
-             'pass_pres_participle': {'καιγόμενος'}, 'passive_perfect_participle': {'καμένος'}, 'modal': False},
+             'pass_pres_participle': {'καιγόμενος'}, 'passive_perfect_participle': {'καμένος'}, 'modal': False}
+
         )
 
     def test_verb_agapao(self):
@@ -915,12 +924,11 @@ class VerbTestBasic(TestCase):
             verb.create_basic_forms('ανάγω'),
             {'present': {'active': {'ανάγω'}, 'passive': {'ανάγομαι'}},
              'conjunctive': {'active': {'αναγάγω'}, 'passive': {'αναχθώ'}},
-             'aorist': {'active': {'ανήγαγα'}, 'passive': {'ανάχθηκα'}},
+             'aorist': {'active': {'ανήγαγα'}, 'passive': {'ανήχθη', 'ανάχθηκα'}},
              'paratatikos': {'active': {'ανήγα'}, 'passive': {'αναγόμουν'}}, 'act_pres_participle': {'ανάγοντας'},
              'arch_act_pres_participle': {'ανάγων/ανάγουσα/ανάγον'}, 'pass_pres_participle': {'αναγόμενος'},
              'passive_perfect_participle': {'ανηγμένος'}, 'passive_aorist_participle': {'αναχθείς/αναχθείσα/αναχθέν'},
-             'modal': False}
-
+             'modal': False},
         )
 
     def test_verb_apago(self):

@@ -49,7 +49,6 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
 
         passive_conjugation = recognize_active_non_past_conjugation(base_form)
 
-
         pres_conjugation = passive_conjugation[CONJUGATION_IND]
         root = passive_conjugation[ROOT]
 
@@ -58,6 +57,7 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         pres_pass_form_alt_1 = None
         pres_pass_form_alt_2 = None
         pres_pass_form_alt_3 = None
+        pres_pass_form_3rd_sg = None
         # check conjugation
 
         if pres_conjugation == CON2A_ACT:
@@ -84,8 +84,11 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
 
         elif pres_conjugation == CON1_ACT:
             pres_pass_form = root + 'ομαι'
+            pres_pass_form_3rd_sg = root + 'εται'
 
-        if pres_pass_form and (pres_pass_form in greek_corpus or root[-3:] == 'ποι'):
+        if pres_pass_form and (pres_pass_form in greek_corpus
+                               or pres_pass_form_3rd_sg in greek_corpus
+                               or root[-3:] == 'ποι'):
             pres_pass_forms.append(pres_pass_form)
         if pres_pass_form_alt_1 and (pres_pass_form_alt_1 in greek_corpus):
             pres_pass_forms.append(pres_pass_form_alt_1)
@@ -347,7 +350,6 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in corpus
                     archaic_passive_aor = put_accent_on_the_penultimate(stem + 'η')
 
-
                     archaic_passive_aor = add_augment(archaic_passive_aor)
 
                     archaic_passive_aor = [put_accent_on_the_penultimate(v) for v in archaic_passive_aor]
@@ -372,7 +374,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                         put_accent_on_the_antepenultimate(passive_root + 'ηκα', true_syllabification=False))
             # filter out
 
-            passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus]
+            passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus or f + 'ν' in greek_corpus]
             if not passive_aor_forms and passive_root:
                 passive_aor_forms.append(put_accent_on_the_antepenultimate(passive_root+'ηκα'))
 
