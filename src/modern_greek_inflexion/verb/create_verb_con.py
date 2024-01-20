@@ -50,6 +50,8 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                 form = root + ending
                 if count_syllables(ending) == 2 and ending == remove_all_diacritics(ending):
                     form = put_accent_on_the_antepenultimate(form, true_syllabification=False)
+                elif count_syllables(form, true_syllabification=False) == 1:
+                    form = remove_all_diacritics(form)
                 if ending == 'ει' and person == SEC:
                     form = put_accent_on_the_penultimate(form, true_syllabification=False)
                 forms[number][person].append(form)

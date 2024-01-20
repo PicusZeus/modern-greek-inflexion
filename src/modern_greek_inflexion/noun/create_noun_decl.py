@@ -158,7 +158,8 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                             acc_paroksit = put_accent(n_pl[:-2] + 'ους', PENULTIMATE, true_syllabification=False)
                             if sinizisi or gen_proparoksit in greek_corpus:
                                 g_pl.append(gen_proparoksit)
-
+                                if nom_sg in noun_grammar_lists[PAROKSITONA_GEN_PL_MOVING]:
+                                    g_pl.append(gen_paroksit)
                             else:
                                 g_pl.append(gen_paroksit)
 
@@ -167,11 +168,10 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
                             if sinizisi or acc_proparoksit in greek_corpus:
                                 acc_pl.append(acc_proparoksit)
+                                if acc_paroksit in greek_corpus or nom_sg in noun_grammar_lists[PAROKSITONA_GEN_PL_MOVING]:
+                                    acc_pl.append(acc_paroksit)
 
                             else:
-                                acc_pl.append(acc_paroksit)
-
-                            if sinizisi and acc_paroksit in greek_corpus:
                                 acc_pl.append(acc_paroksit)
 
                     acc_pl = ','.join(acc_pl)

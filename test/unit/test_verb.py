@@ -1743,6 +1743,15 @@ class VerbTestAll(TestCase):
                         'ter': {'ανήχθησαν', 'ανάχθηκαν', 'αναχθήκανε'}}}}}
 
         )
+    def test_present_verb_drw(self):
+        self.assertDictEqual(
+            verb.create_all_forms('δρω')['present'],
+            {'active': {'ind': {'sg': {'pri': {'δράω', 'δρω'}, 'sec': {'δρας'},
+                                       'ter': {'δράει', 'δρα'}},
+                                'pl': {'pri': {'δράμε', 'δρούμε'}, 'sec': {'δράτε'},
+                                       'ter': {'δρούνε', 'δράνε', 'δραν', 'δρουν'}}},
+                        'imp': {'sg': {'sec': {'δρα'}}, 'pl': {'sec': {'δράτε'}}}}},
+        )
 
     def test_aorist_verb_eisago(self):
         self.assertDictEqual(

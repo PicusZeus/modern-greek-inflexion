@@ -442,11 +442,9 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
         conjugation_part = PRESENT_ACTIVE_PART_2
         # contracted άω to ώ
 
-        if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus and verb[
-                                                                                                             :-1] + 'ά' in greek_corpus or (
-                    verb[:-1] + 'άς' in greek_corpus and
-                    verb[:-1] + 'άτε' in greek_corpus
-            )) and aspect != PERF:
+        if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus
+            and verb[:-1] + 'ά' in greek_corpus or (verb[:-1] + 'άς' in greek_corpus or
+                                                    verb[:-1] + 'άτε' in greek_corpus)) and aspect != PERF:
 
             if verb[:-1] + 'άω' in greek_corpus:
                 conjugation_ind = CON2A_ACT

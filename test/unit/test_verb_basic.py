@@ -24,7 +24,7 @@ class VerbTestBasic(TestCase):
             verb.create_basic_forms('τιτρώσκω'),
             {'present': {'active': {'τιτρώσκω'}}, 'conjunctive': {'passive': {'τρωθώ'}},
              'aorist': {'passive': {'ετρώθη'}}, 'paratatikos': {'active': {'ετίτρωσκα'}},
-             'act_pres_participle': {'τιτρώσκοντας'}, 'modal': False}
+             'act_pres_participle': {'τιτρώσκοντας'}, 'modal': False},
         )
 
     def test_verb_bexw(self):
