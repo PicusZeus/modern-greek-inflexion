@@ -29,6 +29,26 @@ def dict_of_dicts_merge(x, y):
     return z
 
 
+def update_forms_with_prefix(verb_temp, prefix):
+    new_dict = {}
+    for key, item in verb_temp.items():
+        if isinstance(item, set):
+            new_set = set()
+            for form in item:
+                new_form = '/'.join([prefix + f for f in form.split('/')])
+                new_set.add(new_form)
+
+            new_dict[key] = new_set
+        elif isinstance(item, dict):
+
+            new_dict[key] = update_forms_with_prefix(item, prefix)
+        elif isinstance(item, str):
+            #'ων/ούσα/ον'
+            new_dict[key] = '/'.join([prefix + f for f in item.split('/')])
+        else:
+            new_dict[key] = item
+    return new_dict
+
 def merging_all_dictionaries(*dics):
     if len(dics) > 2:
         first = dics[0]

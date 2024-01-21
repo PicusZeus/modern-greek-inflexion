@@ -134,7 +134,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         act_root = create_regular_perf_root(pres_form)
 
-        if not intransitive_active:
+        if not intransitive_active and not pres_form.endswith('βαίνω'):
             passive_root = create_regular_perf_root(pres_form, voice="passive")
 
         if act_root:
@@ -345,7 +345,6 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
 
             if passive_root and ',' in passive_root:
 
-
                 for stem in passive_root.split(','):
                     pass_aor_form = stem + 'ηκα'
 
@@ -387,15 +386,23 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
         active_aor_forms = list(set(active_aor_forms))
         active_aor_forms = ','.join(active_aor_forms)
 
+
+
         if (not active_aor_forms and
                 pres_form.endswith('έχω') and
                 pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']):
                 # συνέθετα του έχω
                 active_aor_forms = pres_form[:-3] + 'είχα'
         elif not active_aor_forms and pres_form in irregular_active_aorists.keys():
-            active_aor_forms = irregular_active_aorists[pres_form]
+            active_aor_forms = put_accent_on_the_antepenultimate(irregular_active_aorists[pres_form])
         elif not active_aor_forms and pres_form.endswith('άγω') and pres_form[:-3] in prefixes_before_augment.keys():
             active_aor_forms = pres_form[:-3] + 'ήγαγα'
+        elif not active_aor_forms and pres_form.endswith('βαίνω') and pres_form[:-5] in prefixes_before_augment:
+            active_aor_forms = prefixes_before_augment[pres_form[:-5]] + 'έβη'
+        elif not active_aor_forms and act_root:
+            active_aor_forms = put_accent_on_the_antepenultimate(act_root + 'α')
+
+
 
         # if passive_aor_form:
         passive_aor_forms = list(set(passive_aor_forms))
@@ -538,7 +545,9 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             if act_par_all_3rd:
                 act_par_all = [f[:-1] + 'α' for f in act_par_all_3rd]
         if not act_par_all and pres_conjugation == CON1_ACT:
-            if count_syllables(root) == 1:
+            if pres_form.endswith('βαίνω') and pres_form[:-5] in prefixes_before_augment:
+                act_par_all.append(prefixes_before_augment[pres_form[:-5]] + 'έβαινα')
+            elif count_syllables(root) == 1:
                 act_par_all.append(put_accent_on_the_antepenultimate('έ' + root + 'α'))
             elif pres_form.endswith('έχω') and pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']:
                 # συνέθετα του έχω
@@ -548,6 +557,9 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
         if not act_par_all and pres_conjugation in [CON2A_ACT, CON2B_ACT]:
             act_par_all.append(put_accent_on_the_penultimate(root + 'ούσα'))
 
+        if pres_form in irregular_active_paratatikos:
+            act_par_all = [irregular_active_paratatikos[pres_form]]
+
         pass_par = [f for f in pass_par if f in greek_corpus]
         act_par = ','.join(act_par_all)
         pass_par = ','.join(pass_par)
@@ -555,6 +567,9 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
         paratatikos = '/'.join([act_par, pass_par])
         if root[-3:] == 'ποι':
             paratatikos = root + 'ούσα/' + root + 'ούμουν' + ',' + root + 'όμουν'
+
+
+
 
         paratatikos_basic_forms = paratatikos
 
@@ -617,6 +632,8 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             parat_med_forms = [root + 'ειτο']
             parat_med_forms.extend(add_augment(parat_med_forms[0]))
             parat_med_forms = [put_accent_on_the_antepenultimate(v) for v in parat_med_forms]
+
+
 
         parat_med_forms = [f for f in parat_med_forms if f in greek_corpus]
         parat_med_forms = ','.join(parat_med_forms)

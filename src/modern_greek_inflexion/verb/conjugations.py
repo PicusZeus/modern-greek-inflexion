@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any
 
 from modern_greek_accentuation.accentuation import *
@@ -144,17 +145,27 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                         break
 
     if conjugation in [CON1_ACT, CON1_PASS, CON1_ACT_MODAL] and not perf_root:
-
+        # pattern_a_ain = re.compile(".*α.αίν$")
         if root[-3:] == 'αίν':
-            perf_root = root[:-3] + 'άν'
+            perf_root = root[:-3] + 'ήσ'
             if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
-                perf_root = root[:-3] + 'ύν'
+                perf_root = root[:-3] + 'άσ'
                 if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
-                    perf_root = root[:-3] + 'άσ'
+                    perf_root = root[:-3] + 'άν'
                     if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
-                        perf_root = root[:-3] + 'άξ'
+                        perf_root = root[:-3] + 'ύν'
                         if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
-                            perf_root = root[:-3] + 'ήσ'
+                                perf_root = root[:-3] + 'άξ'
+
+                                if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
+                                    perf_root = root[:-3] + 'έσ'
+                                    if perf_root + 'ω' not in greek_corpus:
+                                        perf_root = root[:-3] + 'άν'
+                                        if verb in [  'χραίνω','πααίνω','κραίνω','πτωχαίνω','γλαφυραίνω', 'ξανταίνω',
+                                                    'αναξαίνω', 'χλιαραίνω', 'ανταίνω']:
+                                            # no in db, rare verbs, create different perf root than an
+                                            perf_root = ''
+
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'γγ']:
             perf_root = root[:-2] + 'ξ'
         elif root[-2:] in ['φτ', 'πτ']:
@@ -398,6 +409,9 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
             perf_root = root + 'ηθ'
         perf_root = remove_all_diacritics(perf_root)
 
+    if verb.endswith('βαίνω') and verb[:-5] in prefixes_before_augment:
+        perf_root = verb[:-5] + 'β'
+
     if not perf_root:
         return
 
@@ -407,7 +421,9 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
             perf_root + 'εί' in greek_corpus or
             # put_accent_on_the_antepenultimate(perf_root +  'ε') in greek_corpus or
             multiple_stems or
-                (count_syllables(root) > 1 and conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT] and voice == ACTIVE)):
+            (count_syllables(root) > 1
+             and conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT]
+             and voice == ACTIVE)) or perf_root in ['β']:
 
             return perf_root
 

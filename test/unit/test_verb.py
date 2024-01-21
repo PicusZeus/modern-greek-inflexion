@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+
 from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 from modern_greek_inflexion import verb
 
@@ -1635,7 +1636,7 @@ class VerbTestAll(TestCase):
                  'sg': {'pri': {'παραήμουνα', 'παραήμουν'}, 'sec': {'παραήσουν', 'παραήσουνα'},
                         'ter': {'παραήταν', 'παραήτανε'}},
                  'pl': {'pri': {'παραήμασταν', 'παραήμαστε'}, 'sec': {'παραήσασταν', 'παραήσαστε'},
-                        'ter': {'παραήταν', 'παραήτανε'}}}}}, 'act_pres_participle': {'παραόντας'}}
+                        'ter': {'παραήταν', 'παραήτανε'}}}}}, 'act_pres_participle': {'παραόντας'}},
 
         )
 

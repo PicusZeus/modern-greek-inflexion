@@ -1,8 +1,11 @@
 
+from ..helping_functions import update_forms_with_prefix
+from modern_greek_accentuation.accentuation import remove_diaer
 from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, \
     create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, \
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
     create_passive_aorist_participle
+from modern_greek_accentuation.resources import prefixes_list_that_allow_augmentaion
 from ..resources.resources import greek_corpus
 from ..resources.verb import irregular_passive_roots
 from ..resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
@@ -22,6 +25,14 @@ def create_all_basic_forms(pres_form: str) -> dict:
    passive participles on menos are given only in masc separated by coma
    if there are alternatives
     """
+    prefix = False
+
+    for pref in prefixes_list_that_allow_augmentaion:
+        if (pres_form.startswith(pref) and
+                pres_form not in ['παραείμαι', 'παραβαίνω', 'παραβγαίνω'] and
+                remove_diaer(pres_form.replace(pref, '')) in greek_corpus):
+            prefix = pref
+            pres_form = remove_diaer(pres_form.replace(pref, ''))
 
     if not greek_pattern.match(pres_form):
         raise NotInGreekException
@@ -198,6 +209,10 @@ def create_all_basic_forms(pres_form: str) -> dict:
             verb_temp['passive_aorist_participle'] = set(passive_aorist_participle.split(','))
 
     verb_temp[MODAL] = modal_act or modal_med
+
+    if prefix:
+        verbs_temp_updated = update_forms_with_prefix(verb_temp, prefix)
+        verb_temp = verbs_temp_updated
 
     return verb_temp
 # create list of all verbs with their basic forms. Check them with existing forms and if they already exist,
