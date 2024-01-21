@@ -1,3 +1,4 @@
+
 from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, \
     create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, \
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
@@ -100,6 +101,7 @@ def create_all_basic_forms(pres_form: str) -> dict:
                                        intransitive_active=intransitive_active,
                                        modal_act=modal_act,
                                        modal_med=modal_med)
+
 
     if conjunctive_basic_forms:
 

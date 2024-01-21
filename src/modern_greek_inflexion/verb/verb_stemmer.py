@@ -6,7 +6,7 @@ from modern_greek_accentuation.syllabify import modern_greek_syllabify, count_sy
 from modern_greek_accentuation.accentuation import is_accented, put_accent_on_the_antepenultimate, \
     put_accent_on_the_penultimate, put_accent_on_the_ultimate, remove_all_diacritics, where_is_accent
 from modern_greek_accentuation.augmentify import add_augment
-from modern_greek_accentuation.resources import vowels
+from modern_greek_accentuation.resources import vowels, prefixes_before_augment
 
 from .conjugations import recognize_passive_present_continuous_conjugation, recognize_active_non_past_conjugation, \
     create_regular_perf_root
@@ -157,8 +157,8 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                     active_perf_form = act_root + 'ώ'
 
                 # check for exv
-                if pres_form[-3:] == 'έχω' and act_root + 'ει' not in greek_corpus:
-                    active_perf_form = pres_form
+                # if pres_form[-3:] == 'έχω' and act_root + 'ει' not in greek_corpus:
+                #     active_perf_form = pres_form
 
         if not intransitive_active:
 
@@ -283,8 +283,8 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     active_aor_forms.append(irregular_active_aorists[pres_form])
                 else:
                     active_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb]))
-
-                active_aor_forms = [put_accent_on_the_antepenultimate(f) for f in active_aor_forms]
+                active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
+                # active_aor_forms = [put_accent_on_the_antepenultimate(f) for f in active_aor_forms]
                 if irregular_active_aorists[ir_verb][-4:] == 'βηκα' and 'λαβαίνω' not in pres_form:
 
                     # add archaic athematic aorist for compounds with bainw
@@ -292,6 +292,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     active_aor_forms.extend(
                         add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2]))
                     # active_aor_forms.extend(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2])
+
         for ir_verb in irregular_passive_aorists:
             length_ir_verb = len(ir_verb)
 
@@ -306,12 +307,15 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
             else:
                 active_aor_forms.extend(add_augment(act_root + 'α'))
 
-            if pres_form[-3:] == 'έχω':
-                active_aor_forms.extend([pres_form[:-3] + 'είχα'])
-
+            if act_root.endswith('άσχ'):
                 archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
-
                 active_aor_forms.extend(archaic_aor_form)
+            # if pres_form[-3:] == 'έχω':
+            #     active_aor_forms.extend([pres_form[:-3] + 'είχα'])
+            #
+            #
+            #
+            #     active_aor_forms.extend(archaic_aor_form)
 
             # filter_out
             active_aor_forms = [f for f in active_aor_forms if (f in greek_corpus or f[:-1] + 'ες' in greek_corpus)]
@@ -348,12 +352,13 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     passive_aor_forms.append(put_accent_on_the_antepenultimate(pass_aor_form))
 
                     # archaic passive on purpose 3rd person, because it's more popular and so more probable that exists in corpus
-                    archaic_passive_aor = put_accent_on_the_penultimate(stem + 'η')
+                    if not pres_form.endswith('έχω'):
+                        archaic_passive_aor = put_accent_on_the_penultimate(stem + 'η')
 
-                    archaic_passive_aor = add_augment(archaic_passive_aor)
+                        archaic_passive_aor = add_augment(archaic_passive_aor)
 
-                    archaic_passive_aor = [put_accent_on_the_penultimate(v) for v in archaic_passive_aor]
-                    passive_aor_forms.extend(archaic_passive_aor)
+                        archaic_passive_aor = [put_accent_on_the_penultimate(v) for v in archaic_passive_aor]
+                        passive_aor_forms.extend(archaic_passive_aor)
 
             elif passive_root:
                 pass_aor_form = passive_root + 'ηκα'
@@ -381,6 +386,17 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
         # if active_aor_forms:
         active_aor_forms = list(set(active_aor_forms))
         active_aor_forms = ','.join(active_aor_forms)
+
+        if (not active_aor_forms and
+                pres_form.endswith('έχω') and
+                pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']):
+                # συνέθετα του έχω
+                active_aor_forms = pres_form[:-3] + 'είχα'
+        elif not active_aor_forms and pres_form in irregular_active_aorists.keys():
+            active_aor_forms = irregular_active_aorists[pres_form]
+        elif not active_aor_forms and pres_form.endswith('άγω') and pres_form[:-3] in prefixes_before_augment.keys():
+            active_aor_forms = pres_form[:-3] + 'ήγαγα'
+
         # if passive_aor_form:
         passive_aor_forms = list(set(passive_aor_forms))
         passive_aor_forms = ','.join(passive_aor_forms)
@@ -478,10 +494,11 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             pass
         elif pres_conjugation == CON1_ACT:
             not_augmented_par = root + 'α'
-            act_par = add_augment(not_augmented_par)
+            act_par.extend(add_augment(not_augmented_par))
 
             act_par = [f for f in act_par if not (count_syllables(
                 f) == 2 and f[0] not in vowels)]
+
 
             pass_par = [put_accent_on_the_penultimate(root + 'όμουν')]
 
@@ -523,6 +540,9 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
         if not act_par_all and pres_conjugation == CON1_ACT:
             if count_syllables(root) == 1:
                 act_par_all.append(put_accent_on_the_antepenultimate('έ' + root + 'α'))
+            elif pres_form.endswith('έχω') and pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']:
+                # συνέθετα του έχω
+                act_par_all.append(pres_form[:-3] + 'είχα')
             else:
                 act_par_all.append(put_accent_on_the_antepenultimate(root + 'α'))
         if not act_par_all and pres_conjugation in [CON2A_ACT, CON2B_ACT]:
@@ -707,7 +727,10 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
     # check for irregularities
     for pr_f in irregular_passive_perfect_participles.keys():
 
-        if pr_f == pres_form[-(len(pr_f)):] and irregular_passive_perfect_participles[pr_f]:
+        if pr_f == pres_form and not irregular_passive_perfect_participles[pr_f]:
+            return ''
+
+        elif pr_f == pres_form[-(len(pr_f)):] and irregular_passive_perfect_participles[pr_f]:
 
             part = pres_form[:-len(pr_f)] + irregular_passive_perfect_participles[pr_f]
 
@@ -718,6 +741,8 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
             for p in part_aug:
                 if p in greek_corpus:
                     passive_perfect_participles.append(p)
+
+
 
             passive_perfect_participles = [p for p in passive_perfect_participles if p in greek_corpus]
             break

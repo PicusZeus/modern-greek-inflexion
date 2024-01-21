@@ -69,7 +69,7 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
     if voice == ACTIVE:
         # there are no multiple stems in this category, so do not do anything
         for pair in irregular_active_roots:
-            if not pair[1]:
+            if not pair[1] :
                 if pair[0] == verb:
                     return None
                 continue
@@ -79,23 +79,28 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
 
                     if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
                         if root[:-len(pair[0])] in prefixes_before_augment:
+
                             beta_perf_root = root[:-len(pair[0])] + stem
 
                             if (beta_perf_root + 'ω' in greek_corpus) or (
-                                    beta_perf_root + 'ώ' in greek_corpus):
+                                    beta_perf_root + 'ώ' in greek_corpus) or stem == 'καταστήσ':
                                 multiple_perf_roots.append(beta_perf_root)
+
 
                 if multiple_perf_roots:
                     perf_root = ','.join(multiple_perf_roots)
                     irregular = True
                     multiple_stems = True
                     break
+
+
+
             if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
 
                 beta_perf_root = root[:-len(pair[0])] + pair[1]
 
                 if (beta_perf_root + 'ω' in greek_corpus) or (
-                        beta_perf_root + 'ώ' in greek_corpus):
+                        beta_perf_root + 'ώ' in greek_corpus) or pair[1] == 'καταστήσ':
                     perf_root = beta_perf_root
                     irregular = True
                     break
@@ -168,7 +173,13 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
         elif root.endswith('σκ') and root[:-2] + 'ξω' in greek_corpus:
             perf_root = root[:-2] + 'ξ'
         elif root[-1] in ['κ', 'χ', 'γ'] and not root.endswith('σκ'):
+
             perf_root = root[:-1] + 'ξ'
+            if root.endswith('άγ') and perf_root not in greek_corpus and root[:-2] in prefixes_before_augment:
+                perf_root = root[:-2] + 'αγάγ'
+
+            # if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
+            #     perf_root = ''
         elif root[-1] in ['β', 'π', 'φ']:
             perf_root = root[:-1] + 'ψ'
         elif root[-2:] in ['εύ', 'αύ']:
@@ -198,8 +209,6 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
         elif root in ['επέστη']:
             # ancient form
             perf_root = root
-
-
 
     elif conjugation in [CON2A_ACT, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
             not perf_root:
@@ -396,10 +405,12 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
         if (perf_root + 'ω' in greek_corpus or
             perf_root + 'ώ' in greek_corpus or
             perf_root + 'εί' in greek_corpus or
+            # put_accent_on_the_antepenultimate(perf_root +  'ε') in greek_corpus or
             multiple_stems or
                 (count_syllables(root) > 1 and conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT] and voice == ACTIVE)):
 
             return perf_root
+
     # else:
     #     return None
 

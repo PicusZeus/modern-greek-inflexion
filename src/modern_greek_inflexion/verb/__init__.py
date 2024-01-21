@@ -13,6 +13,7 @@ greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 def create_basic_forms(verb: str) -> dict:
 
+
     return create_all_basic_forms(verb)
 
 
