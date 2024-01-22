@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from typing import Any
 
 from modern_greek_accentuation.accentuation import *
@@ -10,6 +9,22 @@ from ..exceptions import NotLegalVerbException
 from ..resources.resources import greek_corpus
 from ..resources.verb import irregular_active_roots, irregular_passive_roots
 from ..resources.variables import *
+
+
+def check_perf_passive_subjunctive_in_corpus(perf_root: str) -> bool:
+    first_person = perf_root + 'ώ'
+    third_person = perf_root + 'εί'
+    perf_past_participle = perf_root[:-1] + 'μένος'
+    return first_person in greek_corpus or third_person in greek_corpus or perf_past_participle in greek_corpus
+
+
+def check_perf_active_subjunctive_in_corpus(perf_root: str) -> bool:
+    if perf_root.startswith('εξ') and len(perf_root) > 5:
+        perf_root = perf_root[2:]
+    first_person = perf_root + 'ω'
+    third_person = perf_root + 'ει'
+
+    return first_person in greek_corpus or third_person in greek_corpus
 
 
 def create_imp_pass(perf_pass_root: str) -> str:
@@ -70,7 +85,7 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
     if voice == ACTIVE:
         # there are no multiple stems in this category, so do not do anything
         for pair in irregular_active_roots:
-            if not pair[1] :
+            if not pair[1]:
                 if pair[0] == verb:
                     return None
                 continue
@@ -87,16 +102,13 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                                     beta_perf_root + 'ώ' in greek_corpus) or stem == 'καταστήσ':
                                 multiple_perf_roots.append(beta_perf_root)
 
-
                 if multiple_perf_roots:
                     perf_root = ','.join(multiple_perf_roots)
                     irregular = True
                     multiple_stems = True
                     break
 
-
-
-            if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+            if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0] and root[:-len(pair[0])] in prefixes_before_augment:
 
                 beta_perf_root = root[:-len(pair[0])] + pair[1]
 
@@ -145,6 +157,7 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                         break
 
     if conjugation in [CON1_ACT, CON1_PASS, CON1_ACT_MODAL] and not perf_root:
+
         # pattern_a_ain = re.compile(".*α.αίν$")
         if root[-3:] == 'αίν':
             perf_root = root[:-3] + 'ήσ'
@@ -155,16 +168,27 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
                     if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
                         perf_root = root[:-3] + 'ύν'
                         if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
-                                perf_root = root[:-3] + 'άξ'
+                            perf_root = root[:-3] + 'άξ'
 
-                                if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
-                                    perf_root = root[:-3] + 'έσ'
-                                    if perf_root + 'ω' not in greek_corpus:
-                                        perf_root = root[:-3] + 'άν'
-                                        if verb in [  'χραίνω','πααίνω','κραίνω','πτωχαίνω','γλαφυραίνω', 'ξανταίνω',
-                                                    'αναξαίνω', 'χλιαραίνω', 'ανταίνω']:
-                                            # no in db, rare verbs, create different perf root than an
-                                            perf_root = ''
+                            if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
+                                perf_root = root[:-3] + 'έσ'
+                                if perf_root + 'ω' not in greek_corpus:
+                                    perf_root = root[:-3] + 'άν'
+                                    if verb in ['χραίνω', 'πααίνω', 'κραίνω', 'πτωχαίνω', 'γλαφυραίνω', 'ξανταίνω',
+                                                'αναξαίνω', 'χλιαραίνω', 'ανταίνω']:
+                                        # no in db, rare verbs, create different perf root than an
+                                        perf_root = ''
+        elif root.endswith('άν'):
+            perf_root = root[:-1] + 'σ'
+
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+
+                perf_root = root[:-2] + 'ήσ'
+
+                if not check_perf_active_subjunctive_in_corpus(perf_root):
+                    perf_root = root[:-1] + 'ξ'
+                    if not check_perf_active_subjunctive_in_corpus(perf_root):
+                        perf_root = root
 
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'γγ']:
             perf_root = root[:-2] + 'ξ'
@@ -313,6 +337,16 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
 
                         if perf_root + 'ώ' not in greek_corpus:
                             perf_root = root[:-2] + 'στ'
+
+        elif root.endswith('αν'):
+            perf_root = (root[:-1] + 'θ')
+
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-2] + 'ηθ'
+                if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                    perf_root = root[:-1] + 'στ'
+
+
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'σκ']:
             perf_root = root[:-2] + 'χτ'
 
@@ -419,12 +453,12 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE) -> str | None:
         if (perf_root + 'ω' in greek_corpus or
             perf_root + 'ώ' in greek_corpus or
             perf_root + 'εί' in greek_corpus or
+            perf_root[:-1] + 'μένος' in greek_corpus or
             # put_accent_on_the_antepenultimate(perf_root +  'ε') in greek_corpus or
             multiple_stems or
             (count_syllables(root) > 1
              and conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT]
              and voice == ACTIVE)) or perf_root in ['β']:
-
             return perf_root
 
     # else:

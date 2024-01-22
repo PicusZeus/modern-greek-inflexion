@@ -6,7 +6,7 @@ from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_f
     create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, \
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
     create_passive_aorist_participle
-from modern_greek_accentuation.resources import prefixes_list_that_allow_augmentaion
+from modern_greek_accentuation.resources import prefixes_detachable, prefixes_detachable_weak
 from ..resources.resources import greek_corpus
 from ..resources.verb import irregular_passive_roots
 from ..resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
@@ -28,12 +28,20 @@ def create_all_basic_forms(pres_form: str) -> dict:
     """
     prefix = False
 
-    for pref in prefixes_list_that_allow_augmentaion:
+    for pref in prefixes_detachable:
         if pres_form.startswith(pref):
             without_prefix = remove_diaer(pres_form.replace(pref, ''))
-            if count_syllables(without_prefix) > 2 and without_prefix in greek_corpus:
+            if count_syllables(without_prefix, true_syllabification=False) > 1 and without_prefix in greek_corpus:
 
-                prefix = pref
+                prefix = [pref, prefixes_detachable[pref]]
+                pres_form = without_prefix
+
+    for pref in prefixes_detachable_weak:
+        if pres_form.startswith(pref):
+            without_prefix = remove_diaer(pres_form.replace(pref, ''))
+            if count_syllables(without_prefix, true_syllabification=False) > 2 and without_prefix in greek_corpus:
+
+                prefix = [pref, prefixes_detachable_weak[pref]]
                 pres_form = without_prefix
 
     if not greek_pattern.match(pres_form):

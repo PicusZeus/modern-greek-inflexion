@@ -33,6 +33,7 @@ The only way to say if some adjectives on -os have a common masc-fem form on -os
 
 
 ## Change Log
+ * 0.6.15  Redesigned working with prefixes when creating basic verb forms.
  * 0.6.14  Modification in verb module, with special emphasis on syntheta from exw and agw, that sometimes were unrecognized correctly. Now fixed.
  * 0.6.13  Updated accentuation module, fixed issues with improper reduplication of pparticiples and some bug fixing in verb module.
  * 0.6.12  Updated grammar lists for correct accentuation of proparoxytona nouns on -os, fixed bug affecting one syllable forms of verbs.

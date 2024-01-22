@@ -1,18 +1,46 @@
 from unittest import TestCase, main
 
-from icecream import ic
+# from icecream import ic
 
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 
 
 #
-# def print_verbs():
-#     for v in verbs:
-#         ic(v)
-#         ic(verb.create_basic_forms(v))
+def print_verbs():
+    for v in verbs:
+        ic(v)
+        ic(verb.create_basic_forms(v))
+
 
 class VerbTestBasic(TestCase):
+
+    def test_verb_synizanw(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            verb.create_basic_forms('συνιζάνω'),
+            {'act_pres_participle': {'συνιζάνοντας'},
+             'aorist': {'active': {'συνίζανα'}, 'passive': {'συνιζήθηκα'}},
+             'conjunctive': {'active': {'συνιζάνω'}, 'passive': {'συνιζηθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'συνίζανα'}, 'passive': {'συνιζανόμουν'}},
+             'passive_perfect_participle': {'συνιζημένος'},
+             'present': {'active': {'συνιζάνω'}, 'passive': {'συνιζάνομαι'}}}
+
+        )
+
+    def test_dankanw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('δαγκάνω'),
+            {'act_pres_participle': {'δαγκάνοντας'},
+             'aorist': {'active': {'δάγκασα'}, 'passive': {'δαγκάθηκα'}},
+             'conjunctive': {'active': {'δαγκάσω'}, 'passive': {'δαγκαθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'δάγκανα'}, 'passive': {'δαγκανόμουν'}},
+             'passive_perfect_participle': {'δαγκαμένος'},
+             'present': {'active': {'δαγκάνω'}, 'passive': {'δαγκάνομαι'}}}
+
+        )
 
     def test_anufainw(self):
         self.assertDictEqual(
@@ -36,7 +64,45 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'μετεγκαθιστούσα'}},
              'present': {'active': {'μετεγκαθιστώ'}}},
             # print_verbs()
-            ic(verb.create_basic_forms('παραπλανιέμαι'))
+            # ic(verb.create_basic_forms('βυζαίνω'))
+        )
+
+    def test_verb_protopianw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('πρωτοπιάνω'),
+            {'act_pres_participle': {'πρωτοπιάνοντας'},
+             'aorist': {'active': {'πρωτοέπιασα'}, 'passive': {'πρωτοπιάστηκα'}},
+             'conjunctive': {'active': {'πρωτοπιάσω'}, 'passive': {'πρωτοπιαστώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'πρωτοέπιανα'}, 'passive': {'πρωτοπιανόμουν'}},
+             'passive_perfect_participle': {'πρωτοπιασμένος'},
+             'present': {'active': {'πρωτοπιάνω'}, 'passive': {'πρωτοπιάνομαι'}}}
+
+        )
+
+    def test_verb_buzanw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('βυζάνω'),
+            {'act_pres_participle': {'βυζάνοντας'},
+             'aorist': {'active': {'βύζαξα'}},
+             'conjunctive': {'active': {'βυζάξω'}},
+             'modal': False,
+             'paratatikos': {'active': {'βύζανα'}},
+             'passive_perfect_participle': {'βυζαγμένος'},
+             'present': {'active': {'βυζάνω'}}}
+
+        )
+
+    def test_verb_eksolisthanw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('εξολισθάνω'),
+            {'act_pres_participle': {'εξολισθάνοντας'},
+             'aorist': {'active': {'εξολίσθησα'}},
+             'conjunctive': {'active': {'εξολισθήσω'}},
+             'modal': False,
+             'paratatikos': {'active': {'εξολίσθανα'}},
+             'present': {'active': {'εξολισθάνω'}}}
+
         )
 
     def test_paratw(self):

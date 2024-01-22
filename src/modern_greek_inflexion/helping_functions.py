@@ -1,4 +1,5 @@
 from copy import deepcopy
+from modern_greek_accentuation.resources import vowels
 
 
 def dict_of_dicts_merge(x, y):
@@ -29,13 +30,16 @@ def dict_of_dicts_merge(x, y):
     return z
 
 
-def update_forms_with_prefix(verb_temp, prefix):
+def update_forms_with_prefix(verb_temp, prefix: [str]):
     new_dict = {}
     for key, item in verb_temp.items():
         if isinstance(item, set):
             new_set = set()
             for form in item:
-                new_form = '/'.join([prefix + f for f in form.split('/')])
+                if form[0] in vowels:
+                    new_form = '/'.join([prefix[1] + f for f in form.split('/')])
+                else:
+                    new_form = '/'.join([prefix[0] + f for f in form.split('/')])
                 new_set.add(new_form)
 
             new_dict[key] = new_set

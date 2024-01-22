@@ -13,9 +13,13 @@ from .conjugations import recognize_passive_present_continuous_conjugation, reco
 
 from ..resources.resources import greek_corpus
 from ..resources.verb import (irregular_passive_roots, irregular_passive_perfect_participles, irregular_active_aorists,
-                              irregular_active_paratatikos, deponens_with_active_perf_forms, irregular_passive_aorists)
+                              irregular_active_paratatikos, deponens_with_active_perf_forms, irregular_passive_aorists,
+                              conjugations)
 from ..resources.variables import *
 
+
+def check_personal_forms(first_p: str, third_p: str) -> bool:
+    return first_p in greek_corpus or third_p in greek_corpus
 
 def create_basic_present_forms(base_form: str, deponens: bool = False, not_deponens: bool = True,
                                intransitive_active: bool = False, modal_act: bool = False,
@@ -26,22 +30,34 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         pres_dep_forms = [base_form]
         pres_conjugation = passive_conjugation[CONJUGATION_IND]
         root = passive_conjugation[ROOT]
-        pres_dep_form_alt = None
-        pres_dep_form_alt_alt = None
+        f_p = None
+        f_p_alt = None
+        th_p = None
+        th_p_alt = None
+
         if pres_conjugation == CON2A_PASS:
-            pres_dep_form_alt = root + 'ούμαι'
-            pres_dep_form_alt_alt = root + 'ώμαι'
+            f_p = root + 'ιέμαι'
+            th_p = root + 'ιέται'
+            f_p_alt = root + 'ούμαι'
+            th_p_alt = root + 'είται'
+
         elif pres_conjugation == CON2B_PASS:
-            pres_dep_form_alt = root + 'ιέμαι'
+            f_p = root + 'ούμαι'
+            th_p = root + 'είται'
+            f_p_alt = root + 'ιέμαι'
+            th_p_alt = root + 'ιέται'
+
         elif pres_conjugation == CON2AB_PASS:
-            pres_dep_form_alt = root + 'ούμαι'
-            pres_dep_form_alt_alt = root + 'ιέμαι'
+            f_p = root + 'ώμαι'
+            th_p = root + 'άται'
+            f_p_alt = root + 'ιέσαι'
+            th_p_alt = root + 'ιέται'
 
-        if pres_dep_form_alt and (pres_dep_form_alt in greek_corpus):
-            pres_dep_forms.append(pres_dep_form_alt)
+        if check_personal_forms(f_p, th_p):
+            pres_dep_forms.append(f_p)
 
-        if pres_dep_form_alt_alt and (pres_dep_form_alt_alt in greek_corpus):
-            pres_dep_forms.append(pres_dep_form_alt_alt)
+        if check_personal_forms(f_p_alt, th_p_alt):
+            pres_dep_forms.append(f_p_alt)
 
         present_basic_forms = ','.join(pres_dep_forms)
 
@@ -53,49 +69,48 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         root = passive_conjugation[ROOT]
 
         pres_pass_forms = []
-        pres_pass_form = None
-        pres_pass_form_alt_1 = None
-        pres_pass_form_alt_2 = None
-        pres_pass_form_alt_3 = None
-        pres_pass_form_3rd_sg = None
+        f_p_pass = None
+        f_p_pass_alt_1 = None
+        f_p_pass_alt_2 = None
+        f_p_pass_alt_3 = None
+        th_p_pass = None
         # check conjugation
 
         if pres_conjugation == CON2A_ACT:
 
-            pres_pass_form = root + 'ιέμαι'
+            f_p_pass = root + 'ιέμαι'
 
-            pres_pass_form_alt_1 = root + 'ούμαι'
-            pres_pass_form_alt_2 = root + 'ώμαι'
-            pres_pass_form_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
+            f_p_pass_alt_1 = root + 'ούμαι'
+            f_p_pass_alt_2 = root + 'ώμαι'
+            f_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
 
         elif pres_conjugation == CON2A_ACT_LOGIA:
-            pres_pass_form_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
-            pres_pass_form_alt_2 = root + 'ώμαι'
+            f_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
+            f_p_pass_alt_2 = root + 'ώμαι'
         elif pres_conjugation == CON2B_ACT:
-            pres_pass_form = root + 'ούμαι'
-            pres_pass_form_alt_1 = root + 'ιέμαι'
-            pres_pass_form_alt_2 = root + 'ώμαι'
+            f_p_pass = root + 'ούμαι'
+            f_p_pass_alt_1 = root + 'ιέμαι'
+            f_p_pass_alt_2 = root + 'ώμαι'
 
         elif pres_conjugation == CON2D_ACT:
-            pres_pass_form = root + 'ούμαι'
+            f_p_pass = root + 'ούμαι'
 
         elif pres_conjugation == CON2C_ACT:
-            pres_pass_form = root + 'γομαι'
+            f_p_pass = root + 'γομαι'
 
         elif pres_conjugation == CON1_ACT:
-            pres_pass_form = root + 'ομαι'
-            pres_pass_form_3rd_sg = root + 'εται'
+            f_p_pass = root + 'ομαι'
+            th_p_pass = root + 'εται'
 
-        if pres_pass_form and (pres_pass_form in greek_corpus
-                               or pres_pass_form_3rd_sg in greek_corpus
-                               or root[-3:] == 'ποι'):
-            pres_pass_forms.append(pres_pass_form)
-        if pres_pass_form_alt_1 and (pres_pass_form_alt_1 in greek_corpus):
-            pres_pass_forms.append(pres_pass_form_alt_1)
-        if pres_pass_form_alt_2 and (pres_pass_form_alt_2 in greek_corpus):
-            pres_pass_forms.append(pres_pass_form_alt_2)
-        if pres_pass_form_alt_3 and (pres_pass_form_alt_3 in greek_corpus):
-            pres_pass_forms.append(pres_pass_form_alt_3)
+        if f_p_pass and check_personal_forms(f_p_pass, th_p_pass):
+            pres_pass_forms.append(f_p_pass)
+
+        if f_p_pass_alt_1 and (f_p_pass_alt_1 in greek_corpus):
+            pres_pass_forms.append(f_p_pass_alt_1)
+        if f_p_pass_alt_2 and (f_p_pass_alt_2 in greek_corpus):
+            pres_pass_forms.append(f_p_pass_alt_2)
+        if f_p_pass_alt_3 and (f_p_pass_alt_3 in greek_corpus):
+            pres_pass_forms.append(f_p_pass_alt_3)
 
         pres_pass_forms = ','.join(pres_pass_forms)
 
@@ -505,6 +520,8 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
 
             act_par = [f for f in act_par if not (count_syllables(
                 f) == 2 and f[0] not in vowels)]
+
+
 
 
             pass_par = [put_accent_on_the_penultimate(root + 'όμουν')]
