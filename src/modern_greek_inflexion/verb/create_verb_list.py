@@ -1,6 +1,7 @@
 
 from ..helping_functions import update_forms_with_prefix
 from modern_greek_accentuation.accentuation import remove_diaer
+from modern_greek_accentuation.syllabify import count_syllables
 from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, \
     create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, \
     create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
@@ -28,11 +29,12 @@ def create_all_basic_forms(pres_form: str) -> dict:
     prefix = False
 
     for pref in prefixes_list_that_allow_augmentaion:
-        if (pres_form.startswith(pref) and
-                pres_form not in ['παραείμαι', 'παραβαίνω', 'παραβγαίνω'] and
-                remove_diaer(pres_form.replace(pref, '')) in greek_corpus):
-            prefix = pref
-            pres_form = remove_diaer(pres_form.replace(pref, ''))
+        if pres_form.startswith(pref):
+            without_prefix = remove_diaer(pres_form.replace(pref, ''))
+            if count_syllables(without_prefix) > 2 and without_prefix in greek_corpus:
+
+                prefix = pref
+                pres_form = without_prefix
 
     if not greek_pattern.match(pres_form):
         raise NotInGreekException

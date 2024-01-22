@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-# from icecream import ic
+from icecream import ic
 
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
@@ -36,7 +36,20 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'μετεγκαθιστούσα'}},
              'present': {'active': {'μετεγκαθιστώ'}}},
             # print_verbs()
-            # ic(verb.create_basic_forms('παραβγαίνω'))
+            ic(verb.create_basic_forms('παραπλανιέμαι'))
+        )
+
+    def test_paratw(self):
+        self.assertDictEqual(
+            verb.create_basic_forms('παρατώ'),
+            {'act_pres_participle': {'παρατώντας'},
+             'aorist': {'active': {'παράτησα'}, 'passive': {'παρατήθηκα'}},
+             'conjunctive': {'active': {'παρατήσω'}, 'passive': {'παρατηθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'παρατούσα', 'παράταγα'},
+                             'passive': {'παρατιόμουν'}},
+             'passive_perfect_participle': {'παρατημένος'},
+             'present': {'active': {'παρατώ'}, 'passive': {'παρατιέμαι'}}}
         )
 
     def test_verb_parabainw(self):
