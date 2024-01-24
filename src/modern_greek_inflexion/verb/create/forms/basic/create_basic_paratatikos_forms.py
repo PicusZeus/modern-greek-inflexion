@@ -11,7 +11,7 @@ from modern_greek_inflexion.resources.verb import irregular_active_paratatikos
 
 def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: str, deponens: bool = False,
                                    not_deponens: bool = True, modal_act: bool = False,
-                                   modal_med: bool = False) -> str:
+                                   modal_med: bool = False, alternative: bool = False) -> str:
     paratatikos_basic_forms = None
 
     if not_deponens:
@@ -26,7 +26,8 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             pass
         elif pres_conjugation == CON1_ACT:
             not_augmented_par = root + 'α'
-            act_par.extend(add_augment(not_augmented_par))
+            if not alternative:
+                act_par.extend(add_augment(not_augmented_par))
 
             act_par = [f for f in act_par if not (count_syllables(
                 f) == 2 and f[0] not in vowels)]

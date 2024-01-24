@@ -12,37 +12,42 @@ from modern_greek_inflexion.resources.verb import irregular_active_aorists, irre
 
 def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, deponens: bool = False,
                               not_deponens: bool = True, modal_act: bool = False,
-                              modal_med: bool = False) -> Optional[str]:
+                              modal_med: bool = False, alternative: bool = False) -> str | None:
     aorist_basic_forms = None
     active_aor_forms, passive_aor_forms = [], []
 
     if not_deponens:
+        if not alternative:
 
-        for ir_verb in irregular_active_aorists:
-            length_ir_verb = len(ir_verb)
-            if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
-                if pres_form in irregular_active_aorists:
+            if pres_form in irregular_active_aorists:
+                active_aor_forms.append(irregular_active_aorists[pres_form])
+            else:
 
-                    active_aor_forms.append(irregular_active_aorists[pres_form])
-                else:
-                    active_aor_forms.extend(
-                        add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb]))
-                active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
-                # active_aor_forms = [put_accent_on_the_antepenultimate(f) for f in active_aor_forms]
-                if irregular_active_aorists[ir_verb][-4:] == 'βηκα' and 'λαβαίνω' not in pres_form:
-                    # add archaic athematic aorist for compounds with bainw
+                for ir_verb in irregular_active_aorists:
+                    length_ir_verb = len(ir_verb)
+                    if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+                        if pres_form in irregular_active_aorists:
 
-                    active_aor_forms.extend(
-                        add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2]))
-                    # active_aor_forms.extend(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2])
+                            active_aor_forms.append(irregular_active_aorists[pres_form])
+                        else:
+                            active_aor_forms.extend(
+                                add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb]))
+                        active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
+                        # active_aor_forms = [put_accent_on_the_antepenultimate(f) for f in active_aor_forms]
+                        if irregular_active_aorists[ir_verb][-4:] == 'βηκα' and 'λαβαίνω' not in pres_form:
+                            # add archaic athematic aorist for compounds with bainw
 
-        for ir_verb in irregular_passive_aorists:
-            length_ir_verb = len(ir_verb)
+                            active_aor_forms.extend(
+                                add_augment(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2]))
+                            # active_aor_forms.extend(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2])
 
-            if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
-                passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
+                for ir_verb in irregular_passive_aorists:
+                    length_ir_verb = len(ir_verb)
 
-        if act_root and pres_form not in irregular_active_aorists:
+                    if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+                        passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
+
+        if act_root and pres_form not in irregular_active_aorists and not alternative:
 
             if ',' in act_root:
                 for stem in act_root.split(','):
@@ -53,12 +58,6 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
             if act_root.endswith('άσχ'):
                 archaic_aor_form = add_augment(pres_form[:-3] + 'σχον')
                 active_aor_forms.extend(archaic_aor_form)
-            # if pres_form[-3:] == 'έχω':
-            #     active_aor_forms.extend([pres_form[:-3] + 'είχα'])
-            #
-            #
-            #
-            #     active_aor_forms.extend(archaic_aor_form)
 
             # filter_out
             active_aor_forms_e = [f for f in active_aor_forms if (f[:-1] + 'ε' in greek_corpus)]
@@ -95,7 +94,6 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
 
                 # archaic_passive_aor = stem + 'ηκα'
 
-
             for stem in passive_root.split(','):
                 pass_aor_form = stem + 'ηκα'
 
@@ -106,14 +104,12 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                 if not pres_form.endswith('έχω'):
                     archaic_passive_aor = put_accent_on_the_penultimate(stem + 'η')
 
-
                     archaic_passive_aor = add_augment(archaic_passive_aor)
 
                     archaic_passive_aor = [put_accent_on_the_penultimate(v) for v in archaic_passive_aor]
                     if stem.endswith('ιδωθ'):
                         archaic_passive_aor = add_augment(stem + 'ηκα')
                     passive_aor_forms.extend(archaic_passive_aor)
-
 
             passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus or f + 'ν' in greek_corpus]
             if not passive_aor_forms:

@@ -93,7 +93,8 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
 
         if f_p_pass and check_personal_forms(f_p_pass, th_p_pass):
             pres_pass_forms.append(f_p_pass)
-        elif base_form in ['ρρέω', 'πηγνύω', 'ομνύω']:
+
+        elif base_form in ['ρρέω', 'πηγνύω', 'ομνύω', 'βαίνω']:
             pres_pass_forms.append(f_p_pass)
 
         if f_p_pass_alt_1 and (f_p_pass_alt_1 in greek_corpus):

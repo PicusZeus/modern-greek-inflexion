@@ -1,13 +1,13 @@
 from modern_greek_accentuation.accentuation import is_accented
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
-from modern_greek_inflexion.resources import greek_corpus, PASSIVE, CON1_ACT_MODAL, CON2_ACT_MODAL
+from modern_greek_inflexion.resources import greek_corpus, PASSIVE, CON1_ACT_MODAL, CON2_ACT_MODAL, ACTIVE
 from modern_greek_inflexion.resources.verb import irregular_passive_roots, deponens_with_active_perf_forms
 from modern_greek_inflexion.verb.create import create_regular_perf_root
 
 
 def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=False, not_deponens=True,
-                                   intransitive_active=False, modal_act=False, modal_med=False):
+                                   intransitive_active=False, modal_act=False, modal_med=False, alternative=False):
     act_root, passive_root = None, None
     active_perf_form = passive_perf_form = ''
 
@@ -15,10 +15,10 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
     perf_root = None
     if not_deponens:
 
-        act_root = create_regular_perf_root(pres_form)
+        act_root = create_regular_perf_root(pres_form, voice=ACTIVE, alternative=alternative)
 
         if not intransitive_active and not pres_form.endswith('βαίνω'):
-            passive_root = create_regular_perf_root(pres_form, voice="passive")
+            passive_root = create_regular_perf_root(pres_form, voice=PASSIVE, alternative=alternative)
 
         if act_root:
 
@@ -63,7 +63,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
     elif deponens:
 
-        passive_root = create_regular_perf_root(pres_form, voice="passive")
+        passive_root = create_regular_perf_root(pres_form, voice=PASSIVE)
 
         if passive_root:
             if ',' in passive_root:
@@ -100,9 +100,9 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
     elif modal_act:
         if pres_conjugation == CON1_ACT_MODAL:
-            act_root = create_regular_perf_root(root + 'ω')
+            act_root = create_regular_perf_root(root + 'ω', voice=ACTIVE)
         elif pres_conjugation == CON2_ACT_MODAL:
-            act_root = create_regular_perf_root(root + 'ώ')
+            act_root = create_regular_perf_root(root + 'ώ', voice=ACTIVE)
 
         if act_root:
             active_perf_form = act_root + 'ει'

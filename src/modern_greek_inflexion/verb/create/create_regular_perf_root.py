@@ -12,10 +12,12 @@ from modern_greek_inflexion.resources.verb import irregular_active_roots, irregu
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.recognize import (recognize_active_non_past_conjugation,
                                                    recognize_passive_present_continuous_conjugation)
-from modern_greek_inflexion.helpers import check_perf_passive_subjunctive_in_corpus, check_perf_active_subjunctive_in_corpus
+from modern_greek_inflexion.helpers import check_perf_passive_subjunctive_in_corpus, \
+    check_perf_active_subjunctive_in_corpus
 
 
-def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str | None = None) -> str | None:
+def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str | None = None,
+                             alternative: bool = False) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
     perf_root = None
@@ -37,73 +39,74 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
     if conjugation == MODAL:
         perf_root = root
 
-
     if voice == ACTIVE:
         # there are no multiple stems in this category, so do not do anything
-        for pair in irregular_active_roots:
 
-            if verb == pair[0]:
-                return pair[1]
+        if not alternative:
+            for pair in irregular_active_roots:
 
-            elif pair[1]:
-                multiple_perf_roots = []
-                for stem in pair[1].split(','):
+                if verb == pair[0]:
+                    return pair[1]
 
-                    if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
-                        if root[:-len(pair[0])] in prefixes_before_augment:
+                elif pair[1]:
+                    multiple_perf_roots = []
+                    for stem in pair[1].split(','):
 
-                            beta_perf_root = root[:-len(pair[0])] + stem
+                        if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+                            if root[:-len(pair[0])] in prefixes_before_augment:
 
-                            if (beta_perf_root + 'ω' in greek_corpus) or (
-                                    beta_perf_root + 'ώ' in greek_corpus) or stem == 'καταστήσ':
-                                multiple_perf_roots.append(beta_perf_root)
+                                beta_perf_root = root[:-len(pair[0])] + stem
 
-                perf_root = ','.join(multiple_perf_roots)
+                                if (beta_perf_root + 'ω' in greek_corpus) or (
+                                        beta_perf_root + 'ώ' in greek_corpus) or stem == 'καταστήσ':
+                                    multiple_perf_roots.append(beta_perf_root)
 
-                if ',' in perf_root:
-                    multiple_stems = True
-                if perf_root:
-                    irregular = True
-                    break
-
-    if voice == PASSIVE:
-
-        for pair in irregular_passive_roots:
-            if verb == pair[0]:
-                if verb == 'ρρέω':
-                    ic(verb, pair[1])
-                return pair[1]
-            if pair[1] and ',' in pair[1]:
-                # that is if many stems
-                multiple_perf_roots = []
-                for stem in pair[1].split(','):
-                    if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
-
-                        beta_perf_root = root[:-len(pair[0])] + stem
-                        if (beta_perf_root + 'ώ' in greek_corpus) or (beta_perf_root + 'ω' in greek_corpus) or (
-                                beta_perf_root + 'εί' in greek_corpus) or (
-                                beta_perf_root + 'ει' in greek_corpus):
-                            multiple_perf_roots.append(beta_perf_root)
-
-                if multiple_perf_roots:
                     perf_root = ','.join(multiple_perf_roots)
-                    irregular = True
-                    multiple_stems = True
-                    break
 
-            if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0] and pair[1]:
-
-                for r in pair[1].split(','):
-
-                    beta_perf_root = root[:-len(pair[0])] + r
-
-                    if (beta_perf_root + 'ώ' in greek_corpus) or \
-                            (beta_perf_root + 'ω' in greek_corpus) or \
-                            (beta_perf_root + 'εί' in greek_corpus) or \
-                            (beta_perf_root + 'ει' in greek_corpus):
-                        perf_root = beta_perf_root
+                    if ',' in perf_root:
+                        multiple_stems = True
+                    if perf_root:
                         irregular = True
                         break
+
+    if voice == PASSIVE:
+        if not alternative:
+            for pair in irregular_passive_roots:
+                if verb == pair[0]:
+                    if verb == 'ρρέω':
+                        ic(verb, pair[1])
+                    return pair[1]
+                if pair[1] and ',' in pair[1]:
+                    # that is if many stems
+                    multiple_perf_roots = []
+                    for stem in pair[1].split(','):
+                        if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0]:
+
+                            beta_perf_root = root[:-len(pair[0])] + stem
+                            if (beta_perf_root + 'ώ' in greek_corpus) or (beta_perf_root + 'ω' in greek_corpus) or (
+                                    beta_perf_root + 'εί' in greek_corpus) or (
+                                    beta_perf_root + 'ει' in greek_corpus):
+                                multiple_perf_roots.append(beta_perf_root)
+
+                    if multiple_perf_roots:
+                        perf_root = ','.join(multiple_perf_roots)
+                        irregular = True
+                        multiple_stems = True
+                        break
+
+                if len(root) >= len(pair[0]) and root[-len(pair[0]):] == pair[0] and pair[1]:
+
+                    for r in pair[1].split(','):
+
+                        beta_perf_root = root[:-len(pair[0])] + r
+
+                        if (beta_perf_root + 'ώ' in greek_corpus) or \
+                                (beta_perf_root + 'ω' in greek_corpus) or \
+                                (beta_perf_root + 'εί' in greek_corpus) or \
+                                (beta_perf_root + 'ει' in greek_corpus):
+                            perf_root = beta_perf_root
+                            irregular = True
+                            break
 
     if conjugation in [CON1_ACT, CON1_PASS, CON1_ACT_MODAL] and not perf_root:
 

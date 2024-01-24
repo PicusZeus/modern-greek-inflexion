@@ -8,14 +8,9 @@ from modern_greek_inflexion.verb.create.forms.basic.create_all_basic_forms impor
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, \
     IMPERF
-
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
-
-
-def create_basic_forms(verb: str) -> dict:
-    return create_all_basic_forms(verb)
 
 
 def create_all_forms(verb: str, alternative: bool = False) -> dict:
