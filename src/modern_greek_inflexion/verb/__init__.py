@@ -1,26 +1,35 @@
 from .. import adjective
 from ..adjective.create_adj_decl import create_all_adj_forms
-from ..helping_functions import merging_all_dictionaries
-from .create_verb_forms import create_all_imperfect_personal_forms, create_all_perf_non_past_personal_forms, \
-    create_all_past_personal_forms
-from .create_verb_list import create_all_basic_forms
+from ..helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb.create.forms import create_all_imperfect_personal_forms, \
+    create_all_perf_non_past_personal_forms
+from modern_greek_inflexion.verb.create.forms import create_all_past_personal_forms
+from modern_greek_inflexion.verb.create.forms.basic.create_all_basic_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, IMPERF
+from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, \
+    IMPERF
 
 import re
+
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
 def create_basic_forms(verb: str) -> dict:
-
-
     return create_all_basic_forms(verb)
 
 
-def create_all_forms(verb: str) -> dict:
-
+def create_all_forms(verb: str, alternative: bool = False) -> dict:
+    """
+    :param verb: self explanatory
+    :param alternative: a flag for very rare situation, when the same verb form can actually
+    produce different verbs (e.g. παραβλέπω (παραδώ and παραβλέψω) with different subjunctive
+    and aorist forms. If alternative is set to True, it will try to reproduce a possible alternative,
+    so if by default παραβλέπω should reproduce παραδώ, παραείδα, then set to True it should
+    reproduce forms with παραβλέψω
+    :return:
+    """
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
-    basic_forms = create_all_basic_forms(verb)
+    basic_forms = create_all_basic_forms(verb, alternative=alternative)
 
     all_forms = {}
 
@@ -49,7 +58,7 @@ def create_all_forms(verb: str) -> dict:
             deponens = True
 
     all_forms['present'] = present
-    #CONJUNCTIVE
+    # CONJUNCTIVE
     if CONJUNCTIVE in basic_forms:
         conjunctive_basic_forms = basic_forms[CONJUNCTIVE]
         conjunctive = {}
@@ -57,7 +66,6 @@ def create_all_forms(verb: str) -> dict:
 
         if ACTIVE in conjunctive_basic_forms:
             con_active_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[ACTIVE], ACTIVE)
-
 
             active_roots = [x[:-1] for x in conjunctive_basic_forms[ACTIVE]]
 
@@ -98,7 +106,6 @@ def create_all_forms(verb: str) -> dict:
         paratatikos = {}
 
         if ACTIVE in paratatikos_basic_forms:
-
             paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms[ACTIVE], verb, IMPERF,
                                                                       ACTIVE)
             paratatikos[ACTIVE] = paratatikos_active_forms

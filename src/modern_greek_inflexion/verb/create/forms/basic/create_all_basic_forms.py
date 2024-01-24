@@ -1,51 +1,84 @@
+from icecream import ic
 
-from ..helping_functions import update_forms_with_prefix
+from modern_greek_inflexion.verb.create.forms.all.participles.create_aorist_participles import \
+    create_passive_aorist_participle, \
+    create_active_aorist_participle
+from modern_greek_inflexion.verb.create.forms.all.participles.create_passive_perfect_participle import \
+    create_passive_perfect_participle
+from modern_greek_inflexion.verb.create.forms.all.participles.create_present_active_participle import \
+    create_present_active_participle
+from modern_greek_inflexion.verb.create.forms.all.participles.create_present_active_participle_arch import \
+    create_present_active_participle_arch
+from modern_greek_inflexion.verb.create.forms.all.participles.create_present_passive_participle import \
+    create_present_passive_participle
+from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_forms import create_basic_aorist_forms
+from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_forms import create_basic_conjunctive_forms
+from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
+from modern_greek_inflexion.verb.create.forms.basic.create_basic_present_forms import create_basic_present_forms
+from modern_greek_inflexion.helpers import update_forms_with_prefix
 from modern_greek_accentuation.accentuation import remove_diaer
 from modern_greek_accentuation.syllabify import count_syllables
-from .verb_stemmer import create_basic_present_forms, create_basic_conjunctive_forms, create_basic_aorist_forms, \
-    create_basic_paratatikos_forms, create_present_active_participle, create_present_active_participle_arch, \
-    create_present_passive_participle, create_passive_perfect_participle, create_active_aorist_participle, \
-    create_passive_aorist_participle
-from modern_greek_accentuation.resources import prefixes_detachable, prefixes_detachable_weak
-from ..resources.resources import greek_corpus
-from ..resources.verb import irregular_passive_roots
-from ..resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
-from ..exceptions import NotLegalVerbException, NotInGreekException
+from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, prefixes_before_augment
+from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources.verb import irregular_passive_roots
+from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
+from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
-def create_all_basic_forms(pres_form: str) -> dict:
+def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     """
    :param pres_form: 1st person sg present
+   :param alternative: explained in create_all function
    :return: a dictionary {PRESENT: '', CONJUNCTIVE: '', AORIST: '', PARATATIKOS: ''} and others, for times it
    gives active and medio-passive (if exists) divided by '/'.
    Modals are given in 3rd person, alternative formse are separated by coma,
    passive participles on menos are given only in masc separated by coma
    if there are alternatives
     """
+    if not greek_pattern.match(pres_form):
+        raise NotInGreekException
+
+    # prefixes - inflect without them
+
     prefix = False
 
     for pref in prefixes_detachable:
         if pres_form.startswith(pref):
             without_prefix = remove_diaer(pres_form.replace(pref, ''))
             if count_syllables(without_prefix, true_syllabification=False) > 1 and without_prefix in greek_corpus:
-
                 prefix = [pref, prefixes_detachable[pref]]
                 pres_form = without_prefix
 
+    """
+        by weak I mean situation where very frequent verbs, mostly two syllables, 
+        have their own inflection and cannot be detached
+
+    """
     for pref in prefixes_detachable_weak:
         if pres_form.startswith(pref):
             without_prefix = remove_diaer(pres_form.replace(pref, ''))
             if count_syllables(without_prefix, true_syllabification=False) > 2 and without_prefix in greek_corpus:
-
                 prefix = [pref, prefixes_detachable_weak[pref]]
                 pres_form = without_prefix
 
-    if not greek_pattern.match(pres_form):
-        raise NotInGreekException
+    archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω',
+                          'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'μέλπω']
+    """
+        verbs that conditionally can be detached from their prefixes, mostly of logia
+    """
+
+    for pref in prefixes_before_augment:
+        if pres_form.startswith(pref):
+            without_prefix = remove_diaer(pres_form.replace(pref, ''))
+            if without_prefix in archaic_detachable:
+                prefix = [pref, prefixes_before_augment[pref]]
+                if pres_form == 'αποκαίω':
+                    ic(prefix)
+                pres_form = without_prefix
 
     if pres_form not in greek_corpus and pres_form[-2:] == 'άω':
         pres_form = pres_form[:-2] + 'ώ'
@@ -54,7 +87,8 @@ def create_all_basic_forms(pres_form: str) -> dict:
                          and pres_form[-2:] not in ['ει', 'εί']
                          and pres_form[-3:] not in ['ται', 'μαι']) \
             or pres_form[-4:] == 'νται' \
-            or pres_form not in greek_corpus:
+            or pres_form not in greek_corpus \
+            and pres_form not in ['ρρέω']:
         raise NotLegalVerbException
 
     verb_temp = {}
@@ -122,7 +156,6 @@ def create_all_basic_forms(pres_form: str) -> dict:
                                        intransitive_active=intransitive_active,
                                        modal_act=modal_act,
                                        modal_med=modal_med)
-
 
     if conjunctive_basic_forms:
 
@@ -221,6 +254,8 @@ def create_all_basic_forms(pres_form: str) -> dict:
     verb_temp[MODAL] = modal_act or modal_med
 
     if prefix:
+        if pres_form == 'καίω':
+            ic(pres_form, prefix)
         verbs_temp_updated = update_forms_with_prefix(verb_temp, prefix)
         verb_temp = verbs_temp_updated
 

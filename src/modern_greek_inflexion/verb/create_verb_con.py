@@ -8,7 +8,8 @@ from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, de
 from ..resources.resources import greek_corpus
 
 from ..resources.verb import conjugations, irregular_imperative_forms
-from .conjugations import create_imp_pass, recognize_past_conjugation
+from modern_greek_inflexion.verb.create.forms.all.persons import create_imp_pass
+from modern_greek_inflexion.verb.recognize import recognize_past_conjugation
 from ..resources.resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, \
     ACTIVE, \
     IMPERF, PASSIVE, CON1_PASS_MODAL, IND, CON2D_PASS, CON2E_PASS, PARAT1_PASS, PARAT2B_PASS, PARAT2D_PASS, \
