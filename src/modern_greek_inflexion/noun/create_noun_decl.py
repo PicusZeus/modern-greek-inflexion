@@ -21,7 +21,7 @@ def put_accent_on_unaccented_forms(forms: dict) -> dict:
 
 
 def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
-                          proper_name: bool = False) -> dict[Union[str, Any], dict[Any, Any]]:
+                          proper_name: bool = False) -> dict:
     """
     :param nom_sg: nominative singular
     :param gen_sg: genitive singular

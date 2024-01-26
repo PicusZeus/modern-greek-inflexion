@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
     where_is_accent
 from modern_greek_accentuation.augmentify import add_augment
@@ -14,8 +13,19 @@ from modern_greek_inflexion.resources.verb import irregular_active_aorists, irre
 
 def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, deponens: bool = False,
                               not_deponens: bool = True, modal_act: bool = False,
-                              modal_med: bool = False, alternative: bool = False) -> str | None:
-    aorist_basic_forms = None
+                              modal_med: bool = False, alternative: bool = False) -> str:
+    """
+    :param pres_form:
+    :param act_root:
+    :param passive_root:
+    :param deponens:
+    :param not_deponens:
+    :param modal_act:
+    :param modal_med:
+    :param alternative:
+    :return: aorist_basic_forms - active_alt,active_alt/passive_alt,passive_alt'
+    """
+    aorist_basic_forms = ''
     active_aor_forms, passive_aor_forms = [], []
 
     if not_deponens:
@@ -47,7 +57,8 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     length_ir_verb = len(ir_verb)
 
                     if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
-                        passive_aor_forms.extend(add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
+                        passive_aor_forms.extend(
+                            add_augment(pres_form[:-length_ir_verb] + irregular_passive_aorists[ir_verb]))
 
         if act_root and pres_form not in irregular_active_aorists and not alternative:
 
@@ -82,10 +93,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     aor = 'ε' + aor
                 active_aor_forms.append(put_accent_on_the_antepenultimate(aor))
 
-
-
-
-            # there are at least two instances where this algorithm can be confused by irregular imperative forms
+            # there are some instances where this algorithm can be confused by irregular imperative forms
             irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα', 'τρέχα', 'φεύγα')
 
             active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
@@ -96,7 +104,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
 
         if passive_root or passive_aor_forms:
 
-                # archaic_passive_aor = stem + 'ηκα'
+            # archaic_passive_aor = stem + 'ηκα'
 
             for stem in passive_root.split(','):
                 pass_aor_form = stem + 'ηκα'
@@ -116,7 +124,6 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     passive_aor_forms.extend(archaic_passive_aor)
 
             passive_aor_forms = [f for f in passive_aor_forms if f in greek_corpus or f + 'ν' in greek_corpus]
-
 
             if not passive_aor_forms:
 
@@ -144,7 +151,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
             active_aor_forms = put_accent_on_the_antepenultimate(act_root + 'α')
 
         # if passive_aor_form:
-        passive_aor_forms = list(set(passive_aor_forms))
+        passive_aor_forms = set(passive_aor_forms)
         passive_aor_forms = ','.join(passive_aor_forms)
 
         aorist_basic_forms = '/'.join([active_aor_forms, passive_aor_forms])
@@ -175,8 +182,6 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                 archaic_passive_aor = add_augment(archaic_passive_aor)
                 passive_aor_forms.extend(archaic_passive_aor)
             # filter out
-
-
 
             # ginomai, erxomai, kathomai
 

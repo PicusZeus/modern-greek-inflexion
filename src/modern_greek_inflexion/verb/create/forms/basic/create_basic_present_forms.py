@@ -11,7 +11,20 @@ from modern_greek_inflexion.verb.recognize import recognize_passive_present_cont
 
 def create_basic_present_forms(base_form: str, deponens: bool = False, not_deponens: bool = True,
                                intransitive_active: bool = False, modal_act: bool = False,
-                               modal_med: bool = False) -> Union[bool, tuple[str, Union[str, Any], Union[str, Any], bool]]:
+                               modal_med: bool = False) -> tuple[str, str, str, bool]:
+    """
+    :param base_form:
+    :param deponens:
+    :param not_deponens:
+    :param intransitive_active:
+    :param modal_act:
+    :param modal_med:
+    :return: present_basic_forms: str, pres_conjugation: str, root: str, intransitive_active: bool
+    """
+
+    present_basic_forms = ''
+    pres_conjugation = ''
+    root = ''
 
     if deponens:
         passive_conjugation = recognize_passive_present_continuous_conjugation(base_form)
@@ -97,7 +110,6 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         elif base_form in ['ρρέω', 'πηγνύω', 'ομνύω', 'βαίνω']:
             pres_pass_forms.append(f_p_pass)
 
-
         if f_p_pass_alt_1 and (f_p_pass_alt_1 in greek_corpus):
             pres_pass_forms.append(f_p_pass_alt_1)
         if f_p_pass_alt_2 and (f_p_pass_alt_2 in greek_corpus):
@@ -126,7 +138,4 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         # modals and others
         present_basic_forms = base_form
 
-    else:
-        return False
     return present_basic_forms, pres_conjugation, root, intransitive_active
-

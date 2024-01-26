@@ -1,3 +1,4 @@
+
 from modern_greek_inflexion.verb.create.forms.all.participles.create_aorist_participles import \
     create_passive_aorist_participle, \
     create_active_aorist_participle
@@ -14,9 +15,9 @@ from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_for
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_present_forms import create_basic_present_forms
 from modern_greek_inflexion.helpers import update_forms_with_prefix
-from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate
+from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.syllabify import count_syllables
-from modern_greek_accentuation.augmentify import deaugment_prefixed_stem, add_augment
+from modern_greek_accentuation.augmentify import deaugment_stem, deaugment_past_form
 from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, prefixes_before_augment
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
@@ -58,21 +59,35 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
             or pres_form not in greek_corpus:
         raise NotLegalVerbException
 
-    # prefixes - inflect without them
+    # prefixes
+    """ 
+    common logia verbs that create all the archaic forms also when prefixed 
+    """
     archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω', 'τρέπω',
                           'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
                           'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'στέλλομαι', 'στέκομαι',
                           'τρέπομαι', 'αίρομαι']
-    dimotik_detachable = ['παραβλέπω', 'παραείμαι']
+
+    """ 
+    special case for common verbs with modern "para" prefix, which can be confused with ancient "para" and cause
+    augmentation mistakes. These should be inflected also with 'alternative' flag to give different results
+    """
+    dimotik_detachable = [
+        'παραβλέπω', 'παραείμαι', 'παραβγαίνω', 'παρατρώω', 'παρατρώγω', 'παραμένω', 'παραλέω'
+    ]
+
+    """
+    some especially common verbs do not follow prefix logic
+    """
     undetachable = ['βλέπω']
-    prefix = False
+
+    prefix = []
+
     if not alternative:
         # force to create only from the given form
 
-
-
         """
-            verbs that conditionally can be detached from their prefixes, mostly of logia
+            verbs that conditionally can be detached from their prefixes, mostly of logia descend
         """
 
         for pref in prefixes_before_augment:
@@ -84,6 +99,9 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                     pres_form = without_prefix
 
     if not prefix and not alternative:
+        """
+        these prefixes, lika ξανα can be safely detached
+        """
 
         for pref in prefixes_detachable:
             if pres_form.startswith(pref):
@@ -97,7 +115,8 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
         """
             by weak I mean situation where very frequent verbs, mostly two syllables, 
-            have their own inflection and cannot be detached
+            have their own inflection and cannot be detached or there is possibility of 
+            internal augment
     
         """
         for pref in prefixes_detachable_weak:
@@ -112,23 +131,23 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
     verb_temp = {}
 
+    # defaults
+    # deponentia
     not_deponens = True
     deponens = False
     intransitive_active = False
-    if pres_form in ['είμαι', 'παραείμαι']:
-        deponens = False
-        not_deponens = True
-    elif 'μαι' == pres_form[-3:]:
-        #  deponens
+    modal_act = False
+    modal_med = False
+
+    if 'μαι' == pres_form[-3:] and pres_form not in ['είμαι', 'παραείμαι']:
+
         deponens = True
         not_deponens = False
 
-    modal_act = False
-    modal_med = False
-    if pres_form[-2:] in ['ει', 'εί']:
+    elif pres_form[-2:] in ['ει', 'εί']:
         modal_act = True
         not_deponens = False
-    if pres_form[-3:] == 'ται':
+    elif pres_form[-3:] == 'ται':
         modal_med = True
         not_deponens = False
 
@@ -143,7 +162,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                                                                                             modal_act=modal_act,
                                                                                             modal_med=modal_med)
 
-    if pres_form[:-1] in sum(irregular_passive_roots, []):
+    if pres_form[:-1] in irregular_passive_roots:
         intransitive_active = False
 
     pres_act = pres_pass = None
@@ -195,15 +214,12 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
                                                    not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med,
                                                    alternative=alternative)
-
+    aorist_active = []
     if aorist_basic_forms:
         verb_temp[AORIST] = {}
         aorist_active, aorist_passive = aorist_basic_forms.split('/')
         # some compoundse move accent or dont use augment
         aorist_active = aorist_active.split(',')
-
-
-
 
         aorist_passive = aorist_passive.split(',')
         if aorist_active and aorist_active[0]:
@@ -216,7 +232,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens,
                                                              not_deponens=not_deponens, modal_act=modal_act,
                                                              modal_med=modal_med, alternative=alternative)
-
+    paratatikos_active = []
     if paratatikos_basic_forms:
         paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')
         paratatikos_active = paratatikos_active.split(',')
@@ -251,8 +267,8 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
     # passive_perfect_participles
 
-    if PASSIVE_PERFECT_PARTICIPLE in verb_temp and verb_temp[PASSIVE_PERFECT_PARTICIPLE][-2:] in ['άς',
-                                                                                                      'άν'] and not modal:
+    if (PASSIVE_PERFECT_PARTICIPLE in verb_temp and
+            verb_temp[PASSIVE_PERFECT_PARTICIPLE][-2:] in ['άς', 'άν'] and not modal):
         # correcting improper categorization of part on an
 
         verb_temp[ACTIVE_AORIST_PARTICIPLE] = {act_root + 'άς/' + act_root + 'άσα/' + act_root + 'άν'}
@@ -290,22 +306,26 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
         verbs_temp_updated = update_forms_with_prefix(verb_temp, prefix)
         verb_temp = verbs_temp_updated
+        """
+        now we must deal with augment
+        """
         try:
-            aorist_active = verb_temp[AORIST][ACTIVE]
-            deaugmented = [deaugment_prefixed_stem(f) for f in aorist_active]
-            alternative_augmented = []
-            for deaug in deaugmented:
-                alternative_augmented.extend(add_augment(deaug))
-            alt_aorist_active = [f for f in alternative_augmented if f in greek_corpus]
+            # aorist
+            aorist_active_cmp = verb_temp[AORIST][ACTIVE]
+            alt_aorists = list(aorist_active_cmp)
+            alt_aorists.extend([put_accent_on_the_antepenultimate(prefix[0] + deaugment_past_form(f, pres_form)) for f in aorist_active])
+            alt_aorists.extend([put_accent_on_the_antepenultimate(f) for f in alt_aorists])
+
+            alt_aorist_active = [f for f in alt_aorists if f in greek_corpus]
             if alt_aorist_active:
                 verb_temp[AORIST][ACTIVE] = set(alt_aorist_active)
 
-            paratatikos_active = verb_temp[PARATATIKOS][ACTIVE]
-            deaugmented = [deaugment_prefixed_stem(f) for f in paratatikos_active]
-            alternative_augmented = []
-            for deaug in deaugmented:
-                alternative_augmented.extend(add_augment(deaug))
-            alt_paratatikos_active = [f for f in alternative_augmented if f in greek_corpus]
+            # paratatikos
+            paratatikos_active_cmp = verb_temp[PARATATIKOS][ACTIVE]
+            alt_paratatikos = list(paratatikos_active_cmp)
+            alt_paratatikos.extend([put_accent_on_the_antepenultimate(prefix[0] + deaugment_past_form(f, pres_form)) for f in paratatikos_active])
+
+            alt_paratatikos_active = [f for f in alt_paratatikos if f in greek_corpus]
             if alt_paratatikos_active:
                 verb_temp[PARATATIKOS][ACTIVE] = set(alt_paratatikos_active)
 
@@ -316,16 +336,12 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
             if alt_subjunctive_active:
                 verb_temp[CONJUNCTIVE][ACTIVE] = set(alt_subjunctive_active)
 
-            # pass_perf_part = verb_temp[PASSIVE_PERFECT_PARTICIPLE]
-            # verb_temp[PASSIVE_PERFECT_PARTICIPLE] = {p for p in pass_perf_part if p in greek_corpus or p[:-1] in greek_corpus}
-
         except KeyError:
             pass
-    
+
     if pres_form == 'όψομαι':
         del verb_temp[PARATATIKOS]
 
-    
     return verb_temp
 # create list of all verbs with their basic forms. Check them with existing forms and if they already exist,
 # leave them out

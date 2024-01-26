@@ -1,4 +1,3 @@
-from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, put_accent_on_the_antepenultimate, \
     remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment
@@ -30,8 +29,6 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
 
             if not alternative:
                 act_par.extend(add_augment(not_augmented_par))
-
-
 
             act_par = [f for f in act_par if not (count_syllables(
                 f, true_syllabification=False) == 2 and f[0] not in vowels)]
@@ -132,7 +129,6 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
         elif pres_conjugation == CON2E_PASS:
             pass_par = [root + 'άμην', root + 'όμουν']
             pass_par = [f for f in pass_par if f in greek_corpus]
-
 
         pass_par = set(pass_par)
         pass_par = ','.join(pass_par)

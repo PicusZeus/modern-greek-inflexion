@@ -1,15 +1,11 @@
-
 from __future__ import annotations
 
-from icecream import ic
 from typing import Any
 
 from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import *
-
-
 
 
 def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense: str = FIN,
@@ -31,7 +27,8 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
         conjugation_imp = IMPER_ACT_CONT_1
         conjugation_part = PRESENT_ACTIVE_PART_1
 
-    elif (verb.endswith('έω') or (verb.endswith('άω') and (count_syllables(verb, true_syllabification=False) == 2 or aspect == PERF))
+    elif (verb.endswith('έω') or (
+            verb.endswith('άω') and (count_syllables(verb, true_syllabification=False) == 2 or aspect == PERF))
           or verb.endswith('αίω') or verb.endswith('ακούω')):
         root = verb[:-1]
         conjugation_ind = CON2C_ACT

@@ -1,13 +1,10 @@
-
 from __future__ import annotations
 
-from icecream import ic
 from typing import Any
 
 from modern_greek_inflexion.exceptions import NotLegalVerbException
 
 from modern_greek_inflexion.resources.variables import *
-
 
 
 def recognize_passive_past_continuous_conjugation(lemma: str, verb: str) -> tuple[str, Any]:

@@ -17,15 +17,15 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 """
 
 
-def put_accent_in_all_forms(forms: dict, aceent) -> dict:
+def put_accent_in_all_forms(forms: dict, accent: str) -> dict:
     for num in forms.keys():
         for gender in forms[num].keys():
             for case, form in forms[num][gender].items():
-                forms[num][gender][case] = put_accent(form, accent_name=aceent, true_syllabification=True)
+                forms[num][gender][case] = put_accent(form, accent_name=accent, true_syllabification=True)
     return forms
 
 
-def alternative_forms_r(fem: str, accent) -> dict:
+def alternative_forms_r(fem: str, accent: str) -> dict:
     alt_forms = {SG: {
         FEM: {}
     }}
@@ -381,8 +381,7 @@ def put_accent_on_unaccented_forms(forms: dict) -> dict:
     return forms
 
 
-def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None] | tuple[Any, dict] |
-                                       tuple[dict, dict] | tuple[dict, None]):
+def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
     """
     :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesn't exist, it
      should be replaced with dash '-'
@@ -398,11 +397,6 @@ def create_all_adj_forms(adj: str) -> (tuple[Any, dict | None] | tuple[Any, None
     accent = where_is_accent(masc)
 
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
-        # if fem == '-':
-        #     # in my lists it sometimes happens, so this will be a solution
-        #     fem = masc[:-2] + 'η'
-        #     if fem[-2] in ['ι', 'ί']:
-        #         fem = masc[:-2] + 'α'
 
         # os, h/a, o
         forms[SG][MASC][NOM] = masc

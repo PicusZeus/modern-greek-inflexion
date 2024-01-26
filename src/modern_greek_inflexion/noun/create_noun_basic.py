@@ -18,7 +18,14 @@ greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
 def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: str | None = None,
-                                proper_name: bool = False):
+                                proper_name: bool = False) -> dict:
+    """
+    :param noun:
+    :param aklito:
+    :param gender:
+    :param proper_name:
+    :return: dictionary with basic info
+    """
 
     if not gender:
         if noun in nouns_masc_fem:

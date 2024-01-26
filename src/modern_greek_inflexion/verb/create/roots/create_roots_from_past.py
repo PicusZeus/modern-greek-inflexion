@@ -3,7 +3,7 @@ from __future__ import annotations
 from modern_greek_accentuation.augmentify import deaugment_stem, deaugment_prefixed_stem
 
 
-def create_roots_from_past(verb: str, lemma: str) -> list | None:
+def create_roots_from_past(verb: str, lemma: str) -> str | None:
     # argument only in 1st person
 
     res = None

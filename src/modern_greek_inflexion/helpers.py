@@ -9,7 +9,7 @@ from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAER
 from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL
 
 
-def dict_of_dicts_merge(x, y):
+def dict_of_dicts_merge(x: dict | set | str, y: dict | set | str) -> dict | set:
     z = {}
     if isinstance(x, set):
         if isinstance(y, set):
@@ -37,7 +37,7 @@ def dict_of_dicts_merge(x, y):
     return z
 
 
-def update_forms_with_prefix(verb_temp, prefix: [str]):
+def update_forms_with_prefix(verb_temp: dict, prefix: [str, str]) -> dict:
     new_dict = {}
     for key, item in verb_temp.items():
         if isinstance(item, set):
@@ -45,6 +45,7 @@ def update_forms_with_prefix(verb_temp, prefix: [str]):
             for form in item:
                 if count_syllables(form) == 1:
                     form = put_accent_on_syllable(form)
+
                 if form[0] in vowels:
                     if prefix[1][-1] + form[0] in diphtongs:
                         vowel_with_diaeresis = unicodedata.normalize("NFC", form[0] + DIAERESIS)
@@ -67,18 +68,18 @@ def update_forms_with_prefix(verb_temp, prefix: [str]):
     return new_dict
 
 
-def merging_all_dictionaries(*dics):
-    if len(dics) > 2:
-        first = dics[0]
-        second = dics[1]
-        rest = dics[2:]
+def merging_all_dictionaries(*dicts) -> dict | list[dict]:
+    if len(dicts) > 2:
+        first = dicts[0]
+        second = dicts[1]
+        rest = dicts[2:]
         merged = dict_of_dicts_merge(first, second)
         return merging_all_dictionaries(merged, *rest)
 
     else:
-        if len(dics) == 2:
+        if len(dicts) == 2:
 
-            merged = dict_of_dicts_merge(*dics)
+            merged = dict_of_dicts_merge(*dicts)
             result = dict_of_dicts_merge(merged, merged)
             if not result:
                 raise ValueError
@@ -86,21 +87,21 @@ def merging_all_dictionaries(*dics):
             # merging_all_dictionaries(res)
         else:
 
-            result = merging_all_dictionaries(dics[0], dics[0])
+            result = merging_all_dictionaries(dicts[0], dicts[0])
             if not result:
                 raise ValueError
 
         return result
 
 
-def check_perf_passive_subjunctive_in_corpus(perf_root: str) -> bool:
+def passive_subjunctive_exists(perf_root: str) -> bool:
     first_person = perf_root + 'ώ'
     third_person = perf_root + 'εί'
     perf_past_participle = perf_root[:-1] + 'μένος'
     return first_person in greek_corpus or third_person in greek_corpus or perf_past_participle in greek_corpus
 
 
-def check_perf_active_subjunctive_in_corpus(perf_root: str) -> bool:
+def active_subjunctive_exists(perf_root: str) -> bool:
     """
     :param perf_root:
     :return:
@@ -111,6 +112,15 @@ def check_perf_active_subjunctive_in_corpus(perf_root: str) -> bool:
     third_person = perf_root + 'ει'
 
     return first_person in greek_corpus or third_person in greek_corpus
+
+
+def active_subjunctive_sigmatic_exists(perf_root) -> bool:
+    if perf_root.startswith('εξ') and len(perf_root) > 5:
+        perf_root = perf_root[2:]
+    first_person = perf_root + 'ω'
+    third_person = perf_root + 'ει'
+    imperative = perf_root + 'ου'
+    return first_person in greek_corpus or third_person in greek_corpus or imperative in greek_corpus
 
 
 def compound_alternative_forms(forms: None | dict, sec_pos: str, forms_ind_or_con: dict,

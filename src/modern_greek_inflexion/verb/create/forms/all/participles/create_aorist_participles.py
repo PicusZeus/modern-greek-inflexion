@@ -16,11 +16,14 @@ def create_active_aorist_participle(_: str, act_roots: str) -> str:
         masc_wn = put_accent_on_the_ultimate(act_root + 'ων')
         fem_ousa = put_accent_on_the_penultimate(act_root + 'ουσα')
         neut_on = put_accent_on_the_ultimate(act_root + 'ον')
+
         if masc in greek_corpus and fem in greek_corpus:
             active_aorist_participles = masc + '/' + fem + '/' + neut
             # on as
-        elif masc_wn in greek_corpus and fem_ousa in greek_corpus and act_root[-1] \
-                not in ['σ', 'ξ', 'ψ'] and act_root not in ['πάρ']:
+        elif (act_root[-1] not in ['σ', 'ξ', 'ψ'] and
+              masc_wn in greek_corpus and
+              fem_ousa in greek_corpus and
+              act_root not in ['πάρ']):
 
             active_aorist_participles = masc_wn + '/' + fem_ousa + '/' + neut_on
 

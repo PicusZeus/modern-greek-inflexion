@@ -1,14 +1,9 @@
-
 from __future__ import annotations
-
 
 from typing import Any
 
-
 from modern_greek_inflexion.resources.variables import *
-from .recognize_passive_present_continuous_conjugation import recognize_passive_present_continuous_conjugation
 from .recognize_passive_past_continuous_conjugation import recognize_passive_past_continuous_conjugation
-
 
 
 def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,

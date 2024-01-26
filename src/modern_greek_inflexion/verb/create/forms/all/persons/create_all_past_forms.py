@@ -1,4 +1,4 @@
-from modern_greek_inflexion.resources import IND, ACTIVE, PASSIVE, DEPONENS, IMPERF, ROOT
+from modern_greek_inflexion.resources import IND, ACTIVE, PASSIVE, DEPONENS, IMPERF, ROOT, PARAT2_ACT
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
 from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_roots_from_past
 from modern_greek_inflexion.verb.recognize import recognize_past_conjugation

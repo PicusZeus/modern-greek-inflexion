@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, remove_all_diacritics, \
     put_accent_on_the_penultimate
@@ -21,7 +23,7 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
     :param root: verb root
     :param active_root: if pass, for imp, should be given if it's a special case, should be an array
     :param deaugmented_root: root without augment
-    :param simple_aor: sygmatic aorist
+    :param simple_aor: sigmatic aorist
     :return:
     """
 

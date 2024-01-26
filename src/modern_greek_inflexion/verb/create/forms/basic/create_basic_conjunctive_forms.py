@@ -6,13 +6,28 @@ from modern_greek_inflexion.resources.verb import irregular_passive_roots, depon
 from modern_greek_inflexion.verb.create import create_regular_perf_root
 
 
-def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=False, not_deponens=True,
-                                   intransitive_active=False, modal_act=False, modal_med=False, alternative=False):
-    act_root, passive_root = None, None
+def create_basic_conjunctive_forms(pres_form, pres_conjugation,
+                                   root, deponens=False, not_deponens=True,
+                                   intransitive_active=False, modal_act=False,
+                                   modal_med=False, alternative=False) -> tuple[str, str, str, str]:
+
+    """
+    :param pres_form:
+    :param pres_conjugation:
+    :param root:
+    :param deponens:
+    :param not_deponens:
+    :param intransitive_active:
+    :param modal_act:
+    :param modal_med:
+    :param alternative:
+    :return: conjunctive_basic_forms, perf_root, act_root, passive_root
+    """
+    conjunctive_basic_forms = ''
+    perf_root = ''
+    act_root, passive_root = '', ''
     active_perf_form = passive_perf_form = ''
 
-    conjunctive_basic_forms = None
-    perf_root = None
     if not_deponens:
 
         act_root = create_regular_perf_root(pres_form, voice=ACTIVE, alternative=alternative)
@@ -32,13 +47,9 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
                 act_perf_forms.append(active_perf_form)
             active_perf_form = ','.join(act_perf_forms)
 
-            # check for exv
-            # if pres_form[-3:] == 'έχω' and act_root + 'ει' not in greek_corpus:
-            #     active_perf_form = pres_form
-
         if not intransitive_active:
 
-            if passive_root or pres_form in irregular_passive_roots:
+            if passive_root:
 
                 if ',' in passive_root:
                     passive_perf_forms = []
@@ -134,9 +145,5 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation, root, deponens=F
 
         if perf_root:
             conjunctive_basic_forms = '/' + passive_root + 'εί'
-
-    # if passive_root and passive_root[-1] == 'τ':
-    #     if passive_root[:-1] + 'θώ' in greek_corpus or passive_root[:-1] + 'θεί' in greek_corpus:
-    #         passive_root = passive_root + ',' + passive_root[-1:] + 'θ'
 
     return conjunctive_basic_forms, perf_root, act_root, passive_root

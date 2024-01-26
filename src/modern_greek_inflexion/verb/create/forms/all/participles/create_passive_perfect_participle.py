@@ -7,20 +7,11 @@ from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_perfect_participles
 
 
-# def check_participle_existence(participle):
-#     return participle in greek_corpus or participle[:-1] in greek_corpus
-
-
-def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, passive_root: str) -> str | None:
+def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, passive_root: str) -> str:
     passive_perfect_participles = []
-    # reg_passive_perfect_participles = []
-    # check for irregularities
 
     if pres_form in irregular_passive_perfect_participles:
         return irregular_passive_perfect_participles[pres_form]
-        # if not :
-        #     return None
-        # passive_perfect_participles.append(irregular_passive_perfect_participles[pres_form])
 
     else:
         for pr_f in irregular_passive_perfect_participles.keys():
@@ -30,10 +21,6 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
                 part = pres_form[:-len(pr_f)] + irregular_passive_perfect_participles[pr_f]
 
                 passive_perfect_participles.append(part)
-                # part_aug = add_augment(part)
-                # for p in part_aug:
-                #     if check_participle_existence(p):
-                #         passive_perfect_participles.append(p)
 
     if passive_root:
 
@@ -108,13 +95,6 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
 
     passive_perfect_participles.extend(participles_augmented)
     passive_perfect_participles = [p for p in passive_perfect_participles if p in greek_corpus or p[:-1] in greek_corpus]
-        # these are all possible participles in masc sg!!!
-        # if 'παρμένος' in reg_passive_perfect_participles:
-        #     # since επαιρομαι is kinda περνομαι but not really, not an elegand trick, but if more such situations occure, better solution should be found
-        #     reg_passive_perfect_participles = ['παρμένος']
-        # reg_passive_perfect_participles = list(set(reg_passive_perfect_participles))
-    # if passive_perfect_participles:
-    #     reg_passive_perfect_participles.extend(passive_perfect_participles)
 
     return ",".join(passive_perfect_participles)
 

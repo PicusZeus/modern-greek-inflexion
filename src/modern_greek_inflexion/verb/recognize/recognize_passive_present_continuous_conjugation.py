@@ -1,8 +1,5 @@
-
 from __future__ import annotations
 
-from icecream import ic
-from modern_greek_accentuation.accentuation import remove_all_diacritics
 from typing import Any
 
 from modern_greek_inflexion.exceptions import NotLegalVerbException
@@ -10,10 +7,8 @@ from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import *
 
 
-
 def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | Any, str | Any]:
     verb = verb.strip()
-
 
     if verb != 'είμαι' and len(verb) < 6:
         # maybe unnecessary, but one more way to catch problematic input
