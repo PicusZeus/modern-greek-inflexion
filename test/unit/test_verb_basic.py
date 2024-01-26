@@ -1,17 +1,18 @@
 from unittest import TestCase, main
 
-from icecream import ic
+# from icecream import ic
 
 # from icecream import ic
 
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 
-verbs = ['εγκαταλείπω', 'βλέπω', 'λάμπω', 'λείπω', 'παραλείπω', 'προβλέπω', 'μετατρέπω', 'εκτρέπω', 'ρέπω', 'ελλείπω', 'ξαναβλέπω', 'ανατρέπω', 'παρατρέπω', 'μέλπω', 'θάλπω', 'προπέμπω', 'παραπέμπω', 'σπω', 'υποθάλπω', 'υποβλέπω', 'διέπω', 'διαβλέπω', 'επαναβλέπω', 'εκπέμπω', 'καταλάμπω', 'καταλείπω', 'εκλείπω', 'διαλείπω', 'καλοβλέπω', 'πρέπω', 'διαλάμπω', 'διαπρέπω', 'καταπέμπω', 'επιβλέπω', 'επιτρέπω', 'δρέπω', 'παραβλέπω', 'τέρπω', 'έρπω', 'αμφιρρέπω', 'αναβλέπω', 'αναλάμπω', 'τρέπω', 'προτρέπω', 'αναπέμπω', 'πέμπω', 'περιθάλπω', 'περιλάμπω', 'περιβλέπω', 'αντιλάμπω', 'αποτρέπω', 'αποπέμπω', 'αποβλέπω', 'απολείπω', 'προσβλέπω', 'πρωτοβλέπω', 'αγγελοβλέπω', 'επαναπέμπω', 'υφέρπω', 'σκέπω', 'συχνοβλέπω', 'αναμέλπω', 'ματαβλέπω', 'εκλάμπω', 'επανεκπέμπω']
-def print_verbs():
-    for v in verbs:
-        ic(v)
-        ic(verb.create_all_basic_forms(v))
+# verbs = ['κυλάω', 'μελετάω', 'μαδάω', 'μαρτυράω', 'μασάω', 'μασουλάω', 'μεθάω', 'μετράω', 'ορμάω', 'βαράω', 'βαστάω', 'βοσκάω', 'βογκάω', 'βοηθάω', 'βρωμάω', 'βροντάω', 'γαργαλάω', 'γελάω', 'γεννάω', 'γλεντάω', 'γλιστράω', 'γρατζουνάω', 'διψάω', 'κυνηγάω', 'ξοφλάω', 'σκάω', 'μπεζεράω', 'μπεκρολογάω', 'λησμονάω', 'χωράω', 'αγαπάω', 'αγκομαχάω', 'αγριοκοιτάω', 'αμολάω', 'ψοφάω', 'πάω', 'προφυλάω', 'θωράω', 'φωτάω', 'βυθάω', 'φυλάω', 'φτουράω', 'προγκάω', 'ξαμολάω', 'γερνάω', 'βρομάω', 'ξερνάω', 'πηδάω', 'ξεσπάω', 'κολλάω', 'κονομάω', 'σεργιανάω', 'κοπροσκυλάω', 'τηράω', 'συνάω', 'παραφυλάω', 'περεχάω', 'πολυχρονάω', 'μουρμουράω', 'πεινάω', 'χολοσκάω', 'μιλάω', 'σταματάω', 'ξεχνάω', 'πατάω', 'μαρκαλάω', 'μπουσουλάω', 'κρυφοκοιτάω', 'σπάω', 'πουλάω', 'ζουλάω', 'τολμάω', 'τσαλαβουτάω', 'πετάω', 'χαλάω', 'χτυπάω', 'λογυρνάω', 'κερνάω', 'ξυπνάω', 'περπατάω', 'τραβάω', 'πονάω', 'ξεπουλάω', 'καταπολεμάω', 'τσιμπάω', 'πολεμάω', 'ρουφάω', 'ξενυχτάω', 'ξεκινάω', 'φυσάω', 'τιμάω', 'κοτάω', 'πελεκάω', 'χρωστάω', 'ξεσκάω', 'οδηγάω', 'κολυμπάω', 'κυβερνάω', 'βουτάω', 'τραβολογάω', 'ροβολάω', 'κρεμάω', 'τσαμπουνάω', 'σκορπάω', 'ξετρυπάω', 'τσιλημπουρδάω', 'κελαηδάω', 'αγριομιλάω', 'περνάω', 'κατρακυλάω', 'πιλαλάω', 'πηλαλάω', 'κελαϊδάω', 'κωλοβαράω', 'νικάω', 'σφυράω', 'κουνάω', 'φιλάω', 'γκεζεράω', 'γκιζεράω', 'τριγυρνάω', 'σπαρταράω', 'ψηφάω', 'χιμάω', 'χυμάω', 'προχωράω', 'τσουλάω', 'φεγγοβολάω', 'γλεντοκοπάω', 'ζητάω', 'αρχινάω', 'συχνορωτάω', 'φοράω', 'μολογάω', 'γαμάω', 'μαυλάω', 'διαπερνάω', 'τσιγκλάω', 'προσκυνάω', 'απαντάω', 'μεταπουλάω', 'γρατσουνάω', 'νογάω', 'σκουντάω', 'εξαπατάω', 'ακουμπάω', 'κουβαλάω', 'αποκτάω', 'αποχτάω', 'πιτσιλάω', 'λιποθυμάω', 'απορροφάω', 'αποχαιρετάω', 'αποτολμάω', 'καυλοκοιτάω', 'κουδουνάω', 'στεναχωράω', 'βαρυγκομάω', 'βαρυγκωμάω', 'τσιμπολογάω', 'τρυπάω', 'κτυπάω', 'κλοτσάω', 'βρομοκοπάω', 'γλυκοφιλάω', 'λαμποκοπάω', 'ριζοβολάω', 'τριζοβολάω', 'τριζοκοπάω', 'πιπιλάω', 'καρδιοχτυπάω', 'αποπλανάω', 'κακοψυχάω', 'συναντάω', 'συναπαντάω', 'εξορμάω', 'ζεματάω', 'χοροπηδάω', 'ακολουθάω', 'συμπαθάω', 'κλουκουτάω', 'παρακινάω', 'συμπονάω', 'λακάω', 'ξεγελάω', 'σπαταλάω', 'κλωσάω', 'κλωσσάω', 'κινάω', 'κοιτάω', 'στραμπουλάω', 'στραγγουλάω', 'καλοπερνάω', 'κακοπερνάω', 'βογγάω', 'συγκολλάω', 'χαζογελάω', 'μεταπηδάω', 'τσινάω', 'αποκοτάω', 'λυσσομανάω', 'βλογάω', 'σαλαγάω', 'τσιληπουρδάω', 'προσπερνάω', 'κουτσουλάω', 'υπερπηδάω', 'κατουράω', 'ζουπάω', 'κορφολογάω', 'τραγουδάω', 'σχολάω', 'σκολνάω', 'σχολνάω', 'σκολάω', 'αγαναχτάω', 'παιζογελάω', 'λυγάω', 'σκαπετάω', 'ζεστοκοπάω', 'χρονομετράω', 'χαμογελάω', 'γυρνάω', 'ξεπερνάω', 'ξεφυσάω', 'ψευτοπερνάω', 'σκουντουφλάω', 'πετροβολάω', 'σπινθηροβολάω', 'χασκογελάω', 'κεντάω', 'λαλάω', 'χαϊντάω', 'σιγοτραγουδάω', 'καταντάω']
+
+# def print_verbs():
+#     for v in verbs:
+#         ic(v)
+#         ic(verb.create_all_basic_forms(v))
 
 
 class VerbTestBasic(TestCase):
@@ -30,6 +31,37 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_diegeirw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('διεγείρω'),
+            {'act_pres_participle': {'διεγείροντας'},
+             'aorist': {'active': {'διήγειρα', 'διέγειρα'}, 'passive': {'διεγέρθηκα'}},
+             'arch_act_pres_participle': {'διεγείρων/διεγείρουσα/διεγείρον'},
+             'conjunctive': {'active': {'διεγείρω'}, 'passive': {'διεγερθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'διήγειρα', 'διέγειρα'},
+                             'passive': {'διεγειρόμουν'}},
+             'pass_pres_participle': {'διεγειρόμενος'},
+             'passive_aorist_participle': {'διεγερθείς/διεγερθείσα/διεγερθέν'},
+             'passive_perfect_participle': {'διεγερμένος'},
+             'present': {'active': {'διεγείρω'}, 'passive': {'διεγείρομαι'}}}
+
+        )
+
+    def test_verb_aposurnw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('αποσύρω'),
+            {'act_pres_participle': {'αποσύροντας'},
+             'aorist': {'active': {'απέσυρα'}, 'passive': {'αποσύρθηκα'}},
+             'conjunctive': {'active': {'αποσύρω'}, 'passive': {'αποσυρθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'απέσυρα'}, 'passive': {'αποσυρόμουν'}},
+             'pass_pres_participle': {'αποσυρόμενος'},
+             'passive_aorist_participle': {'αποσυρθείς/αποσυρθείσα/αποσυρθέν'},
+             'passive_perfect_participle': {'αποσυρμένος'},
+             'present': {'active': {'αποσύρω'}, 'passive': {'αποσύρομαι'}}}
+
+        )
     def test_verb_wolodernw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('βωλοδέρνω'),
@@ -54,7 +86,130 @@ class VerbTestBasic(TestCase):
              'present': {'active': {'ξαναλέγω'}, 'passive': {'ξαναλέγομαι'}}},
 
         # print_verbs()
-        # ic(verb.create_all_basic_forms('παραβλέπω', alternative=False))
+        #
+        # ic(verb.create_all_basic_forms('εκπέμπομαι', alternative=False))
+
+
+        )
+
+    def test_verb_ekpempomai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('εκπέμπομαι'),
+            {'aorist': {'passive': {'εκπέμφθηκα'}},
+             'conjunctive': {'passive': {'εκπεμφθώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'εκπεμπόμουν'}},
+             'pass_pres_participle': {'εκπεμπόμενος'},
+             'present': {'passive': {'εκπέμπομαι'}}}
+
+        )
+
+    def test_verb_apokathairw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('αποκαθαίρω'),
+            {'act_pres_participle': {'αποκαθαίροντας'},
+             'aorist': {'active': {'αποκάθαρα'}},
+             'conjunctive': {'active': {'αποκαθάρω'}},
+             'modal': False,
+             'paratatikos': {'active': {'αποκάθαιρα'}, 'passive': {'αποκαθαιρόμουν'}},
+             'present': {'active': {'αποκαθαίρω'}, 'passive': {'αποκαθαίρομαι'}}}
+
+        )
+
+    def test_verb_aposperno(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('αποσπέρνω'),
+            {'act_pres_participle': {'αποσπέρνοντας'},
+             'aorist': {'active': {'απέσπειρα'}, 'passive': {'αποσπάρθηκα'}},
+             'conjunctive': {'active': {'αποσπείρω'}, 'passive': {'αποσπαρθώ', 'αποσπαρώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'απόσπερνα'}, 'passive': {'αποσπερνόμουν'}},
+             'pass_pres_participle': {'αποσπερνόμενος'},
+             'passive_aorist_participle': {'αποσπαρείς/αποσπαρείσα/αποσπαρέν',
+                                           'αποσπαρθείς/αποσπαρθείσα/αποσπαρθέν'},
+             'passive_perfect_participle': {'αποσπαρμένος', 'απεσπαρμένος'},
+             'present': {'active': {'αποσπέρνω'}, 'passive': {'αποσπέρνομαι'}}}
+
+        )
+    def test_verb_ferno(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('φέρνω'),
+            {'act_pres_participle': {'φέρνοντας'},
+             'aorist': {'active': {'έφερα'}, 'passive': {'φέρθηκα'}},
+             'conjunctive': {'active': {'φέρω'}, 'passive': {'φερθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'έφερνα'}, 'passive': {'φερνόμουν'}},
+             'passive_perfect_participle': {'φερμένος'},
+             'present': {'active': {'φέρνω'}, 'passive': {'φέρνομαι'}}}
+
+        )
+    def test_verb_diepo(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('διέπω'),
+            {'act_pres_participle': {'διέποντας'},
+             'aorist': {},
+             'conjunctive': {},
+             'modal': False,
+             'paratatikos': {'active': {'διείπα'}, 'passive': {'διεπόμουν'}},
+             'present': {'active': {'διέπω'}, 'passive': {'διέπομαι'}}}
+
+        )
+
+    def test_verb_anaggellw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('αναγγέλλω'),
+            {'act_pres_participle': {'αναγγέλλοντας'},
+             'active_aorist_participle': {'αναγγείλας/αναγγείλασα/αναγγείλαν'},
+             'aorist': {'active': {'ανήγγειλα', 'ανάγγειλα'},
+                        'passive': {'ανηγγέλθη', 'αναγγέλθηκα'}},
+             'arch_act_pres_participle': {'αναγγέλλων/αναγγέλλουσα/αναγγέλλον'},
+             'conjunctive': {'active': {'αναγγείλω'}, 'passive': {'αναγγελθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'ανήγγελλα', 'ανάγγελλα'},
+                             'passive': {'αναγγελλόμουν'}},
+             'pass_pres_participle': {'αναγγελλόμενος'},
+             'passive_aorist_participle': {'αναγγελθείς/αναγγελθείσα/αναγγελθέν'},
+             'passive_perfect_participle': {'αναγγελμένος'},
+             'present': {'active': {'αναγγέλλω'}, 'passive': {'αναγγέλλομαι'}}}
+
+        )
+
+    def test_verb_prwtoblepw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('πρωτοβλέπω'),
+            {'act_pres_participle': {'πρωτοβλέποντας'},
+             'aorist': {'active': {'πρωτοείδα'}},
+             'conjunctive': {'active': {'πρωτοδώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'πρωτοέβλεπα', 'πρωτόβλεπα'},
+                             'passive': {'πρωτοβλεπόμουν'}},
+             'present': {'active': {'πρωτοβλέπω'}, 'passive': {'πρωτοβλέπομαι'}}}
+
+        )
+
+    def test_verb_protrepw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('προτρέπω'),
+            {'act_pres_participle': {'προτρέποντας'},
+             'aorist': {'active': {'προέτρεψα'}, 'passive': {'προτράπηκα', 'προετράπη'}},
+             'conjunctive': {'active': {'προτρέψω'}, 'passive': {'προτραπώ'}},
+             'modal': False,
+             'passive_perfect_participle': {'προτετραμμένος'},
+             'paratatikos': {'active': {'προέτρεπα'}, 'passive': {'προτρεπόμουν'}},
+             'present': {'active': {'προτρέπω'}, 'passive': {'προτρέπομαι'}}}
+        )
+
+    def test_verb_periblepw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('περιβλέπω'),
+            {'act_pres_participle': {'περιβλέποντας'},
+             'aorist': {'active': {'περιέβλεψα'}},
+             'arch_act_pres_participle': {'περιβλέπων/περιβλέπουσα/περιβλέπον'},
+             'conjunctive': {'active': {'περιβλέψω'}},
+             'modal': False,
+             'paratatikos': {'active': {'περιέβλεπα'}},
+             'present': {'active': {'περιβλέπω'}}}
+
         )
 
     def test_verb_parablepw_dimotiko(self):
@@ -77,10 +232,10 @@ class VerbTestBasic(TestCase):
             {'act_pres_participle': {'παραβλέποντας'},
              'aorist': {'active': {'παραείδα'}, 'passive': {'παραειδώθηκα'}},
              'arch_act_pres_participle': {'παραβλέπων/παραβλέπουσα/παραβλέπον'},
-             'conjunctive': {'active': {'παραδώ'}, 'passive': {'παραιδωθώ'}},
+             'conjunctive': {'active': {'παραδώ'}, 'passive': {'παραϊδωθώ'}},
              'modal': False,
              'paratatikos': {'active': {'παραέβλεπα'}, 'passive': {'παραβλεπόμουν'}},
-             'passive_perfect_participle': {'παραιδωμένος'},
+             'passive_perfect_participle': {'παραϊδωμένος'},
              'present': {'active': {'παραβλέπω'}, 'passive': {'παραβλέπομαι'}}}
 
         )
@@ -99,7 +254,7 @@ class VerbTestBasic(TestCase):
              'modal': False,
              'paratatikos': {'active': {'απέκαιγα'}, 'passive': {'αποκαιγόμουν'}},
              'pass_pres_participle': {'αποκαιγόμενος'},
-             'passive_perfect_participle': {'αποκαμένος'},
+             'passive_perfect_participle': {'αποκεκαυμένος', 'αποκεκαμμένος', 'αποκαμένος'},
              'present': {'active': {'αποκαίω'}, 'passive': {'αποκαίγομαι'}}}
 
         )
@@ -128,6 +283,60 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_synchairw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('συγχαίρω'),
+            {'act_pres_participle': {'συγχαίροντας'},
+             'aorist': {'active': {'σύγχαρα'}, 'passive': {'συνεχάρη', 'συγχάρηκα'}},
+             'arch_act_pres_participle': {'συγχαίρων/συγχαίρουσα/συγχαίρον'},
+             'conjunctive': {'active': {'συγχάρω'}, 'passive': {'συγχαρώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'συνέχαιρα'}, 'passive': {'συγχαιρόμουν'}},
+             'pass_pres_participle': {'συγχαιρόμενος'},
+             'present': {'active': {'συγχαίρω'}, 'passive': {'συγχαίρομαι'}}}
+
+        )
+
+
+    def test_verb_serbirw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('σερβίρω'),
+            {'act_pres_participle': {'σερβίροντας'},
+             'aorist': {'active': {'σερβίρισα'}},
+             'conjunctive': {'active': {'σερβιρίσω'}},
+             'modal': False,
+             'paratatikos': {'active': {'σέρβιρα'}, 'passive': {'σερβιρόμουν'}},
+             'passive_perfect_participle': {'σερβιρισμένος'},
+             'present': {'active': {'σερβίρω'}, 'passive': {'σερβίρομαι'}}}
+
+        )
+
+    def test_verb_eksairw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('εξαίρω'),
+            {'act_pres_participle': {'εξαίροντας'},
+             'aorist': {'active': {'εξήρα'}, 'passive': {'εξήρθη', 'εξάρθηκα'}},
+             'conjunctive': {'active': {'εξάρω'}, 'passive': {'εξαρθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'εξήρα'}, 'passive': {'εξαιρόμουν'}},
+             'present': {'active': {'εξαίρω'}, 'passive': {'εξαίρομαι'}}}
+
+        )
+
+    def test_verb_diafthairw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('διαφθείρω'),
+            {'act_pres_participle': {'διαφθείροντας'},
+             'aorist': {'active': {'διέφθειρα'}, 'passive': {'διαφθάρηκα', 'διεφθάρη'}},
+             'conjunctive': {'active': {'διαφθείρω'}, 'passive': {'διαφθαρώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'διέφθειρα'}, 'passive': {'διαφθειρόμουν'}},
+             'pass_pres_participle': {'διαφθειρόμενος'},
+             'passive_aorist_participle': {'διαφθαρείς/διαφθαρείσα/διαφθαρέν'},
+             'passive_perfect_participle': {'διεφθαρμένος', 'διαφθαρμένος'},
+             'present': {'active': {'διαφθείρω'}, 'passive': {'διαφθείρομαι'}}}
+
+        )
 
     def test_verb_prosmeignuw(self):
         self.maxDiff = None
@@ -141,11 +350,13 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'προσμείγνυα'}, 'passive': {'προσμειγνυόμουν'}},
              'pass_pres_participle': {'προσμειγνυόμενος'},
              'passive_aorist_participle': {'προσμειχθείς/προσμειχθείσα/προσμειχθέν'},
-             'passive_perfect_participle': {'προσμεμειγμένος', 'προσμειγμένος'},
+             'passive_perfect_participle': {'προσμειγμένος', 'προσμεμειγμένος'},
+
              'present': {'active': {'προσμειγνύω'}, 'passive': {'προσμειγνύομαι'}}}
 
         )
     def test_verb_epanakrinw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_basic_forms('επανακρίνω'),
             {'act_pres_participle': {'επανακρίνοντας'},
@@ -157,7 +368,8 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'επανέκρινα'}, 'passive': {'επανακρινόμουν'}},
              'pass_pres_participle': {'επανακρινόμενος'},
              'passive_aorist_participle': {'επανακριθείς/επανακριθείσα/επανακριθέν'},
-             'passive_perfect_participle': {'επανακριμένος'},
+             'passive_perfect_participle': {'επανακριμένος', 'επανακεκριμένος'},
+
              'present': {'active': {'επανακρίνω'}, 'passive': {'επανακρίνομαι'}}}
 
         )
@@ -227,6 +439,7 @@ class VerbTestBasic(TestCase):
         )
 
     def test_verb_protopianw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_basic_forms('πρωτοπιάνω'),
             {'act_pres_participle': {'πρωτοπιάνοντας'},
@@ -341,18 +554,19 @@ class VerbTestBasic(TestCase):
         )
 
     def test_syntheto_toy_agw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_basic_forms('παραεισάγω'),
             {'act_pres_participle': {'παραεισάγοντας'},
              'aorist': {'active': {'παραεισήγαγα'},
-                        'passive': {'παραεισήχθη', 'παραεισάχθηκα'}},
+                        'passive': {'παραεισήχθη'}},
              'arch_act_pres_participle': {'παραεισάγων/παραεισάγουσα/παραεισάγον'},
              'conjunctive': {'active': {'παραεισαγάγω'}, 'passive': {'παραεισαχθώ'}},
              'modal': False,
              'paratatikos': {'active': {'παραεισήγα'}, 'passive': {'παραεισαγόμουν'}},
              'pass_pres_participle': {'παραεισαγόμενος'},
-             'passive_aorist_participle': {'παραεισαχθείς/παραεισαχθείσα/παραεισαχθέν'},
              'passive_perfect_participle': {'παραεισηγμένος'},
+
              'present': {'active': {'παραεισάγω'}, 'passive': {'παραεισάγομαι'}}}
 
         )
@@ -389,7 +603,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'τραγουδήσω'}, 'passive': {'τραγουδηθώ'}},
              'aorist': {'active': {'τραγούδησα'}, 'passive': {'τραγουδήθηκα'}},
              'paratatikos': {'active': {'τραγουδούσα', 'τραγούδαγα'}, 'passive': {'τραγουδιόμουν'}},
-             'act_pres_participle': {'τραγουδώντας'}, 'passive_perfect_participle': {'τραγουδημένος'},
+             'act_pres_participle': {'τραγουδώντας'}, 'passive_perfect_participle': {'τραγουδισμένος', 'τραγουδημένος'},
              'modal': False},
             # print_exw()
             # ic()
@@ -458,6 +672,21 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_diaspeirw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('διασπείρω'),
+            {'act_pres_participle': {'διασπείροντας'},
+             'aorist': {'active': {'διέσπειρα'}, 'passive': {'διασπάρθηκα'}},
+             'conjunctive': {'active': {'διασπείρω'}, 'passive': {'διασπαρώ', 'διασπαρθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'διέσπειρα'}, 'passive': {'διασπειρόμουν'}},
+             'passive_aorist_participle': {'διασπαρείς/διασπαρείσα/διασπαρέν',
+                                           'διασπαρθείς/διασπαρθείσα/διασπαρθέν'},
+             'passive_perfect_participle': {'διασπαρμένος'},
+             'present': {'active': {'διασπείρω'}, 'passive': {'διασπείρομαι'}}}
+
+        )
+
     def test_verb_thwrakizw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('θωρακίζω'),
@@ -466,8 +695,9 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'θωρακίσω'}, 'passive': {'θωρακισθώ', 'θωρακιστώ'}},
              'modal': False,
              'paratatikos': {'active': {'θωράκιζα'}, 'passive': {'θωρακιζόμουν'}},
-             'passive_perfect_participle': {'τεθωρακισμένος', 'θωρακισμένος'},
-             'present': {'active': {'θωρακίζω'}, 'passive': {'θωρακίζομαι'}}},
+             'passive_aorist_participle': {'θωρακισθείς/θωρακισθείσα/θωρακισθέν'},
+             'passive_perfect_participle': {'θωρακισμένος', 'τεθωρακισμένος'},
+             'present': {'active': {'θωρακίζω'}, 'passive': {'θωρακίζομαι'}}}
 
         )
 
@@ -594,14 +824,20 @@ class VerbTestBasic(TestCase):
         )
 
     def test_verb_douleuo(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_basic_forms('δουλεύω'),
-            {'present': {'active': {'δουλεύω'}, 'passive': {'δουλεύομαι'}},
-             'conjunctive': {'active': {'δουλέψω', 'δουλεύσω'}, 'passive': {'δουλευθώ', 'δουλευτώ'}},
-             'aorist': {'active': {'δούλευσα', 'δούλεψα'}, 'passive': {'δουλεύθηκα', 'δουλεύτηκα'}},
-             'paratatikos': {'active': {'δούλευα'}, 'passive': {'δουλευόμουν'}}, 'act_pres_participle': {'δουλεύοντας'},
-             'passive_perfect_participle': {'δουλευμένος', 'δεδουλευμένος'},
-             'active_aorist_participle': {'δουλεύσας/δουλεύσασα/δουλεύσαν'}, 'modal': False}
+            {'act_pres_participle': {'δουλεύοντας'},
+             'active_aorist_participle': {'δουλεύσας/δουλεύσασα/δουλεύσαν'},
+             'aorist': {'active': {'δούλευσα', 'δούλεψα'},
+                        'passive': {'δουλεύτηκα', 'δουλεύθηκα'}},
+             'conjunctive': {'active': {'δουλέψω', 'δουλεύσω'},
+                             'passive': {'δουλευτώ', 'δουλευθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'δούλευα'}, 'passive': {'δουλευόμουν'}},
+             'passive_aorist_participle': {'δουλευθείς/δουλευθείσα/δουλευθέν'},
+             'passive_perfect_participle': {'δεδουλευμένος', 'δουλεμένος', 'δουλευμένος'},
+             'present': {'active': {'δουλεύω'}, 'passive': {'δουλεύομαι'}}}
 
         )
 
@@ -653,13 +889,13 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'απέκλεισα', 'απόκλεισα'},
                         'passive': {'αποκλείστηκα', 'αποκλείσθηκα'}},
              'conjunctive': {'active': {'αποκλείσω'},
-                             'passive': {'αποκλεισθώ', 'αποκλειστώ'}},
+                             'passive': {'αποκλειστώ', 'αποκλεισθώ'}},
              'modal': False,
              'paratatikos': {'active': {'απέκλεια'}, 'passive': {'αποκλειόμουν'}},
              'pass_pres_participle': {'αποκλειόμενος'},
+             'passive_aorist_participle': {'αποκλεισθείς/αποκλεισθείσα/αποκλεισθέν'},
              'passive_perfect_participle': {'αποκλεισμένος'},
-             'present': {'active': {'αποκλείω'}, 'passive': {'αποκλείομαι'}}},
-            # ic(verb.create_all_basic_forms('αποκλείω'))
+             'present': {'active': {'αποκλείω'}, 'passive': {'αποκλείομαι'}}}
 
         )
 
@@ -850,11 +1086,14 @@ class VerbTestBasic(TestCase):
     def test_verb_kleptw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('κλέπτω'),
-            {'present': {'active': {'κλέπτω'}, 'passive': {'κλέπτομαι'}},
+            {'act_pres_participle': {'κλέπτοντας'},
+             'aorist': {'active': {'έκλεψα'}, 'passive': {'κλέφτηκα', 'εκλάπη', 'κλάπηκα'}},
              'conjunctive': {'active': {'κλέψω'}, 'passive': {'κλαπώ', 'κλεφτώ'}},
-             'aorist': {'active': {'έκλεψα'}, 'passive': {'κλέφτηκα', 'κλάπηκα', 'εκλάπη'}},
-             'paratatikos': {'active': {'έκλεπτα'}, 'passive': {'κλεπτόμουν'}}, 'act_pres_participle': {'κλέπτοντας'},
-             'passive_perfect_participle': {'κλεμμένος'}, 'modal': False},
+             'modal': False,
+             'paratatikos': {'active': {'έκλεπτα'}, 'passive': {'κλεπτόμουν'}},
+             'passive_aorist_participle': {'κλαπείς/κλαπείσα/κλαπέν'},
+             'passive_perfect_participle': {'κλεμμένος'},
+             'present': {'active': {'κλέπτω'}, 'passive': {'κλέπτομαι'}}}
 
         )
 
@@ -873,6 +1112,7 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'αντιπαραβαλλόμενος'},
              'passive_aorist_participle': {'αντιπαραβληθείς/αντιπαραβληθείσα/αντιπαραβληθέν'},
              'passive_perfect_participle': {'αντιπαραβεβλημένος'},
+
              'present': {'active': {'αντιπαραβάλλω'}, 'passive': {'αντιπαραβάλλομαι'}}}
 
         )
@@ -948,6 +1188,7 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'θάβω'}, 'passive': {'θάβομαι'}},
              'conjunctive': {'active': {'θάψω'}, 'passive': {'θαφθώ', 'θαφτώ', 'ταφώ'}},
              'aorist': {'active': {'έθαψα'}, 'passive': {'θάφτηκα', 'θάφθηκα', 'τάφηκα', 'ετάφη'}},
+             'passive_aorist_participle': {'ταφείς/ταφείσα/ταφέν'},
              'paratatikos': {'active': {'έθαβα'}, 'passive': {'θαβόμουν'}}, 'act_pres_participle': {'θάβοντας'},
              'passive_perfect_participle': {'θαμμένος'}, 'active_aorist_participle': {'θάψας/θάψασα/θάψαν'},
              'modal': False},
@@ -971,12 +1212,17 @@ class VerbTestBasic(TestCase):
     def test_verb_apallassw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('απαλλάσσω'),
-            {'present': {'active': {'απαλλάσσω'}, 'passive': {'απαλλάσσομαι'}},
-             'conjunctive': {'active': {'απαλλάξω'}, 'passive': {'απαλλαγώ', 'απαλλαχθώ', 'απαλλαχτώ'}},
-             'aorist': {'active': {'απάλλαξα'}, 'passive': {'απαλλάχθηκα', 'απηλλάγη', 'απαλλάχτηκα'}},
+            {'act_pres_participle': {'απαλλάσσοντας'},
+             'aorist': {'active': {'απάλλαξα'},
+                        'passive': {'απαλλάχτηκα', 'απαλλάχθηκα', 'απηλλάγη'}},
+             'conjunctive': {'active': {'απαλλάξω'},
+                             'passive': {'απαλλαχθώ', 'απαλλαχτώ', 'απαλλαγώ'}},
+             'modal': False,
              'paratatikos': {'active': {'απάλλασσα'}, 'passive': {'απαλλασσόμουν'}},
-             'act_pres_participle': {'απαλλάσσοντας'}, 'pass_pres_participle': {'απαλλασσόμενος'},
-             'passive_perfect_participle': {'απαλλαγμένος'}, 'modal': False},
+             'pass_pres_participle': {'απαλλασσόμενος'},
+             'passive_aorist_participle': {'απαλλαγείς/απαλλαγείσα/απαλλαγέν'},
+             'passive_perfect_participle': {'απαλλαγμένος'},
+             'present': {'active': {'απαλλάσσω'}, 'passive': {'απαλλάσσομαι'}}}
 
         )
 
@@ -1011,7 +1257,7 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'κατάστησα', 'κατέστησα'}, 'passive': {'κατέστη'}},
              'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
              'act_pres_participle': {'καθιστώντας'}, 'arch_act_pres_participle': {'καθιστών/καθιστώσα/καθιστών'},
-             'passive_perfect_participle': {'κατεστημένος'}, 'pass_pres_participle': {'καθιστάμενος'},
+             'passive_perfect_participle': {'κατεστημένος', 'καταστισμένος'}, 'pass_pres_participle': {'καθιστάμενος'},
              'modal': False},
 
         )
@@ -1047,6 +1293,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'αγάγω'}, 'passive': {'αχθώ'}},
              'aorist': {'active': {'ήγαγα'}, 'passive': {'ήχθη'}},
              'paratatikos': {'active': {'ήγα'}, 'passive': {'αγόμουν'}},
+             'passive_perfect_participle': {'ηγμένος'},
              'act_pres_participle': {'άγοντας'}, 'arch_act_pres_participle': {'άγων/άγουσα/άγον'},
              'pass_pres_participle': {'αγόμενος'}, 'modal': False},
 
@@ -1055,13 +1302,16 @@ class VerbTestBasic(TestCase):
     def test_verb_elegxw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('ελέγχω'),
-            {'present': {'active': {'ελέγχω'}, 'passive': {'ελέγχομαι'}},
-             'conjunctive': {'active': {'ελέγξω'}, 'passive': {'ελεγχτώ', 'ελεγχθώ'}},
+            {'act_pres_participle': {'ελέγχοντας'},
              'aorist': {'active': {'έλεγξα'}, 'passive': {'ελέγχτηκα', 'ελέγχθηκα'}},
-             'paratatikos': {'active': {'έλεγχα'}, 'passive': {'ελεγχόμουν'}}, 'act_pres_participle': {'ελέγχοντας'},
-             'arch_act_pres_participle': {'ελέγχων/ελέγχουσα/ελέγχον'}, 'pass_pres_participle': {'ελεγχόμενος'},
+             'arch_act_pres_participle': {'ελέγχων/ελέγχουσα/ελέγχον'},
+             'conjunctive': {'active': {'ελέγξω'}, 'passive': {'ελεγχθώ', 'ελεγχτώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'έλεγχα'}, 'passive': {'ελεγχόμουν'}},
+             'pass_pres_participle': {'ελεγχόμενος'},
+             'passive_aorist_participle': {'ελεγχθείς/ελεγχθείσα/ελεγχθέν'},
              'passive_perfect_participle': {'ελεγμένος'},
-             'modal': False},
+             'present': {'active': {'ελέγχω'}, 'passive': {'ελέγχομαι'}}}
 
         )
 
@@ -1154,12 +1404,14 @@ class VerbTestBasic(TestCase):
     def test_verb_xairw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('χαίρω'),
-            {'present': {'active': {'χαίρω'}, 'passive': {'χαίρομαι'}},
-             'conjunctive': {'active': {'χαίρω'}, 'passive': {'χαρώ'}},
-             'aorist': {'active': {'έχαιρα'}, 'passive': {'χάρηκα'}},
-             'paratatikos': {'active': {'έχαιρα'}, 'passive': {'χαιρόμουν'}}, 'act_pres_participle': {'χαίροντας'},
-             'arch_act_pres_participle': {'χαίρων/χαίρουσα/χαίρον'}, 'pass_pres_participle': {'χαρούμενος'},
-             'modal': False},
+            {'act_pres_participle': {'χαίροντας'},
+             'aorist': {'passive': {'χάρηκα'}},
+             'arch_act_pres_participle': {'χαίρων/χαίρουσα/χαίρον'},
+             'conjunctive': {'passive': {'χαρώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'έχαιρα'}, 'passive': {'χαιρόμουν'}},
+             'pass_pres_participle': {'χαρούμενος'},
+             'present': {'active': {'χαίρω'}, 'passive': {'χαίρομαι'}}}
 
         )
 
@@ -1177,11 +1429,16 @@ class VerbTestBasic(TestCase):
     def test_verb_sokaro(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('σοκάρω'),
-            {'present': {'active': {'σοκάρω'}, 'passive': {'σοκάρομαι'}},
-             'conjunctive': {'active': {'σοκάρω', 'σοκαρίσω'}, 'passive': {'σοκαρισθώ', 'σοκαριστώ'}},
-             'aorist': {'active': {'σοκάρισα', 'σόκαρα'}, 'passive': {'σοκαρίσθηκα', 'σοκαρίστηκα'}},
-             'paratatikos': {'active': {'σόκαρα'}, 'passive': {'σοκαρόμουν'}}, 'act_pres_participle': {'σοκάροντας'},
-             'passive_perfect_participle': {'σοκαρισμένος'}, 'modal': False},
+            {'act_pres_participle': {'σοκάροντας'},
+             'aorist': {'active': {'σόκαρα', 'σοκάρισα'},
+                        'passive': {'σοκαρίστηκα', 'σοκαρίσθηκα'}},
+             'conjunctive': {'active': {'σοκάρω', 'σοκαρίσω'},
+                             'passive': {'σοκαριστώ', 'σοκαρισθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'σόκαρα'}, 'passive': {'σοκαρόμουν'}},
+             'passive_aorist_participle': {'σοκαρισθείς/σοκαρισθείσα/σοκαρισθέν'},
+             'passive_perfect_participle': {'σοκαρισμένος'},
+             'present': {'active': {'σοκάρω'}, 'passive': {'σοκάρομαι'}}}
 
         )
 
@@ -1314,13 +1571,18 @@ class VerbTestBasic(TestCase):
         self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_basic_forms('εγγράφω'),
-            {'present': {'active': {'εγγράφω'}, 'passive': {'εγγράφομαι'}},
-             'conjunctive': {'active': {'εγγράψω'}, 'passive': {'εγγραφώ', 'εγγραφτώ'}},
-             'aorist': {'active': {'ενέγραψα'}, 'passive': {'εγγράφηκα', 'ενεγράφη', 'εγγράφτηκα'}},
+            {'act_pres_participle': {'εγγράφοντας'},
+             'active_aorist_participle': {'εγγράψας/εγγράψασα/εγγράψαν'},
+             'aorist': {'active': {'ενέγραψα'},
+                        'passive': {'ενεγράφη', 'εγγράφηκα', 'εγγράφτηκα'}},
+             'arch_act_pres_participle': {'εγγράφων/εγγράφουσα/εγγράφον'},
+             'conjunctive': {'active': {'εγγράψω'}, 'passive': {'εγγραφτώ', 'εγγραφώ'}},
+             'modal': False,
              'paratatikos': {'active': {'ενέγραφα', 'έγγραφα'}, 'passive': {'εγγραφόμουν'}},
-             'act_pres_participle': {'εγγράφοντας'}, 'arch_act_pres_participle': {'εγγράφων/εγγράφουσα/εγγράφον'},
-             'pass_pres_participle': {'εγγραφόμενος'}, 'passive_perfect_participle': {'εγγραμμένος', 'εγγεγραμμένος'},
-             'active_aorist_participle': {'εγγράψας/εγγράψασα/εγγράψαν'}, 'modal': False},
+             'pass_pres_participle': {'εγγραφόμενος'},
+             'passive_aorist_participle': {'εγγραφείς/εγγραφείσα/εγγραφέν'},
+             'passive_perfect_participle': {'εγγραμμένος', 'εγγεγραμμένος'},
+             'present': {'active': {'εγγράφω'}, 'passive': {'εγγράφομαι'}}}
 
         )
 
@@ -1372,7 +1634,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'κάψω'}, 'passive': {'καώ'}},
              'aorist': {'active': {'έκαψα'}, 'passive': {'καήκα', 'κάηκα'}},
              'paratatikos': {'active': {'έκαιγα'}, 'passive': {'καιγόμουν'}}, 'act_pres_participle': {'καίγοντας'},
-             'pass_pres_participle': {'καιγόμενος'}, 'passive_perfect_participle': {'καμένος'}, 'modal': False},
+             'pass_pres_participle': {'καιγόμενος'}, 'passive_perfect_participle': {'καμένος', 'κεκαυμένος', 'κεκαμμένος'}, 'modal': False},
 
         )
 
@@ -1450,10 +1712,14 @@ class VerbTestBasic(TestCase):
     def test_verb_diagrafomai(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('διαγράφομαι'),
-            {'present': {'passive': {'διαγράφομαι'}}, 'conjunctive': {'passive': {'διαγραφώ', 'διαγραφτώ'}},
-             'aorist': {'passive': {'διαγράφηκα', 'διεγράφη', 'διαγράφτηκα'}},
-             'paratatikos': {'passive': {'διαγραφόμουν'}}, 'pass_pres_participle': {'διαγραφόμενος'},
-             'passive_perfect_participle': {'διαγραμμένος', 'διαγεγραμμένος'}, 'modal': False},
+            {'aorist': {'passive': {'διαγράφτηκα', 'διεγράφη', 'διαγράφηκα'}},
+             'conjunctive': {'passive': {'διαγραφώ', 'διαγραφτώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'διαγραφόμουν'}},
+             'pass_pres_participle': {'διαγραφόμενος'},
+             'passive_aorist_participle': {'διαγραφείς/διαγραφείσα/διαγραφέν'},
+             'passive_perfect_participle': {'διαγεγραμμένος', 'διαγραμμένος'},
+             'present': {'passive': {'διαγράφομαι'}}}
 
         )
 

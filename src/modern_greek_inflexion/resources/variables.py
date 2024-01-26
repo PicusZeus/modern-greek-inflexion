@@ -87,6 +87,7 @@ PRESENT_ACTIVE_PART_EIMAI = "present_active_part_eimai"
 IMPER_ACT_EIMAI = 'imper_act_eimai'
 CON2AB = 'con2ab'
 CON1_ACT = "con1_act"
+CON1_PASS_ARCHAIC = "con1_pass_archaic"
 CON2A_ACT = 'con2a_act'
 CON2A_ACT_LOGIA = 'con2a_act_logia'
 CON2B_ACT = 'con2b_act'
@@ -160,3 +161,9 @@ WITHOUT_GEN_NEUT_I = 'without_gen_neut_i'
 
 ADJ_FEM_OS_ONLY = "adj_fem_os_only"
 ADJ_FEM_OS_ALSO = "adj_fem_os_also"
+
+ACT_PRES_PARTICIPLE = 'act_pres_participle'
+ARCH_ACT_PRES_PARTICIPLE = 'arch_act_pres_participle'
+PASSIVE_PERFECT_PARTICIPLE = 'passive_perfect_participle'
+ACTIVE_AORIST_PARTICIPLE = 'active_aorist_participle'
+PASSIVE_AORIST_PARTICIPLE = 'passive_aorist_participle'

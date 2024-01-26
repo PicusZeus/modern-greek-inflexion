@@ -1,29 +1,17 @@
 from __future__ import annotations
 
-import sys
+from icecream import ic
+from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, remove_all_diacritics, \
+    put_accent_on_the_penultimate
+from modern_greek_accentuation.augmentify import add_augment
+from modern_greek_accentuation.syllabify import count_syllables
 
-from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, \
-    count_syllables, remove_all_diacritics
-from modern_greek_accentuation.augmentify import add_augment, deaugment_stem, deaugment_prefixed_stem
-from ..resources.resources import greek_corpus
-
-from ..resources.verb import conjugations, irregular_imperative_forms
+from modern_greek_inflexion.resources import MODAL, CON1_PASS_MODAL, CON2A_ACT, IMPER_ACT_CONT_2A, greek_corpus, \
+    CON2B_ACT, IMPER_ACT_CONT_2B, ARCH_PASS_AOR, SG, CON1_PASS, PARAT1_PASS, PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS, \
+    CON2D_PASS, CON2C_ACT, IMPER_ACT_AOR_C, IMPER_ACT_CONT_2C, IMPER_ACT_CONT_1, IMPER_ACT_AOR_A, SEC, IMPER_ACT_AOR_B, \
+    PL, IMPER_PASS_AOR_A, CON2E_PASS, IMPER_ACT_AOR_CA, PRI, TER, CON1_PASS_ARCHAIC
+from modern_greek_inflexion.resources.verb import conjugations, irregular_imperative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons import create_imp_pass
-from modern_greek_inflexion.verb.recognize import recognize_past_conjugation
-from ..resources.resources import SG, SEC, PL, PRI, TER, CON2A_ACT, CON2B_ACT, CON2C_ACT, PARAT2_ACT, CON1_PASS, MODAL, \
-    ACTIVE, \
-    IMPERF, PASSIVE, CON1_PASS_MODAL, IND, CON2D_PASS, CON2E_PASS, PARAT1_PASS, PARAT2B_PASS, PARAT2D_PASS, \
-    ARCH_PASS_AOR, IMPER_ACT_CONT_2A, IMPER_PASS_AOR_A, IMPER_ACT_AOR_CA, IMPER_ACT_CONT_1, IMPER_ACT_CONT_2B, \
-    IMPER_ACT_CONT_2C, IMPER_ACT_AOR_A, IMPER_ACT_AOR_B, IMPER_ACT_AOR_C, PARAT2B_LOGIA, ROOT, DEPONENS
-
-forms_imp = {
-    SG: {
-        SEC: [],
-    },
-    PL: {
-        SEC: [],
-    }
-}
 
 
 def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | None = None,
@@ -68,7 +56,6 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
             for number in endings:
                 for person in endings[number]:
                     for alt_ending in endings[number][person]:
-
                         forms[number][person].append(root + alt_ending)
 
     if simple_aor:
@@ -104,8 +91,17 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                         #     put_accent_on_the_antepenultimate(form, true_syllabification=False))
 
     if conjugation_name in [CON1_PASS]:
+
         forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
         forms[PL][SEC][1] = put_accent_on_the_antepenultimate(forms[PL][SEC][1])
+        if remove_all_diacritics(root) + 'όμεθα' in greek_corpus:
+            endings = conjugations[CON1_PASS_ARCHAIC]
+            for number in endings:
+                for person in endings[number]:
+                    for ending in endings[number][person]:
+                        form = put_accent_on_the_antepenultimate(root + ending)
+                        forms[number][person].append(form)
+
 
     elif conjugation_name in [PARAT1_PASS]:
         forms[PL][TER][0] = put_accent_on_the_antepenultimate(forms[PL][TER][0])
@@ -203,77 +199,5 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                         forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:
                         print(sys.exc_info()[0])
-
-    return forms
-
-
-def create_roots_from_past(verb: str, lemma: str) -> list | None:
-    # argument only in 1st person
-
-    res = None
-    if verb[-1] in ['α']:
-        stem = verb[:-1]
-    else:
-        return None
-    deaugmented_stem = deaugment_stem(stem, lemma)
-
-    deaugmented_stem_prefixed = deaugment_prefixed_stem(stem)
-
-    if deaugmented_stem:
-        res = deaugmented_stem
-    elif deaugmented_stem_prefixed:
-        res = deaugmented_stem_prefixed
-
-    return res
-
-
-def create_all_past_forms(verb: str, lemma: str, aspect: str,
-                          deponens: bool = False) -> list[dict]:
-    verb = verb.split('/')
-    if len(verb) > 1:
-        act_verbs, pass_verbs = verb
-    else:
-        act_verbs = verb[0]
-        pass_verbs = None
-
-    sec_pos = IND
-    forms = []
-
-    if act_verbs:
-        simple_aor = True
-        voice = ACTIVE
-        diathesis = ACTIVE
-        for v in act_verbs.split(','):
-            v = v.strip()
-            if deponens and v not in ['έγινα', 'κάθισα', 'έκατσα', 'ήρθα', 'ήλθα']:
-                voice = PASSIVE
-                diathesis = DEPONENS
-                simple_aor = aspect != IMPERF
-            data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
-            conjugation = data['conjugation_ind']
-            if conjugation == PARAT2_ACT:
-                simple_aor = False
-
-            stem = data[ROOT]
-            deaugmented_stem = create_roots_from_past(v, lemma)
-
-            forms_ind = create_all_pers_forms(conjugation, stem, deaugmented_root=deaugmented_stem,
-                                              simple_aor=simple_aor)
-            forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})
-
-    if pass_verbs:
-        voice = PASSIVE
-        diathesis = PASSIVE
-        for v in pass_verbs.split(','):
-            v = v.strip()
-
-            data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice)
-            conjugation = data['conjugation_ind']
-            stem = data[ROOT]
-
-            not_paratatikos = aspect != IMPERF
-
-            forms_ind = create_all_pers_forms(conjugation, stem, simple_aor=not_paratatikos)
-            forms.append({'voice': diathesis, 'sec_pos': sec_pos, 'forms_ind': forms_ind})
 
     return forms

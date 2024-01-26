@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import unicodedata
+
 from copy import deepcopy
-from modern_greek_accentuation.resources import vowels
+from modern_greek_accentuation.resources import vowels, diphtongs
 from modern_greek_accentuation.syllabify import count_syllables
-from modern_greek_accentuation.accentuation import put_accent_on_syllable
+from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAERESIS
 from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL
 
 
@@ -44,6 +46,10 @@ def update_forms_with_prefix(verb_temp, prefix: [str]):
                 if count_syllables(form) == 1:
                     form = put_accent_on_syllable(form)
                 if form[0] in vowels:
+                    if prefix[1][-1] + form[0] in diphtongs:
+                        vowel_with_diaeresis = unicodedata.normalize("NFC", form[0] + DIAERESIS)
+                        form = vowel_with_diaeresis + form[1:]
+
                     new_form = '/'.join([prefix[1] + f for f in form.split('/')])
                 else:
                     new_form = '/'.join([prefix[0] + f for f in form.split('/')])
@@ -54,11 +60,12 @@ def update_forms_with_prefix(verb_temp, prefix: [str]):
 
             new_dict[key] = update_forms_with_prefix(item, prefix)
         elif isinstance(item, str):
-            #'ων/ούσα/ον'
+            # 'ων/ούσα/ον'
             new_dict[key] = '/'.join([prefix + f for f in item.split('/')])
         else:
             new_dict[key] = item
     return new_dict
+
 
 def merging_all_dictionaries(*dics):
     if len(dics) > 2:
@@ -86,7 +93,6 @@ def merging_all_dictionaries(*dics):
         return result
 
 
-
 def check_perf_passive_subjunctive_in_corpus(perf_root: str) -> bool:
     first_person = perf_root + 'ώ'
     third_person = perf_root + 'εί'
@@ -105,6 +111,7 @@ def check_perf_active_subjunctive_in_corpus(perf_root: str) -> bool:
     third_person = perf_root + 'ει'
 
     return first_person in greek_corpus or third_person in greek_corpus
+
 
 def compound_alternative_forms(forms: None | dict, sec_pos: str, forms_ind_or_con: dict,
                                forms_imp: dict | None) -> dict:
@@ -150,4 +157,3 @@ def compound_alternative_forms(forms: None | dict, sec_pos: str, forms_ind_or_co
 
 def check_personal_forms(first_p: str, third_p: str) -> bool:
     return first_p in greek_corpus or third_p in greek_corpus
-

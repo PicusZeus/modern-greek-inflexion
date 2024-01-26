@@ -50,7 +50,7 @@ MarkupSafe==2.1.2
 matplotlib-inline==0.1.6
 mdurl==0.1.2
 mistune==2.0.5
-modern-greek-accentuation==0.6.3
+modern-greek-accentuation==0.6.4
 more-itertools==9.0.0
 nbclassic==0.5.1
 nbclient==0.7.2

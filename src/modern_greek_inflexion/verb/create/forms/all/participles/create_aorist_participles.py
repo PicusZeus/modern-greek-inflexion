@@ -31,7 +31,10 @@ def create_active_aorist_participle(_: str, act_roots: str) -> str:
 
 
 def create_passive_aorist_participle(passive_root: str) -> str | None:
-    if passive_root + 'είσα' in greek_corpus:
+    if (passive_root + 'είσα' in greek_corpus or
+            passive_root + 'έντες' in greek_corpus or
+            passive_root + 'έντα' in greek_corpus or
+            passive_root in ['σπαρ']):
         return passive_root + 'είς/' + passive_root + 'είσα/' + passive_root + 'έν'
     else:
         return None

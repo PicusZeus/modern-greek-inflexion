@@ -158,12 +158,36 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
             perf_root = root[:-1] + 'σ'
             if perf_root + 'ω' not in greek_corpus and root[-2:] == 'ύν':
                 perf_root = root
+
+        elif root.endswith('έλν'):
+            perf_root = root[:-3] + 'είλ'
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-3] + 'άλ'
+                if not check_perf_active_subjunctive_in_corpus(perf_root):
+                    perf_root = ''
+
+        elif root.endswith('έρν'):
+            perf_root = root[:-3] + 'είρ'
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-3] + 'άρ'
+                if not check_perf_active_subjunctive_in_corpus(perf_root):
+                    perf_root = root[:-3] + 'ύρ'
+                    if not check_perf_active_subjunctive_in_corpus(perf_root):
+                        perf_root = root[:-3] + 'έρ'
+                        if not check_perf_active_subjunctive_in_corpus(perf_root):
+                            perf_root = ''
         elif root.endswith('ν'):
             if root.endswith('χν'):
                 perf_root = root[:-2] + 'ξ'
+            else:
+                perf_root = root[:-1]
+                if not check_perf_active_subjunctive_in_corpus(perf_root):
+                    perf_root = ''
 
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'γγ']:
             perf_root = root[:-2] + 'ξ'
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+                perf_root = ''
         elif root[-2:] in ['φτ', 'πτ']:
             perf_root = root[:-2] + 'ψ'
             if not check_perf_active_subjunctive_in_corpus(perf_root):
@@ -199,12 +223,11 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
 
             # if perf_root + 'ω' not in greek_corpus or perf_root + 'ει' not in greek_corpus:
             #     perf_root = ''
-        elif root.endswith('π'):
+
+        elif root[-1] in ['β', 'π', 'φ']:
             perf_root = root[:-1] + 'ψ'
             if not check_perf_active_subjunctive_in_corpus(perf_root):
                 perf_root = ''
-        elif root[-1] in ['β', 'π', 'φ']:
-            perf_root = root[:-1] + 'ψ'
         elif root[-2:] in ['εύ', 'αύ']:
             perf_root = root[:-2] + put_accent_on_syllable(root[-2]) + 'ψ'
             # alternative stem on eus
@@ -236,17 +259,44 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
             if not check_perf_active_subjunctive_in_corpus(perf_root):
                 perf_root = ''
 
-
-
-        elif root[-1] in ['ρ', 'μ', 'ψ', 'σ']:
+        elif root.endswith('μ'):
             perf_root = root
 
-            if root[-2:] == 'άρ':
-                # arisw
-                # if put_accent_on_the_penultimate(root + 'ισω') in greek_corpus or put_accent_on_the_antepenultimate(
-                #         root + 'ισε'):
-                perf_root = perf_root + ',' + put_accent_on_the_ultimate(root + 'ισ')
-                multiple_stems = True
+        elif root.endswith('άρ'):
+            perf_root = root + ',' + put_accent_on_the_ultimate(root + 'ισ')
+            multiple_stems = True
+
+        elif root.endswith('εύρ'):
+            perf_root = ''
+
+        elif root.endswith('φέρ'):
+            perf_root = root
+
+        elif root.endswith('έρ'):
+            perf_root = root[:-2] + 'είρ'
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+                perf_root = ''
+
+        elif root.endswith('είρ'):
+            perf_root = root
+
+        elif root.endswith('αίρ'):
+            perf_root = root[:-3] + 'άρ'
+
+        elif root.endswith('ύρ'):
+            perf_root = root
+
+
+        elif root.endswith('έρ'):
+            perf_root = root[:-2] + 'είρ'
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+                perf_root = ''
+
+        elif root.endswith('ρ'):
+            perf_root = put_accent_on_the_ultimate(root + 'ίσ')
+            if not check_perf_active_subjunctive_in_corpus(perf_root):
+                perf_root = ""
+
 
         elif root in ['επέστη']:
             # ancient form
@@ -367,11 +417,26 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
                 if not check_perf_passive_subjunctive_in_corpus(perf_root):
                     perf_root = root[:-1] + 'στ'
 
-        elif root.endswith('ν'):
-            if root.endswith('χν'):
-                perf_root = root[:-1] + 'θ'
+        elif root.endswith('ελν'):
+            perf_root = root[:-3] + 'αλθ'
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+
+                perf_root = root[:-3] + 'ελθ'
                 if not check_perf_passive_subjunctive_in_corpus(perf_root):
-                    perf_root = root[:-1] + 'τ'
+                    perf_root = ''
+
+        elif root.endswith('ερν'):
+            perf_root = root[:-3] + 'αρθ'
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-3] + 'ερθ'
+                if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                    perf_root = ''
+
+        elif root.endswith('ν'):
+            perf_root = root[:-1] + 'θ'
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-1] + 'τ'
+
         elif root[-2:] in ['σσ', 'ττ', 'σκ']:
             perf_root = root[:-2] + 'χτ'
             if not check_perf_passive_subjunctive_in_corpus(perf_root):
@@ -425,12 +490,14 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
                     perf_root = root + 'θ'
         elif root.endswith('ελλ'):
             perf_root = root[:-3] + 'αλθ'
-            if not check_perf_active_subjunctive_in_corpus(perf_root):
-                perf_root = ''
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-3] + 'ελθ'
+                if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                    perf_root = ''
 
         elif root.endswith('λλ'):
             perf_root = root[:-1] + 'θ'
-            if not check_perf_active_subjunctive_in_corpus(perf_root):
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
                 perf_root = ''
 
         elif root.endswith('εμ'):
@@ -438,14 +505,30 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
             if not check_perf_passive_subjunctive_in_corpus(perf_root):
                 perf_root = ''
 
-        elif root[-1] in ['ρ', 'λ', 'μ']:
-            if root + 'ηθώ' in greek_corpus:
-                perf_root = root + 'ηθ'
-            if root + 'ώ' in greek_corpus:
-                perf_root = root
-            if root[-2:] == 'αρ':
-                if root + 'ιστώ' in greek_corpus or root + 'ιστεί' in greek_corpus or root + 'ισμένος':
-                    perf_root = root + 'ιστ'
+        elif root.endswith('εuρ'):
+            perf_root = root + 'εθ'
+
+        elif root.endswith('αιρ'):
+
+            perf_root = root[:-3] + 'αρθ'
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-3] + 'αρ'
+
+        elif root.endswith('ειρ'):
+            perf_root = root[:-3] + 'αρθ'
+            if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                perf_root = root[:-3] + 'αρ'
+                if not check_perf_passive_subjunctive_in_corpus(perf_root):
+                    perf_root = root[:-3] + 'ερθ'
+
+        elif root.endswith('υρ'):
+            perf_root = root + 'θ'
+
+        elif root.endswith('αρ'):
+            perf_root = root + 'ιστ'
+
+
+
 
         if conjugation == CON2D_ACT:
             perf_root = root + 'ωθ'

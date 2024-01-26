@@ -1,1 +1,1 @@
-from .create_regular_perf_root import create_regular_perf_root
+from modern_greek_inflexion.verb.create.roots.create_regular_perf_root import create_regular_perf_root

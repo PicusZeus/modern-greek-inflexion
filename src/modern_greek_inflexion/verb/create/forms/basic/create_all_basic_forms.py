@@ -1,5 +1,3 @@
-from icecream import ic
-
 from modern_greek_inflexion.verb.create.forms.all.participles.create_aorist_participles import \
     create_passive_aorist_participle, \
     create_active_aorist_participle
@@ -22,7 +20,9 @@ from modern_greek_accentuation.augmentify import deaugment_prefixed_stem, add_au
 from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, prefixes_before_augment
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
-from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, CONJUNCTIVE
+from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, \
+    CONJUNCTIVE, ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, \
+    PASSIVE_AORIST_PARTICIPLE, IMP
 from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 
 import re
@@ -59,13 +59,18 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
         raise NotLegalVerbException
 
     # prefixes - inflect without them
-
+    archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω', 'τρέπω',
+                          'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
+                          'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'στέλλομαι', 'στέκομαι',
+                          'τρέπομαι', 'αίρομαι']
+    dimotik_detachable = ['παραβλέπω', 'παραείμαι']
+    undetachable = ['βλέπω']
     prefix = False
     if not alternative:
         # force to create only from the given form
 
-        archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω',
-                              'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'μέλπω', 'βαίνω']
+
+
         """
             verbs that conditionally can be detached from their prefixes, mostly of logia
         """
@@ -75,8 +80,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                 without_prefix = remove_diaer(pres_form.replace(pref, ''))
                 if without_prefix in archaic_detachable:
                     prefix = [pref, prefixes_before_augment[pref]]
-                    if pres_form == 'κατεβαίνω':
-                        ic(prefix)
+
                     pres_form = without_prefix
 
     if not prefix and not alternative:
@@ -84,7 +88,10 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
         for pref in prefixes_detachable:
             if pres_form.startswith(pref):
                 without_prefix = remove_diaer(pres_form.replace(pref, ''))
-                if count_syllables(without_prefix, true_syllabification=False) > 1 and without_prefix in greek_corpus:
+                num_syll = count_syllables(without_prefix, true_syllabification=False)
+                if without_prefix.endswith('αι'):
+                    num_syll -= 1
+                if num_syll > 1 and without_prefix not in undetachable and without_prefix in greek_corpus:
                     prefix = [pref, prefixes_detachable[pref]]
                     pres_form = without_prefix
 
@@ -96,7 +103,10 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
         for pref in prefixes_detachable_weak:
             if pres_form.startswith(pref):
                 without_prefix = remove_diaer(pres_form.replace(pref, ''))
-                if count_syllables(without_prefix, true_syllabification=False) > 2 and without_prefix in greek_corpus:
+                num_syll = count_syllables(without_prefix, true_syllabification=False)
+                if without_prefix.endswith('αι'):
+                    num_syll -= 1
+                if (num_syll > 2 and without_prefix in greek_corpus) or pres_form in dimotik_detachable:
                     prefix = [pref, prefixes_detachable_weak[pref]]
                     pres_form = without_prefix
 
@@ -223,14 +233,14 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     present_participle_active = create_present_active_participle(pres_form, root, pres_conjugation)
 
     if present_participle_active and not modal:
-        verb_temp['act_pres_participle'] = set(present_participle_active.split(','))
+        verb_temp[ACT_PRES_PARTICIPLE] = set(present_participle_active.split(','))
 
     # archaic praes part act
 
     present_participle_active_archaic = create_present_active_participle_arch(pres_form, root, pres_conjugation)
 
     if present_participle_active_archaic and not modal:
-        verb_temp['arch_act_pres_participle'] = set(present_participle_active_archaic.split(','))
+        verb_temp[ARCH_ACT_PRES_PARTICIPLE] = set(present_participle_active_archaic.split(','))
 
     # pres part pass
 
@@ -241,17 +251,17 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
     # passive_perfect_participles
 
-    if 'passive_perfect_participle' in verb_temp and verb_temp['passive_perfect_participle'][-2:] in ['άς',
+    if PASSIVE_PERFECT_PARTICIPLE in verb_temp and verb_temp[PASSIVE_PERFECT_PARTICIPLE][-2:] in ['άς',
                                                                                                       'άν'] and not modal:
         # correcting improper categorization of part on an
 
-        verb_temp['active_aorist_participle'] = {act_root + 'άς/' + act_root + 'άσα/' + act_root + 'άν'}
-        verb_temp['passive_perfect_participle'] = {''}
+        verb_temp[ACTIVE_AORIST_PARTICIPLE] = {act_root + 'άς/' + act_root + 'άσα/' + act_root + 'άν'}
+        verb_temp[PASSIVE_PERFECT_PARTICIPLE] = {''}
 
     passive_perfect_participles = create_passive_perfect_participle(pres_form, root, act_root, passive_root)
 
     if passive_perfect_participles and not modal:
-        verb_temp['passive_perfect_participle'] = set(passive_perfect_participles.split(','))
+        verb_temp[PASSIVE_PERFECT_PARTICIPLE] = set(passive_perfect_participles.split(','))
 
     # active aorist participle
 
@@ -259,13 +269,20 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
         active_aorist_participle = create_active_aorist_participle(root, act_root)
         if active_aorist_participle:
-            verb_temp['active_aorist_participle'] = set(active_aorist_participle.split(','))
+            verb_temp[ACTIVE_AORIST_PARTICIPLE] = set(active_aorist_participle.split(','))
 
     # passive aorist participle
     if passive_root and not modal:
-        passive_aorist_participle = create_passive_aorist_participle(passive_root)
-        if passive_aorist_participle:
-            verb_temp['passive_aorist_participle'] = set(passive_aorist_participle.split(','))
+
+        participles = set()
+        for p_root in passive_root.split(','):
+            participle = create_passive_aorist_participle(p_root)
+            if participle:
+                participles.add(participle)
+
+        # passive_aorist_participle = create_passive_aorist_participle(passive_root)
+        if participles:
+            verb_temp[PASSIVE_AORIST_PARTICIPLE] = participles
 
     verb_temp[MODAL] = modal_act or modal_med
 
@@ -274,34 +291,41 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
         verbs_temp_updated = update_forms_with_prefix(verb_temp, prefix)
         verb_temp = verbs_temp_updated
         try:
-            aorist_active = verb_temp['aorist']['active']
+            aorist_active = verb_temp[AORIST][ACTIVE]
             deaugmented = [deaugment_prefixed_stem(f) for f in aorist_active]
             alternative_augmented = []
             for deaug in deaugmented:
                 alternative_augmented.extend(add_augment(deaug))
             alt_aorist_active = [f for f in alternative_augmented if f in greek_corpus]
             if alt_aorist_active:
-                verb_temp['aorist']['active'] = set(alt_aorist_active)
+                verb_temp[AORIST][ACTIVE] = set(alt_aorist_active)
 
-            paratatikos_active = verb_temp['paratatikos']['active']
+            paratatikos_active = verb_temp[PARATATIKOS][ACTIVE]
             deaugmented = [deaugment_prefixed_stem(f) for f in paratatikos_active]
             alternative_augmented = []
             for deaug in deaugmented:
                 alternative_augmented.extend(add_augment(deaug))
             alt_paratatikos_active = [f for f in alternative_augmented if f in greek_corpus]
             if alt_paratatikos_active:
-                verb_temp['paratatikos']['active'] = set(alt_paratatikos_active)
+                verb_temp[PARATATIKOS][ACTIVE] = set(alt_paratatikos_active)
 
-            subjunctive_active = verb_temp['conjunctive']['active']
+            subjunctive_active = verb_temp[CONJUNCTIVE][ACTIVE]
             moved_accent = [put_accent_on_the_penultimate(f) for f in subjunctive_active]
 
             alt_subjunctive_active = [f for f in moved_accent if f in greek_corpus]
             if alt_subjunctive_active:
-                verb_temp['conjunctive']['active'] = set(alt_subjunctive_active)
+                verb_temp[CONJUNCTIVE][ACTIVE] = set(alt_subjunctive_active)
+
+            # pass_perf_part = verb_temp[PASSIVE_PERFECT_PARTICIPLE]
+            # verb_temp[PASSIVE_PERFECT_PARTICIPLE] = {p for p in pass_perf_part if p in greek_corpus or p[:-1] in greek_corpus}
 
         except KeyError:
             pass
+    
+    if pres_form == 'όψομαι':
+        del verb_temp[PARATATIKOS]
 
+    
     return verb_temp
 # create list of all verbs with their basic forms. Check them with existing forms and if they already exist,
 # leave them out
