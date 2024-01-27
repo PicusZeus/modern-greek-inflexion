@@ -1,19 +1,8 @@
-from unittest import TestCase, main
-
-from icecream import ic
-
-# from icecream import ic
-
-# from icecream import ic
+from unittest import TestCase
 
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
-#
-# verbs = ['ανταίνω']
-# def print_verbs():
-#     for v in verbs:
-#         ic(v)
-#         ic(verb.create_all_basic_forms(v))
+
 
 
 class VerbTestBasic(TestCase):
@@ -28,8 +17,7 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'είλκα'}, 'passive': {'ελκόμουν'}},
              'pass_pres_participle': {'ελκόμενος'},
              'passive_perfect_participle': {'ελεγμένος'},
-             'present': {'active': {'έλκω'}, 'passive': {'έλκομαι'}}}
-
+             'present': {'active': {'έλκω'}, 'passive': {'έλκομαι'}}},
         )
 
     def test_verb_diegeirw(self):
@@ -620,8 +608,6 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'τραγουδούσα', 'τραγούδαγα'}, 'passive': {'τραγουδιόμουν'}},
              'act_pres_participle': {'τραγουδώντας'}, 'passive_perfect_participle': {'τραγουδισμένος', 'τραγουδημένος'},
              'modal': False},
-            # print_exw()
-            # ic()
 
         )
 

@@ -17,7 +17,7 @@ from modern_greek_inflexion.verb.create.forms.basic.create_basic_present_forms i
 from modern_greek_inflexion.helpers import update_forms_with_prefix
 from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.syllabify import count_syllables
-from modern_greek_accentuation.augmentify import deaugment_stem, deaugment_past_form
+from modern_greek_accentuation.augmentify import deaugment_past_form
 from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, prefixes_before_augment
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots

@@ -3,12 +3,9 @@ from __future__ import annotations
 from modern_greek_inflexion.helpers import compound_alternative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
 from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_roots_from_past
-from modern_greek_inflexion.verb.recognize import recognize_passive_present_continuous_conjugation, \
-    recognize_active_non_past_conjugation, \
-    recognize_past_conjugation
-from modern_greek_inflexion.resources.resources import ACTIVE, PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, IMP, \
-    MODAL, CON1_ACT_MODAL, CON2_ACT_MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND, \
-    CONJUGATION_IMP, FIN
+from modern_greek_inflexion.verb.recognize import recognize_past_conjugation
+from modern_greek_inflexion.resources.resources import PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, \
+    MODAL, PARAT2_ACT, ROOT, IMPERF, PERF, CONJUGATION_IND
 from modern_greek_accentuation.resources import ULTIMATE
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate
 from modern_greek_inflexion.resources.resources import greek_corpus

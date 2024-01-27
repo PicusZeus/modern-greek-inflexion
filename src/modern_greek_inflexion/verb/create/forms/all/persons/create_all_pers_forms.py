@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import sys
-
-from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, remove_all_diacritics, \
     put_accent_on_the_penultimate
 from modern_greek_accentuation.augmentify import add_augment

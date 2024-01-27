@@ -2,7 +2,7 @@ from modern_greek_accentuation.accentuation import is_accented
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
 from modern_greek_inflexion.resources import greek_corpus, PASSIVE, CON1_ACT_MODAL, CON2_ACT_MODAL, ACTIVE
-from modern_greek_inflexion.resources.verb import irregular_passive_roots, deponens_with_active_perf_forms
+from modern_greek_inflexion.resources.verb import deponens_with_active_perf_forms
 from modern_greek_inflexion.verb.create import create_regular_perf_root
 
 

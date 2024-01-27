@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from typing import Any
-
 from modern_greek_inflexion.resources.variables import *
 from .recognize_passive_past_continuous_conjugation import recognize_passive_past_continuous_conjugation
 
 
 def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,
-                               voice: str = ACTIVE) -> dict[str | Any, str | Any]:
+                               voice: str = ACTIVE) -> dict:
     verb = verb.strip()
     root = verb[:-1]
 
