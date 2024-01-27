@@ -1,6 +1,6 @@
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_accentuation.accentuation import remove_all_diacritics, put_accent_on_the_penultimate
-
+from modern_greek_accentuation.syllabify import count_syllables
 
 def create_imp_pass(perf_pass_root: str) -> str:
     # useful for deponentia
@@ -21,7 +21,7 @@ def create_imp_pass(perf_pass_root: str) -> str:
     if form:
         form = remove_all_diacritics(form)
         form = put_accent_on_the_penultimate(form)
-    if form in greek_corpus:
+    if form in greek_corpus and count_syllables(form) > 1:
         return form
     else:
         return ''

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from icecream import ic
 from typing import Any
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
@@ -396,6 +397,7 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
         [fem, fem_alt] = fem.split(',')
     accent = where_is_accent(masc)
 
+
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
 
         # os, h/a, o
@@ -774,7 +776,7 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
 
         return forms, None
 
-    elif masc[-2:] in ['ων', 'ών', 'ας'] and fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων', 'αν']:
+    elif masc[-2:] in ['ων', 'ών', 'ας', 'άς'] and fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων', 'αν', 'άν']:
         # wn, ousa, on and as, asa, an
         feminins = fem.split(',')
         fem = feminins[0]
@@ -815,7 +817,7 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
 
         alternative_forms = None
 
-        if masc[-3:] in ['σας', 'ξας', 'ψας']:
+        if masc[-3:] in ['σας', 'ξας', 'ψας'] or (masc.endswith('άς')):
             alternative_forms = alternative_forms_modern_3rd(adj)
 
         if len(neuters) > 1 and len(feminins) > 1:

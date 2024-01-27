@@ -5,13 +5,17 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, p
 from modern_greek_inflexion.resources import greek_corpus
 
 
-def create_active_aorist_participle(_: str, act_roots: str) -> str:
+def create_active_aorist_participle(pres_root: str, act_roots: str) -> str:
     result = []
     for act_root in act_roots.split(','):
         active_aorist_participles = None
         masc = act_root + 'ας'
         fem = act_root + 'ασα'
         neut = act_root + 'αν'
+
+        masc_b = act_root + 'άς'
+        fem_b = act_root + 'άσα'
+        neut_b = act_root + 'άν'
 
         masc_wn = put_accent_on_the_ultimate(act_root + 'ων')
         fem_ousa = put_accent_on_the_penultimate(act_root + 'ουσα')
@@ -27,6 +31,8 @@ def create_active_aorist_participle(_: str, act_roots: str) -> str:
 
             active_aorist_participles = masc_wn + '/' + fem_ousa + '/' + neut_on
 
+        elif act_root.endswith('β') and pres_root == 'βαίν':
+            active_aorist_participles = masc_b + '/' + fem_b + '/' + neut_b
 
         if active_aorist_participles:
             result.append(active_aorist_participles)

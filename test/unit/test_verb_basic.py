@@ -5,7 +5,7 @@ from unittest import TestCase
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 #
-# verbs = ['εγκατασταίνω']
+# verbs = ['κατεβαίνω', 'μεταλαβαίνω', 'μεταβαίνω', 'υπερβαίνω']
 # def print_verbs():
 #     for v in verbs:
 #         ic(v)
@@ -28,6 +28,8 @@ class VerbTestBasic(TestCase):
             # print_verbs()
             # ic(verb.create_all_basic_forms('καυχώμαι'))
         )
+
+
 
     def test_verb_eksanistamai(self):
         self.maxDiff = None
@@ -544,6 +546,7 @@ class VerbTestBasic(TestCase):
             verb.create_all_basic_forms('παραβαίνω'),
             {'act_pres_participle': {'παραβαίνοντας'},
              'aorist': {'active': {'παραβήκα', 'παρέβη'}},
+             'active_aorist_participle': {'παραβάς/παραβάσα/παραβάν'},
              'arch_act_pres_participle': {'παραβαίνων/παραβαίνουσα/παραβαίνον'},
              'conjunctive': {'active': {'παραβώ'}},
              'modal': False,
@@ -557,6 +560,7 @@ class VerbTestBasic(TestCase):
             verb.create_all_basic_forms('υπερβαίνω'),
             {'act_pres_participle': {'υπερβαίνοντας'},
              'aorist': {'active': {'υπερέβη'}},
+             'active_aorist_participle': {'υπερβάς/υπερβάσα/υπερβάν'},
              'arch_act_pres_participle': {'υπερβαίνων/υπερβαίνουσα/υπερβαίνον'},
              'conjunctive': {'active': {'υπερβώ'}},
              'modal': False,
@@ -569,6 +573,7 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_all_basic_forms('εμβαίνω'),
             {'act_pres_participle': {'εμβαίνοντας'},
+             'active_aorist_participle': {'εμβάς/εμβάσα/εμβάν'},
              'aorist': {'active': {'εμβήκα', 'ενέβη'}},
              'arch_act_pres_participle': {'εμβαίνων/εμβαίνουσα/εμβαίνον'},
              'conjunctive': {'active': {'εμβώ'}},
@@ -1734,6 +1739,7 @@ class VerbTestBasic(TestCase):
             verb.create_all_basic_forms('επεμβαίνω'),
             {'act_pres_participle': {'επεμβαίνοντας'},
              'aorist': {'active': {'επέμβηκα', 'επεμβήκα', 'επενέβη'}},
+             'active_aorist_participle': {'επεμβάς/επεμβάσα/επεμβάν'},
              'arch_act_pres_participle': {'επεμβαίνων/επεμβαίνουσα/επεμβαίνον'},
              'conjunctive': {'active': {'επέμβω'}},
              'modal': False,
