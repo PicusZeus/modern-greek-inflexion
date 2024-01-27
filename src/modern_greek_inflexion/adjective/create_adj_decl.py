@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import copy
-from icecream import ic
-from typing import Any
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
     put_accent_on_the_penultimate, put_accent, count_syllables, put_accent_on_the_antepenultimate
