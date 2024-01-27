@@ -6,7 +6,7 @@ from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
     EIMAI, greek_corpus, CON2E_PASS, CON2D_PASS, CON2B_PASS, CON2A_PASS, CON1_PASS, CON2C_PASS, CON2AB_PASS
-from modern_greek_inflexion.resources.verb import irregular_active_paratatikos
+from modern_greek_inflexion.resources.verb import irregular_active_paratatikos, irregular_passive_paratatikos
 
 
 def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: str, deponens: bool = False,
@@ -106,7 +106,10 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
     elif deponens:
         pass_par = []
         root = remove_all_diacritics(root)
-        if pres_conjugation == CON1_PASS:
+        if pres_form in irregular_passive_paratatikos:
+            pass_par = [irregular_passive_paratatikos[pres_form]]
+
+        elif pres_conjugation == CON1_PASS:
             pass_par = [root + 'όμουν']
         elif pres_conjugation == CON2A_PASS:
             pass_par = [root + 'ιόμουν', root + 'ούμουν', root + 'όμουν']
@@ -120,6 +123,9 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
                 pass_par = [root + 'ούμουν']
         elif pres_conjugation in [CON2C_PASS, CON2AB_PASS]:
             pass_par = [root + 'όμουν']
+            alt_pass_par = root + 'ιόμουν'
+            if alt_pass_par in greek_corpus:
+                pass_par.append(alt_pass_par)
         elif pres_conjugation == CON2D_PASS:
             pass_par = [put_accent_on_the_penultimate(root + 'μην'), root[:-1] + 'όμουν', root + 'όμουν']
             pass_par.extend(add_augment(pass_par[0]))

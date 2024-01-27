@@ -1,3 +1,4 @@
+# from icecream import ic
 
 from modern_greek_inflexion.verb.create.forms.all.participles.create_aorist_participles import \
     create_passive_aorist_participle, \
@@ -66,7 +67,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω', 'τρέπω',
                           'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
                           'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'στέλλομαι', 'στέκομαι',
-                          'τρέπομαι', 'αίρομαι']
+                          'τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι', 'ίπταμαι']
 
     """ 
     special case for common verbs with modern "para" prefix, which can be confused with ancient "para" and cause

@@ -30,7 +30,8 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
- * 0.7.1   Redesigned and much improved verb module. More accurate but also more eager to reproduce participles.
+ * 0.7.1   Fixed bugs that prevented some verbs from creating present passive forms, also verbs of type 'ίσταμαι' now provide all the possible forms together with pass aor participle (stas, stasa, stan).
+ * 0.7.1-beta   Redesigned and much improved verb module. More accurate but also more eager to reproduce participles.
  * 0.6.15  Redesigned working with prefixes when creating basic verb forms.
  * 0.6.14  Modification in verb module, with special emphasis on syntheta from exw and agw, that sometimes were unrecognized correctly. Now fixed.
  * 0.6.13  Updated accentuation module, fixed issues with improper reduplication of pparticiples and some bug fixing in verb module.

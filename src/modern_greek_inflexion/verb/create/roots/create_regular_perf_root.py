@@ -525,20 +525,23 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
 
         if not passive_subjunctive_exists(perf_root):
 
-            if conjugation in [CON2A_ACT, CON2B_ACT, CON2B_PASS, CON2B_PASS, CON2A_PASS, CON2AB]:
+            if conjugation in [CON2A_ACT, CON2B_ACT, CON2B_PASS, CON2B_PASS, CON2A_PASS, CON2AB_PASS]:
                 perf_root = root + 'αστ'
                 if not passive_subjunctive_exists(perf_root):
                     perf_root = root + 'εστ'
                     if not passive_subjunctive_exists(perf_root):
-                        perf_root = root + "εθ"
+                        perf_root = root + "αθ"
                         if not passive_subjunctive_exists(perf_root):
-                            perf_root = root + "αχτ"
-                            if not passive_subjunctive_exists(perf_root):
-                                perf_root = root + "εχτ"
-                                if not passive_subjunctive_exists(perf_root):
-                                    perf_root = root + "ηχτ"
-                                    if not passive_subjunctive_exists(perf_root):
-                                        perf_root = root + "ιστ"
+                            perf_root = root + "εθ"
+
+                            if not passive_subjunctive_exists(perf_root) and conjugation not in [CON2AB_PASS]:
+                                perf_root = root + "αχτ"
+                                if not passive_subjunctive_exists(perf_root) and conjugation not in [CON2AB_PASS]:
+                                    perf_root = root + "εχτ"
+                                    if not passive_subjunctive_exists(perf_root) and conjugation not in [CON2AB_PASS]:
+                                        perf_root = root + "ηχτ"
+                                        if not passive_subjunctive_exists(perf_root) and conjugation not in [CON2AB_PASS]:
+                                            perf_root = root + "ιστ"
 
         # σπεσιαλ case for compounds with poiw
         if root[-3:] == 'ποι' and conjugation in [CON2B_ACT, CON2B_PASS]:

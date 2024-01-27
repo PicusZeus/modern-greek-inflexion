@@ -33,6 +33,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
 
             if pres_form in irregular_active_aorists:
                 active_aor_forms.append(irregular_active_aorists[pres_form])
+
             elif act_root and pres_form[-4:-2] != act_root[-3:-1]:
 
                 for ir_verb in irregular_active_aorists:
@@ -161,6 +162,8 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
             passive_root = act_root
         if passive_root:
 
+
+
             if ',' in passive_root:
                 passive_aor_forms = []
                 for stem in passive_root.split(','):
@@ -196,6 +199,10 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
                     passive_aor_forms = add_augment(passive_aor_forms)
 
             passive_aor_forms = [form for form in passive_aor_forms if form in greek_corpus]
+
+            if pres_form in irregular_passive_aorists:
+                passive_aor_forms.append(irregular_passive_aorists[pres_form])
+
             if not passive_aor_forms:
                 passive_aor_forms.append(put_accent_on_the_antepenultimate(passive_root.split(',')[0] + 'ηκα'))
             passive_aor_forms = ','.join(passive_aor_forms)

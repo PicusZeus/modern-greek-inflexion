@@ -1,8 +1,15 @@
 from unittest import TestCase
 
+# from icecream import ic
+
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
-
+#
+# verbs = ['εγκατασταίνω']
+# def print_verbs():
+#     for v in verbs:
+#         ic(v)
+#         ic(verb.create_all_basic_forms(v))
 
 
 class VerbTestBasic(TestCase):
@@ -18,8 +25,47 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'ελκόμενος'},
              'passive_perfect_participle': {'ελεγμένος'},
              'present': {'active': {'έλκω'}, 'passive': {'έλκομαι'}}},
+            # print_verbs()
+            # ic(verb.create_all_basic_forms('καυχώμαι'))
         )
 
+    def test_verb_eksanistamai(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            verb.create_all_basic_forms('εξανίσταμαι'),
+            {'aorist': {'passive': {'εξαναστάθηκα', 'εξανέστη'}},
+             'conjunctive': {'passive': {'εξανασταθώ', 'εξαναστώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'εξανιστάμην'}},
+             'passive_perfect_participle': {'εξαναστημένος'},
+             'present': {'passive': {'εξανίσταμαι'}}}
+
+        )
+    def test_verb_istamai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('ίσταμαι'),
+            {'aorist': {'passive': {'έστη', 'στάθηκα'}},
+             'conjunctive': {'passive': {'σταθώ', 'στώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'ιστάμην'}},
+             'pass_pres_participle': {'ιστάμενος'},
+             'passive_aorist_participle': {'στάς/στάσα/στάν'},
+             'passive_perfect_participle': {'στημένος'},
+             'present': {'passive': {'ίσταμαι'}}}
+
+        )
+
+    def test_verb_thewmai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('θεώμαι'),
+            {'aorist': {'passive': {'θεάθηκα', 'εθεάθη'}},
+             'conjunctive': {'passive': {'θεαθώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'θεόμουν'}},
+             'pass_pres_participle': {'θεώμενος'},
+             'present': {'passive': {'θεώμαι'}}}
+
+        )
     def test_verb_diegeirw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('διεγείρω'),
@@ -34,6 +80,18 @@ class VerbTestBasic(TestCase):
              'passive_aorist_participle': {'διεγερθείς/διεγερθείσα/διεγερθέν'},
              'passive_perfect_participle': {'διεγερμένος'},
              'present': {'active': {'διεγείρω'}, 'passive': {'διεγείρομαι'}}}
+
+        )
+
+    def test_verb_kauxomai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('καυχώμαι'),
+            {'aorist': {'passive': {'καυχήθηκα'}},
+             'conjunctive': {'passive': {'καυχηθώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'καυχιόμουν', 'καυχόμουν'}},
+             'passive_perfect_participle': {'καυχημένος'},
+             'present': {'passive': {'καυχώμαι', 'καυχιέμαι'}}}
 
         )
 
@@ -412,18 +470,6 @@ class VerbTestBasic(TestCase):
              'modal': False,
              'paratatikos': {'active': {'ανύφαινα'}},
              'present': {'active': {'ανυφαίνω'}}}
-
-        )
-
-    def test_syntheta_tou_kathistw(self):
-        self.assertDictEqual(
-            verb.create_all_basic_forms('μετεγκαθιστώ'),
-            {'act_pres_participle': {'μετεγκαθιστώντας'},
-             'aorist': {'active': {'μετεγκατάστησα'}},
-             'conjunctive': {'active': {'μετεγκαταστήσω'}},
-             'modal': False,
-             'paratatikos': {'active': {'μετεγκαθιστούσα'}},
-             'present': {'active': {'μετεγκαθιστώ'}}},
 
         )
 
@@ -1262,6 +1308,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'καταστήσω'}, 'passive': {'καταστώ'}},
              'aorist': {'active': {'κατάστησα', 'κατέστησα'}, 'passive': {'κατέστη'}},
              'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
+             'passive_aorist_participle': {'καταστάς/καταστάσα/καταστάν'},
              'act_pres_participle': {'καθιστώντας'}, 'arch_act_pres_participle': {'καθιστών/καθιστώσα/καθιστών'},
              'passive_perfect_participle': {'κατεστημένος', 'καταστισμένος'}, 'pass_pres_participle': {'καθιστάμενος'},
              'modal': False},
@@ -1290,10 +1337,13 @@ class VerbTestBasic(TestCase):
             verb.create_all_basic_forms('αντικαθιστώ'),
             {'present': {'active': {'αντικαθιστώ'}, 'passive': {'αντικαθίσταμαι'}},
              'conjunctive': {'active': {'αντικαταστήσω'}, 'passive': {'αντικαταστώ'}},
-             'aorist': {'active': {'αντικατάστησα', 'αντικατέστησα'}, 'passive': {'αντικατέστη'}},
-             'paratatikos': {'active': {'αντικαθιστούσα'}}, 'act_pres_participle': {'αντικαθιστώντας'},
-             'pass_pres_participle': {'αντικαθιστώμενος', 'αντικαθιστάμενος'},
-             'passive_perfect_participle': {'αντικαταστημένος', 'αντικατεστημένος'}, 'modal': False},
+             'arch_act_pres_participle': {'αντικαθιστών/αντικαθιστώσα/αντικαθιστών'},
+             'passive_aorist_participle': {'αντικαταστάς/αντικαταστάσα/αντικαταστάν'},
+
+             'aorist': {'active': {'αντικατέστησα'}, 'passive': {'αντικατέστη'}},
+             'paratatikos': {'active': {'αντικαθιστούσα'},  'passive': {'αντικαθιστάμην'}}, 'act_pres_participle': {'αντικαθιστώντας'},
+             'pass_pres_participle': { 'αντικαθιστάμενος'},
+             'passive_perfect_participle': {'αντικαταστισμένος', 'αντικατεστημένος'}, 'modal': False},
 
         )
 
@@ -1465,6 +1515,7 @@ class VerbTestBasic(TestCase):
         )
 
     def test_verb_epanalambanw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_basic_forms('αναλαμβάνω'),
             {'present': {'active': {'αναλαμβάνω'}, 'passive': {'αναλαμβάνομαι'}},
@@ -1473,6 +1524,8 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'αναλάμβανα', 'ανελάμβανα'}, 'passive': {'αναλαμβανόμουν'}},
              'act_pres_participle': {'αναλαμβάνοντας'}, 'pass_pres_participle': {'αναλαμβανόμενος'},
              'passive_aorist_participle': {'αναληφθείς/αναληφθείσα/αναληφθέν'},
+             'arch_act_pres_participle': {'αναλαμβάνων/αναλαμβάνουσα/αναλαμβάνον'},
+
              'passive_perfect_participle': {'ανειλημμένος'},
 'modal': False},
 

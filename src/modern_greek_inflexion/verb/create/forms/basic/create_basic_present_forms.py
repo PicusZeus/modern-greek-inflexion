@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+# from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate
 
 from modern_greek_inflexion.helpers import check_personal_forms
@@ -52,7 +53,7 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         elif pres_conjugation == CON2AB_PASS:
             f_p = root + 'ώμαι'
             th_p = root + 'άται'
-            f_p_alt = root + 'ιέσαι'
+            f_p_alt = root + 'ιέμαι'
             th_p_alt = root + 'ιέται'
 
         if check_personal_forms(f_p, th_p):

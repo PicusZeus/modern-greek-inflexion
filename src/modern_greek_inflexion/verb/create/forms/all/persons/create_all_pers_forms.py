@@ -104,7 +104,7 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
 
 
     elif conjugation_name in [PARAT1_PASS]:
-        forms[PL][TER][0] = put_accent_on_the_antepenultimate(forms[PL][TER][0])
+        forms[PL][TER][0] = put_accent_on_the_antepenultimate(forms[PL][TER][0], true_syllabification=False)
 
     elif conjugation_name in [PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS]:
         # add augment to archaic forms
