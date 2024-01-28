@@ -126,6 +126,7 @@ PARAT2B_PASS_LOGIA = 'parat2b_pass_logia'
 PARAT2C_PASS = 'parat2c_pass'
 PARAT2D_PASS = 'parat2d_pass'
 PARAT2E_PASS = 'parat2e_pass'
+PARAT2SA_PASS = "parat2sa_pass"
 IMPER_ACT_AOR_A = 'imper_act_aor_a'
 IMPER_ACT_AOR_B = 'imper_act_aor_b'
 IMPER_ACT_AOR_C = 'imper_act_aor_c'

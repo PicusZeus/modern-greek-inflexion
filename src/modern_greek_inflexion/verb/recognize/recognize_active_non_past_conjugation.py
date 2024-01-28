@@ -53,18 +53,29 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
             and verb[:-1] + 'ά' in greek_corpus or (verb[:-1] + 'άς' in greek_corpus or
                                                     verb[:-1] + 'άτε' in greek_corpus)) and aspect != PERF:
 
-            if verb[:-1] + 'άω' in greek_corpus:
+            if verb[:-1] + 'άω' in greek_corpus or verb[:-1] + 'άει' in greek_corpus:
                 conjugation_ind = CON2A_ACT
-            else:
+                conjugation_imp = IMPER_ACT_CONT_2A
+            # elif verb[:-1] + 'εί' in greek_corpus:
+            #     conjugation_ind =
+            elif (verb[:-1] + 'εί' not in greek_corpus and
+                  (verb[:-1] + 'άτε' in greek_corpus)):
                 conjugation_ind = CON2A_ACT_LOGIA
-            conjugation_imp = IMPER_ACT_CONT_2A
-            conjugation_part = PRESENT_ACTIVE_PART_2
+                conjugation_imp = IMPER_ACT_CONT_2A
 
-        elif verb[:-1] + 'είς' not in greek_corpus and verb[:-1] + 'οί' in greek_corpus and aspect != PERF:
-
+            # conjugation_part = PRESENT_ACTIVE_PART_2
+        archaic_ow = ['πληρώ', 'κυρώ', 'αξιώ', 'βιώ', 'γομώ', 'ζηλώ']
+        if aspect != PERF and True in [verb.endswith(v) for v in archaic_ow]:
+            # if (((verb[:-1] + 'είς' not in greek_corpus and count_syllables(verb) > 1)
+            #      and
+            #      (verb[:-1] + 'ώσω' in greek_corpus) and verb.endswith('πληρώ')) and
+            #         True in [verb.endswith(v) for v in archaic_ow]
+            #         and aspect != PERF):
             conjugation_ind = CON2D_ACT
             conjugation_imp = IMPER_ACT_CONT_2D
             conjugation_part = PRESENT_ACTIVE_PART_2
+
+
 
     elif verb[-1:] == 'ω':
 

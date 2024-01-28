@@ -1,3 +1,4 @@
+
 from .. import adjective
 from ..adjective.create_adj_decl import create_all_adj_forms
 from ..helpers import merging_all_dictionaries
@@ -32,7 +33,7 @@ def create_all_forms(verb: str, alternative: bool = False) -> dict:
 
     "present"
     present = {}
-
+    active_pres_con_ind = passive_pres_con_ind = None
     if 'error' in basic_forms:
         return {"error": f"verb {verb} is incorrect, probably doesnt exist in the corpus"}
     present_basic_forms = basic_forms['present']
@@ -40,18 +41,19 @@ def create_all_forms(verb: str, alternative: bool = False) -> dict:
     if ACTIVE in present_basic_forms:
         # only here, because we have lemma situation, all possible conjugation are also created
         # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
-        pres_act_forms = create_all_imperfect_personal_forms(present_basic_forms[ACTIVE], ACTIVE)
+        pres_act_forms, active_pres_con_ind = create_all_imperfect_personal_forms(present_basic_forms[ACTIVE], ACTIVE)
 
         present[ACTIVE] = pres_act_forms
     if PASSIVE in present_basic_forms:
         # here you can have more possible forms
-        pres_passive_forms = create_all_imperfect_personal_forms(present_basic_forms[PASSIVE], PASSIVE)
+        pres_passive_forms, passive_pres_con_ind = create_all_imperfect_personal_forms(present_basic_forms[PASSIVE], PASSIVE)
 
         present[PASSIVE] = pres_passive_forms
 
         if ACTIVE not in present_basic_forms:
             deponens = True
-
+    if verb == 'αρνιέμαι':
+        ic(passive_pres_con_ind)
     all_forms['present'] = present
     # CONJUNCTIVE
     if CONJUNCTIVE in basic_forms:
@@ -102,11 +104,11 @@ def create_all_forms(verb: str, alternative: bool = False) -> dict:
 
         if ACTIVE in paratatikos_basic_forms:
             paratatikos_active_forms = create_all_past_personal_forms(paratatikos_basic_forms[ACTIVE], verb, IMPERF,
-                                                                      ACTIVE)
+                                                                      ACTIVE, active_pres_con_ind)
             paratatikos[ACTIVE] = paratatikos_active_forms
         if PASSIVE in paratatikos_basic_forms:
             paratatikos_passive_forms = create_all_past_personal_forms(paratatikos_basic_forms[PASSIVE], verb,
-                                                                       IMPERF, PASSIVE)
+                                                                       IMPERF, PASSIVE, passive_pres_con_ind)
             paratatikos[PASSIVE] = paratatikos_passive_forms
         all_forms['paratatikos'] = paratatikos
 

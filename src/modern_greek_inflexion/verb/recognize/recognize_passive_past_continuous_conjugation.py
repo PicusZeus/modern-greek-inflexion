@@ -7,10 +7,15 @@ from modern_greek_inflexion.exceptions import NotLegalVerbException
 from modern_greek_inflexion.resources.variables import *
 
 
-def recognize_passive_past_continuous_conjugation(lemma: str, verb: str) -> tuple[str, Any]:
+def recognize_passive_past_continuous_conjugation(lemma: str, verb: str, pres_con: str) -> tuple[str, Any]:
     verb = verb.strip()
     root = None
-    if len(verb) >= 7 and 'ιόμουν' in verb[-7:]:
+
+    if pres_con == CON2SA_PASS:
+        conjugation_ind = PARAT2SA_PASS
+        root = verb[:-6]
+
+    elif len(verb) >= 7 and 'ιόμουν' in verb[-7:]:
         if verb[-1] == 'ν':
             root = verb[:-6]
         else:

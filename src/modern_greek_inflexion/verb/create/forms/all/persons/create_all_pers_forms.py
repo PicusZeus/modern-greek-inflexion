@@ -9,7 +9,7 @@ from modern_greek_accentuation.syllabify import count_syllables
 from modern_greek_inflexion.resources import MODAL, CON1_PASS_MODAL, CON2A_ACT, IMPER_ACT_CONT_2A, greek_corpus, \
     CON2B_ACT, IMPER_ACT_CONT_2B, ARCH_PASS_AOR, SG, CON1_PASS, PARAT1_PASS, PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS, \
     CON2D_PASS, CON2C_ACT, IMPER_ACT_AOR_C, IMPER_ACT_CONT_2C, IMPER_ACT_CONT_1, IMPER_ACT_AOR_A, SEC, IMPER_ACT_AOR_B, \
-    PL, IMPER_PASS_AOR_A, CON2E_PASS, IMPER_ACT_AOR_CA, PRI, TER, CON1_PASS_ARCHAIC
+    PL, IMPER_PASS_AOR_A, CON2E_PASS, IMPER_ACT_AOR_CA, PRI, TER, CON1_PASS_ARCHAIC, CON2A_PASS
 from modern_greek_inflexion.resources.verb import conjugations, irregular_imperative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons import create_imp_pass
 
@@ -44,6 +44,9 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                 if ending == 'ει' and person == SEC:
                     form = put_accent_on_the_penultimate(form, true_syllabification=False)
                 forms[number][person].append(form)
+
+    if conjugation_name == CON2A_PASS and root + 'ιούμαι' in greek_corpus:
+        forms[SG][PRI].append(root + 'ιούμαι')
 
     # check if a verb in 2nd conjugation active has alternative endings belonging to other type of the 2nd con
 
@@ -199,5 +202,6 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                         forms[number][person] = [form for form in forms[number][person] if form in greek_corpus]
                     except:
                         print(sys.exc_info()[0])
+                        raise Exception
 
     return forms

@@ -5,7 +5,7 @@ import unicodedata
 from copy import deepcopy
 from modern_greek_accentuation.resources import vowels, diphtongs
 from modern_greek_accentuation.syllabify import count_syllables
-from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAERESIS
+from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAERESIS, put_accent_on_the_antepenultimate
 from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL
 
 
@@ -97,8 +97,12 @@ def merging_all_dictionaries(*dicts) -> dict | list[dict]:
 def passive_subjunctive_exists(perf_root: str) -> bool:
     first_person = perf_root + 'ώ'
     third_person = perf_root + 'εί'
+    first_person_aor = put_accent_on_the_antepenultimate(perf_root + 'ηκα')
     perf_past_participle = perf_root[:-1] + 'μένος'
-    return first_person in greek_corpus or third_person in greek_corpus or perf_past_participle in greek_corpus
+    return (first_person in greek_corpus or
+            third_person in greek_corpus or
+            perf_past_participle in greek_corpus or
+            first_person_aor in greek_corpus)
 
 
 def active_subjunctive_exists(perf_root: str) -> bool:

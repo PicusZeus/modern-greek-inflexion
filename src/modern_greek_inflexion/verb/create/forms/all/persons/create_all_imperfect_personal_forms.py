@@ -6,7 +6,7 @@ from modern_greek_inflexion.verb.recognize import recognize_active_non_past_conj
     recognize_passive_present_continuous_conjugation
 
 
-def create_all_imperfect_personal_forms(verb: str, voice: str) -> dict:
+def create_all_imperfect_personal_forms(verb: str, voice: str) -> tuple[dict, str]:
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
@@ -24,6 +24,7 @@ def create_all_imperfect_personal_forms(verb: str, voice: str) -> dict:
 
     sec_pos = IND
     forms = None
+    con_ind = None
 
     for v in verb:
 
@@ -65,4 +66,4 @@ def create_all_imperfect_personal_forms(verb: str, voice: str) -> dict:
             raise ValueError
 
         forms = compound_alternative_forms(forms, sec_pos, forms_ind, forms_imp)
-    return forms
+    return forms, con_ind

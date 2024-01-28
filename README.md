@@ -31,6 +31,7 @@ Please make sure to update tests as appropriate.
 
 ## Change Log
 
+ * 0.8.1  Big update. A lot of changes in verb module in most aspects. Creating perf roots should be more reliable, also added full support for archaic conjugation on ow (πληρώ, ζηλώ, ισούμαι). 
  * 0.7.3-beta Verbs are now forced to create passive paratatikos if there is passive present. 
  * 0.7.3-alpha Fixed bug which prevented participle to decline properly, added athematic participle for bainw.
  * 0.7.2   Fixed bugs that prevented some verbs from creating present passive forms, also verbs of type 'ίσταμαι' now provide all the possible forms together with pass aor participle (stas, stasa, stan).

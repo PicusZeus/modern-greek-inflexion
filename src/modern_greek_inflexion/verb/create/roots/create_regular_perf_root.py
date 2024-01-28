@@ -1,36 +1,23 @@
 from __future__ import annotations
-
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.resources import prefixes_before_augment
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_active_roots, irregular_passive_roots
 from modern_greek_inflexion.resources.variables import *
-from modern_greek_inflexion.verb.recognize import (recognize_active_non_past_conjugation,
-                                                   recognize_passive_present_continuous_conjugation)
 from modern_greek_inflexion.helpers import passive_subjunctive_exists, \
     active_subjunctive_exists, active_subjunctive_sigmatic_exists
 
 
 def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str | None = None,
-                             alternative: bool = False) -> str | None:
+                             alternative: bool = False, pres_conjugation: str = None, root: str = None) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
     perf_root = None
     irregular = False
 
     multiple_stems = None
-    if verb[-1] in ['ω', 'ώ'] or verb[-2:] in ['ει', 'εί'] or verb[-5:] == 'είμαι':
-        res = recognize_active_non_past_conjugation(verb)
 
-    else:
-        res = recognize_passive_present_continuous_conjugation(verb)
-
-    if not res:
-        return None
-
-    root = res[ROOT]
-    conjugation = res['conjugation_ind']
-
+    conjugation = pres_conjugation
     if conjugation == MODAL:
         perf_root = root
 
@@ -264,6 +251,10 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
 
         elif root.endswith('αίρ'):
             perf_root = root[:-3] + 'άρ'
+            if not active_subjunctive_exists(perf_root) and root.endswith('χαίρ'):
+                perf_root = put_accent_on_the_ultimate(root + 'ησ')
+                if not active_subjunctive_exists(perf_root):
+                    perf_root = ''
 
         elif root.endswith('ύρ'):
             perf_root = root
@@ -284,22 +275,22 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
             # ancient form
             perf_root = root
 
-    elif conjugation in [CON2A_ACT, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
+    elif conjugation in [CON2A_ACT, CON2A_ACT_LOGIA, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
             not perf_root:
 
         perf_root = root + 'ήσ'
 
         # εξαιρέσεις
-        if (conjugation in [CON2A_ACT, CON2A_PASS] and
+        if (conjugation in [CON2A_ACT, CON2A_PASS, CON2A_ACT_LOGIA] and
                 not active_subjunctive_sigmatic_exists(perf_root) and
-                root[-2:] in ['χν', 'ρν']):
+                root[-2:] in ['χν', 'ρν', 'λν']):
             perf_root = root[:-1] + 'άσ'
 
-        if (conjugation in [CON2A_ACT, CON2B_ACT] and
+        if (conjugation in [CON2A_ACT, CON2B_ACT, CON2A_ACT_LOGIA] and
                 not active_subjunctive_sigmatic_exists(perf_root)):
             perf_root = root + 'ήξ'
 
-            if (conjugation in [CON2B_ACT, CON2A_ACT] and
+            if (conjugation in [CON2B_ACT, CON2A_ACT, CON2A_ACT_LOGIA] and
                     not active_subjunctive_sigmatic_exists(perf_root)):
 
                 perf_root = root + 'ίσ'
@@ -515,12 +506,15 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
 
     if voice == PASSIVE and \
             conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,
-                            CON2C_PASS, CON2AB_PASS] and not irregular:
+                            CON2C_PASS, CON2AB_PASS, CON2A_ACT_LOGIA, CON2SA_PASS] and not irregular:
 
         perf_root = root + 'ηθ'
 
         if root[-2:] in ['ρν', 'χν'] and not passive_subjunctive_exists(perf_root):
             perf_root = root[:-1] + 'αστ'
+
+        if conjugation == CON2SA_PASS:
+            perf_root = root + 'ωθ'
         # εξαιρέσεις
 
         if not passive_subjunctive_exists(perf_root):
@@ -540,12 +534,15 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
                                     perf_root = root + "εχτ"
                                     if not passive_subjunctive_exists(perf_root) and conjugation not in [CON2AB_PASS]:
                                         perf_root = root + "ηχτ"
-                                        if not passive_subjunctive_exists(perf_root) and conjugation not in [CON2AB_PASS]:
+                                        if not passive_subjunctive_exists(perf_root) and conjugation not in [
+                                            CON2AB_PASS]:
                                             perf_root = root + "ιστ"
 
         # σπεσιαλ case for compounds with poiw
         if root[-3:] == 'ποι' and conjugation in [CON2B_ACT, CON2B_PASS]:
             perf_root = root + 'ηθ'
+            multiple_stems = True
+
         perf_root = remove_all_diacritics(perf_root)
 
     if verb.endswith('βαίνω') and verb[:-5] in prefixes_before_augment:
@@ -555,14 +552,9 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
         return
 
     if perf_root:
-        if (perf_root + 'ω' in greek_corpus or
-            perf_root + 'ώ' in greek_corpus or
-            perf_root + 'εί' in greek_corpus or
-            perf_root[:-1] + 'μένος' in greek_corpus or
+        if (active_subjunctive_exists(perf_root) or
+            passive_subjunctive_exists(perf_root) or
             multiple_stems or
-            (count_syllables(root) > 1
-             and conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT]
+            (conjugation in [CON2A_ACT, CON2B_ACT, CON1_ACT]
              and voice == ACTIVE)) or perf_root in ['β']:
             return perf_root
-
-

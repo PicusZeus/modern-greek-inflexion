@@ -5,7 +5,7 @@ from .recognize_passive_past_continuous_conjugation import recognize_passive_pas
 
 
 def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,
-                               voice: str = ACTIVE) -> dict:
+                               voice: str = ACTIVE, pres_con: str = None) -> dict:
     verb = verb.strip()
     root = verb[:-1]
 
@@ -32,7 +32,7 @@ def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,
             root = verb[:-1]
 
     if voice == PASSIVE and aspect == IMPERF:
-        root, conjugation_ind = recognize_passive_past_continuous_conjugation(lemma, verb)
+        root, conjugation_ind = recognize_passive_past_continuous_conjugation(lemma, verb, pres_con)
 
     return {'aspect': aspect, 'voice': voice, 'tense': PAST, ROOT: root,
             'conjugation_ind': conjugation_ind}

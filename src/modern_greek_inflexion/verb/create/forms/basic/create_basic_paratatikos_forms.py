@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, put_accent_on_the_antepenultimate, \
     remove_all_diacritics
 from modern_greek_accentuation.augmentify import add_augment
@@ -5,13 +7,14 @@ from modern_greek_accentuation.resources import vowels, prefixes_before_augment
 from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
-    EIMAI, greek_corpus, CON2E_PASS, CON2D_PASS, CON2B_PASS, CON2A_PASS, CON1_PASS, CON2C_PASS, CON2AB_PASS
+    EIMAI, greek_corpus, CON2E_PASS, CON2D_PASS, CON2B_PASS, CON2A_PASS, CON1_PASS, CON2C_PASS, CON2AB_PASS, CON2SA_PASS
 from modern_greek_inflexion.resources.verb import irregular_active_paratatikos, irregular_passive_paratatikos
 
 
 def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: str, deponens: bool = False,
                                    not_deponens: bool = True, modal_act: bool = False,
-                                   modal_med: bool = False, has_passive: bool = True, alternative: bool = False) -> str:
+                                   modal_med: bool = False, has_passive: bool = True,
+                                   alternative: bool = False) -> str | None:
     paratatikos_basic_forms = None
 
     if not_deponens:
@@ -47,7 +50,10 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
 
         elif pres_conjugation == CON2A_ACT_LOGIA:
             act_par = [root + 'ούσα']
-            pass_par = [root + 'άμην']
+            pass_par = [root + 'όμουν']
+            if root + 'άμην' in greek_corpus or root + 'άτο' in greek_corpus:
+                pass_par.append(root + 'άμην')
+
 
         elif pres_conjugation in [CON2B_ACT, CON2D_ACT]:
             act_par = [root + 'ούσα']
@@ -55,7 +61,7 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             if pres_conjugation == CON2B_ACT and root[-1] == 'ι':
                 if root + 'ούμουν' in greek_corpus:
                     pass_par.append(root + 'όμουν')
-                else:
+                elif has_passive:
                     pass_par = [root + 'όμουν']
 
         elif pres_conjugation == CON2C_ACT:
@@ -86,7 +92,7 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
                 act_par_all.append(pres_form[:-3] + 'είχα')
             else:
                 act_par_all.append(put_accent_on_the_antepenultimate(root + 'α'))
-        elif not act_par_all and pres_conjugation in [CON2A_ACT, CON2B_ACT]:
+        elif not act_par_all and pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2A_ACT_LOGIA, CON2D_ACT]:
             act_par_all.append(put_accent_on_the_penultimate(root + 'ούσα'))
 
         elif not act_par_all and pres_conjugation == CON2C_ACT:
@@ -94,14 +100,17 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
                 act_par_all.append(put_accent_on_the_antepenultimate(root + 'γα'))
             else:
                 act_par_all.append(put_accent_on_the_antepenultimate('ε' + root + 'γα'))
-
+        elif not act_par_all:
+            ic(pres_form, pres_conjugation)
         if pres_form in irregular_active_paratatikos:
             act_par_all = [irregular_active_paratatikos[pres_form]]
 
         if not has_passive:
-            pass_par = [f for f in pass_par if f in greek_corpus]
+            pass_par = []
         act_par = ','.join(act_par_all)
+
         pass_par = ','.join(pass_par)
+
 
         paratatikos = '/'.join([act_par, pass_par])
         if root[-3:] == 'ποι':
@@ -122,6 +131,8 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             pass_par = [f for f in pass_par if f in greek_corpus]
             if not pass_par:
                 pass_par = [root + 'ιόμουν']
+        elif pres_conjugation == CON2SA_PASS:
+            pass_par = [root + 'ούμουν']
         elif pres_conjugation == CON2B_PASS:
             pass_par = [root + 'ούμουν', root + 'ιόμουν']
             pass_par = [f for f in pass_par if f in greek_corpus]

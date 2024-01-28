@@ -30,10 +30,12 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation,
 
     if not_deponens:
 
-        act_root = create_regular_perf_root(pres_form, voice=ACTIVE, alternative=alternative)
+        act_root = create_regular_perf_root(pres_form, voice=ACTIVE, alternative=alternative,
+                                            pres_conjugation=pres_conjugation, root=root)
 
         if not intransitive_active and not pres_form.endswith('βαίνω'):
-            passive_root = create_regular_perf_root(pres_form, voice=PASSIVE, alternative=alternative)
+            passive_root = create_regular_perf_root(pres_form, voice=PASSIVE, alternative=alternative,
+                                                    pres_conjugation=pres_conjugation, root=root)
 
         if act_root:
 
@@ -74,7 +76,7 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation,
 
     elif deponens:
 
-        passive_root = create_regular_perf_root(pres_form, voice=PASSIVE)
+        passive_root = create_regular_perf_root(pres_form, voice=PASSIVE, pres_conjugation=pres_conjugation, root=root)
 
         if passive_root:
             if ',' in passive_root:
@@ -111,9 +113,9 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation,
 
     elif modal_act:
         if pres_conjugation == CON1_ACT_MODAL:
-            act_root = create_regular_perf_root(root + 'ω', voice=ACTIVE)
+            act_root = create_regular_perf_root(root + 'ω', voice=ACTIVE, pres_conjugation=pres_conjugation, root=root)
         elif pres_conjugation == CON2_ACT_MODAL:
-            act_root = create_regular_perf_root(root + 'ώ', voice=ACTIVE)
+            act_root = create_regular_perf_root(root + 'ώ', voice=ACTIVE, pres_conjugation=pres_conjugation, root=root)
 
         if act_root:
             active_perf_form = act_root + 'ει'
@@ -128,19 +130,26 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation,
     elif modal_med:
         perf_root = None
         if pres_form[-4:] == 'εται':
-            perf_root = create_regular_perf_root(root + 'ομαι', PASSIVE)
+            perf_root = create_regular_perf_root(root + 'ομαι', PASSIVE,
+                                                 pres_conjugation=pres_conjugation, root=root)
             if perf_root and perf_root + 'εί' not in greek_corpus:
-                perf_root = create_regular_perf_root(root + 'μαι', PASSIVE)
+                perf_root = create_regular_perf_root(root + 'μαι', PASSIVE,
+                                                     pres_conjugation=pres_conjugation, root=root)
         elif pres_form[-5:] == 'είται':
-            perf_root = create_regular_perf_root(root + 'ούμαι', PASSIVE)
+            perf_root = create_regular_perf_root(root + 'ούμαι', PASSIVE,
+                                                 pres_conjugation=pres_conjugation, root=root)
         elif pres_form[-4:] == 'άται':
-            perf_root = create_regular_perf_root(root + 'άμαι', PASSIVE)
+            perf_root = create_regular_perf_root(root + 'άμαι', PASSIVE,
+                                                 pres_conjugation=pres_conjugation, root=root)
             if perf_root and perf_root + 'εί' not in greek_corpus:
-                perf_root = create_regular_perf_root(root + 'ώμαι', PASSIVE)
+                perf_root = create_regular_perf_root(root + 'ώμαι', PASSIVE,
+                                                     pres_conjugation=pres_conjugation, root=root)
         elif pres_form[-4:] == 'αται':
-            perf_root = create_regular_perf_root(root + 'αμαι', PASSIVE)
+            perf_root = create_regular_perf_root(root + 'αμαι', PASSIVE,
+                                                 pres_conjugation=pres_conjugation, root=root)
         elif pres_form[-3:] == 'ται':
-            perf_root = create_regular_perf_root(root + 'μαι', PASSIVE)
+            perf_root = create_regular_perf_root(root + 'μαι', PASSIVE,
+                                                 pres_conjugation=pres_conjugation, root=root)
         passive_root = perf_root
 
         if perf_root:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from modern_greek_accentuation.resources import vowels
 from typing import Any
 
 from modern_greek_inflexion.exceptions import NotLegalVerbException
@@ -9,6 +10,10 @@ from modern_greek_inflexion.resources.variables import *
 
 def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | Any, str | Any]:
     verb = verb.strip()
+
+    ancient_oomai = ['δικαιούμαι', 'οικειούμαι', 'ογκούμαι', 'ισούμαι', 'ρικνούμαι', 'θρομβούμαι', 'χρεούμαι',
+                     'καρπούμαι', 'διογκούμαι', 'ψιλούμαι', 'ξενούμαι', 'πληρούμαι', 'κυρούμαι', 'αξιούμαι',
+                     'βιούμαι', 'γομούμαι', 'ζηλούμαι', 'γαγγραινούμαι', 'πελιδνούμαι']
 
     if verb != 'είμαι' and len(verb) < 6:
         # maybe unnecessary, but one more way to catch problematic input
@@ -21,23 +26,29 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
         conjugation_imp = IMPER_PASS_CONT_1
         conjugation_part = PRESENT_PASSIVE_PART_1
 
-
-    elif verb[-5:] == "ιέμαι":
+    elif verb[-5:] in ["ιέμαι", 'υέμαι']:
         root = verb[:-5]
         conjugation_ind = CON2A_PASS
         conjugation_imp = IMPER_PASS_CONT_2A
         conjugation_part = PRESENT_PASSIVE_PART_2A
+
+    elif verb.endswith('ιούμαι') and verb[-7] not in vowels and verb.replace('ιούμαι', 'ιέμαι') in greek_corpus:
+        root = verb[:-6]
+        conjugation_ind = CON2A_PASS
+        conjugation_imp = IMPER_PASS_CONT_2A
+        conjugation_part = PRESENT_PASSIVE_PART_2A
+
+    elif verb.endswith('ούμαι') and True in [verb.endswith(v) for v in ancient_oomai]:
+        root = verb[:-5]
+        conjugation_ind = CON2SA_PASS
+        conjugation_imp = IMPER_PASS_CONT_2SA
+        conjugation_part = PRESENT_PASSIVE_PART_2B
 
     elif verb[-5:] == 'ούμαι':
         root = verb[:-5]
         conjugation_ind = CON2B_PASS
         conjugation_imp = IMPER_PASS_CONT_2B
         conjugation_part = PRESENT_PASSIVE_PART_2B
-        # con_act = recognize_active_non_past_conjugation(verb[:-5] + 'ώ')
-        if root + 'οίς' in greek_corpus or root + 'ούται' in greek_corpus:
-            conjugation_ind = CON2SA_PASS
-            conjugation_imp = IMPER_PASS_CONT_2SA
-
 
     elif verb[-4:] == 'άμαι':
         root = verb[:-4]

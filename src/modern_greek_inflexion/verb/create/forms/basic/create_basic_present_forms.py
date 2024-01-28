@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-# from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate
 
 from modern_greek_inflexion.helpers import check_personal_forms
@@ -77,32 +76,49 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         f_p_pass_alt_2 = None
         f_p_pass_alt_3 = None
         th_p_pass = None
+        th_p_pass_alt_1 = None
+        th_p_pass_alt_2 = None
+        th_p_pass_alt_3 = None
         # check conjugation
 
         if pres_conjugation == CON2A_ACT:
 
             f_p_pass = root + 'ιέμαι'
+            th_p_pass = root + 'ιέται'
 
             f_p_pass_alt_1 = root + 'ούμαι'
+            th_p_pass_alt_1 = root + 'είται'
             f_p_pass_alt_2 = root + 'ώμαι'
+            th_p_pass_alt_2 = root + 'άται'
             f_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
-
+            th_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αται')
         elif pres_conjugation == CON2A_ACT_LOGIA:
             f_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
+            th_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αται')
+            f_p_pass_alt_1 = root + 'ιέμαι'
+            th_p_pass_alt_1 = root + 'ιέται'
             f_p_pass_alt_2 = root + 'ώμαι'
+            th_p_pass_alt_2 = root + 'άται'
+
         elif pres_conjugation == CON2B_ACT:
             f_p_pass = root + 'ούμαι'
+            th_p_pass = root + 'είται'
             f_p_pass_alt_1 = root + 'ιέμαι'
+            th_p_pass_alt_1 = root + 'ιέται'
+
             f_p_pass_alt_2 = root + 'ώμαι'
+            th_p_pass_alt_2 = root + 'άται'
 
         elif pres_conjugation == CON2D_ACT:
             f_p_pass = root + 'ούμαι'
+            th_p_pass = root + 'οίται'
 
         elif pres_conjugation == CON2C_ACT:
             f_p_pass = root + 'γομαι'
-
+            th_p_pass = root + 'γεται'
         elif pres_conjugation == CON1_ACT:
             f_p_pass = root + 'ομαι'
+
             th_p_pass = root + 'εται'
 
         if f_p_pass and check_personal_forms(f_p_pass, th_p_pass):
@@ -111,11 +127,11 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         elif base_form in ['ρρέω', 'πηγνύω', 'ομνύω', 'βαίνω']:
             pres_pass_forms.append(f_p_pass)
 
-        if f_p_pass_alt_1 and (f_p_pass_alt_1 in greek_corpus):
+        if f_p_pass_alt_1 and check_personal_forms(f_p_pass_alt_1, th_p_pass_alt_1):
             pres_pass_forms.append(f_p_pass_alt_1)
-        if f_p_pass_alt_2 and (f_p_pass_alt_2 in greek_corpus):
+        if f_p_pass_alt_2 and check_personal_forms(f_p_pass_alt_2, th_p_pass_alt_2):
             pres_pass_forms.append(f_p_pass_alt_2)
-        if f_p_pass_alt_3 and (f_p_pass_alt_3 in greek_corpus):
+        if f_p_pass_alt_3 and check_personal_forms(f_p_pass_alt_3, th_p_pass_alt_3):
             pres_pass_forms.append(f_p_pass_alt_3)
 
         pres_pass_forms = ','.join(pres_pass_forms)
