@@ -673,6 +673,8 @@ def create_all_basic_noun_forms(noun: str, aklito: bool | str = False, gender: s
                 so it is advisable, as in so many other cases, to feed the program with all possible data 
                 (that is genders and aklito flag)"""
                 gender = FEM
+        elif noun.endswith('ωψ'):
+            stems.append(noun[:-2] + 'οπ')
         elif noun[-1] == 'ψ':
 
             stems.append(noun[:-1] + 'π')

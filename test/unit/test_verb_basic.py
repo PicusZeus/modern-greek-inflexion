@@ -1,11 +1,10 @@
 from unittest import TestCase
 
-# from icecream import ic
 
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 #
-# verbs = ['κατεβαίνω', 'μεταλαβαίνω', 'μεταβαίνω', 'υπερβαίνω']
+# verbs = ['βάλλω', 'πωλώ']
 # def print_verbs():
 #     for v in verbs:
 #         ic(v)
@@ -550,7 +549,7 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'παραβαίνων/παραβαίνουσα/παραβαίνον'},
              'conjunctive': {'active': {'παραβώ'}},
              'modal': False,
-             'paratatikos': {'active': {'παράβαινα'}},
+             'paratatikos': {'active': {'παράβαινα'}, 'passive': {'παραβαινόμουν'}},
              'present': {'active': {'παραβαίνω'} , 'passive': {'παραβαίνομαι'}}}
 
         )
@@ -564,7 +563,7 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'υπερβαίνων/υπερβαίνουσα/υπερβαίνον'},
              'conjunctive': {'active': {'υπερβώ'}},
              'modal': False,
-             'paratatikos': {'active': {'υπερέβαινα', 'υπέρβαινα'}},
+             'paratatikos': {'active': {'υπερέβαινα', 'υπέρβαινα'}, 'passive': {'υπερβαινόμουν'}},
              'present': {'active': {'υπερβαίνω'}, 'passive': {'υπερβαίνομαι'}}}
 
         )
@@ -578,7 +577,7 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'εμβαίνων/εμβαίνουσα/εμβαίνον'},
              'conjunctive': {'active': {'εμβώ'}},
              'modal': False,
-             'paratatikos': {'active': {'ενέβαινα'}},
+             'paratatikos': {'active': {'ενέβαινα'}, 'passive': {'εμβαινόμουν'}},
              'present': {'active': {'εμβαίνω'}, 'passive': {'εμβαίνομαι'}}}
 
         )
@@ -773,7 +772,7 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'μέθυσα'}},
              'conjunctive': {'active': {'μεθύσω'}},
              'modal': False,
-             'paratatikos': {'active': {'μέθυσκα'}},
+             'paratatikos': {'active': {'μέθυσκα'}, 'passive': {'μεθυσκόμουν'}},
              'passive_perfect_participle': {'μεθυσμένος'},
              'present': {'active': {'μεθύσκω'}, 'passive': {'μεθύσκομαι'}}}
 
@@ -1449,7 +1448,8 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'συμπονώ'}, 'passive': {'συμπονούμαι', 'συμπονιέμαι'}},
              'conjunctive': {'active': {'συμπονέσω'}, 'passive': {'συμπονηθώ'}},
              'aorist': {'active': {'συμπόνεσα'}, 'passive': {'συμπονήθηκα'}},
-             'paratatikos': {'active': {'συμπόναγα', 'συμπονούσα'}}, 'act_pres_participle': {'συμπονώντας'},
+             'paratatikos': {'active': {'συμπόναγα', 'συμπονούσα'}, 'passive': {'συμπονιόμουν'}},
+             'act_pres_participle': {'συμπονώντας'},
              'passive_aorist_participle': {'συμπονηθείς/συμπονηθείσα/συμπονηθέν'}, 'modal': False},
 
         )
@@ -1743,7 +1743,7 @@ class VerbTestBasic(TestCase):
              'arch_act_pres_participle': {'επεμβαίνων/επεμβαίνουσα/επεμβαίνον'},
              'conjunctive': {'active': {'επέμβω'}},
              'modal': False,
-             'paratatikos': {'active': {'επενέβαινα'}},
+             'paratatikos': {'active': {'επενέβαινα'}, 'passive': {'επεμβαινόμουν'}},
              'present': {'active': {'επεμβαίνω'}, 'passive': {'επεμβαίνομαι'}}}
 
         )

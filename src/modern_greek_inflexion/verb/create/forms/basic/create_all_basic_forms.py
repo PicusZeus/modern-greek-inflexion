@@ -155,7 +155,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     modal = modal_act or modal_med
 
     # presens
-
+    has_passive = False
     present_basic, pres_conjugation, root, intransitive_active = create_basic_present_forms(pres_form,
                                                                                             deponens=deponens,
                                                                                             not_deponens=not_deponens,
@@ -183,6 +183,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
         verb_temp[PRESENT][ACTIVE] = set(pres_act)
     if pres_pass:
         verb_temp[PRESENT][PASSIVE] = set(pres_pass)
+        has_passive = True
 
     # μέλλοντας και υποτακτική
 
@@ -232,7 +233,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens,
                                                              not_deponens=not_deponens, modal_act=modal_act,
-                                                             modal_med=modal_med, alternative=alternative)
+                                                             modal_med=modal_med, has_passive=has_passive, alternative=alternative)
     paratatikos_active = []
     if paratatikos_basic_forms:
         paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')

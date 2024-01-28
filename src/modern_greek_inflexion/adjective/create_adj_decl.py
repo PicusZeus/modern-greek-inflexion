@@ -38,6 +38,16 @@ def alternative_forms_r(fem: str, accent: str) -> dict:
     return alt_forms
 
 
+def alternative_forms_wn_to_ontas(neut: str) -> dict:
+    alt_forms = {SG: {MASC: {}}}
+    if neut + 'τας' in greek_corpus:
+        alt_forms[SG][MASC][NOM] = neut + 'τας'
+        alt_forms[SG][MASC][GEN] = neut + 'τα'
+        alt_forms[SG][MASC][VOC] = neut + 'τα'
+
+    return alt_forms
+
+
 def alternative_forms_ios(adj: str):
     masc, fem, neut = adj.split('/')
     alt_forms = {SG: {
@@ -134,6 +144,9 @@ def alternative_forms_modern_3rd(adj):
         alt_forms[SG][MASC][VOC] = thema + 'α'
     if fem[:-1] + 'ης' in greek_corpus:
         alt_forms[SG][FEM][GEN] = fem[:-1] + 'ης'
+    if fem + 'ν' in greek_corpus:
+        alt_forms[SG][FEM][ACC] = fem + 'ν'
+
 
     return alt_forms
 
@@ -395,7 +408,6 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
         [fem, fem_alt] = fem.split(',')
     accent = where_is_accent(masc)
 
-
     if masc[-2:] in ['ός', 'ος'] and fem[-1] in ['α', 'ά', 'η', 'ή', '-'] and neut[-1] in ['ο', 'ό']:
 
         # os, h/a, o
@@ -446,7 +458,8 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
             alt_forms = alternative_forms_kxth(fem, accent)
         elif fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):
             alt_forms = alternative_forms_r(fem, accent)
-        elif (fem[-2] == 'ι' and accent in [PENULTIMATE, ANTEPENULTIMATE]) or fem.endswith('μενη') or fem.endswith('στη'):
+        elif (fem[-2] == 'ι' and accent in [PENULTIMATE, ANTEPENULTIMATE]) or fem.endswith('μενη') or fem.endswith(
+                'στη'):
             alt_forms = alternative_forms_ios(adj)
         return forms, alt_forms
 
@@ -774,8 +787,10 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
 
         return forms, None
 
-    elif masc[-2:] in ['ων', 'ών', 'ας', 'άς'] and fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων', 'αν', 'άν']:
+    elif masc[-2:] in ['ων', 'ών', 'ας', 'άς'] and fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων',
+                                                                                        'αν', 'άν']:
         # wn, ousa, on and as, asa, an
+
         feminins = fem.split(',')
         fem = feminins[0]
         neuters = neut.split(',')
@@ -815,10 +830,10 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
 
         alternative_forms = None
 
-        if masc[-3:] in ['σας', 'ξας', 'ψας'] or (masc.endswith('άς')):
+        if masc[-3:] in ['σας', 'ξας', 'ψας'] or masc[-2:] in ['άς', 'ων', 'ών']:
             alternative_forms = alternative_forms_modern_3rd(adj)
 
-        if len(neuters) > 1 and len(feminins) > 1:
+        elif len(neuters) > 1 and len(feminins) > 1:
 
             alternative_forms = alternative_forms_wn(f'{masc}/{feminins[1]}/{neuters[1]}')
 
@@ -829,7 +844,8 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
             alternative_forms = alternative_forms_wn(f'{masc}/{feminins[1]}/{neuters[0]}')
 
         forms = put_accent_on_unaccented_forms(forms)
-        alternative_forms = put_accent_on_unaccented_forms(alternative_forms)
+        if alternative_forms:
+            alternative_forms = put_accent_on_unaccented_forms(alternative_forms)
         if masc[-4:] in ['ντας']:
             forms[SG][MASC][GEN] = masc[:-1]
             forms[SG][MASC][VOC] = masc[:-1]

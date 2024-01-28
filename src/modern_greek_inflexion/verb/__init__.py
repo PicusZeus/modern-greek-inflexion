@@ -117,11 +117,24 @@ def create_all_forms(verb: str, alternative: bool = False) -> dict:
     # arch_act_pres_participle
     for participle_type in ['arch_act_pres_participle', 'active_aorist_participle', 'passive_aorist_participle']:
         if participle_type in basic_forms:
-
             all_possible_infl_forms = []
-            for participle in basic_forms[participle_type]:
-                res = create_all_adj_forms(participle)
-                all_possible_infl_forms.append(res[0])
+
+
+            if participle_type == 'arch_act_pres_participle':
+
+                for participle in basic_forms[participle_type]:
+                    res = create_all_adj_forms(participle)
+
+                    all_possible_infl_forms.append(res[0])
+            else:
+                for participle in basic_forms[participle_type]:
+                    res = create_all_adj_forms(participle)
+                    if res[1]:
+                        res = merging_all_dictionaries(res[0], res[1])
+                    else:
+                        res = res[0]
+                    all_possible_infl_forms.append(res)
+
 
             all_forms[participle_type] = merging_all_dictionaries(*all_possible_infl_forms)
 

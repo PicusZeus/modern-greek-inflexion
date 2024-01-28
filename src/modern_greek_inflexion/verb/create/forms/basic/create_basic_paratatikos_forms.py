@@ -11,7 +11,7 @@ from modern_greek_inflexion.resources.verb import irregular_active_paratatikos, 
 
 def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: str, deponens: bool = False,
                                    not_deponens: bool = True, modal_act: bool = False,
-                                   modal_med: bool = False, alternative: bool = False) -> str:
+                                   modal_med: bool = False, has_passive: bool = True, alternative: bool = False) -> str:
     paratatikos_basic_forms = None
 
     if not_deponens:
@@ -41,7 +41,9 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             if count_syllables(par_ga, true_syllabification=False) > 2:
                 act_par.append(par_ga)
 
-            pass_par = [root + 'ιόμουν', root + 'άμην']
+            pass_par = [root + 'ιόμουν']
+            if root + 'όμην' in greek_corpus:
+                pass_par.append(root + 'όμην')
 
         elif pres_conjugation == CON2A_ACT_LOGIA:
             act_par = [root + 'ούσα']
@@ -51,7 +53,10 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
             act_par = [root + 'ούσα']
             pass_par = [root + 'ούμουν']
             if pres_conjugation == CON2B_ACT and root[-1] == 'ι':
-                pass_par.append(root + 'όμουν')
+                if root + 'ούμουν' in greek_corpus:
+                    pass_par.append(root + 'όμουν')
+                else:
+                    pass_par = [root + 'όμουν']
 
         elif pres_conjugation == CON2C_ACT:
             not_augmented_par = root + 'γα'
@@ -93,7 +98,8 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
         if pres_form in irregular_active_paratatikos:
             act_par_all = [irregular_active_paratatikos[pres_form]]
 
-        pass_par = [f for f in pass_par if f in greek_corpus]
+        if not has_passive:
+            pass_par = [f for f in pass_par if f in greek_corpus]
         act_par = ','.join(act_par_all)
         pass_par = ','.join(pass_par)
 

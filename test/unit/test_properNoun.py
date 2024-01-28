@@ -14,6 +14,20 @@ class ProperNounTests(TestCase):
                       'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}},
         )
 
+    def test_Kekrops(self):
+        self.assertDictEqual(
+            noun.create_all('Κέκρωψ', proper_name=True, gender=MASC),
+            {'masc': {'pl': {'acc': {'Κέκροπες'},
+                             'gen': {'Κεκρόπων'},
+                             'nom': {'Κέκροπες'},
+                             'voc': {'Κέκροπες'}},
+                      'sg': {'acc': {'Κέκροπα'},
+                             'gen': {'Κέκροπος'},
+                             'nom': {'Κέκρωψ'},
+                             'voc': {'Κέκρωψ'}}}}
+
+        )
+
     def test_Axilleus(self):
         self.assertDictEqual(
             noun.create_all('Αχιλλεύς', proper_name=True),

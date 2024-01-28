@@ -234,7 +234,7 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
                 neuter = remove_all_diacritics(neuter)
 
         # it is also possible, that there are wn, onos
-        if adj[:-2] + 'ονος' in greek_corpus:
+        if adj[:-2] + 'ονος' in greek_corpus or adj[:-2] + 'ονα' in greek_corpus or adj[:-2] + 'ες' in greek_corpus:
             masc, fem = adj, adj
             neuter = adj[:-2] + 'ον'
 
