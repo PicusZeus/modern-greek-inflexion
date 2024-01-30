@@ -99,10 +99,25 @@ def passive_subjunctive_exists(perf_root: str) -> bool:
     third_person = perf_root + 'εί'
     first_person_aor = put_accent_on_the_antepenultimate(perf_root + 'ηκα')
     perf_past_participle = perf_root[:-1] + 'μένος'
+    if perf_root[-2] not in vowels and perf_root.endswith('θ'):
+        perf_past_participle = perf_root + 'μένος'
     return (first_person in greek_corpus or
             third_person in greek_corpus or
             perf_past_participle in greek_corpus or
             first_person_aor in greek_corpus)
+
+
+def aorist_exists(aorist: str) -> bool:
+    f_pers = aorist
+    s_pers = aorist[:-1] + 'ες'
+    th_pers = aorist[:-1] + 'ε'
+    if not aorist.endswith('ηκα'):
+        th_pers = aorist[:-1] + 'αν'
+    if f_pers.endswith('η'):
+        f_pers = aorist + 'ν'
+        s_pers = aorist
+        th_pers = aorist
+    return f_pers in greek_corpus or s_pers in greek_corpus or (th_pers in greek_corpus and count_syllables(th_pers) > 2)
 
 
 def active_subjunctive_exists(perf_root: str) -> bool:

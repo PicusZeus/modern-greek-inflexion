@@ -1,4 +1,4 @@
-from modern_greek_inflexion.helpers import compound_alternative_forms
+from modern_greek_inflexion.verb.helpers import compound_alternative_forms
 from modern_greek_inflexion.resources import ACTIVE, PASSIVE, IND, ROOT, CONJUGATION_IND, CONJUGATION_IMP, \
     CON1_ACT_MODAL, SG, TER, MODAL
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms

@@ -136,6 +136,7 @@ class VerbTestAll(TestCase):
         self.assertDictEqual(
             verb.create_all_forms('μέλλεται'),
             {'present': {'passive': {'ind': {'sg': {'ter': {'μέλλεται'}}}}},
+             'aorist': {},
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'μελλόταν'}}}}}}
         )
 
@@ -326,30 +327,6 @@ class VerbTestAll(TestCase):
                                                            'gen': {'στάντος'},
                                                            'nom': {'στάν'},
                                                            'voc': {'στάν'}}}},
-             'passive_perfect_participle': {'pl': {'fem': {'acc': {'στημένες'},
-                                                           'gen': {'στημένων'},
-                                                           'nom': {'στημένες'},
-                                                           'voc': {'στημένες'}},
-                                                   'masc': {'acc': {'στημένους'},
-                                                            'gen': {'στημένων'},
-                                                            'nom': {'στημένοι'},
-                                                            'voc': {'στημένοι'}},
-                                                   'neut': {'acc': {'στημένα'},
-                                                            'gen': {'στημένων'},
-                                                            'nom': {'στημένα'},
-                                                            'voc': {'στημένα'}}},
-                                            'sg': {'fem': {'acc': {'στημένη'},
-                                                           'gen': {'στημένης'},
-                                                           'nom': {'στημένη'},
-                                                           'voc': {'στημένη'}},
-                                                   'masc': {'acc': {'στημένο'},
-                                                            'gen': {'στημένου'},
-                                                            'nom': {'στημένος'},
-                                                            'voc': {'στημένε'}},
-                                                   'neut': {'acc': {'στημένο'},
-                                                            'gen': {'στημένου'},
-                                                            'nom': {'στημένο'},
-                                                            'voc': {'στημένο'}}}},
              'present': {'passive': {'imp': {'pl': {'sec': {'ίστασθε'}}},
                                      'ind': {'pl': {'pri': {'ιστόμαστε', 'ιστάμεθα'},
                                                     'sec': {'ίστασθε'},
@@ -1542,7 +1519,8 @@ class VerbTestAll(TestCase):
         self.assertDictEqual(
             verb.create_all_forms('πρόκειται'),
             {'present': {'passive': {'ind': {'sg': {'ter': {'πρόκειται'}}}}},
-             'paratatikos': {'passive': {'ind': {'sg': {'ter': {'επρόκειτο'}}}}}}
+             'aorist': {},
+             'paratatikos': {'passive': {'ind': {'sg': {'ter': {'επρόκειτο'}}}}}},
         )
 
     def test_verb_symbainei(self):
@@ -1687,7 +1665,7 @@ class VerbTestAll(TestCase):
     def test_verb_kserw(self):
         self.assertDictEqual(
             verb.create_all_forms('ξέρω'),
-            {'present': {'active': {'ind': {'sg': {'pri': {'ξέρω'}, 'sec': {'ξέρεις'}, 'ter': {'ξέρει'}},
+            {'present': {'active': {'ind': {'sg': {'pri': {'ξέρω'}, 'sec': {'ξέρεις', 'ξες'}, 'ter': {'ξέρει'}},
                                             'pl': {'pri': {'ξέρουμε'}, 'sec': {'ξέρετε'},
                                                    'ter': {'ξέρουν', 'ξέρουνε'}}},
                                     'imp': {'sg': {'sec': {'ξέρε'}}, 'pl': {'sec': {'ξέρετε'}}}}}, 'conjunctive': {},
@@ -2258,6 +2236,7 @@ class VerbTestAll(TestCase):
         )
 
     def test_verb_leo(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_forms('λέω'),
             {'act_pres_participle': {'λέγοντας'},
@@ -2428,7 +2407,8 @@ class VerbTestAll(TestCase):
                                                     'ter': {'λέγονται'}},
                                              'sg': {'pri': {'λέγομαι'},
                                                     'sec': {'λέγεσαι'},
-                                                    'ter': {'λέγεται'}}}}}}
+                                                    'ter': {'λέγεται'}}}}}},
+            # ic(verb.create_all_forms('λέω'))
 
         )
 

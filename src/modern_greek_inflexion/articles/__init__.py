@@ -41,7 +41,6 @@ definite_article = {
     }
 }
 
-
 indefinite_article = {
     SG: {
         MASC: {

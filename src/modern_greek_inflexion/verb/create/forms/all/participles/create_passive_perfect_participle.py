@@ -33,10 +33,6 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-1] + 'μενος'))
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'μενος'))
 
-            elif passive_root[-1] == 'θ' and not passive_root.endswith('σθ'):
-                passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-1] + 'μενος'))
-                if passive_root.endswith('αθ'):
-                    passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'ημενος'))
             elif passive_root[-2:] == 'φτ':
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'μμενος'))
             elif passive_root[-1] == 'φ':
@@ -52,6 +48,11 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
 
             elif passive_root[-2:] in ['χτ', 'χθ']:
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'γμενος'))
+
+            elif passive_root[-1] == 'θ' and not passive_root.endswith('σθ'):
+                passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-1] + 'μενος'))
+                # if passive_root.endswith('αθ'):
+                #     passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'ημενος'))
 
             else:
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root + 'μένος'))

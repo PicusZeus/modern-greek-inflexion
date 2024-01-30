@@ -1,11 +1,11 @@
 
 from .. import adjective
-from ..adjective.create_adj_decl import create_all_adj_forms
-from ..helpers import merging_all_dictionaries
+from modern_greek_inflexion.adjective.all.create_all_adj import create_all_adj_forms
+from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_inflexion.verb.create.forms import create_all_imperfect_personal_forms, \
     create_all_perf_non_past_personal_forms
 from modern_greek_inflexion.verb.create.forms import create_all_past_personal_forms
-from modern_greek_inflexion.verb.create.forms.basic.create_all_basic_forms import create_all_basic_forms
+from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, \
     IMPERF

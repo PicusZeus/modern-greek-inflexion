@@ -7,7 +7,7 @@ class AdverbTest(TestCase):
     def test_adv_noris(self):
         self.assertDictEqual(
             adverb.create_all('νωρίς'),
-            {'adv': {'νωρίς'}, 'comp_adv': {'νωρίτερα'}, 'superl_adv': {''}}
+            {'adv': {'νωρίς'}, 'comp_adv': {'νωρίτερα'}, 'superl_adv': {'νωρίτατα'}}
         )
 
     def test_adv_pote(self):

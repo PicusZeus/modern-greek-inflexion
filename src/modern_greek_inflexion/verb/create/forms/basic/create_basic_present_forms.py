@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate
 
-from modern_greek_inflexion.helpers import check_personal_forms
+from modern_greek_inflexion.verb.helpers import check_personal_forms
 from modern_greek_inflexion.resources import CONJUGATION_IND, ROOT, CON2A_PASS, CON2B_PASS, CON2AB_PASS, CON2A_ACT, \
-    CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT, greek_corpus
+    CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT
 from modern_greek_inflexion.verb.recognize import recognize_passive_present_continuous_conjugation, \
     recognize_active_non_past_conjugation
 

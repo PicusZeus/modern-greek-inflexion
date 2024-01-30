@@ -13,7 +13,7 @@ from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_forms im
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_forms import create_basic_conjunctive_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_present_forms import create_basic_present_forms
-from modern_greek_inflexion.helpers import update_forms_with_prefix
+from modern_greek_inflexion.verb.helpers import update_forms_with_prefix
 from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.syllabify import count_syllables
 from modern_greek_accentuation.augmentify import deaugment_past_form
@@ -22,7 +22,7 @@ from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, \
     CONJUNCTIVE, ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, \
-    PASSIVE_AORIST_PARTICIPLE, IMP
+    PASSIVE_AORIST_PARTICIPLE
 from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 
 import re

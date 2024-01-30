@@ -1,7 +1,7 @@
 from .create_num_decl import create_all_num_adj_forms
 from .create_num_list import create_num_adj
 from .. import adjective
-from ..helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from .. import noun
 from ..resources.resources import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic

@@ -2,11 +2,11 @@ from modern_greek_accentuation.accentuation import is_accented, where_is_accent,
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from ..exceptions import NotLegalAdjectiveException
-from ..resources.resources import greek_corpus
-from ..resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE,
-                                   ANTEPENULTIMATE, PENULTIMATE, ADJ_FEM_OS_ONLY, ADJ_FEM_OS_ALSO)
-from ..resources.adj import irregular_comparatives, irregular_comparative_adverbs, adj_grammar_lists
+from modern_greek_inflexion.exceptions import NotLegalAdjectiveException
+from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE,
+                                                        ANTEPENULTIMATE, PENULTIMATE, ADJ_FEM_OS_ONLY, ADJ_FEM_OS_ALSO)
+from modern_greek_inflexion.resources.adj import irregular_comparatives, irregular_comparative_adverbs, adj_grammar_lists
 
 
 def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
@@ -316,6 +316,11 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
         fem = adj
         neuter = masc[:-2] + 'εν'
 
+    elif adj.endswith('εις') and not aklito:
+        masc = adj
+        fem = adj[:-3] + 'εσσα'
+        neuter = adj[:-3] + 'εν'
+
     elif adj[-2:] in ['ις', 'ιξ', 'υξ', 'αξ', 'ωψ', 'ωρ'] and not aklito:
         """ancient 3rd declension"""
         neuter_3rd = adj[:-1]
@@ -442,6 +447,9 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
             adverb = put_accent_on_the_penultimate(masc[:-3] + 'οως')
         else:
             adverb = ''
+
+    elif masc.endswith('ώς'):
+        adverb = ''
 
     else:
         # for aklita without flags

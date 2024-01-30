@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from .create_noun_basic import create_all_basic_noun_forms
 from .create_noun_decl import create_all_noun_forms
-from ..helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources.resources import NOM_SG, GEN_SG, GENDER, NOM_PL
 
