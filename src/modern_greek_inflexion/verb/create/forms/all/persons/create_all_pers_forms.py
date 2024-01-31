@@ -10,7 +10,7 @@ from modern_greek_inflexion.resources import MODAL, CON1_PASS_MODAL, CON2A_ACT, 
     CON2B_ACT, IMPER_ACT_CONT_2B, ARCH_PASS_AOR, SG, CON1_PASS, PARAT1_PASS, PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS, \
     CON2D_PASS, CON2C_ACT, IMPER_ACT_AOR_C, IMPER_ACT_CONT_2C, IMPER_ACT_CONT_1, IMPER_ACT_AOR_A, SEC, IMPER_ACT_AOR_B, \
     PL, IMPER_PASS_AOR_A, CON2E_PASS, IMPER_ACT_AOR_CA, PRI, TER, CON1_PASS_ARCHAIC, CON2A_PASS, CON1_ACT, CON2C_PASS, \
-    PARAT2A_PASS, CON2_PASS_MODAL
+    PARAT2A_PASS, CON2_PASS_MODAL, IMPER_PASS_CONT_1
 from modern_greek_inflexion.resources.verb import conjugations, irregular_imperative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons import create_imp_pass
 
@@ -78,6 +78,11 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
         augmented_3_p = add_augment(root + 'ώντο')
         augmented_3_p = [f for f in augmented_3_p if f in greek_corpus]
         forms[PL][TER].extend(augmented_3_p)
+    # elif conjugation_name == IMPER_PASS_CONT_1:
+    #     imp_2_s = root + 'ου'
+    #     if imp_2_s in greek_corpus:
+    #         forms[SG] = {SEC: [imp_2_s]}
+
 
 
 

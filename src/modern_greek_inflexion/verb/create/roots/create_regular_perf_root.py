@@ -19,8 +19,5 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
     else:
         perf_root = create_regular_perf_active_root(verb, alternative, pres_conjugation, root)
 
-    if not perf_root:
-        return
-
-    else:
+    if perf_root:
         return perf_root

@@ -127,6 +127,7 @@ class VerbTestBasic(TestCase):
             {'aorist': {'passive': {'θεάθηκα', 'εθεάθη'}},
              'conjunctive': {'passive': {'θεαθώ'}},
              'modal': False,
+             'paratatikos': {'passive': {'θεόμουν'}},
              'pass_pres_participle': {'θεώμενος'},
              'present': {'passive': {'θεώμαι'}}}
 

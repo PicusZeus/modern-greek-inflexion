@@ -17,7 +17,7 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
 
         active_aor_forms.extend(add_augment(active_root + 'ε'))
 
-        # mainly for symbainei
+        # for symbainei
         anc_forms = add_augment(active_root + 'η')
         anc_forms = [a for a in anc_forms if where_is_accent(a) == PENULTIMATE]
         active_aor_forms.extend(anc_forms)

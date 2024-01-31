@@ -14,13 +14,14 @@ def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> b
     if not th_person:
         th_person = f_person[:-4] + 'ταν'
         if f_person.endswith('ούμουν'):
-            th_person = f_person[:-4] + 'νταν'
+            th_person_pl = th_person
         elif f_person.endswith('άμην'):
             th_person = put_accent_on_the_antepenultimate(f_person[:-4] + 'ατο')
         elif f_person.endswith('μην'):
             th_person = f_person[:-3] + 'το'
 
         return f_person in greek_corpus or th_person in greek_corpus
+
     if th_person == 'φαίνεται':
         ic(th_person, th_person in greek_corpus)
     if not f_person:
@@ -55,6 +56,8 @@ def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation
             pass_par = [f for f in pass_par if passive_paratatikos_exists(f)]
             if pres_conjugation == CON2A_ACT_LOGIA and not pass_par:
                 pass_par.append(root + 'ιόμουν')
+            elif pres_conjugation == CON2AB_PASS and not pass_par:
+                pass_par.append(root + 'όμουν')
 
         elif pres_conjugation in [CON2B_ACT, CON2D_ACT, CON2SA_PASS, CON2B_PASS]:
             pass_par = [root + 'ούμουν', root + 'ιόμουν']

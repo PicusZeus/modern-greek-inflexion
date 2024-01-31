@@ -60,10 +60,10 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
         conjugation_imp = IMPER_PASS_CONT_2C
         conjugation_part = PRESENT_PASSIVE_PART_2B
 
-    elif verb[-4:] == 'ώμαι':
+    elif verb.endswith('ώμαι'):
         root = verb[:-4]
         conjugation_ind = CON2AB_PASS
-        conjugation_imp = IMPER_PASS_CONT_2C
+        conjugation_imp = IMPER_PASS_CONT_2AB
         conjugation_part = PRESENT_PASSIVE_PART_2AB
 
     elif verb[-4:] in ['εμαι', 'υμαι'] or verb[-5:] in ['είμαι', 'ειμαι']:

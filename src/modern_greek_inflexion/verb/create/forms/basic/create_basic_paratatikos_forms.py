@@ -25,10 +25,8 @@ def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: 
 
     elif deponens:
 
-        # pass_par = set(pass_par)
         pass_par = create_basic_paratatikos_passive(pres_form, root, pres_conjugation, modal_med, alternative)
-        # if root[-3:] == 'ποι':
-        #     pass_par = root + 'ούμουν,' + root + 'όμουν'
+
         if pass_par:
             paratatikos_basic_forms = '/' + pass_par
 

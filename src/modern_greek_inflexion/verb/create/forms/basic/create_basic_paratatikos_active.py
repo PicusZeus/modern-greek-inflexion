@@ -1,16 +1,13 @@
 from __future__ import annotations
 
-from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, put_accent_on_the_antepenultimate, \
-    remove_all_diacritics
+from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels, prefixes_before_augment
 from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
-    EIMAI, greek_corpus, CON2E_PASS, CON2D_PASS, CON2B_PASS, CON2A_PASS, CON1_PASS, CON2C_PASS, CON2AB_PASS, CON2SA_PASS
-from modern_greek_inflexion.resources.verb import irregular_active_paratatikos, irregular_passive_paratatikos
-from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_passive import \
-    create_basic_paratatikos_passive
+    EIMAI, greek_corpus
+from modern_greek_inflexion.resources.verb import irregular_active_paratatikos
 
 
 def active_paratatikos_exists(f_p: str) -> bool:
@@ -91,8 +88,6 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
 
         elif pres_form[-3:] == 'ά':
             act_par.append(pres_form[:-1] + 'ούσε')
-        elif pres_form == 'δει':
-            act_par.append('έδει')
         elif pres_form.endswith('ει'):
             act_par.extend(add_augment(pres_form[:-2] + 'ε'))
         elif pres_form[-2:] == 'εί':
@@ -100,7 +95,5 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
 
         act_par_all = [f for f in act_par if f in greek_corpus]
 
-        # if not act_par_all and pres_form.endswith('ει'):
-        #     act_par.append(put_accent_on_the_antepenultimate(pres_form[:-2] + 'ε'))
     if act_par_all:
         return ','.join(act_par_all)
