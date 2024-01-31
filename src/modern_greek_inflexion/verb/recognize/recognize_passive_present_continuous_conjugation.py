@@ -49,6 +49,10 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
         conjugation_ind = CON2B_PASS
         conjugation_imp = IMPER_PASS_CONT_2B
         conjugation_part = PRESENT_PASSIVE_PART_2B
+        if verb[:-5] + 'άμαι' in greek_corpus:
+            conjugation_ind = CON2C_PASS
+            conjugation_imp = IMPER_PASS_CONT_2C
+            conjugation_part = PRESENT_PASSIVE_PART_2B
 
     elif verb[-4:] == 'άμαι':
         root = verb[:-4]
@@ -74,10 +78,8 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
         conjugation_imp = IMPER_PASS_CONT_2E
         conjugation_part = PRESENT_PASSIVE_PART_2E
 
-    elif verb[-4:] in ['εται', 'άται', 'υται'] or verb[-5:] in ['είται', 'ειται', 'ιέται']:
+    elif verb[-4:] in ['εται']:
         root = verb[:-4]
-        if verb[-5:] in ['είται', 'ειται', 'ιέται']:
-            root = verb[:-5]
         conjugation_ind = CON1_PASS_MODAL
         conjugation_imp = ''
         conjugation_part = ''

@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv_prod" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (modern-greek-inflexion) (2)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (modern-greek-inflexion)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="modern-greek-corpus" />
   </component>

@@ -31,6 +31,7 @@ Please make sure to update tests as appropriate.
 
 ## Change Log
 
+ * 0.9.2 Update focused mainly on paratatikos, now it should deal better with lesser used conjugation types, mainly archaic. Also in passive paratatikos archaic endings 'to' and 'nto' are added to the verbs of basic conjugation types if they are found in corpus (like κυβερνείτο ή κυκλοφορείτο). Fixed issue with some modal verbs.
  * 0.9.1-alpha Substantial update mainly for code readability, but also many bugs fixed in the verb module.
  * 0.8.1  Big update. A lot of changes in verb module in most aspects. Creating perf roots should be more reliable, also added full support for archaic conjugation on ow (πληρώ, ζηλώ, ισούμαι). 
  * 0.7.3-beta Verbs are now forced to create passive paratatikos if there is passive present. 

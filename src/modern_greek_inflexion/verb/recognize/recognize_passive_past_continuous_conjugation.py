@@ -15,6 +15,14 @@ def recognize_passive_past_continuous_conjugation(lemma: str, verb: str, pres_co
         conjugation_ind = PARAT2SA_PASS
         root = verb[:-6]
 
+    # elif pres_con == CON2AB_PASS:
+    #     conjugation_ind = PARAT2AB_PASS
+    #     root = verb[:-6]
+
+    elif pres_con == CON2C_PASS:
+        root = verb[:-5]
+        conjugation_ind = PARAT2C_PASS
+
     elif len(verb) >= 7 and 'ιόμουν' in verb[-7:]:
         if verb[-1] == 'ν':
             root = verb[:-6]

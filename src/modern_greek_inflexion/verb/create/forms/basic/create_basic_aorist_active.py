@@ -23,6 +23,8 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
         active_aor_forms.extend(anc_forms)
 
         active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
+        if not active_aor_forms and active_root:
+            active_aor_forms.append(put_accent_on_the_antepenultimate(active_root + 'ε'))
 
     else:
         if not alternative:

@@ -1,10 +1,9 @@
-
+from .create.forms import create_all_imperfect_personal_forms, create_all_perf_non_past_personal_forms, \
+    create_all_past_personal_forms
 from .. import adjective
 from modern_greek_inflexion.adjective.all.create_all_adj import create_all_adj_forms
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
-from modern_greek_inflexion.verb.create.forms import create_all_imperfect_personal_forms, \
-    create_all_perf_non_past_personal_forms
-from modern_greek_inflexion.verb.create.forms import create_all_past_personal_forms
+
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, \
@@ -52,8 +51,7 @@ def create_all_forms(verb: str, alternative: bool = False) -> dict:
 
         if ACTIVE not in present_basic_forms:
             deponens = True
-    if verb == 'αρνιέμαι':
-        ic(passive_pres_con_ind)
+
     all_forms['present'] = present
     # CONJUNCTIVE
     if CONJUNCTIVE in basic_forms:
@@ -107,6 +105,7 @@ def create_all_forms(verb: str, alternative: bool = False) -> dict:
                                                                       ACTIVE, active_pres_con_ind)
             paratatikos[ACTIVE] = paratatikos_active_forms
         if PASSIVE in paratatikos_basic_forms:
+
             paratatikos_passive_forms = create_all_past_personal_forms(paratatikos_basic_forms[PASSIVE], verb,
                                                                        IMPERF, PASSIVE, passive_pres_con_ind)
             paratatikos[PASSIVE] = paratatikos_passive_forms

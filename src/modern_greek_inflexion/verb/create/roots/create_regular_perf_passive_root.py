@@ -45,7 +45,7 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
                     break
 
     if not irregular:
-        if pres_conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL, CON2_PASS_MODAL, CON2D_PASS]:
+        if pres_conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL, CON2D_PASS]:
 
             root = remove_all_diacritics(root)
             if root[-3:] == 'αιν':
@@ -197,7 +197,7 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
                 perf_root = root + 'ιστ'
 
         elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,
-                                  CON2C_PASS, CON2AB_PASS, CON2A_ACT_LOGIA]:
+                                  CON2C_PASS, CON2AB_PASS, CON2A_ACT_LOGIA, CON2_PASS_MODAL]:
 
             perf_root = root + 'ηθ'
 

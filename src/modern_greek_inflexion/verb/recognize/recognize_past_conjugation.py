@@ -20,6 +20,8 @@ def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,
 
     elif verb[-1] in ['ν', 'η']:
         conjugation_ind = ARCH_PASS_AOR
+        if lemma.endswith('ται'):
+            conjugation_ind = MODAL
         if verb[-2:] == 'ον':
             conjugation_ind = ARCH_SEC_AOR
             root = verb[:-2]

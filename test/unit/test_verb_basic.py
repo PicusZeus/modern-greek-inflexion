@@ -1,19 +1,12 @@
 from unittest import TestCase
-
 from modern_greek_inflexion.exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 
 
-#
 # def print_verbs():
 #     for v in verbs:
-#         try:
-#             if not verb.create_all_basic_forms(v)['aorist']:
-#                 ic(verb.create_all_basic_forms(v))
-#         except:
-#             ic(verb.create_all_basic_forms(v))
-#
-#             continue
+#         ic(v)
+#         ic(verb.create_all_basic_forms(v))
 
 
 class VerbTestBasic(TestCase):
@@ -30,6 +23,17 @@ class VerbTestBasic(TestCase):
              'passive_perfect_participle': {'ελεγμένος'},
              'present': {'active': {'έλκω'}, 'passive': {'έλκομαι'}}},
             # print_verbs()
+        )
+
+    def test_verb_ennoeitai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('εννοείται'),
+            {'aorist': {'passive': {'εννοήθηκε'}},
+             'conjunctive': {'passive': {'εννοηθεί'}},
+             'modal': True,
+             'paratatikos': {'passive': {'εννοούνταν', 'εννοείτο'}},
+             'present': {'passive': {'εννοείται'}}}
+
         )
 
     def test_verb_strimognomai(self):
@@ -123,7 +127,6 @@ class VerbTestBasic(TestCase):
             {'aorist': {'passive': {'θεάθηκα', 'εθεάθη'}},
              'conjunctive': {'passive': {'θεαθώ'}},
              'modal': False,
-             'paratatikos': {'passive': {'θεόμουν'}},
              'pass_pres_participle': {'θεώμενος'},
              'present': {'passive': {'θεώμαι'}}}
 
@@ -152,7 +155,7 @@ class VerbTestBasic(TestCase):
             {'aorist': {'passive': {'καυχήθηκα'}},
              'conjunctive': {'passive': {'καυχηθώ'}},
              'modal': False,
-             'paratatikos': {'passive': {'καυχιόμουν', 'καυχόμουν'}},
+             'paratatikos': {'passive': {'καυχιόμουν'}},
              'passive_perfect_participle': {'καυχημένος'},
              'present': {'passive': {'καυχώμαι', 'καυχιέμαι'}}}
 
@@ -889,7 +892,8 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_all_basic_forms('δει'),
             {'present': {'active': {'δει'}}, 'conjunctive': {'active': {'δεήσει'}},
-             'aorist': {'active': {'δέησε', 'εδέησε'}}, 'paratatikos': {}, 'modal': True}
+             'paratatikos': {'active': {'έδει'}},
+             'aorist': {'active': {'δέησε', 'εδέησε'}}, 'modal': True}
 
         )
 
@@ -920,10 +924,10 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'κυβερνώ'}, 'passive': {'κυβερνούμαι', 'κυβερνιέμαι', 'κυβερνώμαι'}},
              'conjunctive': {'active': {'κυβερνήσω'}, 'passive': {'κυβερνηθώ'}},
              'aorist': {'active': {'κυβέρνησα'}, 'passive': {'κυβερνήθηκα'}},
-             'paratatikos': {'active': {'κυβέρναγα', 'κυβερνούσα'}, 'passive': {'κυβερνιόμουν'}},
+             'paratatikos': {'active': {'κυβέρναγα', 'κυβερνούσα'}, 'passive': {'κυβερνιόμουν', 'κυβερνούμουν'}},
              'act_pres_participle': {'κυβερνώντας'}, 'arch_act_pres_participle': {'κυβερνών/κυβερνούσα/κυβερνών'},
              'pass_pres_participle': {'κυβερνούμενος', 'κυβερνώμενος'}, 'passive_perfect_participle': {'κυβερνημένος'},
-             'modal': False}
+             'modal': False},
         )
 
     def test_verb_douleuo(self):
@@ -986,7 +990,7 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'ικανοποιούσα'}, 'passive': {'ικανοποιούμουν', 'ικανοποιόμουν'}},
              'act_pres_participle': {'ικανοποιώντας'}, 'pass_pres_participle': {'ικανοποιούμενος'},
              'passive_perfect_participle': {'ικανοποιημένος'},
-             'passive_aorist_participle': {'ικανοποιηθείς/ικανοποιηθείσα/ικανοποιηθέν'}, 'modal': False}
+             'passive_aorist_participle': {'ικανοποιηθείς/ικανοποιηθείσα/ικανοποιηθέν'}, 'modal': False},
 
         )
 
@@ -999,7 +1003,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'αποκλείσω'},
                              'passive': {'αποκλειστώ', 'αποκλεισθώ'}},
              'modal': False,
-             'paratatikos': {'active': {'απέκλεια'}, 'passive': {'αποκλειόμουν'}},
+             'paratatikos': {'active': {'απέκλεια', 'απόκλεια'}, 'passive': {'αποκλειόμουν'}},
              'pass_pres_participle': {'αποκλειόμενος'},
              'passive_aorist_participle': {'αποκλεισθείς/αποκλεισθείσα/αποκλεισθέν'},
              'passive_perfect_participle': {'αποκλεισμένος'},
@@ -1379,7 +1383,7 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'καθιστώ'}, 'passive': {'καθίσταμαι'}},
              'conjunctive': {'active': {'καταστήσω'}, 'passive': {'καταστώ'}},
              'aorist': {'active': {'κατάστησα', 'κατέστησα'}, 'passive': {'κατέστη'}},
-             'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην', 'καθιστόμουν'}},
+             'paratatikos': {'active': {'καθιστούσα'}, 'passive': {'καθιστάμην'}},
              'passive_aorist_participle': {'καταστάς/καταστάσα/καταστάν'},
              'act_pres_participle': {'καθιστώντας'}, 'arch_act_pres_participle': {'καθιστών/καθιστώσα/καθιστών'},
              'passive_perfect_participle': {'κατεστημένος', 'καταστισμένος'}, 'pass_pres_participle': {'καθιστάμενος'},
@@ -1413,7 +1417,7 @@ class VerbTestBasic(TestCase):
              'passive_aorist_participle': {'αντικαταστάς/αντικαταστάσα/αντικαταστάν'},
 
              'aorist': {'active': {'αντικατέστησα'}, 'passive': {'αντικατέστη'}},
-             'paratatikos': {'active': {'αντικαθιστούσα'}, 'passive': {'αντικαθιστάμην', 'αντικαθιστόμουν'}},
+             'paratatikos': {'active': {'αντικαθιστούσα'}, 'passive': {'αντικαθιστάμην'}},
              'act_pres_participle': {'αντικαθιστώντας'},
              'pass_pres_participle': {'αντικαθιστάμενος'},
              'passive_perfect_participle': {'αντικαταστισμένος', 'αντικατεστημένος'}, 'modal': False},
@@ -1529,7 +1533,7 @@ class VerbTestBasic(TestCase):
             {'present': {'active': {'συγκρίνω'}, 'passive': {'συγκρίνομαι'}},
              'conjunctive': {'active': {'συγκρίνω'}, 'passive': {'συγκριθώ'}},
              'aorist': {'active': {'συνέκρινα', 'σύγκρινα'}, 'passive': {'συγκρίθηκα'}},
-             'paratatikos': {'active': {'συνέκρινα'}, 'passive': {'συγκρινόμουν'}},
+             'paratatikos': {'active': {'σύγκρινα', 'συνέκρινα'}, 'passive': {'συγκρινόμουν'}},
              'act_pres_participle': {'συγκρίνοντας'}, 'pass_pres_participle': {'συγκρινόμενος'},
              'passive_perfect_participle': {'συγκριμένος', 'συγκεκριμένος'}, 'modal': False},
 

@@ -1,18 +1,17 @@
-from modern_greek_inflexion.verb.create.forms.all.participles.create_aorist_participles import \
-    create_passive_aorist_participle, \
-    create_active_aorist_participle
-from modern_greek_inflexion.verb.create.forms.all.participles.create_passive_perfect_participle import \
-    create_passive_perfect_participle
-from modern_greek_inflexion.verb.create.forms.all.participles.create_present_active_participle import \
-    create_present_active_participle
-from modern_greek_inflexion.verb.create.forms.all.participles.create_present_active_participle_arch import \
-    create_present_active_participle_arch
-from modern_greek_inflexion.verb.create.forms.all.participles.create_present_passive_participle import \
-    create_present_passive_participle
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_forms import create_basic_aorist_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_forms import create_basic_conjunctive_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_present_forms import create_basic_present_forms
+from modern_greek_inflexion.verb.create.forms.basic.participles.create_aorist_participles import \
+    create_active_aorist_participle, create_passive_aorist_participle
+from modern_greek_inflexion.verb.create.forms.basic.participles.create_passive_perfect_participle import \
+    create_passive_perfect_participle
+from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_active_participle import \
+    create_present_active_participle
+from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_active_participle_arch import \
+    create_present_active_participle_arch
+from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_passive_participle import \
+    create_present_passive_participle
 from modern_greek_inflexion.verb.helpers import update_forms_with_prefix
 from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
 from modern_greek_accentuation.syllabify import count_syllables
@@ -66,7 +65,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                           'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
                           'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'στέλλομαι', 'στέκομαι',
                           'τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι', 'ίπταμαι', 'προσαρτώ',
-                          'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι']
+                          'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει']
 
     """ 
     special case for common verbs with modern "para" prefix, which can be confused with ancient "para" and cause

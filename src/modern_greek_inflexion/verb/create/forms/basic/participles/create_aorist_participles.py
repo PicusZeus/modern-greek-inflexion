@@ -52,5 +52,4 @@ def create_passive_aorist_participle(passive_root: str) -> str | None:
             passive_root + 'άντα' in greek_corpus):
         pass_aor_part = passive_root + 'άς/' + passive_root + 'άσα/' + passive_root + 'άν'
 
-
     return pass_aor_part
