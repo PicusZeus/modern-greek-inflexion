@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from modern_greek_inflexion.verb.helpers import compound_alternative_forms
-from modern_greek_inflexion.resources import IND, ACTIVE, PASSIVE, ROOT, CONJUGATION_IND, CON1_ACT_MODAL, MODAL, \
-    CON2_ACT_MODAL, PERF, FIN, CONJUGATION_IMP, SG, TER
+from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
 from modern_greek_inflexion.verb.recognize import recognize_active_non_past_conjugation
 

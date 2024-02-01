@@ -1,6 +1,5 @@
 from unittest import TestCase
 
-
 from modern_greek_inflexion import verb
 
 
@@ -44,6 +43,16 @@ class VerbTestAorAct(TestCase):
                     'ter': {'εξέδωσαν', 'εκδώσανε'}},
              'sg': {'pri': {'εξέδωσα'}, 'sec': {'εξέδωσες'}, 'ter': {'εξέδωσε'}}}
 
+        )
+
+    def test_paragw(self):
+        self.assertDictEqual(
+            aorist_act('παράγω'),
+            {'pl': {'pri': {'παραγάγαμε'},
+                    'sec': {'παραγάγατε'},
+                    'ter': {'παρήγαγαν', 'παραγάγανε'}},
+             'sg': {'pri': {'παρήγαγα'}, 'sec': {'παρήγαγες'}, 'ter': {'παρήγαγε'}}}
+            ,
         )
 
 class VerbTestAorPass(TestCase):

@@ -1,19 +1,15 @@
 from __future__ import annotations
 
 from modern_greek_accentuation.resources import vowels
-from typing import Any
 
 from modern_greek_inflexion.exceptions import NotLegalVerbException
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import *
+from modern_greek_inflexion.resources.verb import ancient_oomai
 
 
-def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | Any, str | Any]:
+def recognize_passive_present_continuous_conjugation(verb: str) -> dict:
     verb = verb.strip()
-
-    ancient_oomai = ['δικαιούμαι', 'οικειούμαι', 'ογκούμαι', 'ισούμαι', 'ρικνούμαι', 'θρομβούμαι', 'χρεούμαι',
-                     'καρπούμαι', 'διογκούμαι', 'ψιλούμαι', 'ξενούμαι', 'πληρούμαι', 'κυρούμαι', 'αξιούμαι',
-                     'βιούμαι', 'γομούμαι', 'ζηλούμαι', 'γαγγραινούμαι', 'πελιδνούμαι']
 
     if verb != 'είμαι' and len(verb) < 6:
         # maybe unnecessary, but one more way to catch problematic input

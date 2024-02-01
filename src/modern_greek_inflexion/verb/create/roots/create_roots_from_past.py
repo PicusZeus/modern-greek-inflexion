@@ -19,6 +19,5 @@ def create_roots_from_past(verb: str, lemma: str) -> str | None:
         res = deaugmented_stem
     elif deaugmented_stem_prefixed:
         res = deaugmented_stem_prefixed
-
     return res
 

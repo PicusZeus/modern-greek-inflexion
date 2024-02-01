@@ -4,7 +4,6 @@ from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekE
 from modern_greek_inflexion import verb
 
 
-
 class VerbTestAll(TestCase):
 
     def test_not_in_greek_exception(self):

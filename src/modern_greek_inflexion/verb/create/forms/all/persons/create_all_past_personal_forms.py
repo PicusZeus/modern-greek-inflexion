@@ -5,11 +5,11 @@ from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms 
 from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_roots_from_past
 from modern_greek_inflexion.verb.recognize import recognize_past_conjugation
 from modern_greek_inflexion.resources.resources import PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, \
-    MODAL, PARAT2_ACT, ROOT, IMPERF, CONJUGATION_IND
-from modern_greek_accentuation.resources import ULTIMATE
+    MODAL, PARAT2_ACT, ROOT, IMPERF, CONJUGATION_IND, ULTIMATE
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
+
 
 def create_all_past_personal_forms(verb: set, lemma: str, aspect: str, voice: str, pres_con: str = None) -> dict:
     """
@@ -40,12 +40,12 @@ def create_all_past_personal_forms(verb: set, lemma: str, aspect: str, voice: st
             simple_aor = False
         stem = data[ROOT]
         deaugmented_stem = create_roots_from_past(v, lemma)
+
         if deaugmented_stem:
             # sometimes augment stays if it wasn't accented
             deaugmented_syllabified = modern_greek_syllabify(deaugmented_stem)
             if len(deaugmented_syllabified) > 1 and deaugmented_syllabified[-2] == modern_greek_syllabify(stem)[-2]:
                 deaugmented_stem = None
-
 
         if deaugmented_stem:
             if put_accent_on_the_penultimate(deaugmented_stem + 'ω') not in greek_corpus and v[-2:] != 'γα':
