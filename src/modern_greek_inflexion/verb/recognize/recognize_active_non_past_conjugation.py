@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
 from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources.resources import greek_corpus
@@ -9,7 +7,7 @@ from modern_greek_inflexion.resources.variables import *
 
 
 def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense: str = FIN,
-                                          voice: str = ACTIVE) -> dict[str | Any, str | Any]:
+                                          voice: str = ACTIVE) -> dict:
     # can be used for aspects: 'continuous', 'simple', 'simple_passive'
     # verb is expected to be in 1st person sg, else it's assumed it's modal verb
     verb = verb.strip()
@@ -60,7 +58,7 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
             #     conjugation_ind =
             elif (verb[:-1] + 'εί' not in greek_corpus and
                   (verb[:-1] + 'άτε' in greek_corpus)):
-                conjugation_ind = CON2A_ACT_LOGIA
+                conjugation_ind = CON2AK_ACT
                 conjugation_imp = IMPER_ACT_CONT_2A
 
             # conjugation_part = PRESENT_ACTIVE_PART_2
@@ -75,9 +73,7 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
             conjugation_imp = IMPER_ACT_CONT_2D
             conjugation_part = PRESENT_ACTIVE_PART_2
 
-
-
-    elif verb[-1:] == 'ω':
+    elif verb.endswith('ω'):
 
         root = verb[:-1]
         conjugation_ind = CON1_ACT

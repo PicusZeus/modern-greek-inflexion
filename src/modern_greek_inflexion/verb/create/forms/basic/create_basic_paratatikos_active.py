@@ -5,7 +5,7 @@ from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels, prefixes_before_augment
 from modern_greek_accentuation.syllabify import count_syllables
 
-from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
+from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
     EIMAI, greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_active_paratatikos
 
@@ -46,7 +46,7 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
             if count_syllables(par_ga, true_syllabification=False) > 2:
                 act_par.append(par_ga)
 
-        elif pres_conjugation in [CON2B_ACT, CON2D_ACT, CON2A_ACT_LOGIA]:
+        elif pres_conjugation in [CON2B_ACT, CON2D_ACT, CON2AK_ACT]:
             act_par.append(root + 'ούσα')
 
         elif pres_conjugation == CON2C_ACT:
@@ -71,7 +71,7 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
                     act_par_all.append(pres_form[:-3] + 'είχα')
                 else:
                     act_par_all.append(put_accent_on_the_antepenultimate(root + 'α'))
-            elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2A_ACT_LOGIA, CON2D_ACT]:
+            elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2AK_ACT, CON2D_ACT]:
                 act_par_all.append(put_accent_on_the_penultimate(root + 'ούσα'))
 
             elif not act_par_all and pres_conjugation == CON2C_ACT:

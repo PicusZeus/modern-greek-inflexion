@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, remove_all_diacritics, \
-    put_accent_on_the_penultimate
+    put_accent_on_the_penultimate, put_accent
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.syllabify import count_syllables
 
@@ -10,9 +10,23 @@ from modern_greek_inflexion.resources import MODAL, CON1_PASS_MODAL, CON2A_ACT, 
     CON2B_ACT, IMPER_ACT_CONT_2B, ARCH_PASS_AOR, SG, CON1_PASS, PARAT1_PASS, PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS, \
     CON2D_PASS, CON2C_ACT, IMPER_ACT_AOR_C, IMPER_ACT_CONT_2C, IMPER_ACT_CONT_1, IMPER_ACT_AOR_A, SEC, IMPER_ACT_AOR_B, \
     PL, IMPER_PASS_AOR_A, CON2E_PASS, IMPER_ACT_AOR_CA, PRI, TER, CON1_PASS_ARCHAIC, CON2A_PASS, CON1_ACT, CON2C_PASS, \
-    PARAT2A_PASS, CON2_PASS_MODAL, IMPER_PASS_CONT_1
+    PARAT2A_PASS, CON2_PASS_MODAL, ANTEPENULTIMATE, CON2B_PASS, CON2B_PASS_ARCHAIC, PARAT2F_PASS
 from modern_greek_inflexion.resources.verb import conjugations, irregular_imperative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons import create_imp_pass
+
+
+def add_alternative_endings(forms: dict, con_name: str, root: str, accent_name: str | None) -> dict:
+    endings = conjugations[con_name]
+    for number in endings:
+        for person in endings[number]:
+            for ending in endings[number][person]:
+                if accent_name:
+                    form = put_accent(root + ending, accent_name, False)
+                else:
+                    form = root + ending
+                forms[number][person].append(form)
+
+    return forms
 
 
 def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | None = None,
@@ -47,11 +61,8 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                     form = put_accent_on_the_penultimate(form, true_syllabification=False)
                 forms[number][person].append(form)
 
-    if conjugation_name == CON2A_PASS and root + 'ιούμαι' in greek_corpus:
-        forms[SG][PRI].append(root + 'ιούμαι')
-    elif conjugation_name == CON2C_PASS and root + 'ούμαι' in greek_corpus:
-        forms[SG][PRI].append(root + 'ούμαι')
-    elif conjugation_name == CON1_ACT:
+
+    if conjugation_name == CON1_ACT:
         if root == 'θέλ':
             forms[SG][SEC].append('θες')
         elif root == 'ξέρ':
@@ -63,7 +74,13 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
         augmented_3_p = add_augment(root + 'οντο')
         augmented_3_p = [f for f in augmented_3_p if f in greek_corpus]
         forms[PL][TER].extend(augmented_3_p)
-
+    elif conjugation_name == PARAT2F_PASS:
+        augmented_3_s = add_augment(root + 'ούτο')
+        augmented_3_s = [f for f in augmented_3_s if f in greek_corpus]
+        forms[SG][TER].extend(augmented_3_s)
+        augmented_3_p = add_augment(root + 'ούντο')
+        augmented_3_p = [f for f in augmented_3_p if f in greek_corpus]
+        forms[PL][TER].extend(augmented_3_p)
     elif conjugation_name == PARAT2B_PASS:
         augmented_3_s = add_augment(root + 'είτο')
         augmented_3_s = [f for f in augmented_3_s if f in greek_corpus]
@@ -78,26 +95,35 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
         augmented_3_p = add_augment(root + 'ώντο')
         augmented_3_p = [f for f in augmented_3_p if f in greek_corpus]
         forms[PL][TER].extend(augmented_3_p)
-    # elif conjugation_name == IMPER_PASS_CONT_1:
-    #     imp_2_s = root + 'ου'
-    #     if imp_2_s in greek_corpus:
-    #         forms[SG] = {SEC: [imp_2_s]}
 
+    elif conjugation_name == CON1_PASS:
+        forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
+        forms[PL][SEC][1] = put_accent_on_the_antepenultimate(forms[PL][SEC][1])
+        if remove_all_diacritics(root) + 'όμεθα' in greek_corpus:
+            forms = add_alternative_endings(forms, CON1_PASS_ARCHAIC, root, ANTEPENULTIMATE)
 
+    elif conjugation_name == CON2A_PASS and root + 'ιούμαι' in greek_corpus:
+        forms[SG][PRI].append(root + 'ιούμαι')
+
+    elif conjugation_name == CON2B_PASS:
+        if root + 'ούμεθα' in greek_corpus:
+            forms = add_alternative_endings(forms, CON2B_PASS_ARCHAIC, root, None)
 
 
     # check if a verb in 2nd conjugation active has alternative endings belonging to other type of the 2nd con
 
-    if conjugation_name in [CON2A_ACT, IMPER_ACT_CONT_2A]:
+    elif conjugation_name in [CON2A_ACT, IMPER_ACT_CONT_2A]:
         if root + 'είς' in greek_corpus and root + 'εί' in greek_corpus:
-            endings = conjugations[CON2B_ACT]
-
+            # endings = conjugations[CON2B_ACT]
+            alt_con = CON2B_ACT
             if conjugation_name == IMPER_ACT_CONT_2A:
-                endings = conjugations[IMPER_ACT_CONT_2B]
-            for number in endings:
-                for person in endings[number]:
-                    for alt_ending in endings[number][person]:
-                        forms[number][person].append(root + alt_ending)
+                alt_con = IMPER_ACT_CONT_2B
+                # endings = conjugations[IMPER_ACT_CONT_2B]
+            forms = add_alternative_endings(forms, alt_con, root, None)
+            # for number in endings:
+            #     for person in endings[number]:
+            #         for alt_ending in endings[number][person]:
+            #             forms[number][person].append(root + alt_ending)
 
     if simple_aor:
         for number in endings.keys():
@@ -131,20 +157,7 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
                         # forms[number][person].append(
                         #     put_accent_on_the_antepenultimate(form, true_syllabification=False))
 
-    if conjugation_name in [CON1_PASS]:
-
-        forms[PL][PRI][0] = put_accent_on_the_antepenultimate(forms[PL][PRI][0])
-        forms[PL][SEC][1] = put_accent_on_the_antepenultimate(forms[PL][SEC][1])
-        if remove_all_diacritics(root) + 'όμεθα' in greek_corpus:
-            endings = conjugations[CON1_PASS_ARCHAIC]
-            for number in endings:
-                for person in endings[number]:
-                    for ending in endings[number][person]:
-                        form = put_accent_on_the_antepenultimate(root + ending)
-                        forms[number][person].append(form)
-
-
-    elif conjugation_name in [PARAT1_PASS]:
+    if conjugation_name in [PARAT1_PASS]:
         forms[PL][TER][0] = put_accent_on_the_antepenultimate(forms[PL][TER][0], true_syllabification=False)
 
     elif conjugation_name in [PARAT2D_PASS, PARAT2B_LOGIA, PARAT2B_PASS]:

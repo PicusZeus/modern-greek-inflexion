@@ -2,7 +2,7 @@ from modern_greek_accentuation.accentuation import (put_accent_on_the_ultimate,
                                                     put_accent_on_the_penultimate,
                                                     remove_all_diacritics)
 
-from modern_greek_inflexion.resources import CON1_ACT, greek_corpus, CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2A_ACT_LOGIA, \
+from modern_greek_inflexion.resources import CON1_ACT, greek_corpus, CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2AK_ACT, \
     CON2C_ACT, EIMAI
 
 
@@ -48,7 +48,7 @@ def create_present_active_participle_arch(_: str, root: str, pres_conjugation: s
         elif check_participle_existence(remove_all_diacritics(masc), fem_wsa, neut_pl_wnta):
             arch_pres_part_act = remove_all_diacritics(masc) + '/' + fem_wsa + '/' + remove_all_diacritics(neut_wn)
 
-    elif pres_conjugation == CON2A_ACT_LOGIA:
+    elif pres_conjugation == CON2AK_ACT:
         if root + 'ών' in greek_corpus:
             arch_pres_part_act = root + 'ών/' + root + 'ώσα/' + root + 'ών'
 

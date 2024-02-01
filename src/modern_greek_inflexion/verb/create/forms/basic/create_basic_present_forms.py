@@ -3,8 +3,8 @@ from __future__ import annotations
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate
 
 from modern_greek_inflexion.verb.helpers import check_personal_forms
-from modern_greek_inflexion.resources import CONJUGATION_IND, ROOT, CON2A_PASS, CON2B_PASS, CON2AB_PASS, CON2A_ACT, \
-    CON2A_ACT_LOGIA, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT
+from modern_greek_inflexion.resources import CONJUGATION_IND, ROOT, CON2A_PASS, CON2B_PASS, CON2AK_PASS, CON2A_ACT, \
+    CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT
 from modern_greek_inflexion.verb.recognize import recognize_passive_present_continuous_conjugation, \
     recognize_active_non_past_conjugation
 
@@ -26,12 +26,13 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
     pres_conjugation = ''
     root = ''
 
+
     if deponens:
-        passive_conjugation = recognize_passive_present_continuous_conjugation(base_form)
+        active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
 
         pres_dep_forms = [base_form]
-        pres_conjugation = passive_conjugation[CONJUGATION_IND]
-        root = passive_conjugation[ROOT]
+        pres_conjugation = active_conjugation[CONJUGATION_IND]
+        root = active_conjugation[ROOT]
         f_p = None
         f_p_alt = None
         th_p = None
@@ -49,7 +50,7 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
             f_p_alt = root + 'ιέμαι'
             th_p_alt = root + 'ιέται'
 
-        elif pres_conjugation == CON2AB_PASS:
+        elif pres_conjugation == CON2AK_PASS:
             f_p = root + 'ώμαι'
             th_p = root + 'άται'
             f_p_alt = root + 'ιέμαι'
@@ -65,10 +66,10 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
 
     elif not_deponens:
 
-        passive_conjugation = recognize_active_non_past_conjugation(base_form)
+        active_conjugation = recognize_active_non_past_conjugation(base_form)
 
-        pres_conjugation = passive_conjugation[CONJUGATION_IND]
-        root = passive_conjugation[ROOT]
+        pres_conjugation = active_conjugation[CONJUGATION_IND]
+        root = active_conjugation[ROOT]
 
         pres_pass_forms = []
         f_p_pass = None
@@ -92,7 +93,8 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
             th_p_pass_alt_2 = root + 'άται'
             f_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
             th_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αται')
-        elif pres_conjugation == CON2A_ACT_LOGIA:
+
+        elif pres_conjugation == CON2AK_ACT:
             f_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αμαι')
             th_p_pass_alt_3 = put_accent_on_the_antepenultimate(root + 'αται')
             f_p_pass_alt_1 = root + 'ιέμαι'
@@ -134,6 +136,9 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         if f_p_pass_alt_3 and check_personal_forms(f_p_pass_alt_3, th_p_pass_alt_3):
             pres_pass_forms.append(f_p_pass_alt_3)
 
+        if root.endswith('θέτ'):
+            pres_pass_forms.append(root[:-3] + 'τίθεμαι')
+
         pres_pass_forms = ','.join(pres_pass_forms)
 
         if pres_pass_forms:
@@ -143,15 +148,15 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
             intransitive_active = True
 
     elif modal_act:
-        passive_conjugation = recognize_active_non_past_conjugation(base_form)
-        pres_conjugation = passive_conjugation[CONJUGATION_IND]
-        root = passive_conjugation[ROOT]
+        active_conjugation = recognize_active_non_past_conjugation(base_form)
+        pres_conjugation = active_conjugation[CONJUGATION_IND]
+        root = active_conjugation[ROOT]
         present_basic_forms = base_form
 
     elif modal_med:
-        passive_conjugation = recognize_passive_present_continuous_conjugation(base_form)
-        pres_conjugation = passive_conjugation[CONJUGATION_IND]
-        root = passive_conjugation[ROOT]
+        active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
+        pres_conjugation = active_conjugation[CONJUGATION_IND]
+        root = active_conjugation[ROOT]
         # modals and others
         present_basic_forms = base_form
 

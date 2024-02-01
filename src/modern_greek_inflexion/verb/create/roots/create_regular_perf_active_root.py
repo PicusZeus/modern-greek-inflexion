@@ -223,7 +223,7 @@ def create_regular_perf_active_root(verb: str, alternative: bool = False, pres_c
             # ancient form
             perf_root = root
 
-    elif pres_conjugation in [CON2A_ACT, CON2A_ACT_LOGIA, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
+    elif pres_conjugation in [CON2A_ACT, CON2AK_ACT, CON2B_ACT, CON2A_PASS, CON2B_PASS, CON2C_PASS, CON2_ACT_MODAL] and \
             not irregular:
 
         perf_root = root + 'ήσ'

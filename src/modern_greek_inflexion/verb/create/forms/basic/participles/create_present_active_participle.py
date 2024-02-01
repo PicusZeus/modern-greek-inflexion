@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2A_ACT_LOGIA, CON2C_ACT, \
+from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2AK_ACT, CON2C_ACT, \
     EIMAI
 
 
@@ -10,7 +10,7 @@ def create_present_active_participle(_: str, root: str, pres_conjugation: str) -
     if pres_conjugation == CON1_ACT:
         pres_part_act = root + 'οντας'
 
-    elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2A_ACT_LOGIA]:
+    elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2AK_ACT]:
         pres_part_act = root + 'ώντας'
 
     elif pres_conjugation == CON2C_ACT and root != 'πά':

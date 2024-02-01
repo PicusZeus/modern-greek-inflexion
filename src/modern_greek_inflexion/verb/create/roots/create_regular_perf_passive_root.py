@@ -197,7 +197,7 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
                 perf_root = root + 'ιστ'
 
         elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,
-                                  CON2C_PASS, CON2AB_PASS, CON2A_ACT_LOGIA, CON2_PASS_MODAL]:
+                                  CON2C_PASS, CON2AK_PASS, CON2AK_ACT, CON2_PASS_MODAL]:
 
             perf_root = root + 'ηθ'
 
@@ -223,18 +223,18 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
                         perf_root = root + "αθ"
                         if not passive_subjunctive_exists(perf_root):
                             perf_root = root + "εθ"
-                            if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [CON2AB_PASS]:
+                            if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [CON2AK_PASS]:
                                 perf_root = root + "εχτ"
-                                if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [CON2AB_PASS]:
+                                if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [CON2AK_PASS]:
                                     perf_root = root + "εχθ"
                                     if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [
-                                        CON2AB_PASS]:
+                                        CON2AK_PASS]:
                                         perf_root = root + "ηχτ"
                                         if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [
-                                            CON2AB_PASS]:
+                                            CON2AK_PASS]:
                                             perf_root = root + "ηχθ"
                                             if not passive_subjunctive_exists(perf_root) and pres_conjugation not in [
-                                                CON2AB_PASS]:
+                                                CON2AK_PASS]:
                                                 perf_root = root + "ιστ"
 
                 # σπεσιαλ case for compounds with poiw
@@ -242,7 +242,7 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
                     perf_root = root + 'ηθ'
                     multiple_stems = True
 
-        elif pres_conjugation in [CON2D_ACT, CON2SA_PASS]:
+        elif pres_conjugation in [CON2D_ACT, CON2F_PASS]:
 
             perf_root = root + 'ωθ'
 

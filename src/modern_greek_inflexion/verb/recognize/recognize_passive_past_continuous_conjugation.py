@@ -11,8 +11,8 @@ def recognize_passive_past_continuous_conjugation(lemma: str, verb: str, pres_co
     verb = verb.strip()
     root = None
 
-    if pres_con == CON2SA_PASS:
-        conjugation_ind = PARAT2SA_PASS
+    if pres_con == CON2F_PASS:
+        conjugation_ind = PARAT2F_PASS
         root = verb[:-6]
 
 
@@ -28,9 +28,9 @@ def recognize_passive_past_continuous_conjugation(lemma: str, verb: str, pres_co
             root = verb[:-7]
         conjugation_ind = PARAT2A_PASS
 
-    elif verb.endswith('όμουν') and pres_con == CON2AB_PASS:
+    elif verb.endswith('όμουν') and pres_con == CON2AK_PASS:
         root = verb[:-5]
-        conjugation_ind = PARAT2AC_PASS
+        conjugation_ind = PARAT2AK_PASS
 
     elif len(verb) >= 6 and 'όμουν' in verb[-6:]:
         if verb[-5:] == 'όμουν':
@@ -54,11 +54,11 @@ def recognize_passive_past_continuous_conjugation(lemma: str, verb: str, pres_co
             root = verb[:-7]
         conjugation_ind = PARAT2B_PASS
 
-    elif len(verb) >= 6 and 'ούμην' in verb[-5:]:
-        if verb[-5:] == 'ούμην':
-            root = verb[:-5]
-
-        conjugation_ind = PARAT2B_PASS_LOGIA
+    # elif len(verb) >= 6 and 'ούμην' in verb[-5:]:
+    #     if verb[-5:] == 'ούμην':
+    #         root = verb[:-5]
+    #
+    #     conjugation_ind = PARAT2B_PASS_LOGIA
 
     elif len(verb) >= 5 and 'έμην' in verb[-4:]:
 

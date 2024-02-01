@@ -181,7 +181,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
         verb_temp[PRESENT][ACTIVE] = set(pres_act)
     if pres_pass:
         verb_temp[PRESENT][PASSIVE] = set(pres_pass)
-        has_passive = True
+        has_passive = set(pres_pass)
 
     # μέλλοντας και υποτακτική
 

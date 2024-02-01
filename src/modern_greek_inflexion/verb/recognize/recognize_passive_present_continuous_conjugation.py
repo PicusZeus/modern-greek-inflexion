@@ -40,7 +40,7 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
 
     elif verb.endswith('ούμαι') and True in [verb.endswith(v) for v in ancient_oomai]:
         root = verb[:-5]
-        conjugation_ind = CON2SA_PASS
+        conjugation_ind = CON2F_PASS
         conjugation_imp = IMPER_PASS_CONT_2SA
         conjugation_part = PRESENT_PASSIVE_PART_2B
 
@@ -62,7 +62,7 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict[str | An
 
     elif verb.endswith('ώμαι'):
         root = verb[:-4]
-        conjugation_ind = CON2AB_PASS
+        conjugation_ind = CON2AK_PASS
         conjugation_imp = IMPER_PASS_CONT_2AB
         conjugation_part = PRESENT_PASSIVE_PART_2AB
 
