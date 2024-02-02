@@ -58,7 +58,7 @@ def create_regular_perf_active_root(verb: str, alternative: bool = False, pres_c
                             if not active_subjunctive_sigmatic_exists(perf_root):
                                 perf_root = root[:-3] + 'έσ'
                                 if not active_subjunctive_sigmatic_exists(perf_root):
-                                    perf_root = root[:-3] + 'άν'
+                                    perf_root = ""
                                     if verb in ['χραίνω', 'πααίνω', 'κραίνω', 'πτωχαίνω', 'γλαφυραίνω', 'ξανταίνω',
                                                 'αναξαίνω', 'χλιαραίνω', 'ανταίνω']:
                                         # no in db, rare verbs, create different perf root than an
@@ -211,13 +211,15 @@ def create_regular_perf_active_root(verb: str, alternative: bool = False, pres_c
                 if not active_subjunctive_exists(perf_root):
                     perf_root = ''
 
-        elif root.endswith('ύρ'):
-            perf_root = root
+        # elif root.endswith('ύρ'):
+        #     perf_root = root
 
         elif root.endswith('ρ'):
             perf_root = put_accent_on_the_ultimate(root + 'ίσ')
             if not active_subjunctive_exists(perf_root):
-                perf_root = ""
+                perf_root = put_accent_on_the_ultimate(root + 'ήσ')
+                if not active_subjunctive_exists(perf_root):
+                    perf_root = root
 
         elif root in ['επέστη']:
             # ancient form

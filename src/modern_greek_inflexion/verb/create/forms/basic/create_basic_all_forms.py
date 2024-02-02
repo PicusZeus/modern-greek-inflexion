@@ -1,3 +1,4 @@
+
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_forms import create_basic_aorist_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_forms import create_basic_conjunctive_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
@@ -13,7 +14,8 @@ from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_a
 from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_passive_participle import \
     create_present_passive_participle
 from modern_greek_inflexion.verb.helpers import update_forms_with_prefix
-from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, put_accent_on_the_antepenultimate
+from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, \
+    put_accent_on_the_antepenultimate, where_is_accent, put_accent_on_the_ultimate
 from modern_greek_accentuation.syllabify import count_syllables
 from modern_greek_accentuation.augmentify import deaugment_past_form
 from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, prefixes_before_augment
@@ -65,7 +67,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                           'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
                           'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'στέλλομαι', 'στέκομαι',
                           'τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι', 'ίπταμαι', 'προσαρτώ',
-                          'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει']
+                          'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει', 'υφαίνω']
 
     """ 
     special case for common verbs with modern "para" prefix, which can be confused with ancient "para" and cause
@@ -319,7 +321,9 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
             alt_aorist_active = [f for f in alt_aorists if f in greek_corpus]
             if alt_aorist_active:
                 verb_temp[AORIST][ACTIVE] = set(alt_aorist_active)
-
+        except KeyError:
+            pass
+        try:
             # paratatikos
             paratatikos_active_cmp = verb_temp[PARATATIKOS][ACTIVE]
             alt_paratatikos = list(paratatikos_active_cmp)
@@ -335,7 +339,19 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
             alt_subjunctive_active = [f for f in moved_accent if f in greek_corpus]
             if alt_subjunctive_active:
                 verb_temp[CONJUNCTIVE][ACTIVE] = set(alt_subjunctive_active)
-
+        except KeyError:
+            pass
+        try:
+            # participles
+            participles = list(verb_temp[ARCH_ACT_PRES_PARTICIPLE])[0].split('/')
+            if not where_is_accent(participles[0]):
+                accented_participles = []
+                for p in participles:
+                    if not where_is_accent(p):
+                        accented_participles.append(put_accent_on_the_ultimate(p))
+                    else:
+                        accented_participles.append(p)
+                verb_temp[ARCH_ACT_PRES_PARTICIPLE] = {'/'.join(accented_participles)}
         except KeyError:
             pass
 

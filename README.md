@@ -30,7 +30,8 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
- * 1.0.1 Project is mature enough, sall issue with dependency accentuation module fixed.
+ * 1.0.2 Updated list of irregular past passive participles, deleted most of them as they're not needed anymore and in places they would cause incorrect participle formation.
+ * 1.0.1 Project is mature enough, some issue with dependency accentuation module fixed.
  * 0.9.4 Revised library of endings, added support for archaioprepes passive for verbs of type 'θέτω'.
  * 0.9.3 Added support for not very frequently used passive present imperative sg, added support for paratatikos for verbs on ώμαι.
  * 0.9.2 Update focused mainly on paratatikos, now it should deal better with lesser used conjugation types, mainly archaic. Also in passive paratatikos archaic endings 'to' and 'nto' are added to the verbs of basic conjugation types if they are found in corpus (like κυβερνείτο ή κυκλοφορείτο). Fixed issue with some modal verbs.

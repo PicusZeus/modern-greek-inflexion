@@ -190,11 +190,14 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
                     if not passive_subjunctive_exists(perf_root):
                         perf_root = root[:-3] + 'ερθ'
 
-            elif root.endswith('υρ'):
-                perf_root = root + 'θ'
+            # elif root.endswith('υρ'):
 
             elif root.endswith('ρ'):
-                perf_root = root + 'ιστ'
+                perf_root = root + 'θ'
+                if not passive_subjunctive_exists(perf_root):
+                    perf_root = root + 'ιστ'
+                    if not passive_subjunctive_exists(perf_root):
+                        perf_root = root + 'ηθ'
 
         elif pres_conjugation in [CON2A_ACT, CON2B_ACT, CON2C_ACT, CON2A_PASS, CON2B_PASS, CON2E_PASS,
                                   CON2C_PASS, CON2AK_PASS, CON2AK_ACT, CON2_PASS_MODAL]:
@@ -245,9 +248,9 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
         elif pres_conjugation in [CON2D_ACT, CON2F_PASS]:
 
             perf_root = root + 'ωθ'
+    if perf_root:
+        perf_root = remove_all_diacritics(perf_root)
 
-    perf_root = remove_all_diacritics(perf_root)
-
-    if multiple_stems or passive_subjunctive_exists(perf_root):
+    if perf_root and (multiple_stems or passive_subjunctive_exists(perf_root)):
         return perf_root
 

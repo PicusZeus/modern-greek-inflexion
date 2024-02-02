@@ -54,6 +54,7 @@ def update_forms_with_prefix(verb_temp: dict, prefix: [str, str]) -> dict:
                     new_form = '/'.join([prefix[1] + f for f in form.split('/')])
                 else:
                     new_form = '/'.join([prefix[0] + f for f in form.split('/')])
+
                 new_set.add(new_form)
 
             new_dict[key] = new_set

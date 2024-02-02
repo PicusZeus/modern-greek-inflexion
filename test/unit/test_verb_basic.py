@@ -550,11 +550,12 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_all_basic_forms('ανυφαίνω'),
             {'act_pres_participle': {'ανυφαίνοντας'},
-             'aorist': {'active': {'ανύφανα'}},
-             'conjunctive': {'active': {'ανυφάνω'}},
+             'aorist': {'active': {'ανύφανα'}, 'passive': {'ανυφάνθηκα'}},
+             'conjunctive': {'active': {'ανυφάνω'}, 'passive': {'ανυφανθώ'}},
              'modal': False,
-             'paratatikos': {'active': {'ανύφαινα'}},
-             'present': {'active': {'ανυφαίνω'}}}
+             'paratatikos': {'active': {'ανύφαινα'}, 'passive': {'ανυφαινόμουν'}},
+             'passive_perfect_participle': {'ανυφασμένος'},
+             'present': {'active': {'ανυφαίνω'}, 'passive': {'ανυφαίνομαι'}}}
 
         )
 
@@ -670,8 +671,8 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             verb.create_all_basic_forms('νοστιμαίνω'),
             {'act_pres_participle': {'νοστιμαίνοντας'},
-             'aorist': {'active': {'νοστίμανα'}},
-             'conjunctive': {'active': {'νοστιμάνω'}},
+             'aorist': {},
+             'conjunctive': {},
              'modal': False,
              'paratatikos': {'active': {'νοστίμαινα'}},
              'present': {'active': {'νοστιμαίνω'}}}
@@ -1071,7 +1072,7 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'έζησα'}}, 'paratatikos': {'active': {'ζούσα'}},
              'act_pres_participle': {'ζώντας'},
              'arch_act_pres_participle': {'ζων/ζώσα/ζων'},
-             'passive_perfect_participle': {'βιωμένος'}, 'modal': False},
+             'modal': False},
 
         )
 
@@ -1382,6 +1383,57 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'καταχρώμενος'},
              'passive_perfect_participle': {'καταχρασμένος'},
              'present': {'passive': {'καταχρώμαι'}}})
+
+    def test_verb_kleinw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('κλείνω'),
+            {'act_pres_participle': {'κλείνοντας'},
+             'aorist': {'active': {'έκλεισα'}, 'passive': {'κλείστηκα', 'κλείσθηκα'}},
+             'conjunctive': {'active': {'κλείσω'}, 'passive': {'κλεισθώ', 'κλειστώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'έκλεινα'}, 'passive': {'κλεινόμουν'}},
+             'passive_perfect_participle': {'κλεισμένος', 'κεκλεισμένος'},
+             'present': {'active': {'κλείνω'}, 'passive': {'κλείνομαι'}}},
+        )
+
+    def test_verb_sebomai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('σέβομαι'),
+            {'aorist': {'passive': {'σεβάστηκα', 'σεβάσθηκα'}},
+             'conjunctive': {'passive': {'σεβασθώ', 'σεβαστώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'σεβόμουν'}},
+             'pass_pres_participle': {'σεβόμενος'},
+             'passive_perfect_participle': {'σεβασμένος'},
+             'present': {'passive': {'σέβομαι'}}}
+
+        )
+    def test_verb_ofeilw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('οφείλω'),
+            {'act_pres_participle': {'οφείλοντας'},
+             'aorist': {},
+             'conjunctive': {},
+             'modal': False,
+             'paratatikos': {'active': {'όφειλα'}, 'passive': {'οφειλόμουν'}},
+             'pass_pres_participle': {'οφειλόμενος'},
+             'present': {'active': {'οφείλω'}, 'passive': {'οφείλομαι'}}}
+
+        )
+
+    def test_verb_diamarturomai(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('διαμαρτύρομαι'),
+            {'aorist': {'passive': {'διαμαρτυρήθηκα'}},
+             'conjunctive': {'passive': {'διαμαρτυρηθώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'διαμαρτυρόμουν'}},
+             'pass_pres_participle': {'διαμαρτυρόμενος'},
+             'passive_aorist_participle': {'διαμαρτυρηθείς/διαμαρτυρηθείσα/διαμαρτυρηθέν'},
+             'passive_perfect_participle': {'διαμαρτυρημένος'},
+             'present': {'passive': {'διαμαρτύρομαι'}}}
+
+        )
 
     def test_verb_zhlw(self):
         self.assertDictEqual(

@@ -29,6 +29,7 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
             elif passive_root.endswith('αστ') and root.endswith('στ'):
                 passive_perfect_participles.append(passive_root + 'ημένος')
             elif passive_root.endswith('στ') and len(passive_root) > 3:
+                # passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root + 'μενος'))
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-1] + 'μενος'))
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'μενος'))
 
@@ -69,6 +70,8 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
 
         elif act_root.endswith('ήσ'):
             passive_perfect_participles.append(put_accent_on_the_penultimate(act_root[:-1] + 'μενος'))
+            passive_perfect_participles.append(put_accent_on_the_penultimate(act_root + 'μενος'))
+
             if root[-1] in ['μ', 'ρ', 'λ']:
                 passive_perfect_participles.append(put_accent_on_the_penultimate(act_root[:-2] + 'εμενος'))
 
