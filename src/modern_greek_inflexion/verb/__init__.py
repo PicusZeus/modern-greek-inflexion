@@ -13,18 +13,14 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
-def create_all_forms(verb: str, alternative: bool = False) -> dict:
+def create_all_forms(verb: str, para: bool = False) -> dict:
     """
+    :param para: how to treat prefix para
     :param verb: self explanatory
-    :param alternative: a flag for very rare situation, when the same verb form can actually
-    produce different verbs (e.g. παραβλέπω (παραδώ and παραβλέψω) with different subjunctive
-    and aorist forms. If alternative is set to True, it will try to reproduce a possible alternative,
-    so if by default παραβλέπω should reproduce παραδώ, παραείδα, then set to True it should
-    reproduce forms with παραβλέψω
     :return:
     """
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
-    basic_forms = create_all_basic_forms(verb, alternative=alternative)
+    basic_forms = create_all_basic_forms(verb, para)
 
     all_forms = {}
 

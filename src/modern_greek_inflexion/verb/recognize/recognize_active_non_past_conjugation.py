@@ -27,7 +27,7 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
 
     elif (verb.endswith('έω') or (
             verb.endswith('άω') and (count_syllables(verb, true_syllabification=False) == 2 or aspect == PERF))
-          or verb.endswith('αίω') or verb.endswith('ακούω')):
+          or verb.endswith('αίω') or verb.endswith('ακούω') or verb.endswith('ώω')):
         root = verb[:-1]
         conjugation_ind = CON2C_ACT
         conjugation_imp = IMPER_ACT_CONT_2C
@@ -117,6 +117,9 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
             conjugation_imp = IMPER_ACT_AOR_C
         elif conjugation_ind == CON2B_ACT or verb in ['κατέβω', 'ανέβω']:
             conjugation_imp = IMPER_ACT_AOR_D
+        elif verb.endswith('βω'):
+            # compounds with bainw has either
+            conjugation_imp = IMPER_ACT_CONT_1B
         elif root == '':
             # sometimes there is no simple future form
             pass

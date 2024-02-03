@@ -61,6 +61,13 @@ class VerbTestImperAct(TestCase):
 
         )
 
+    def test_odhgw(self):
+        self.assertDictEqual(
+            imp_cont_act('οδηγώ'),
+            {'pl': {'sec': {'οδηγάτε', 'οδηγείτε'}}, 'sg': {'sec': {'οδήγα', 'οδήγει'}}}
+
+        )
+
     def test_lego(self):
         self.assertDictEqual(
             imp_conj_act('λέω'),
@@ -73,6 +80,12 @@ class VerbTestImperAct(TestCase):
             imp_conj_act('κατεβαίνω'),
             {'pl': {'sec': {'κατεβείτε'}}, 'sg': {'sec': {'κατέβα'}}}
 
+        )
+
+    def test_parembainw(self):
+        self.assertDictEqual(
+            imp_conj_act('παρεμβαίνω'),
+            {'pl': {'sec': {'παρέμβετε'}}}
         )
 
     def test_paraggelnw(self):

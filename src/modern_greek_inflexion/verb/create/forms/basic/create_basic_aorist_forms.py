@@ -6,7 +6,7 @@ from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_passive 
 
 def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, deponens: bool = False,
                               not_deponens: bool = True, modal_act: bool = False,
-                              modal_med: bool = False, alternative: bool = False) -> str:
+                              modal_med: bool = False) -> str:
 
     """
     :param pres_form:
@@ -24,13 +24,13 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
     if not_deponens or act_root:
 
         if passive_root:
-            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med, alternative)
+            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med)
             passive_aor_forms = ','.join(passive_aor_forms)
         else:
             passive_aor_forms = ''
 
         if act_root:
-            active_aor_forms = create_basic_aorist_active(pres_form, act_root, modal_act, alternative)
+            active_aor_forms = create_basic_aorist_active(pres_form, act_root, modal_act)
             active_aor_forms = ','.join(active_aor_forms)
         else:
             active_aor_forms = ''
@@ -40,7 +40,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
     elif deponens:
 
         if passive_root:
-            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med, alternative)
+            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med)
 
             passive_aor_forms = ','.join(passive_aor_forms)
 
@@ -49,7 +49,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
     elif modal_act:
 
         if act_root:
-            active_aor_forms = create_basic_aorist_active(pres_form, act_root, modal_act, alternative)
+            active_aor_forms = create_basic_aorist_active(pres_form, act_root, modal_act)
             active_aor_forms = ','.join(active_aor_forms)
         else:
             active_aor_forms = ''
@@ -59,7 +59,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
     elif modal_med:
 
         if passive_root:
-            active_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med, alternative)
+            active_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med)
             active_aor_forms = ','.join(active_aor_forms)
         else:
             active_aor_forms = ''

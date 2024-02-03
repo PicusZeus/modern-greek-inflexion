@@ -28,7 +28,7 @@ def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> b
 
 
 def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation: str, pres_pass_form: tuple,
-                                     modal: bool = False, alternative: bool = False) -> str | None:
+                                     modal: bool = False) -> str | None:
     pass_par = []
     root = remove_all_diacritics(root)
 

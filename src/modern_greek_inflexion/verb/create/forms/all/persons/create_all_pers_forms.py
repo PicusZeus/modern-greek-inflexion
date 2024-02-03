@@ -144,12 +144,13 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
 
     # check if a verb in 2nd conjugation active has alternative endings belonging to other type of the 2nd con
 
-    elif conjugation_name in [CON2A_ACT, IMPER_ACT_CONT_2A]:
+    elif conjugation_name == CON2A_ACT:
         if root + 'είς' in greek_corpus and root + 'εί' in greek_corpus:
-            alt_con = CON2B_ACT
-            if conjugation_name == IMPER_ACT_CONT_2A:
-                alt_con = IMPER_ACT_CONT_2B
-            forms = add_alternative_endings(forms, alt_con, root, None)
+            forms = add_alternative_endings(forms, CON2B_ACT, root, None)
+
+    elif conjugation_name == IMPER_ACT_CONT_2A:
+        if root + 'είς' in greek_corpus and root + 'εί' in greek_corpus:
+            forms = add_alternative_endings(forms, IMPER_ACT_CONT_2B, root, PENULTIMATE)
 
     elif conjugation_name == IMPER_PASS_AOR_A:
         if active_root and [ar for ar in active_root if ar[-1] in ['σ', 'ψ', 'ξ']]:
@@ -168,8 +169,6 @@ def create_all_pers_forms(conjugation_name: str, root: str, active_root: str | N
             for person in forms[number]:
                 for index, form in enumerate(forms[number][person]):
                     forms[number][person][index] = put_accent_on_the_antepenultimate(form)
-
-
 
 
     if conjugation_name in [CON2B_ACT, CON2C_ACT, IMPER_ACT_AOR_C]:

@@ -30,6 +30,7 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
+ * 1.0.3 The problem with verbs with prefix para fixed by adding a flag to verb.create_all_forms para. If there is possibility, that there are two different verbs (like παραβλέπω/παραβλέψω and παραβλέπω/παραδώ), you have to set flag para to True. Fixed issue with non existent imper aor sg of compound verbs with βαίνω (like παρεμβαίνω).
  * 1.0.2 Updated list of irregular past passive participles, deleted most of them as they're not needed anymore and in places they would cause incorrect participle formation.
  * 1.0.1 Project is mature enough, some issue with dependency accentuation module fixed.
  * 0.9.4 Revised library of endings, added support for archaioprepes passive for verbs of type 'θέτω'.

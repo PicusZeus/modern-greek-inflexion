@@ -10,7 +10,7 @@ from modern_greek_inflexion.resources.verb import irregular_active_aorists, pref
 
 
 def create_basic_aorist_active(pres_form: str, active_root: str,
-                                modal: bool = False, alternative: bool = False) -> set:
+                               modal: bool = False) -> set:
     active_aor_forms = []
 
     if modal:
@@ -27,29 +27,27 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
             active_aor_forms.append(put_accent_on_the_antepenultimate(active_root + 'ε'))
 
     else:
-        if not alternative:
 
-            if pres_form in irregular_active_aorists:
-                return set(irregular_active_aorists[pres_form].split(','))
+        if pres_form in irregular_active_aorists:
+            return set(irregular_active_aorists[pres_form].split(','))
 
-            elif pres_form[-4:-2] != active_root[-3:-1]:
+        elif pres_form[-4:-2] != active_root[-3:-1]:
 
-                for ir_verb in irregular_active_aorists:
-                    length_ir_verb = len(ir_verb)
-                    if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
-                        prefix = pres_form[:-length_ir_verb]
+            for ir_verb in irregular_active_aorists:
+                length_ir_verb = len(ir_verb)
+                if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+                    prefix = pres_form[:-length_ir_verb]
 
-                        active_aor_forms.extend(add_augment(prefix + irregular_active_aorists[ir_verb]))
+                    active_aor_forms.extend(add_augment(prefix + irregular_active_aorists[ir_verb]))
 
-                        active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
-                        # active_aor_forms = [put_accent_on_the_antepenultimate(f) for f in active_aor_forms]
-                        if irregular_active_aorists[ir_verb][-4:] == 'βηκα' and 'λαβαίνω' not in pres_form:
-                            # add archaic athematic aorist for compounds with bainw
-                            archaic_aor_forms = add_augment(prefix + irregular_active_aorists[ir_verb][:-2])
-                            archaic_aor_forms = [put_accent_on_the_penultimate(a) for a in archaic_aor_forms]
-                            active_aor_forms.extend(archaic_aor_forms)
-                            # active_aor_forms.extend(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2])
-
+                    active_aor_forms = [f for f in active_aor_forms if f in greek_corpus]
+                    # active_aor_forms = [put_accent_on_the_antepenultimate(f) for f in active_aor_forms]
+                    if irregular_active_aorists[ir_verb][-4:] == 'βηκα' and 'λαβαίνω' not in pres_form:
+                        # add archaic athematic aorist for compounds with bainw
+                        archaic_aor_forms = add_augment(prefix + irregular_active_aorists[ir_verb][:-2])
+                        archaic_aor_forms = [put_accent_on_the_penultimate(a) for a in archaic_aor_forms]
+                        active_aor_forms.extend(archaic_aor_forms)
+                        # active_aor_forms.extend(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2])
 
         # if act_root and pres_form not in irregular_active_aorists and not alternative:
 
@@ -68,9 +66,9 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
 
             active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
 
-
         if not active_aor_forms:
-            if pres_form.endswith('έχω') and (pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']):
+            if pres_form.endswith('έχω') and (
+                    pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']):
                 # συνέθετα του έχω
                 active_aor_forms.append(pres_form[:-3] + 'είχα')
 
@@ -84,7 +82,5 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
                     if count_syllables(aor) < 3 and aor[0] not in vowels:
                         aor = 'ε' + aor
                     active_aor_forms.append(put_accent_on_the_antepenultimate(aor))
-
-
 
     return set(active_aor_forms)

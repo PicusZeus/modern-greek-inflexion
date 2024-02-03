@@ -8,7 +8,7 @@ from modern_greek_inflexion.verb.helpers import passive_subjunctive_exists
 
 
 def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None,
-                                     alternative: bool = False, pres_conjugation: str = None,
+                                     pres_conjugation: str = None,
                                      root: str = None) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
@@ -20,29 +20,27 @@ def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None
     if pres_conjugation == MODAL:
         perf_root = root
 
-    if not alternative:
+    if verb in irregular_passive_roots:
 
-        if verb in irregular_passive_roots:
+        return irregular_passive_roots[verb]
 
-            return irregular_passive_roots[verb]
+    for ir_verb, ir_root in sorted(irregular_passive_roots.items(), key=lambda key: len(key[0]), reverse=True):
 
-        for ir_verb, ir_root in sorted(irregular_passive_roots.items(), key=lambda key: len(key[0]), reverse=True):
+        if ir_root:
+            # that is if many stems
+            multiple_perf_roots = []
+            for stem in ir_root.split(','):
+                if len(root) >= len(ir_verb) and root[-len(ir_verb):] == ir_verb:
+                    prefix = root[:-len(ir_verb)]
+                    beta_perf_root = prefix + stem
+                    if passive_subjunctive_exists(beta_perf_root):
+                        multiple_perf_roots.append(beta_perf_root)
 
-            if ir_root:
-                # that is if many stems
-                multiple_perf_roots = []
-                for stem in ir_root.split(','):
-                    if len(root) >= len(ir_verb) and root[-len(ir_verb):] == ir_verb:
-                        prefix = root[:-len(ir_verb)]
-                        beta_perf_root = prefix + stem
-                        if passive_subjunctive_exists(beta_perf_root):
-                            multiple_perf_roots.append(beta_perf_root)
-
-                if multiple_perf_roots:
-                    perf_root = ','.join(multiple_perf_roots)
-                    irregular = True
-                    multiple_stems = True
-                    break
+            if multiple_perf_roots:
+                perf_root = ','.join(multiple_perf_roots)
+                irregular = True
+                multiple_stems = True
+                break
 
     if not irregular:
         if pres_conjugation in [CON1_ACT, CON1_PASS, CON1_PASS_MODAL, CON2D_PASS]:

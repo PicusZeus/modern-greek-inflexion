@@ -26,7 +26,6 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
     pres_conjugation = ''
     root = ''
 
-
     if deponens:
         active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
 

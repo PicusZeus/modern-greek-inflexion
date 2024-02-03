@@ -17,7 +17,7 @@ def active_paratatikos_exists(f_p: str) -> bool:
 
 
 def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation: str,
-                                    modal: bool = False, alternative: bool = False) -> str | None:
+                                    modal: bool = False) -> str | None:
     act_par = []
 
     if pres_form in irregular_active_paratatikos:
@@ -33,12 +33,11 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
         if pres_conjugation == CON1_ACT:
             not_augmented_par = put_accent_on_the_antepenultimate(root + 'α')
 
-            if not alternative:
-                augmented_par = (add_augment(not_augmented_par))
+            augmented_par = (add_augment(not_augmented_par))
 
-                augmented_par = [f for f in augmented_par if not (count_syllables(
-                    f, true_syllabification=False) == 2 and f[0] not in vowels)]
-                act_par.extend(augmented_par)
+            augmented_par = [f for f in augmented_par if not (count_syllables(
+                f, true_syllabification=False) == 2 and f[0] not in vowels)]
+            act_par.extend(augmented_par)
 
         elif pres_conjugation == CON2A_ACT:
             act_par.append(root + 'ούσα')
@@ -79,6 +78,8 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
                     act_par_all.append(put_accent_on_the_antepenultimate(root + 'γα'))
                 else:
                     act_par_all.append(put_accent_on_the_antepenultimate('ε' + root + 'γα'))
+            elif pres_conjugation == EIMAI:
+                act_par_all = [root + 'ήμουν']
 
     else:
         # if modal

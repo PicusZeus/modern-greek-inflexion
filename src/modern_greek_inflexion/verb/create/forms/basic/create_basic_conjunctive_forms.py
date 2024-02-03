@@ -9,7 +9,7 @@ from modern_greek_inflexion.verb.create import create_regular_perf_root
 def create_basic_conjunctive_forms(pres_form, pres_conjugation,
                                    root, deponens=False, not_deponens=True,
                                    intransitive_active=False, modal_act=False,
-                                   modal_med=False, alternative=False) -> tuple[str, str, str, str]:
+                                   modal_med=False) -> tuple[str, str, str, str]:
 
     """
     :param pres_form:
@@ -30,11 +30,11 @@ def create_basic_conjunctive_forms(pres_form, pres_conjugation,
 
     if not_deponens:
 
-        act_root = create_regular_perf_root(pres_form, voice=ACTIVE, alternative=alternative,
+        act_root = create_regular_perf_root(pres_form, voice=ACTIVE,
                                             pres_conjugation=pres_conjugation, root=root)
 
-        if not intransitive_active and not pres_form.endswith('βαίνω'):
-            passive_root = create_regular_perf_root(pres_form, voice=PASSIVE, alternative=alternative,
+        if not intransitive_active:
+            passive_root = create_regular_perf_root(pres_form, voice=PASSIVE,
                                                     pres_conjugation=pres_conjugation, root=root)
 
         if act_root:

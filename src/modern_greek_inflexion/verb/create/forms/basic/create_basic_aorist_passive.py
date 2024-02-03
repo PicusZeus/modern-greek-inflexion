@@ -2,7 +2,6 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_antepenulti
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_aorists
-from modern_greek_inflexion.verb.helpers import aorist_exists
 
 
 def passive_aorist_exists(f_s: str) -> bool:
@@ -17,7 +16,7 @@ def passive_aorist_exists(f_s: str) -> bool:
 
 
 def create_basic_aorist_passive(pres_form: str, passive_root: str,
-                                modal: bool = False, alternative: bool = False) -> set:
+                                modal: bool = False) -> set:
     passive_aor_forms = []
 
     if pres_form in irregular_passive_aorists:

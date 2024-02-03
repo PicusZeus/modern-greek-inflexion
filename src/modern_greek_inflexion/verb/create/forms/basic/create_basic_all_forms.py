@@ -18,7 +18,8 @@ from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_t
     put_accent_on_the_antepenultimate, where_is_accent, put_accent_on_the_ultimate
 from modern_greek_accentuation.syllabify import count_syllables
 from modern_greek_accentuation.augmentify import deaugment_past_form
-from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, prefixes_before_augment
+from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, \
+    prefixes_before_augment, para_detachable_never, para_detachable_only
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, \
@@ -31,14 +32,14 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
-def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
+def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
     """
+    :param para: there is a problem with prefix para, which can mean different things and so a verb prefixed with it can mean
+    either "too much", and "from above". In the first instance it is fully detachable and a verb is conjugated
+    as if it was a root verb, in the second instance the perfective tense can be different and also augment is handled
+    differently. So I will add a flag 'para', so that if false it can be conjugated as a simple verb, if true, as
+    a detachable verb
    :param pres_form: 1st person sg present
-   :param alternative: generally speaking in greek same original verbs
-   create two different meaning with two different set of perfect stems (like - παραδώ - παραβλέψω)
-   by creating the second one regular (παραβλέψω), whereas the first one is supletive. And so
-   to force the program to create the more dimotic alternative we can tell it to use only regular way
-   of creating these forms.
 
    :return: a dictionary {PRESENT: '', CONJUNCTIVE: '', AORIST: '', PARATATIKOS: ''} and others, for times it
    gives active and medio-passive (if exists) divided by '/'.
@@ -65,7 +66,8 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     """
     archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω', 'τρέπω',
                           'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
-                          'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'στέλλομαι', 'στέκομαι',
+                          'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'δίδω', 'στέλλομαι',
+                          'στέκομαι',
                           'τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι', 'ίπταμαι', 'προσαρτώ',
                           'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει', 'υφαίνω']
 
@@ -78,28 +80,34 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     ]
 
     """
-    some especially common verbs do not follow prefix logic
+    there is a problem with prefix para, which can mean different things and so a verb prefixed with it can mean
+    either "too much", and "from above". In the first instance it is fully detachable and a verb is conjugated
+    as if it was a root verb, in the second instance the perfective tense can be different and also augment is handled 
+    differently. So I will add a flag 'para', so that if false it can be conjugated as a simple verb, if true, as
+    a detachable verb
     """
-    undetachable = ['βλέπω']
+
 
     prefix = []
 
-    if not alternative:
-        # force to create only from the given form
 
-        """
-            verbs that conditionally can be detached from their prefixes, mostly of logia descend
-        """
+    """
+        verbs that conditionally can be detached from their prefixes, mostly of logia descend
+    """
 
-        for pref in prefixes_before_augment:
-            if pres_form.startswith(pref):
-                without_prefix = remove_diaer(pres_form.replace(pref, ''))
-                if without_prefix in archaic_detachable:
-                    prefix = [pref, prefixes_before_augment[pref]]
+    for pref in prefixes_before_augment:
+        if pres_form.startswith(pref):
+            without_prefix = remove_diaer(pres_form.replace(pref, ''))
+            if without_prefix in archaic_detachable:
+                prefix = [pref, prefixes_before_augment[pref]]
 
-                    pres_form = without_prefix
+                pres_form = without_prefix
 
-    if not prefix and not alternative:
+    if pres_form in para_detachable_only or (para and pres_form.startswith('παρα') and pres_form not in para_detachable_never):
+        prefix = ['παρα', 'παρα']
+        pres_form = pres_form[4:]
+
+    elif not prefix:
         """
         these prefixes, lika ξανα can be safely detached
         """
@@ -110,7 +118,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                 num_syll = count_syllables(without_prefix, true_syllabification=False)
                 if without_prefix.endswith('αι'):
                     num_syll -= 1
-                if num_syll > 1 and without_prefix not in undetachable and without_prefix in greek_corpus:
+                if num_syll > 1 and without_prefix in greek_corpus:
                     prefix = [pref, prefixes_detachable[pref]]
                     pres_form = without_prefix
 
@@ -195,8 +203,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
                                        not_deponens=not_deponens,
                                        intransitive_active=intransitive_active,
                                        modal_act=modal_act,
-                                       modal_med=modal_med,
-                                       alternative=alternative)
+                                       modal_med=modal_med)
 
     if conjunctive_basic_forms:
 
@@ -214,8 +221,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
     # aorist
 
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
-                                                   not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med,
-                                                   alternative=alternative)
+                                                   not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
     aorist_active = []
     if aorist_basic_forms:
         verb_temp[AORIST] = {}
@@ -233,7 +239,7 @@ def create_all_basic_forms(pres_form: str, alternative: bool = False) -> dict:
 
     paratatikos_basic_forms = create_basic_paratatikos_forms(pres_form, root, pres_conjugation, deponens=deponens,
                                                              not_deponens=not_deponens, modal_act=modal_act,
-                                                             modal_med=modal_med, has_passive=has_passive, alternative=alternative)
+                                                             modal_med=modal_med, has_passive=has_passive)
     paratatikos_active = []
     if paratatikos_basic_forms:
         paratatikos_active, paratatikos_passive = paratatikos_basic_forms.split('/')

@@ -8,7 +8,7 @@ from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.helpers import active_subjunctive_exists, active_subjunctive_sigmatic_exists
 
 
-def create_regular_perf_active_root(verb: str, alternative: bool = False, pres_conjugation: str = None,
+def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                                     root: str = None) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
@@ -18,30 +18,30 @@ def create_regular_perf_active_root(verb: str, alternative: bool = False, pres_c
     if pres_conjugation == MODAL:
         perf_root = root
 
-    if not alternative:
-        if verb in irregular_active_roots:
-            return irregular_active_roots[verb]
 
-        for ir_verb, ir_root in sorted(irregular_active_roots.items(), key=lambda key: len(key[0]), reverse=True):
-            if ir_root:
-                multiple_perf_roots = []
-                for stem in ir_root.split(','):
+    if verb in irregular_active_roots:
+        return irregular_active_roots[verb]
 
-                    if len(root) >= len(ir_verb) and root[-len(ir_verb):] == ir_verb:
-                        prefix = root[:-len(ir_verb)]
-                        if prefix in prefixes_before_augment:
-                            beta_perf_root = prefix + stem
+    for ir_verb, ir_root in sorted(irregular_active_roots.items(), key=lambda key: len(key[0]), reverse=True):
+        if ir_root:
+            multiple_perf_roots = []
+            for stem in ir_root.split(','):
 
-                            if (beta_perf_root + 'ω' in greek_corpus) or (
-                                    beta_perf_root + 'ώ' in greek_corpus) or stem == 'καταστήσ':
-                                multiple_perf_roots.append(beta_perf_root)
+                if len(root) >= len(ir_verb) and root[-len(ir_verb):] == ir_verb:
+                    prefix = root[:-len(ir_verb)]
+                    if prefix in prefixes_before_augment:
+                        beta_perf_root = prefix + stem
 
-                perf_root = ','.join(multiple_perf_roots)
+                        if (beta_perf_root + 'ω' in greek_corpus) or (
+                                beta_perf_root + 'ώ' in greek_corpus) or stem == 'καταστήσ':
+                            multiple_perf_roots.append(beta_perf_root)
+
+            perf_root = ','.join(multiple_perf_roots)
 
 
-                if perf_root:
-                    irregular = True
-                    break
+            if perf_root:
+                irregular = True
+                break
 
     if pres_conjugation in [CON1_ACT, CON1_PASS, CON1_ACT_MODAL] and not irregular:
 
