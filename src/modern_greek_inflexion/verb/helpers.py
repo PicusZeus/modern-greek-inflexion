@@ -5,7 +5,8 @@ import unicodedata
 from copy import deepcopy
 from modern_greek_accentuation.resources import vowels, diphtongs
 from modern_greek_accentuation.syllabify import count_syllables
-from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAERESIS, put_accent_on_the_antepenultimate
+from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAERESIS, put_accent_on_the_antepenultimate, \
+    where_is_accent
 from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL
 
 
@@ -43,7 +44,7 @@ def update_forms_with_prefix(verb_temp: dict, prefix: [str, str]) -> dict:
         if isinstance(item, set):
             new_set = set()
             for form in item:
-                if count_syllables(form) == 1:
+                if count_syllables(form) == 1 and not where_is_accent(form):
                     form = put_accent_on_syllable(form)
 
                 if form[0] in vowels:

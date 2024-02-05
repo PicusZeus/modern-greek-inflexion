@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from icecream import ic
+
 from modern_greek_inflexion import verb
 
 
@@ -44,6 +46,7 @@ class VerbTestPresAct(TestCase):
                     'ter': {'καθιστούν'}},
              'sg': {'pri': {'καθιστώ'}, 'sec': {'καθιστάς'}, 'ter': {'καθιστά'}}}
             ,
+            ic()
         )
 
     # CON2B_ACT
@@ -83,8 +86,16 @@ class VerbTestPresAct(TestCase):
     def test_verb_plhrw(self):
         self.assertDictEqual(
             present_act('πληρώ'),
-            {'pl': {'pri': {'πληρούμε'}, 'sec': {'πληροίτε'}, 'ter': {'πληρούν'}},
+            {'pl': {'pri': {'πληρούμε'}, 'sec': {'πληρούτε'}, 'ter': {'πληρούν'}},
              'sg': {'pri': {'πληρώ'}, 'sec': {'πληροίς'}, 'ter': {'πληροί'}}}
+
+        )
+
+    def test_verb_diabiw(self):
+        self.assertDictEqual(
+            present_act('διαβιώ'),
+            {'pl': {'pri': {'διαβιούμε'}, 'sec': {'διαβιούτε'}, 'ter': {'διαβιούν'}},
+             'sg': {'pri': {'διαβιώ'}, 'sec': {'διαβιοίς'}, 'ter': {'διαβιοί'}}}
 
         )
 

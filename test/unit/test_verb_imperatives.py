@@ -49,7 +49,7 @@ class VerbTestImperAct(TestCase):
     def test_plhrw(self):
         self.assertDictEqual(
             imp_cont_act('πληρώ'),
-            {'pl': {'sec': {'πληροίτε'}}}
+            {'pl': {'sec': {'πληρούτε'}}}
 
         )
 

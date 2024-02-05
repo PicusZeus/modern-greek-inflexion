@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from icecream import ic
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate
 
 from modern_greek_inflexion.verb.helpers import check_personal_forms
@@ -25,7 +26,8 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
     present_basic_forms = ''
     pres_conjugation = ''
     root = ''
-
+    if base_form == 'βιώ':
+        ic(base_form)
     if deponens:
         active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
 

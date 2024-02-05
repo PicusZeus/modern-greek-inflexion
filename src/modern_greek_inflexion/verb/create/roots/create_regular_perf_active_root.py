@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from icecream import ic
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.resources import prefixes_before_augment
 from modern_greek_inflexion.resources.resources import greek_corpus
@@ -229,16 +230,28 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
             not irregular:
 
         perf_root = root + 'ήσ'
+        if root[-2:] in ['χν', 'ρν', 'λν']:
+            perf_root = root[:-1] + 'ήσ'
+
         if active_subjunctive_sigmatic_exists(perf_root) and active_subjunctive_sigmatic_exists(root + 'ήξ'):
             alternative_root = root + 'ήξ'
             perf_root = perf_root + ',' + alternative_root
 
 
-        elif not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] in ['χν', 'ρν', 'λν']:
-            perf_root = root[:-1] + 'άσ'
+        # elif not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] in ['χν', 'ρν', 'λν']:
+        #     perf_root = root[:-1] + 'άσ'
+        #     if not active_subjunctive_sigmatic_exists(perf_root):
+        #         perf_root = root + 'ίσ'
+        #         if not active_subjunctive_sigmatic_exists(perf_root):
+        #             perf_root = root + 'ήσ'
+        #             if not active_subjunctive_sigmatic_exists(perf_root):
+        #                 perf_root = ''
 
         elif not active_subjunctive_sigmatic_exists(perf_root):
             perf_root = root + 'άσ'
+            if root[-2:] in ['χν', 'ρν', 'λν']:
+                perf_root = root[:-1] + 'άσ'
+
             if not active_subjunctive_sigmatic_exists(perf_root):
                 perf_root = root + 'έσ'
                 if not active_subjunctive_sigmatic_exists(perf_root):
@@ -251,8 +264,13 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                             perf_root = root + 'ήξ'
                             if not active_subjunctive_sigmatic_exists(perf_root):
                                 perf_root = root + 'ίσ'
+                                if not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] in ['χν', 'ρν', 'λν']:
+                                    perf_root = root[:-1] + 'ίσ'
+
                                 if not active_subjunctive_sigmatic_exists(perf_root):
                                     perf_root = root + 'ήσ'
+                                    if not active_subjunctive_sigmatic_exists(perf_root) and not verb.endswith('άω'):
+                                        perf_root = ''
         # special case for compounds with ποιω that are not in my db for some reasons
 
         if root[-3:] == 'ποι' and pres_conjugation in [CON2B_ACT, CON2B_PASS]:
