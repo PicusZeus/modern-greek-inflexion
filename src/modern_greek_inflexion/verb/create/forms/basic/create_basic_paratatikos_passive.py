@@ -12,17 +12,19 @@ from modern_greek_inflexion.resources.verb import irregular_passive_paratatikos
 def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> bool:
     if not th_person:
         th_person = f_person[:-4] + 'ταν'
+        th_person_pl = put_accent_on_the_antepenultimate(f_person[:-4] + 'νταν')
         if f_person.endswith('ούμουν'):
+            th_person = f_person[:-4] + 'νταν'
             th_person_pl = th_person
         elif f_person.endswith('άμην'):
             th_person = put_accent_on_the_antepenultimate(f_person[:-4] + 'ατο')
+            th_person_pl = put_accent_on_the_antepenultimate(f_person[:-4] + 'αντο')
+
         elif f_person.endswith('μην'):
             th_person = f_person[:-3] + 'το'
+            th_person_pl = f_person[:-3] + 'ντο'
+        return f_person in greek_corpus or th_person in greek_corpus or th_person_pl in greek_corpus
 
-        return f_person in greek_corpus or th_person in greek_corpus
-
-    if th_person == 'φαίνεται':
-        ic(th_person, th_person in greek_corpus)
     if not f_person:
         return th_person in greek_corpus
 
@@ -34,6 +36,7 @@ def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation
 
     if not modal:
         for pass_form in pres_pass_form:
+
             if pres_form in irregular_passive_paratatikos:
                 return irregular_passive_paratatikos[pres_form]
 
@@ -48,6 +51,9 @@ def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation
                     root = root + 'γ'
 
                 pass_par.append(put_accent_on_the_penultimate(root + 'όμουν'))
+                if root.endswith('ρ') and pres_conjugation in [CON1_ACT, CON1_PASS]:
+                    if passive_paratatikos_exists(root + 'ιζόμουν'):
+                        pass_par.append(root + 'ιζόμουν')
 
             elif pres_conjugation in [CON2A_ACT, CON2A_PASS]:
                 pass_par.extend([root + 'ιόμουν', root + 'ούμουν', root + 'όμουν'])

@@ -1,6 +1,5 @@
 from unittest import TestCase
 
-from icecream import ic
 
 from modern_greek_inflexion import verb
 
@@ -46,7 +45,6 @@ class VerbTestPresAct(TestCase):
                     'ter': {'καθιστούν'}},
              'sg': {'pri': {'καθιστώ'}, 'sec': {'καθιστάς'}, 'ter': {'καθιστά'}}}
             ,
-            ic()
         )
 
     # CON2B_ACT

@@ -4,8 +4,11 @@
 ![GitHub License](https://img.shields.io/github/license/picuszeus/modern-greek-inflexion)
 # Modern-greek-inflexion
 
-Python 3 library for recognizing inflexion types and for creating all possible inflected forms for Modern Greek words (verbs, adjectives, nouns etc.).
+Python 3 library for recognizing inflexion types and for creating inflected forms for Modern Greek words (verbs, adjectives, nouns etc.).
 The application is implemented in a web app you can find [here](https://ellinika.com.pl).
+The application requires from a user to be fed with a basic, existing Greek Lemma to work. 
+Internally it works thanks to a big corpus on which it tests forms it tries to create. Thanks to it the program gives mostly good results, especially in comparison 
+to all the other "conjugation" engines.
 
 ## Installation
 
@@ -17,7 +20,7 @@ pip install modern-greek-inflexion
 
 ## Usage
 
-see [docs.rst](https://github.com/PicusZeus/modern-greek-inflexion/blob/master/docs.rst)
+see [docs.rst](https://github.com/PicusZeus/modern-greek-inflexion/blob/master/docs.rst) or tests.
 
 ## Unittests
 run 
@@ -30,6 +33,7 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
+ * 1.0.4 Added logic for multiple root formation in verbs on -άρω (σοκάρω, σοκαρίζω, σοκαρίσω), now the app will try to create also imperfect forms with a root on 'ιζ'. The Experiment with extending the core language check corpus failed miserably, as all the corpora I tried (even these from the EU) are unfortunately full of typos and orthographic errors, which, when used, introduced into the app huge problems. Next time I will try to use some NLTK magic and frequency lists to try them again.
  * 1.0.3 The problem with verbs with prefix para fixed by adding a flag to verb.create_all_forms para. If there is possibility, that there are two different verbs (like παραβλέπω/παραβλέψω and παραβλέπω/παραδώ), you have to set flag para to True. Fixed issue with non existent imper aor sg of compound verbs with βαίνω (like παρεμβαίνω).
  * 1.0.2 Updated list of irregular past passive participles, deleted most of them as they're not needed anymore and in places they would cause incorrect participle formation.
  * 1.0.1 Project is mature enough, some issue with dependency accentuation module fixed.

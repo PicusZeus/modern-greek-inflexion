@@ -54,23 +54,25 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
         for stem in active_root.split(','):
             active_aor_forms.extend(add_augment(put_accent_on_the_antepenultimate(stem + 'α')))
 
-            if stem.endswith('άσχ'):
-                archaic_aor_forms = add_augment(pres_form[:-3] + 'σχον')
-                active_aor_forms.extend(archaic_aor_forms)
-
             # filter_out
-            active_aor_forms = [f for f in active_aor_forms if aorist_exists(f)]
+        active_aor_forms = [f for f in active_aor_forms if aorist_exists(f)]
+
+        if active_root.endswith('άσχ') and pres_form.endswith('έχω'):
+            archaic_aor_forms = [pres_form[:-3] + 'έσχον']
+            active_aor_forms = archaic_aor_forms
 
             # there are some instances where this algorithm can be confused by irregular imperative forms
-            irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα', 'τρέχα', 'φεύγα')
+        irregular_imperative_similar_to_aorist = ('ανέβα', 'κατέβα', 'τρέχα', 'φεύγα')
 
-            active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
+        active_aor_forms = list(set(active_aor_forms).difference(irregular_imperative_similar_to_aorist))
 
         if not active_aor_forms:
             if pres_form.endswith('έχω') and (
                     pres_form[:-3] in prefixes_before_augment.keys() or pres_form[:-3] in ['ισαπ']):
                 # συνέθετα του έχω
                 active_aor_forms.append(pres_form[:-3] + 'είχα')
+                # if pres_form[:-3] + 'έσχε' in greek_corpus:
+                #     active_aor_forms.append(pres_form[:-3] + 'έσχον')
 
             elif pres_form.endswith('άγω') and pres_form[:-3] in prefixes_before_augment.keys():
                 active_aor_forms.append(pres_form[:-3] + 'ήγαγα')

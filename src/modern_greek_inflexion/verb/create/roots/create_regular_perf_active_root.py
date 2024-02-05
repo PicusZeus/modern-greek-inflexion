@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from icecream import ic
 from modern_greek_accentuation.accentuation import *
-from modern_greek_accentuation.resources import prefixes_before_augment
+from modern_greek_accentuation.resources import prefixes_before_augment, prefixes_before_augment_on_vowel
+
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_active_roots
 from modern_greek_inflexion.resources.variables import *
@@ -19,7 +19,6 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
     if pres_conjugation == MODAL:
         perf_root = root
 
-
     if verb in irregular_active_roots:
         return irregular_active_roots[verb]
 
@@ -30,7 +29,7 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
 
                 if len(root) >= len(ir_verb) and root[-len(ir_verb):] == ir_verb:
                     prefix = root[:-len(ir_verb)]
-                    if prefix in prefixes_before_augment:
+                    if prefix in prefixes_before_augment or prefix in prefixes_before_augment_on_vowel:
                         beta_perf_root = prefix + stem
 
                         if (beta_perf_root + 'ω' in greek_corpus) or (
@@ -38,7 +37,6 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                             multiple_perf_roots.append(beta_perf_root)
 
             perf_root = ','.join(multiple_perf_roots)
-
 
             if perf_root:
                 irregular = True
@@ -143,7 +141,7 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                 perf_root = ''
 
         elif root[-1] in ['κ', 'χ', 'γ']:
-            if root.endswith('άγ') and root[:-2] in prefixes_before_augment:
+            if root.endswith('άγ') and root[:-2] in prefixes_before_augment_on_vowel:
                 perf_root = root[:-2] + 'αγάγ'
             else:
                 perf_root = root[:-1] + 'ξ'
@@ -188,8 +186,7 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
         elif root.endswith('μ'):
             perf_root = root
 
-        elif root.endswith('άρ'):
-            perf_root = root + ',' + put_accent_on_the_ultimate(root + 'ισ')
+
 
         elif root.endswith('εύρ'):
             perf_root = ''
@@ -212,6 +209,8 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                 if not active_subjunctive_exists(perf_root):
                     perf_root = ''
 
+        elif root.endswith('άρ') or root.endswith('ίρ'):
+            perf_root = root + ',' + put_accent_on_the_ultimate(root + 'ισ')
         # elif root.endswith('ύρ'):
         #     perf_root = root
 
@@ -256,7 +255,8 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                 perf_root = root + 'έσ'
                 if not active_subjunctive_sigmatic_exists(perf_root):
                     perf_root = root + 'άξ'
-                    if active_subjunctive_sigmatic_exists(perf_root) and active_subjunctive_sigmatic_exists(root + 'ήξ'):
+                    if active_subjunctive_sigmatic_exists(perf_root) and active_subjunctive_sigmatic_exists(
+                            root + 'ήξ'):
                         perf_root = perf_root + ',' + root + 'ήξ'
                     elif not active_subjunctive_sigmatic_exists(perf_root):
                         perf_root = root + 'έξ'
@@ -264,7 +264,8 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
                             perf_root = root + 'ήξ'
                             if not active_subjunctive_sigmatic_exists(perf_root):
                                 perf_root = root + 'ίσ'
-                                if not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] in ['χν', 'ρν', 'λν']:
+                                if not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] in ['χν', 'ρν',
+                                                                                                       'λν']:
                                     perf_root = root[:-1] + 'ίσ'
 
                                 if not active_subjunctive_sigmatic_exists(perf_root):
@@ -295,5 +296,4 @@ def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
         perf_root = verb[:-5] + 'β'
 
     if perf_root:
-
         return perf_root

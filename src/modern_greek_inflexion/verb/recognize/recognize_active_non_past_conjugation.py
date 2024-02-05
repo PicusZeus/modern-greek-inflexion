@@ -62,6 +62,10 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
                 conjugation_imp = IMPER_ACT_CONT_2A
 
             # conjugation_part = PRESENT_ACTIVE_PART_2
+        elif aspect != PERF and verb[-2] == 'ί' and verb[-3] not in vowels:
+            conjugation_ind = CON2A_ACT
+            conjugation_imp = IMPER_ACT_CONT_2A
+
         archaic_ow = ['πληρώ', 'κυρώ', 'αξιώ', 'βιώ', 'γομώ', 'ζηλώ']
         if aspect != PERF and True in [verb.endswith(v) for v in archaic_ow]:
             # if (((verb[:-1] + 'είς' not in greek_corpus and count_syllables(verb) > 1)

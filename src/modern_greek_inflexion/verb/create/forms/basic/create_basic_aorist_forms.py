@@ -30,8 +30,10 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
             passive_aor_forms = ''
 
         if act_root:
-            active_aor_forms = create_basic_aorist_active(pres_form, act_root, modal_act)
-            active_aor_forms = ','.join(active_aor_forms)
+            act_aor_forms = []
+            for a_r in act_root.split(','):
+                act_aor_forms.extend(create_basic_aorist_active(pres_form, a_r, modal_act))
+            active_aor_forms = ','.join(set(act_aor_forms))
         else:
             active_aor_forms = ''
 

@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from icecream import ic
-from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate
+from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate
 
 from modern_greek_inflexion.verb.helpers import check_personal_forms
 from modern_greek_inflexion.resources import CONJUGATION_IND, ROOT, CON2A_PASS, CON2B_PASS, CON2AK_PASS, CON2A_ACT, \
-    CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT
+    CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT, greek_corpus
 from modern_greek_inflexion.verb.recognize import recognize_passive_present_continuous_conjugation, \
     recognize_active_non_past_conjugation
 
@@ -26,8 +25,7 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
     present_basic_forms = ''
     pres_conjugation = ''
     root = ''
-    if base_form == 'βιώ':
-        ic(base_form)
+
     if deponens:
         active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
 
@@ -130,6 +128,8 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         elif base_form in ['ρρέω', 'πηγνύω', 'ομνύω', 'βαίνω']:
             pres_pass_forms.append(f_p_pass)
 
+
+
         if f_p_pass_alt_1 and check_personal_forms(f_p_pass_alt_1, th_p_pass_alt_1):
             pres_pass_forms.append(f_p_pass_alt_1)
         if f_p_pass_alt_2 and check_personal_forms(f_p_pass_alt_2, th_p_pass_alt_2):
@@ -141,6 +141,23 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
             pres_pass_forms.append(root[:-3] + 'τίθεμαι')
 
         pres_pass_forms = ','.join(pres_pass_forms)
+
+        if base_form.endswith('ρω'):
+
+            # Efthymiou A. (2013). 'The Modern Greek suffix -aro revisited' Παρατηρήσεις για την πολυτυπία,
+            # την παραγωγικότητα και την ανταγωνιστικότητα του δάνειου επιθήματος –άρω στη Νέα Ελληνική.
+            izomai = put_accent_on_the_antepenultimate(base_form[:-1] + 'ίζομαι')
+            izetai = put_accent_on_the_antepenultimate(base_form[:-1] + 'ίζεται')
+            if izomai in greek_corpus or izetai in greek_corpus:
+                if pres_pass_forms:
+                    pres_pass_forms = pres_pass_forms + ',' + izomai
+                else:
+                    pres_pass_forms = izomai
+
+            izw = put_accent_on_the_penultimate(base_form[:-1] + 'ίζω')
+            izei = put_accent_on_the_penultimate(base_form[:-1] + 'ίζει')
+            if izw in greek_corpus or izei in greek_corpus:
+                base_form = base_form + ',' + izw
 
         if pres_pass_forms:
             present_basic_forms = base_form + '/' + pres_pass_forms
@@ -160,5 +177,6 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
         root = active_conjugation[ROOT]
         # modals and others
         present_basic_forms = base_form
+
 
     return present_basic_forms, pres_conjugation, root, intransitive_active
