@@ -3,6 +3,8 @@ from unittest import TestCase
 # from icecream import ic
 
 from modern_greek_inflexion import pronoun
+
+
 # from modern_greek_inflexion.resources.resources import greek_corpus
 
 
@@ -66,11 +68,26 @@ class PronounTestAll(TestCase):
                              'voc': {'παν'}}}}
 
         )
+
     def test_pron_pouq(self):
         self.assertDictEqual(
             pronoun.create_all('πού'),
             {'nd': {'nd': {'nd': {'πού'}}}}
 
+        )
+
+    def test_pron_autos(self):
+        self.assertDictEqual(
+            pronoun.create_all('αυτός'),
+            {
+                'sg':
+                    {'masc': {'nom': {'αυτός'}, 'gen': {'αυτού'}, 'acc': {'αυτό', 'αυτόν'}},
+                     'fem': {'nom': {'αυτή'}, 'gen': {'αυτής'}, 'acc': {'αυτήν', 'αυτή'}},
+                     'neut': {'nom': {'αυτό'}, 'gen': {'αυτού'}, 'acc': {'αυτό'}}},
+                'pl':
+                    {'masc': {'nom': {'αυτοί'}, 'gen': {'αυτών'}, 'acc': {'αυτούς'}},
+                     'fem': {'nom': {'αυτές'}, 'gen': {'αυτών'}, 'acc': {'αυτάς', 'αυτές'}},
+                     'neut': {'nom': {'αυτά'}, 'gen': {'αυτών'}, 'acc': {'αυτά'}}}}
         )
 
     def test_pron_osper(self):

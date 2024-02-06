@@ -1,6 +1,5 @@
 from unittest import TestCase
 
-
 from modern_greek_inflexion import verb
 
 
@@ -45,6 +44,14 @@ class VerbTestPresAct(TestCase):
                     'ter': {'καθιστούν'}},
              'sg': {'pri': {'καθιστώ'}, 'sec': {'καθιστάς'}, 'ter': {'καθιστά'}}}
             ,
+        )
+
+    def test_verb_anio(self):
+        self.assertDictEqual(
+            present_act('ανιώ'),
+            {'sg': {'pri': {'ανιώ'}, 'sec': {'ανιάς'}, 'ter': {'ανιά'}},
+             'pl': {'pri': {'ανιούμε', 'ανιάμε'}, 'sec': {'ανιάτε'}, 'ter': {'ανιούν'}}}
+
         )
 
     # CON2B_ACT

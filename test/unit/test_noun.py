@@ -122,6 +122,7 @@ class NounTests(TestCase):
                       'sg': {'gen': {'συός'}, 'nom': {'συς'}, 'voc': {'συ'}, 'acc': {'συ', 'συν'}}}}
 
         )
+
     def test_noun_limenarxhs(self):
         self.assertDictEqual(
             noun.create_all('λιμενάρχης', gender=MASC_FEM),
@@ -184,12 +185,27 @@ class NounTests(TestCase):
                             'gen': {'ρινών'},
                             'nom': {'ρίνες'},
                             'voc': {'ρίνες'}},
-                         'sg': {'acc': {'ρίνα'},
+                     'sg': {'acc': {'ρίνα'},
                             'gen': {'ρινός'},
                             'nom': {'ρις'},
                             'voc': {'ρι'}}}}
 
         )
+
+    def test_noun_orash(self):
+        self.assertDictEqual(
+            noun.create_all('όραση'),
+            {'fem': {'pl': {'acc': {'οράσεις'},
+                            'gen': {'οράσεων'},
+                            'nom': {'οράσεις'},
+                            'voc': {'οράσεις'}},
+                     'sg': {'acc': {'όραση'},
+                            'gen': {'οράσεως', 'όρασης'},
+                            'nom': {'όρασις', 'όραση'},
+                            'voc': {'όραση'}}}}
+
+        )
+
     def test_noun_polh(self):
         self.assertDictEqual(
             noun.create_all('πόλη'),
@@ -197,9 +213,9 @@ class NounTests(TestCase):
                             'gen': {'πόλεων'},
                             'nom': {'πόλεις'},
                             'voc': {'πόλεις'}},
-                     'sg': {'acc': {'πόλη'},
+                     'sg': {'acc': {'πόλη', 'πόλιν'},
                             'gen': {'πόλεως', 'πόλης'},
-                            'nom': {'πόλη'},
+                            'nom': {'πόλη', 'πόλις'},
                             'voc': {'πόλη'}}}}
 
         )
@@ -700,8 +716,6 @@ class NounTests(TestCase):
                   }
              })
 
-
-
     def test_noun_paron(self):
         self.assertDictEqual(
             noun.create_all('παρόν', gender=NEUT),
@@ -718,16 +732,16 @@ class NounTests(TestCase):
 
     def test_noun_alieus(self):
         self.assertDictEqual(noun.create_all('αλιεύς'),
-            {'masc': {'pl': {'acc': {'αλιείς'},
-                             'gen': {'αλιέων'},
-                             'nom': {'αλιείς'},
-                             'voc': {'αλιείς'}},
-                      'sg': {'acc': {'αλιέα'},
-                             'gen': {'αλιέως'},
-                             'nom': {'αλιεύς'},
-                             'voc': {'αλιεύ'}}}}
+                             {'masc': {'pl': {'acc': {'αλιείς'},
+                                              'gen': {'αλιέων'},
+                                              'nom': {'αλιείς'},
+                                              'voc': {'αλιείς'}},
+                                       'sg': {'acc': {'αλιέα'},
+                                              'gen': {'αλιέως'},
+                                              'nom': {'αλιεύς'},
+                                              'voc': {'αλιεύ'}}}}
 
-        )
+                             )
 
     def test_noun_hmifws(self):
         """-ws neuter sg tantum"""
@@ -855,7 +869,6 @@ class NounTests(TestCase):
                       'pl': {'nom': {'παιδιά'}, 'acc': {'παιδιά'}, 'voc': {'παιδιά'}, 'gen': {'παιδιών'}}}},
         )
 
-
     def test_noun_dolario(self):
         self.assertDictEqual(
             noun.create_all('δολάριο'),
@@ -906,10 +919,21 @@ class NounTests(TestCase):
     def test_noun_synenteuksi(self):
         self.assertDictEqual(
             noun.create_all('συνέντευξη'),
-            {'fem': {'sg': {'nom': {'συνέντευξη'}, 'gen': {'συνέντευξης', 'συνεντεύξεως'}, 'voc': {'συνέντευξη'},
-                            'acc': {'συνέντευξη'}},
-                     'pl': {'nom': {'συνεντεύξεις'}, 'gen': {'συνεντεύξεων'}, 'voc': {'συνεντεύξεις'},
-                            'acc': {'συνεντεύξεις'}}}}
+            {'fem':
+                 {'sg': {'nom': {'συνέντευξη', 'συνέντευξις'},
+                         'gen': {'συνέντευξης', 'συνεντεύξεως'},
+                         'voc': {'συνέντευξη'},
+                         'acc': {'συνέντευξη'}},
+                  'pl': {'nom': {'συνεντεύξεις'}, 'gen': {'συνεντεύξεων'}, 'voc': {'συνεντεύξεις'},
+                         'acc': {'συνεντεύξεις'}}}}
+        )
+
+    def test_noun_xarh(self):
+        self.assertDictEqual(
+            noun.create_all('χρήση'),
+            {'fem': {'pl': {'nom': {'χρήσεις'}, 'acc': {'χρήσεις'}, 'gen': {'χρήσεων'}, 'voc': {'χρήσεις'}},
+                     'sg': {'nom': {'χρήσις', 'χρήση'}, 'acc': {'χρήσιν', 'χρήση'}, 'gen': {'χρήσης', 'χρήσεως'}, 'voc': {'χρήση'}}}}
+
         )
 
     def test_noun_anthropos(self):
@@ -1177,13 +1201,13 @@ class NounTests(TestCase):
         self.assertDictEqual(
             noun.create_all('ιχθύς'),
             {'masc': {'pl': {'acc': {'ιχθύες'},
-                         'gen': {'ιχθύων'},
-                         'nom': {'ιχθύες'},
-                         'voc': {'ιχθύες'}},
-                  'sg': {'acc': {'ιχθύ', 'ιχθύν'},
-                         'gen': {'ιχθύος'},
-                         'nom': {'ιχθύς'},
-                         'voc': {'ιχθύ'}}}}
+                             'gen': {'ιχθύων'},
+                             'nom': {'ιχθύες'},
+                             'voc': {'ιχθύες'}},
+                      'sg': {'acc': {'ιχθύ', 'ιχθύν'},
+                             'gen': {'ιχθύος'},
+                             'nom': {'ιχθύς'},
+                             'voc': {'ιχθύ'}}}}
 
         )
 

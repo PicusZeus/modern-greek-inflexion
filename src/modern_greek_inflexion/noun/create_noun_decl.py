@@ -297,6 +297,10 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
             elif nom_sg[-1:] in ['α', 'ά', 'ή', 'η'] and gen_sg[-1:] == 'ς' and gender != NEUT:
 
+                if nom_sg + 'ν' in greek_corpus:
+                    noun_all[gender][SG][ACC] = nom_sg + ',' + nom_sg + 'ν'
+                else:
+                    noun_all[gender][SG][ACC] = nom_sg
                 gen_pl = []
                 for n_pl in nom_pl.split(','):
                     parisyllabic = count_syllables(nom_sg) == count_syllables(n_pl)
@@ -324,13 +328,18 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
                     elif n_pl.endswith('εις'):
                         gen_pl.append(nom_pl[:-3] + 'εων')
+                        if nom_sg in noun_grammar_lists[FEMININA_H_EIS]:
+                            if nom_sg[:-1] + 'ις' in greek_corpus:
+                                noun_all[gender][SG][NOM] = nom_sg + ',' +  nom_sg[:-1] + 'ις'
+                            if nom_sg[:-1] + 'ιν' in greek_corpus:
+                                noun_all[gender][SG][ACC] = nom_sg + ',' + nom_sg[:-1] + 'ιν'
 
                     elif n_pl:
                         pl_accent = where_is_accent(n_pl, true_syllabification=False)
                         gen_pl.append(put_accent(n_pl[:-2] + 'ων', pl_accent, true_syllabification=False))
 
                 noun_all[gender][PL][GEN] = ','.join(gen_pl)
-                noun_all[gender][SG][ACC] = nom_sg
+
 
             elif nom_sg[-1:] == 'α' and gender == NEUT:
                 noun_all[gender][SG][ACC] = nom_sg

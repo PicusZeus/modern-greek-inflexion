@@ -46,7 +46,8 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
         conjugation_imp = IMPER_ACT_CONT_2B
         conjugation_part = PRESENT_ACTIVE_PART_2
         # contracted άω to ώ
-
+        # if verb in ['ανιώ']:
+        #     ic(verb)
         if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus
             and verb[:-1] + 'ά' in greek_corpus or (verb[:-1] + 'άς' in greek_corpus or
                                                     verb[:-1] + 'άτε' in greek_corpus)) and aspect != PERF:
@@ -62,8 +63,8 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
                 conjugation_imp = IMPER_ACT_CONT_2A
 
             # conjugation_part = PRESENT_ACTIVE_PART_2
-        elif aspect != PERF and verb[-2] == 'ί' and verb[-3] not in vowels:
-            conjugation_ind = CON2A_ACT
+        elif aspect != PERF and verb[-2] == 'ι' and verb[-3] not in vowels:
+            conjugation_ind = CON2AK_ACT
             conjugation_imp = IMPER_ACT_CONT_2A
 
         archaic_ow = ['πληρώ', 'κυρώ', 'αξιώ', 'βιώ', 'γομώ', 'ζηλώ']

@@ -72,7 +72,7 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
             passive_perfect_participles.append(put_accent_on_the_penultimate(act_root[:-1] + 'μενος'))
             passive_perfect_participles.append(put_accent_on_the_penultimate(act_root + 'μενος'))
 
-            if root[-1] in ['μ', 'ρ', 'λ']:
+            if root.endswith('ρ'):
                 passive_perfect_participles.append(put_accent_on_the_penultimate(act_root[:-2] + 'εμενος'))
 
             passive_perfect_participles.append(put_accent_on_the_penultimate(act_root[:-2] + 'ισμενος'))

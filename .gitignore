@@ -274,3 +274,5 @@ pip-selfcheck.json
 *.ipynb
 .DS_Store
 venv_prod
+.idea
+.idea/**

@@ -1051,7 +1051,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'σπαταλήσω'}, 'passive': {'σπαταληθώ'}},
              'aorist': {'active': {'σπατάλησα'}, 'passive': {'σπαταλήθηκα'}},
              'paratatikos': {'active': {'σπαταλούσα', 'σπατάλαγα'}, 'passive': {'σπαταλιόμουν'}},
-             'act_pres_participle': {'σπαταλώντας'}, 'passive_perfect_participle': {'σπαταλημένος', 'σπαταλεμένος'},
+             'act_pres_participle': {'σπαταλώντας'}, 'passive_perfect_participle': {'σπαταλημένος'},
              'modal': False}
 
         )
@@ -1481,6 +1481,19 @@ class VerbTestBasic(TestCase):
              'pass_pres_participle': {'παρακαθούμενος'},
              'passive_perfect_participle': {'παρακαθισμένος'},
              'present': {'passive': {'παρακάθομαι'}}}
+        )
+
+    def test_verb_filaw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('φιλάω'),
+            {'act_pres_participle': {'φιλώντας'},
+             'aorist': {'active': {'φίλησα'}, 'passive': {'φιλήθηκα'}},
+             'conjunctive': {'active': {'φιλήσω'}, 'passive': {'φιληθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'φιλούσα', 'φίλαγα'}, 'passive': {'φιλιόμουν'}},
+             'passive_perfect_participle': {'φιλημένος'},
+             'present': {'active': {'φιλάω'}, 'passive': {'φιλιέμαι'}}}
+
         )
 
     def test_verb_trww(self):
