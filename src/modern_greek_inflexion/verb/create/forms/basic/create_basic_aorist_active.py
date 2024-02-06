@@ -77,7 +77,12 @@ def create_basic_aorist_active(pres_form: str, active_root: str,
             elif pres_form.endswith('άγω') and pres_form[:-3] in prefixes_before_augment.keys():
                 active_aor_forms.append(pres_form[:-3] + 'ήγαγα')
             elif pres_form.endswith('βαίνω') and pres_form[:-5] in prefixes_before_augment:
-                active_aor_forms = prefixes_before_augment[pres_form[:-5]] + 'έβη'
+                athematic = prefixes_before_augment[pres_form[:-5]] + 'έβην'
+                modern = prefixes_before_augment[pres_form[:-5]] + 'έβηκα'
+                # if athematic in greek_corpus:
+                active_aor_forms.append(athematic)
+                active_aor_forms.append(modern)
+
             else:
                 for act_r in active_root.split(','):
                     aor = act_r + 'α'

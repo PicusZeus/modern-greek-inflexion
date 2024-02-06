@@ -220,8 +220,10 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
 
     # aorist
 
+
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
                                                    not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
+
     aorist_active = []
     if aorist_basic_forms:
         verb_temp[AORIST] = {}

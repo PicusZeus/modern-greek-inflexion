@@ -28,6 +28,18 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_ξεροκαταπίνω(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('ξεπροβαίνω'),
+            {'act_pres_participle': {'ξεπροβαίνοντας'},
+             'aorist': {'active': {'ξεπροέβηκα'}},
+             'arch_act_pres_participle': {'ξεπροβαίνων/ξεπροβαίνουσα/ξεπροβαίνον'},
+             'conjunctive': {'active': {'ξεπροβώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'ξεπρόβαινα'}},
+             'present': {'active': {'ξεπροβαίνω'}}}
+        )
+
     def test_verb_orw(self):
         self.assertDictEqual(
             verb.create_all_basic_forms('ορώ'),
