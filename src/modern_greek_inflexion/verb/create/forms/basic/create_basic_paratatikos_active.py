@@ -27,11 +27,13 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
 
     for ir_verb in irregular_active_paratatikos:
         length_ir_verb = len(ir_verb)
-        if len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
+        if irregular_active_paratatikos[ir_verb] and len(pres_form) >= length_ir_verb and pres_form[-length_ir_verb:] == ir_verb:
             prefix = pres_form[:-length_ir_verb]
             act_par.extend(add_augment(prefix + irregular_active_paratatikos[ir_verb]))
 
     if not modal:
+
+
         if pres_conjugation == CON1_ACT:
             not_augmented_par = put_accent_on_the_antepenultimate(root + 'α')
 
@@ -54,6 +56,7 @@ def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation:
 
         elif pres_conjugation == CON2C_ACT:
             augmented_par = add_augment(root + 'γα')
+
             act_par.extend(augmented_par)
 
         elif pres_conjugation == EIMAI:

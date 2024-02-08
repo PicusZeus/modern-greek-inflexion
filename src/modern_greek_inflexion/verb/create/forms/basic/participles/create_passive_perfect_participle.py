@@ -1,6 +1,7 @@
 from __future__ import annotations
 from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate
 from modern_greek_accentuation.augmentify import add_augment
+from modern_greek_accentuation.resources import vowels, prefixes_before_augment
 
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_perfect_participles
@@ -16,7 +17,13 @@ def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, 
         for pr_f in irregular_passive_perfect_participles.keys():
 
             if pr_f == pres_form[-(len(pr_f)):] and irregular_passive_perfect_participles[pr_f]:
-                part = pres_form[:-len(pr_f)] + irregular_passive_perfect_participles[pr_f]
+                prefix = pres_form[:-len(pr_f)]
+                ir_participle = irregular_passive_perfect_participles[pr_f]
+
+                if ir_participle[0] in vowels and prefix in prefixes_before_augment:
+                    part = prefixes_before_augment[prefix] + ir_participle
+                else:
+                    part = pres_form[:-len(pr_f)] + irregular_passive_perfect_participles[pr_f]
 
                 passive_perfect_participles.append(part)
 

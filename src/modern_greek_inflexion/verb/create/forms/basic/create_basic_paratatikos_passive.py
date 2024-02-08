@@ -99,7 +99,7 @@ def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation
 
         elif pres_form[-5:] == 'είται':
             pass_par = add_augment(root + 'είτο')
-            pass_par.append(root + 'ούνταν')
+            pass_par.add(root + 'ούνταν')
 
         elif pres_form[-4:] == 'άται':
             pass_par = [root + 'όταν', root + 'ιόταν']
@@ -109,7 +109,7 @@ def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation
             pass_par.extend(add_augment(root + 'ατο'))
         elif pres_form[-4:] == 'εται':
             pass_par = add_augment(pres_form[:-4] + 'ετο')
-            pass_par.append(root + 'όταν')
+            pass_par.add(root + 'όταν')
 
         elif pres_form[-5:] == 'ειται':
             pass_par = add_augment(pres_form[:-5] + 'ειτο')

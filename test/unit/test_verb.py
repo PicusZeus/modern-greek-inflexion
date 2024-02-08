@@ -190,8 +190,8 @@ class VerbTestAll(TestCase):
 
         )
 
-
     def test_thewrw(self):
+        self.maxDiff = None
         self.assertDictEqual(
             verb.create_all_forms('θεωρώ')['paratatikos'],
             {'active': {'ind': {'pl': {'pri': {'θεωρούσαμε'},

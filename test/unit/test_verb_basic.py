@@ -24,7 +24,20 @@ class VerbTestBasic(TestCase):
              'modal': False,
              'paratatikos': {'active': {'ανάμενα', 'ανέμενα'}, 'passive': {'αναμενόμουν'}},
              'pass_pres_participle': {'αναμενόμενος'},
-             'present': {'active': {'αναμένω'}, 'passive': {'αναμένομαι'}}}
+             'present': {'active': {'αναμένω'}, 'passive': {'αναμένομαι'}}},
+
+        )
+
+    def test_verb_forw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('μαυροφορώ'),
+            {'act_pres_participle': {'μαυροφορώντας'},
+             'aorist': {'active': {'μαυροφόρεσα'}, 'passive': {'μαυροφορέθηκα'}},
+             'conjunctive': {'active': {'μαυροφορέσω'}, 'passive': {'μαυροφορεθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'μαυροφορούσα'}, 'passive': {'μαυροφοριόμουν'}},
+             'passive_perfect_participle': {'μαυροφορεμένος'},
+             'present': {'active': {'μαυροφορώ'}, 'passive': {'μαυροφοριέμαι'}}}
 
         )
 
@@ -63,7 +76,6 @@ class VerbTestBasic(TestCase):
 
              'paratatikos': {'active': {'είλκα'}, 'passive': {'ελκόμουν'}},
              'pass_pres_participle': {'ελκόμενος'},
-             'passive_perfect_participle': {'ελεγμένος'},
              'present': {'active': {'έλκω'}, 'passive': {'έλκομαι'}}},
             # print_verbs(verbs)
         )
@@ -1779,6 +1791,21 @@ class VerbTestBasic(TestCase):
              'act_pres_participle': {'καταλαμβάνοντας'}, 'pass_pres_participle': {'καταλαμβανόμενος'},
              'passive_aorist_participle': {'καταληφθείς/καταληφθείσα/καταληφθέν'},
              'passive_perfect_participle': {'κατειλημμένος'}, 'modal': False},
+
+        )
+
+    def test_verb_auksanw(self):
+        self.assertDictEqual(
+            verb.create_all_basic_forms('αυξάνω'),
+            {'act_pres_participle': {'αυξάνοντας'},
+             'aorist': {'active': {'αύξησα'}, 'passive': {'αυξήθηκα'}},
+             'arch_act_pres_participle': {'αυξάνων/αυξάνουσα/αυξάνον'},
+             'conjunctive': {'active': {'αυξήσω'}, 'passive': {'αυξηθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'αύξανα'}, 'passive': {'αυξανόμουν'}},
+             'pass_pres_participle': {'αυξανόμενος'},
+             'passive_perfect_participle': {'αυξημένος', 'ηυξημένος'},
+             'present': {'active': {'αυξάνω'}, 'passive': {'αυξάνομαι'}}}
 
         )
 
