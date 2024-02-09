@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from modern_greek_accentuation.accentuation import put_accent, put_accent_on_the_penultimate, put_accent_on_the_ultimate
 
-from modern_greek_inflexion.adjective.helpers import put_accent_in_all_forms
+from modern_greek_inflexion.adjective._helpers import put_accent_in_all_forms
 from modern_greek_inflexion.resources import SG, FEM, NOM, ACC, GEN, VOC, greek_corpus, NEUT, MASC, PL, ULTIMATE
 
 alt_template = {SG: {MASC: {}, FEM: {}, NEUT: {}},

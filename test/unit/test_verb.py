@@ -1,5 +1,5 @@
 from unittest import TestCase
-from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
+from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
 from modern_greek_inflexion import verb
 
 

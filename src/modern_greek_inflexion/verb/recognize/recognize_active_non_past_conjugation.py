@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from icecream import ic
 from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources.resources import greek_corpus
@@ -45,9 +46,7 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
         conjugation_ind = CON2B_ACT
         conjugation_imp = IMPER_ACT_CONT_2B
         conjugation_part = PRESENT_ACTIVE_PART_2
-        # contracted άω to ώ
-        # if verb in ['ανιώ']:
-        #     ic(verb)
+
         if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus
             and verb[:-1] + 'ά' in greek_corpus or (verb[:-1] + 'άς' in greek_corpus or
                                                     verb[:-1] + 'άτε' in greek_corpus)) and aspect != PERF:
@@ -55,25 +54,21 @@ def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense
             if verb[:-1] + 'άω' in greek_corpus or verb[:-1] + 'άει' in greek_corpus:
                 conjugation_ind = CON2A_ACT
                 conjugation_imp = IMPER_ACT_CONT_2A
-            # elif verb[:-1] + 'εί' in greek_corpus:
-            #     conjugation_ind =
+
             elif (verb[:-1] + 'εί' not in greek_corpus and
                   (verb[:-1] + 'άτε' in greek_corpus)):
                 conjugation_ind = CON2AK_ACT
                 conjugation_imp = IMPER_ACT_CONT_2A
-
-            # conjugation_part = PRESENT_ACTIVE_PART_2
+            elif aspect != PERF and verb[-2] == 'ι' and verb[-3] not in vowels:
+                conjugation_ind = CON2AK_ACT
+                conjugation_imp = IMPER_ACT_CONT_2A
         elif aspect != PERF and verb[-2] == 'ι' and verb[-3] not in vowels:
             conjugation_ind = CON2AK_ACT
             conjugation_imp = IMPER_ACT_CONT_2A
 
         archaic_ow = ['πληρώ', 'κυρώ', 'αξιώ', 'βιώ', 'γομώ', 'ζηλώ']
         if aspect != PERF and True in [verb.endswith(v) for v in archaic_ow]:
-            # if (((verb[:-1] + 'είς' not in greek_corpus and count_syllables(verb) > 1)
-            #      and
-            #      (verb[:-1] + 'ώσω' in greek_corpus) and verb.endswith('πληρώ')) and
-            #         True in [verb.endswith(v) for v in archaic_ow]
-            #         and aspect != PERF):
+
             conjugation_ind = CON2D_ACT
             conjugation_imp = IMPER_ACT_CONT_2D
             conjugation_part = PRESENT_ACTIVE_PART_2

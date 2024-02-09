@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import re
+
+from re import Pattern, Match
+
 from copy import deepcopy
 
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_ultimate, \
@@ -9,7 +13,7 @@ from modern_greek_accentuation.resources import vowels
 from modern_greek_inflexion.adjective.all.create_all_alt import alternative_forms_r, alternative_forms_ios, \
     alternative_forms_us, alternative_fem_os, alternative_forms_kxth, alternative_forms_modern_3rd, \
     alternative_forms_onas, alternative_forms_tis, alternative_forms_wn, alternative_forms_us2, alternative_forms_ou
-from modern_greek_inflexion.adjective.helpers import put_accent_in_all_forms, put_accent_on_unaccented_forms
+from modern_greek_inflexion.adjective._helpers import put_accent_in_all_forms, put_accent_on_unaccented_forms
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.adj import adj_basic_template
 from modern_greek_inflexion.resources.variables import SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC, ANTEPENULTIMATE, \
@@ -20,6 +24,7 @@ example
 adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμότατος', 'adverb': 'ωμά',
 'adverb_comparative': 'ωμότερα/ωμότατα'}
 """
+
 
 
 def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
@@ -414,7 +419,7 @@ def create_all_adj_forms(adj: str) -> tuple[dict, dict | None]:
         return forms, None
 
     elif (masc[-2:] in ['ων', 'ών', 'ας', 'άς'] and
-          fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων','αν', 'άν']):
+          fem[-2:] in ['σα'] and neut[-2:] in ['ον', 'όν', 'ύν', 'ών', 'ων', 'αν', 'άν']):
         # wn, ousa, on and as, asa, an
 
         feminins = fem.split(',')

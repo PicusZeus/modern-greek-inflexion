@@ -1,7 +1,7 @@
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 
 from ..adjective import create_all_adj_forms
-from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb._helpers import merging_all_dictionaries
 from ..resources.pronouns import *
 from ..resources.resources import greek_corpus
 from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND

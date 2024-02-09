@@ -1,8 +1,10 @@
+from dataclasses import dataclass
+from icecream import ic
 
-from modern_greek_inflexion.adjective.basic.create_basic_adj import create_all_basic_adj_forms
+from modern_greek_inflexion.adjective.basic.create_basic_adj import create_all_basic_forms
 from modern_greek_inflexion.adjective.all.create_all_adj import create_all_adj_forms
-from ..exceptions import NotInGreekException
-from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
+from .._exceptions import NotInGreekException
+from modern_greek_inflexion.verb._helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources.resources import ADJ, ADVERB, COMP, COMP_ADV, ADV, COMPARATIVE, ADVERB_COMPARATIVE, SUPERL, SUPERL_ADV
 import re
@@ -10,8 +12,126 @@ import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 
-def create_all_basic_forms(adj: str) -> dict:
-    return create_all_basic_adj_forms(adj)
+@dataclass
+class Cases:
+    nom: tuple[str]
+    gen: tuple[str]
+    acc: tuple[str]
+    voc: tuple[str]
+
+
+@dataclass
+class Genders:
+    fem: Cases
+    masc: Cases
+    neut: Cases
+
+
+@dataclass
+class Numbers:
+    sg: Genders
+    pl: Genders
+
+
+@dataclass
+class Adjective:
+    adj: Numbers
+    comp: Numbers
+    superl: Numbers
+    adv: tuple[str]
+    comp_adv: tuple[str]
+    superl_adv: tuple[str]
+
+
+class Adj:
+
+    def __init__(self, adj: str, aklito: bool = False, basic_forms: dict = None):
+        self.adjective = adj
+        adj = convert_to_monotonic(adj, one_syllable_rule=False)
+
+        if not greek_pattern.match(adj):
+            raise NotInGreekException
+        if basic_forms:
+            self.basic_forms = basic_forms
+        else:
+            self.basic_forms = create_all_basic_forms(adj, aklito)
+
+    @staticmethod
+    def _adj(basic, adverb):
+        forms, alternative_forms = create_all_adj_forms(basic)
+
+        if alternative_forms:
+            adj = merging_all_dictionaries(forms, alternative_forms)
+        else:
+            adj = merging_all_dictionaries(forms, forms)
+
+        if adverb:
+            adv = set(adverb.split(','))
+        else:
+            adv = set()
+
+        return adj, adv
+
+    def positive_degree(self):
+        adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])
+        return {ADJ: adj, ADV: adv}
+
+    def _comp_degree(self, bas_compars):
+        all_compars = []
+        all_adverbs = set()
+        # if self.adjective == 'καλός':
+            # ic(all_adverbs, self.basic_forms[ADVERB_COMPARATIVE])
+        for compar in bas_compars.split(','):
+            base = create_all_basic_forms(compar)
+            adj, adv = self._adj(base[ADJ], base[ADVERB])
+            all_compars.append(adj)
+
+            all_adverbs.update(adv)
+        all_comp_forms = merging_all_dictionaries(*all_compars)
+
+        return all_comp_forms, all_adverbs
+
+    def comparative_degree(self):
+        basic_compar = self.basic_forms[COMPARATIVE]
+        if basic_compar:
+            compars, superlatives = basic_compar.split('/')
+            advs_compar, advs_superlative = self.basic_forms[ADVERB_COMPARATIVE].split('/')
+            if compars != '-':
+                comparative_forms, comparative_adv = self._comp_degree(compars)
+                return {COMP: comparative_forms, COMP_ADV: set(advs_compar.split(','))}
+
+    def superlative_degree(self):
+        basic_compar = self.basic_forms[COMPARATIVE]
+        if basic_compar:
+            compars, superlatives = basic_compar.split('/')
+            advs_compar, advs_superlative = self.basic_forms[ADVERB_COMPARATIVE].split('/')
+            if superlatives != '-':
+                comparative_forms, comparative_adv = self._comp_degree(superlatives)
+                return {SUPERL: comparative_forms, SUPERL_ADV: set(advs_superlative.split(','))}
+
+    def all(self):
+        _all = {}
+        adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])
+        _all[ADJ] = adj
+        if adv:
+            _all[ADV] = adv
+
+        basic_compar = self.basic_forms[COMPARATIVE]
+        if basic_compar:
+            compars, superlatives = basic_compar.split('/')
+            advs_compar, advs_superlative = self.basic_forms[ADVERB_COMPARATIVE].split('/')
+            if compars != '-':
+                comparative_forms, _ = self._comp_degree(compars)
+                _all[COMP] = comparative_forms
+                # if comparative_adv:
+                _all[COMP_ADV] = set(advs_compar.split(','))
+            if superlatives != '-':
+                superlative_forms, _ = self._comp_degree(superlatives)
+                _all[SUPERL] = superlative_forms
+                # if superlative_adv:
+                _all[SUPERL_ADV] = set(advs_superlative.split(','))
+
+        return _all
 
 
 def create_all(adj: str, aklito=False) -> dict:
@@ -29,7 +149,6 @@ def create_all(adj: str, aklito=False) -> dict:
     """
     adj = convert_to_monotonic(adj, one_syllable_rule=False)
     if not greek_pattern.match(adj):
-
         raise NotInGreekException
 
     forms = []
@@ -39,7 +158,7 @@ def create_all(adj: str, aklito=False) -> dict:
     comp_adv = []
     super_adv = []
 
-    all_basic_adj_forms = create_all_basic_adj_forms(adj, aklito=aklito)
+    all_basic_adj_forms = create_all_basic_forms(adj, aklito=aklito)
     if all_basic_adj_forms[ADJ]:
 
         all_adj_infl_forms = create_all_adj_forms(all_basic_adj_forms[ADJ])
@@ -49,7 +168,6 @@ def create_all(adj: str, aklito=False) -> dict:
         if all_adj_infl_forms[1]:
             forms.append(all_adj_infl_forms[1])
 
-
     basic_compar = all_basic_adj_forms[COMPARATIVE]
     if basic_compar:
 
@@ -57,7 +175,7 @@ def create_all(adj: str, aklito=False) -> dict:
         if compars != '-':
             for compar in compars.split(','):
 
-                base = create_all_basic_adj_forms(compar)
+                base = create_all_basic_forms(compar)
                 all_inf_comp_forms, alternatives = create_all_adj_forms(base[ADJ])
 
                 if all_inf_comp_forms:
@@ -66,7 +184,7 @@ def create_all(adj: str, aklito=False) -> dict:
                     comp_forms.append(alternatives)
         if superlatives and superlatives != '-':
             for superlative in superlatives.split(','):
-                base = create_all_basic_adj_forms(superlative)
+                base = create_all_basic_forms(superlative)
                 all_inf_superl_forms, alternatives = create_all_adj_forms(base[ADJ])
                 if all_inf_superl_forms:
                     super_forms.append(all_inf_superl_forms)
@@ -87,7 +205,6 @@ def create_all(adj: str, aklito=False) -> dict:
                 super_adv.append(adv_superlative)
     result = {}
     if forms:
-
         forms = merging_all_dictionaries(*forms)
 
         result[ADJ] = forms

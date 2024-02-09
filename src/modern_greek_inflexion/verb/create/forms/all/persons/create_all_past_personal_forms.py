@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from modern_greek_inflexion.verb.helpers import compound_alternative_forms
+from modern_greek_inflexion.verb._helpers import compound_alternative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
 from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_roots_from_past
 from modern_greek_inflexion.verb.recognize import recognize_past_conjugation

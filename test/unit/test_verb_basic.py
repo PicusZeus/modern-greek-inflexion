@@ -2,7 +2,7 @@ from unittest import TestCase
 
 # from icecream import ic
 
-from modern_greek_inflexion.exceptions import NotInGreekException
+from modern_greek_inflexion._exceptions import NotInGreekException
 from modern_greek_inflexion import verb
 
 

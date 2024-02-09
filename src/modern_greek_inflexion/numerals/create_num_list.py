@@ -1,6 +1,6 @@
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 
-from ..adjective import create_all_basic_adj_forms
+from ..adjective import create_all_basic_forms
 from ..resources.resources import greek_corpus, ADVERB
 
 
@@ -12,7 +12,7 @@ def create_num_adj(numeral: str, ordinal: bool = False) -> dict:
     """
 
     if ordinal:
-        forms = create_all_basic_adj_forms(numeral)
+        forms = create_all_basic_forms(numeral)
         adverb = ''
         adverb_ordinal = numeral[:-1] + 'ν'
         if adverb_ordinal in greek_corpus:

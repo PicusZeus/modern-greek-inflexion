@@ -1,6 +1,6 @@
 from .. import adjective
 from ..resources.resources import irregular_adv, ADV, COMP_ADV, ADJ, COMP, SUPERL, SUPERL_ADV
-from ..exceptions import NotInGreekException
+from .._exceptions import NotInGreekException
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 

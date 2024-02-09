@@ -2,7 +2,7 @@ from .create.forms import create_all_imperfect_personal_forms, create_all_perf_n
     create_all_past_personal_forms
 from .. import adjective
 from modern_greek_inflexion.adjective.all.create_all_adj import create_all_adj_forms
-from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb._helpers import merging_all_dictionaries
 
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
@@ -15,9 +15,42 @@ greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 def create_all_forms(verb: str, para: bool = False) -> dict:
     """
-    :param para: how to treat prefix para
-    :param verb: self explanatory
-    :return:
+    **Create all verb forms in a dictionary form**
+
+    :param para: This flag is designed to deal with compound verbs with prefix "παρα" that can be two different verbs which differ only in perfective tenses and in a way they deal with augment (παραβλέπω - παράβλεψα != παραβλέπω - παραείδα)
+    :param verb: A verb should be put in first person sg present time active voice, if given in middle-passive voice, it will be treated as deponens. If given in 3rd person sg, it will be treated as a modal verb.
+    :return: a dictionary with all recognized forms
+
+    Usage:
+
+        .. code-block::
+
+                from modern_greek_inflexion.verb import create_all_forms as verb_all
+                from pprint import pprint
+
+                pprint(verb_all('ξέρω')
+                {'act_pres_participle': {'ξέροντας'},
+                 'aorist': {},
+                 'conjunctive': {},
+                 'paratatikos': {'active': {'ind': {'pl': {'pri': {'ξέραμε'},
+                                                           'sec': {'ξέρατε'},
+                                                           'ter': {'ξέρανε', 'ήξεραν'}},
+                                                    'sg': {'pri': {'ήξερα'},
+                                                           'sec': {'ήξερες'},
+                                                           'ter': {'ήξερε'}}}}},
+                 'present': {'active': {'imp': {'pl': {'sec': {'ξέρετε'}},
+                                                'sg': {'sec': {'ξέρε'}}},
+                                        'ind': {'pl': {'pri': {'ξέρομε', 'ξέρουμε'},
+                                                       'sec': {'ξέρετε'},
+                                                       'ter': {'ξέρουν', 'ξέρουνε'}},
+                                                'sg': {'pri': {'ξέρω'},
+                                                       'sec': {'ξέρεις', 'ξες'},
+                                                       'ter': {'ξέρει'}}}}}}
+
+
+
+
+
     """
     verb = convert_to_monotonic(verb, one_syllable_rule=False)
     basic_forms = create_all_basic_forms(verb, para)
@@ -115,7 +148,6 @@ def create_all_forms(verb: str, para: bool = False) -> dict:
     for participle_type in ['arch_act_pres_participle', 'active_aorist_participle', 'passive_aorist_participle']:
         if participle_type in basic_forms:
             all_possible_infl_forms = []
-
 
             if participle_type == 'arch_act_pres_participle':
 

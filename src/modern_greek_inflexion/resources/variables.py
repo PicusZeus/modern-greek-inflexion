@@ -80,6 +80,8 @@ MASC_SG = 'masc_sg'
 NEUT_SG = 'neut_sg'
 ONLY_SG = 'only_sg'
 
+PROPER_NAME = 'proper_name'
+
 # conjugations
 EIMAI = 'eimai'
 EIMAI_PARATATIKOS = "eimai_paratatikos"

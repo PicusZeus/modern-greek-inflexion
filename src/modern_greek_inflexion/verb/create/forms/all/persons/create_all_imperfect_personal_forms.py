@@ -1,4 +1,4 @@
-from modern_greek_inflexion.verb.helpers import compound_alternative_forms
+from modern_greek_inflexion.verb._helpers import compound_alternative_forms
 from modern_greek_inflexion.resources import ACTIVE, PASSIVE, IND, ROOT, CONJUGATION_IND, CONJUGATION_IMP, \
     CON1_ACT_MODAL, SG, TER, MODAL
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
@@ -10,7 +10,7 @@ def create_all_imperfect_personal_forms(verb: str, voice: str) -> tuple[dict, st
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
-    :return: a dictionary {'voice': voice, 'sec_pos': secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary, 'forms_imp': all imper forms in a dictionary}
+    :return: a two element tuple, first element is a dictionary {'voice': voice, 'sec_pos': secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary, 'forms_imp': all imper forms in a dictionary}, second is a string con_ind
     """
     act_verbs = pass_verbs = None
 

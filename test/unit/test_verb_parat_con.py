@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from icecream import ic
+
 from modern_greek_inflexion import verb
 
 
@@ -73,6 +75,7 @@ class VerbTestParatAct(TestCase):
                     'sec': {'συλλάμβανες', 'συνελάμβανες'},
                     'ter': {'συνελάμβανε', 'συλλάμβανε'}}}
             ,
+            ic(parat_act('συλλαμβάνω'))
         )
 
     # CON2A

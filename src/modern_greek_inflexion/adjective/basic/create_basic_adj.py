@@ -1,15 +1,20 @@
+import dataclasses
+
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from modern_greek_inflexion.exceptions import NotLegalAdjectiveException
+from modern_greek_inflexion._exceptions import NotLegalAdjectiveException
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE,
                                                         ANTEPENULTIMATE, PENULTIMATE, ADJ_FEM_OS_ONLY, ADJ_FEM_OS_ALSO)
 from modern_greek_inflexion.resources.adj import irregular_comparatives, irregular_comparative_adverbs, adj_grammar_lists
 
 
-def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
+
+
+
+def create_all_basic_forms(adj: str, aklito=False) -> dict:
     """
     :param aklito: if relevant, boolean
     :param adj: masc nom sg form (`ωραίος`)
@@ -109,8 +114,9 @@ def create_all_basic_adj_forms(adj: str, aklito=False) -> dict:
 
             fem = fem + ',' + masc
 
-        elif adj in adj_grammar_lists[ADJ_FEM_OS_ONLY] or ((adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or
-                adj.endswith('ουργός')):
+        elif (adj in adj_grammar_lists[ADJ_FEM_OS_ONLY] or
+              ((adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or
+                adj.endswith('ουργός'))):
 
             fem = masc
 

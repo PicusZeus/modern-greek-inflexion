@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent, remove_all_diacritics
 from .. import adjective
-from ..exceptions import NotInGreekException
+from .._exceptions import NotInGreekException
 import re
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
@@ -20,7 +20,7 @@ def create_basic_forms(pron: str) -> str | None:
 
     elif pron[-2:] in ['ος', 'ός'] or pron[-3:] in ['πας'] and pron != 'τίνος':
         # like poios
-        bas_forms = adjective.create_all_basic_adj_forms(pron)['adj']
+        bas_forms = adjective.create_all_basic_forms(pron)['adj']
     elif pron[-2:] in ['οι', 'οί']:
         accent = where_is_accent(pron)
         fem = put_accent(pron[:-2] + 'ες', accent, true_syllabification=False)
@@ -31,7 +31,7 @@ def create_basic_forms(pron: str) -> str | None:
         pron_r = pron[:-6]
 
         if pron_r[-2:] == 'οσ':
-            bas_forms_r = adjective.create_all_basic_adj_forms(pron_r[:-1] + 'ς')['adj']
+            bas_forms_r = adjective.create_all_basic_forms(pron_r[:-1] + 'ς')['adj']
             fem = bas_forms_r.split('/')[1]
             neut = bas_forms_r.split('/')[2]
             bas_forms = pron + '/' + fem + suffix + '/' + neut + suffix

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from modern_greek_inflexion.exceptions import NotLegalVerbException
+from modern_greek_inflexion._exceptions import NotLegalVerbException
 
 from modern_greek_inflexion.resources.variables import *
 

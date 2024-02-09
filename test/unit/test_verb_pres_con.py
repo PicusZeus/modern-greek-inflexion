@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from modern_greek_inflexion import verb
+from icecream import ic
 
 
 def present_act(v):
@@ -51,6 +52,14 @@ class VerbTestPresAct(TestCase):
             present_act('ανιώ'),
             {'sg': {'pri': {'ανιώ'}, 'sec': {'ανιάς'}, 'ter': {'ανιά'}},
              'pl': {'pri': {'ανιούμε', 'ανιάμε'}, 'sec': {'ανιάτε'}, 'ter': {'ανιούν'}}}
+
+        )
+
+    def test_verb_wxriw(self):
+        self.assertDictEqual(
+            present_act('ωχριώ'),
+            {'pl': {'pri': {'ωχριάμε', 'ωχριούμε'}, 'sec': {'ωχριάτε'}, 'ter': {'ωχριούν'}},
+             'sg': {'pri': {'ωχριώ'}, 'sec': {'ωχριάς'}, 'ter': {'ωχριά'}}}
 
         )
 
