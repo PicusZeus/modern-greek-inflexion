@@ -13,7 +13,7 @@ from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_a
     create_present_active_participle_arch
 from modern_greek_inflexion.verb.create.forms.basic.participles.create_present_passive_participle import \
     create_present_passive_participle
-from modern_greek_inflexion.verb._helpers import update_forms_with_prefix
+from modern_greek_inflexion.verb.helpers import update_forms_with_prefix
 from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_the_penultimate, \
     put_accent_on_the_antepenultimate, where_is_accent, put_accent_on_the_ultimate
 from modern_greek_accentuation.syllabify import count_syllables

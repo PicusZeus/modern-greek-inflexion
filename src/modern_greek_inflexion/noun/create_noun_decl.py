@@ -1,3 +1,4 @@
+from icecream import ic
 from typing import Any, Union
 
 # from icecream import ic
@@ -30,6 +31,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
     :param proper_name: flag useful for creation of vocatives in proper names
 
     """
+
     accent = where_is_accent(nom_sg, true_syllabification=False)
     number_of_syllables = count_syllables(nom_sg)
     fem_masc = ',' in genders
@@ -116,12 +118,15 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     noun_all[gender][SG][ACC] = nom_sg[:-1] + ',' + nom_sg[:-1] + 'ν'
                 masc_voc = put_accent(nom_sg[:-2] + 'ε', accent, true_syllabification=False)
                 noun_all[gender][SG][VOC] = masc_voc
-
+                if nom_sg == 'Βάιος':
+                    ic(masc_voc, masc_voc in greek_corpus, proper_name)
                 if proper_name and count_syllables(nom_sg) < 3:
+
                     if accent != ULTIMATE:
                         properN_masc_voc = nom_sg[:-1]
                         noun_all[gender][SG][VOC] = properN_masc_voc
                         # but this rule is not always used (Παύλο και Παύλε) and sometimes voc on e is still in usage
+
 
                         if masc_voc.lower() in greek_corpus:
                             noun_all[gender][SG][VOC] = properN_masc_voc + ',' + masc_voc

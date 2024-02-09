@@ -75,7 +75,7 @@ class VerbTestParatAct(TestCase):
                     'sec': {'συλλάμβανες', 'συνελάμβανες'},
                     'ter': {'συνελάμβανε', 'συλλάμβανε'}}}
             ,
-            ic(parat_act('συλλαμβάνω'))
+            # ic(parat_act('συλλαμβάνω'))
         )
 
     # CON2A

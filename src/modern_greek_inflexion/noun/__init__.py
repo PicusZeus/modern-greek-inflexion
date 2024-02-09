@@ -1,17 +1,32 @@
 from __future__ import annotations
 
+from icecream import ic
+
 from .create_noun_basic import create_all_basic_forms
 from .create_noun_decl import create_all_noun_forms
-from modern_greek_inflexion.verb._helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 from .._typing import Gender
-from ..resources.resources import NOM_SG, GEN_SG, GENDER, NOM_PL
+from ..resources.resources import NOM_SG, GEN_SG, GENDERS, NOM_PL
 
 
-def create_all(lemma: str, proper_name: bool = False, gender: Gender = None, aklito: bool | str = False) -> dict:
+class Noun:
+    def __init__(self, noun: str, proper_name: bool = False, gender: Gender = None, aklito: bool | str = False):
+        self.noun = convert_to_monotonic(noun, one_syllable_rule=False)
+        self.proper_name = proper_name
+        self.basic_forms = create_all_basic_forms(noun, gender=gender, proper_name=proper_name, aklito=aklito)
+
+    def all(self):
+        if self.noun == 'Βάιος':
+            ic(self.basic_forms)
+        res = create_all_noun_forms(**self.basic_forms, proper_name=self.proper_name)
+        return merging_all_dictionaries(res)
+
+
+def create_all(noun: str, proper_name: bool = False, gender: Gender = None, aklito: bool | str = False) -> dict:
     """
-    :param lemma: The noun you want to inflect has to be in its basic form, that is in nominative singular, or if it's
+    :param noun: The noun you want to inflect has to be in its basic form, that is in nominative singular, or if it's
      plural only, in plural
     :param proper_name:
     :param gender: If you know the nouns gender, set one. There are 10 possibilities, outside of standard 'fem', 'masc',
@@ -23,10 +38,11 @@ def create_all(lemma: str, proper_name: bool = False, gender: Gender = None, akl
      value is False.
     :return:
     """
-    noun = convert_to_monotonic(lemma, one_syllable_rule=False)
-    noun = create_all_basic_forms(noun, gender=gender, proper_name=proper_name, aklito=aklito)
-
-    res = create_all_noun_forms(noun[NOM_SG], noun[GEN_SG], noun[NOM_PL], noun[GENDER], proper_name=proper_name)
+    noun = convert_to_monotonic(noun, one_syllable_rule=False)
+    noun_basic_forms = create_all_basic_forms(noun, gender=gender, proper_name=proper_name, aklito=aklito)
+    if noun == 'χρόνος':
+        ic(noun_basic_forms)
+    res = create_all_noun_forms(**noun_basic_forms)
 
     all_forms = merging_all_dictionaries(res)
 

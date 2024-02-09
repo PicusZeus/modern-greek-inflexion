@@ -6,7 +6,7 @@ from modern_greek_accentuation.resources import prefixes_before_augment, prefixe
 from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_active_roots
 from modern_greek_inflexion.resources.variables import *
-from modern_greek_inflexion.verb._helpers import active_subjunctive_exists, active_subjunctive_sigmatic_exists
+from modern_greek_inflexion.verb.helpers import active_subjunctive_exists, active_subjunctive_sigmatic_exists
 
 
 def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,

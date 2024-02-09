@@ -47,7 +47,7 @@ ANTEPENULTIMATE = 'antepenultimate'
 INCORRECT_ACCENT = 'incorrect_accent'
 
 # var
-GENDER = 'gender'
+GENDERS = 'genders'
 CONJUGATION_IND = 'conjugation_ind'
 CONJUGATION_IMP = 'conjugation_imp'
 ROOT = 'root'

@@ -4,7 +4,7 @@ from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import *
-from modern_greek_inflexion.verb._helpers import passive_subjunctive_exists
+from modern_greek_inflexion.verb.helpers import passive_subjunctive_exists
 
 
 def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None,

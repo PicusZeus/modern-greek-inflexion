@@ -2,7 +2,7 @@ from .create.forms import create_all_imperfect_personal_forms, create_all_perf_n
     create_all_past_personal_forms
 from .. import adjective
 from modern_greek_inflexion.adjective.all.create_all_adj import create_all_adj_forms
-from modern_greek_inflexion.verb._helpers import merging_all_dictionaries
+from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
@@ -11,6 +11,71 @@ from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP
 import re
 
 greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
+
+PRESENT = 'present'
+
+class Verb:
+
+    def __init__(self, verb: str, para: bool = False, basic_forms: dict = None):
+        verb = convert_to_monotonic(verb, one_syllable_rule=False)
+        self.verb = verb
+        if not basic_forms:
+            self.basic_forms = create_all_basic_forms(verb, para)
+        else:
+            self.basic_forms = basic_forms
+
+        if 'error' in self.basic_forms:
+            raise Exception(f"verb {self.verb} is incorrect, probably doesnt exist in the corpus")
+        self.modal = basic_forms[MODAL]
+
+    def create_present(self):
+        present = {}
+        active_pres_con_ind = passive_pres_con_ind = None
+        present_basic_forms = self.basic_forms[PRESENT]
+
+        if ACTIVE in present_basic_forms:
+            # only here, because we have lemma situation, all possible conjugation are also created
+            # (that is if you have τηλεφωνώ (άω), also forms from the τηλεφωνώ type are added
+            pres_act_forms, active_pres_con_ind = create_all_imperfect_personal_forms(present_basic_forms[ACTIVE],
+                                                                                      ACTIVE)
+
+            present[ACTIVE] = pres_act_forms
+        if PASSIVE in present_basic_forms:
+            # here you can have more possible forms
+            pres_passive_forms, passive_pres_con_ind = create_all_imperfect_personal_forms(present_basic_forms[PASSIVE],
+                                                                                           PASSIVE)
+
+            present[PASSIVE] = pres_passive_forms
+
+            if ACTIVE not in present_basic_forms:
+                deponens = True
+
+        return present
+
+    def create_perfective_forms(self):
+
+        # CONJUNCTIVE
+        if CONJUNCTIVE in self.basic_forms:
+            conjunctive_basic_forms = self.basic_forms[CONJUNCTIVE]
+            conjunctive = {}
+            active_roots = None
+
+            if ACTIVE in conjunctive_basic_forms:
+                con_active_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[ACTIVE], ACTIVE)
+
+                active_roots = [x[:-1] for x in conjunctive_basic_forms[ACTIVE]]
+
+                conjunctive[ACTIVE] = con_active_forms
+
+            if PASSIVE in conjunctive_basic_forms:
+
+                con_passive_forms = create_all_perf_non_past_personal_forms(conjunctive_basic_forms[PASSIVE], PASSIVE,
+                                                                            active_root_for_imp=active_roots)
+
+                if self.basic_forms[MODAL]:
+                    del con_passive_forms[IMP]
+                conjunctive[PASSIVE] = con_passive_forms
+            return conjunctive
 
 
 def create_all_forms(verb: str, para: bool = False) -> dict:
