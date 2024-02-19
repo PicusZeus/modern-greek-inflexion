@@ -1,14 +1,13 @@
 from unittest import TestCase
 
 from modern_greek_inflexion import adverb
-
-
+from modern_greek_inflexion.adverb import Adverb
 
 
 class AdverbTest(TestCase):
     def test_adv_noris(self):
         self.assertDictEqual(
-            adverb.create_all('νωρίς'),
+            Adverb('νωρίς').all(),
             {'adv': {'νωρίς'}, 'comp_adv': {'νωρίτερα'}, 'superl_adv': {'νωρίτατα'}}
         )
 

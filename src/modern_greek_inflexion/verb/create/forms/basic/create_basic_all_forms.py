@@ -24,7 +24,7 @@ from modern_greek_inflexion.resources.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, \
     CONJUNCTIVE, ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, \
-    PASSIVE_AORIST_PARTICIPLE
+    PASSIVE_AORIST_PARTICIPLE, PASS_PRES_PARTICIPLE, PRES_CONJUGATION
 from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
 
 import re
@@ -164,12 +164,9 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
 
     # presens
     has_passive = False
-    present_basic, pres_conjugation, root, intransitive_active = create_basic_present_forms(pres_form,
-                                                                                            deponens=deponens,
-                                                                                            not_deponens=not_deponens,
-                                                                                            intransitive_active=intransitive_active,
-                                                                                            modal_act=modal_act,
-                                                                                            modal_med=modal_med)
+    present_basic, pres_conjugation, root, intransitive_active = create_basic_present_forms(pres_form, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
+
+    verb_temp[PRES_CONJUGATION] = pres_conjugation
 
     if pres_form[:-1] in irregular_passive_roots:
         intransitive_active = False
@@ -273,7 +270,7 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
     present_participle_passive = create_present_passive_participle(pres_form, root, pres_conjugation)
 
     if present_participle_passive and not modal:
-        verb_temp['pass_pres_participle'] = set(present_participle_passive.split(','))
+        verb_temp[PASS_PRES_PARTICIPLE] = set(present_participle_passive.split(','))
 
     # passive_perfect_participles
 

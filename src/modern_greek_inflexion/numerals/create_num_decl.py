@@ -8,13 +8,13 @@ from ..resources.variables import SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT, A
 from ..resources.resources import greek_corpus
 
 
-def create_all_num_adj_forms(num_base_forms: str, ordinal: bool = False) -> dict:
+def create_all_num_adj_forms(num_base_forms: str, cardinal: bool = False) -> dict:
     """
-    :param ordinal: boolean
+    :param cardinal: boolean
     :param num_base_forms: masc/fem/neut
     :return: a dictionary of forms (like adj)
     """
-    if ordinal:
+    if cardinal:
         all_forms = create_all_adj_forms(num_base_forms)
 
         return all_forms[0]

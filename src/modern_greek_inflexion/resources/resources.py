@@ -1,3 +1,5 @@
+import re
+
 import pickle
 import os
 from .variables import *
@@ -21,6 +23,7 @@ aklita_num_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εν
 
 # these are not all the irregular verbs, but if you take into account compounds, most.
 
+greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 """UNUSED"""
 

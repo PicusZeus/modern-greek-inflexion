@@ -3,14 +3,15 @@ from unittest import TestCase
 from icecream import ic
 
 from modern_greek_inflexion import verb
+from modern_greek_inflexion.resources import PARATATIKOS, ACTIVE, IND, PASSIVE
 
 
 def parat_act(v):
-    return verb.create_all_forms(v)['paratatikos']['active']['ind']
+    return verb.Verb(v).create_imperfect_forms()[PARATATIKOS][ACTIVE][IND]
 
 
 def parat_pass(v):
-    return verb.create_all_forms(v)['paratatikos']['passive']['ind']
+    return verb.Verb(v).create_imperfect_forms()[PARATATIKOS][PASSIVE][IND]
 
 
 class VerbTestParatAct(TestCase):
@@ -58,7 +59,7 @@ class VerbTestParatAct(TestCase):
                     'ter': {'ενέκριναν', 'εγκρίνανε'}},
              'sg': {'pri': {'ενέκρινα'},
                     'sec': {'ενέκρινες'},
-                    'ter': { 'ενέκρινε'}}}
+                    'ter': {'ενέκρινε'}}}
             ,
         )
 
@@ -91,12 +92,41 @@ class VerbTestParatAct(TestCase):
 
         )
 
+    def test_verb_tragoudo(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            parat_act('τραγουδώ'),
+            {'pl': {'pri': {'τραγουδούσαμε', 'τραγουδάγαμε'},
+                    'sec': {'τραγουδούσατε', 'τραγουδάγατε'},
+                    'ter': {'τραγουδάγανε',
+                            'τραγουδούσαν',
+                            'τραγουδούσανε',
+                            'τραγούδαγαν'}},
+             'sg': {'pri': {'τραγούδαγα', 'τραγουδούσα'},
+                    'sec': {'τραγούδαγες', 'τραγουδούσες'},
+                    'ter': {'τραγουδούσε', 'τραγούδαγε'}}}
+
+        )
+
     # CON2B
     def test_zw(self):
         self.assertDictEqual(
             parat_act('ζω'),
             {'pl': {'pri': {'ζούσαμε'}, 'sec': {'ζούσατε'}, 'ter': {'ζούσανε', 'ζούσαν'}},
              'sg': {'pri': {'ζούσα'}, 'sec': {'ζούσες'}, 'ter': {'ζούσε'}}}
+
+        )
+
+    def test_thewrw(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            parat_act('θεωρώ'),
+            {'pl': {'pri': {'θεωρούσαμε'},
+                    'sec': {'θεωρούσατε'},
+                    'ter': {'θεωρούσαν', 'θεωρούσανε'}},
+             'sg': {'pri': {'θεωρούσα'},
+                    'sec': {'θεωρούσες'},
+                    'ter': {'θεωρούσε'}}}
 
         )
 
@@ -131,6 +161,21 @@ class VerbTestParPass(TestCase):
 
         )
 
+    def test_eksartwmai_parat(self):
+        self.assertDictEqual(
+            parat_pass('εξαρτώμαι'),
+            {'pl': {'pri': {'εξαρτιόμαστε', 'εξαρτιόμασταν'},
+                    'sec': {'εξαρτιόσαστε', 'εξαρτιόσασταν'},
+                    'ter': {'εξαρτιούνταν',
+                            'εξαρτιόνταν',
+                            'εξαρτιόντουσαν',
+                            'εξαρτώντο'}},
+             'sg': {'pri': {'εξαρτιόμουνα', 'εξαρτιόμουν'},
+                    'sec': {'εξαρτιόσουνα', 'εξαρτιόσουν'},
+                    'ter': {'εξαρτιότανε', 'εξαρτάτο', 'εξαρτιόταν'}}}
+
+        )
+
     def test_anamenw(self):
         self.assertDictEqual(
             parat_pass('αναμένω'),
@@ -156,6 +201,21 @@ class VerbTestParPass(TestCase):
 
         )
 
+    def test_verb_tragoudo(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            parat_pass('τραγουδώ'),
+            {'pl': {'pri': {'τραγουδιόμασταν', 'τραγουδιόμαστε'},
+                    'sec': {'τραγουδιόσαστε', 'τραγουδιόσασταν'},
+                    'ter': {'τραγουδιούνταν',
+                            'τραγουδιόνταν',
+                            'τραγουδιόντουσαν'}},
+             'sg': {'pri': {'τραγουδιόμουν', 'τραγουδιόμουνα'},
+                    'sec': {'τραγουδιόσουνα', 'τραγουδιόσουν'},
+                    'ter': {'τραγουδιόταν', 'τραγουδιότανε'}}}
+
+        )
+
     def test_eksarwmai(self):
         self.assertDictEqual(
             parat_pass('εξαρτώ'),
@@ -165,6 +225,20 @@ class VerbTestParPass(TestCase):
              'sg': {'pri': {'εξαρτιόμουν', 'εξαρτιόμουνα'},
                     'sec': {'εξαρτιόσουνα', 'εξαρτιόσουν'},
                     'ter': {'εξαρτιόταν', 'εξαρτάτο', 'εξαρτιότανε'}}}
+
+        )
+
+    def test_thewrw(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            parat_pass('θεωρώ'),
+
+            {'pl': {'pri': {'θεωρούμαστε', 'θεωρούμασταν'},
+                    'sec': {'θεωρούσαστε', 'θεωρούσασταν'},
+                    'ter': {'εθεωρούντο', 'θεωρούνταν', 'θεωρούντο'}},
+             'sg': {'pri': {'θεωρούμουν'},
+                    'sec': {'θεωρούσουν'},
+                    'ter': {'θεωρείτο', 'εθεωρείτο', 'θεωρούνταν'}}}
 
         )
 
@@ -180,6 +254,7 @@ class VerbTestParPass(TestCase):
                     'ter': {'καταχρόταν', 'καταχράτο'}}}
 
         )
+
     # PARAT2B_PASS
     def test_apotelw(self):
         self.assertDictEqual(
@@ -216,6 +291,7 @@ class VerbTestParPass(TestCase):
             # ic(parat_pass('πηγάζω'))
 
         )
+
     # PARAT2C_PASS
     def test_lupamai(self):
         self.assertDictEqual(
@@ -228,6 +304,7 @@ class VerbTestParPass(TestCase):
                     'ter': {'λυπόταν', 'λυπότανε'}}},
 
         )
+
     # PARAT2D_PASS
     def test_epitithemai(self):
         self.assertDictEqual(
@@ -240,6 +317,7 @@ class VerbTestParPass(TestCase):
                     'ter': {'επιτίθετο', 'επετίθετο'}}}
 
         )
+
     # PARAT2E_PASS
 
     def test_kathistamai(self):
@@ -251,11 +329,3 @@ class VerbTestParPass(TestCase):
              'sg': {'pri': {'καθιστάμην'}, 'sec': {'καθίστασο'}, 'ter': {'καθίστατο'}}}
 
         )
-
-
-
-
-
-
-
-

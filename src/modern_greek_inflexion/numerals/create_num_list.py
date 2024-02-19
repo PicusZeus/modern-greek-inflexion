@@ -4,14 +4,14 @@ from ..adjective import create_all_basic_forms
 from ..resources.resources import greek_corpus, ADVERB
 
 
-def create_num_adj(numeral: str, ordinal: bool = False) -> dict:
+def create_num_adj(numeral: str, cardinal: bool = False) -> dict:
     """
     :param numeral: numeral
-    :param ordinal: if it is an ordinal numeral
+    :param cardinal: if it is a cardinal numeral
     :return: forms in all three genders, ready to be parsed through adjective engine
     """
 
-    if ordinal:
+    if cardinal:
         forms = create_all_basic_forms(numeral)
         adverb = ''
         adverb_ordinal = numeral[:-1] + 'ν'

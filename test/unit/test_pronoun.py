@@ -3,6 +3,7 @@ from unittest import TestCase
 # from icecream import ic
 
 from modern_greek_inflexion import pronoun
+from modern_greek_inflexion.pronoun import Pronoun
 
 
 # from modern_greek_inflexion.resources.resources import greek_corpus
@@ -12,7 +13,7 @@ class PronounTestAll(TestCase):
     def test_pron_opoios(self):
         self.maxDiff = None
         self.assertDictEqual(
-            pronoun.create_all('οποίος'),
+            Pronoun('οποίος').all(),
             {'sg': {'fem': {'gen': {'οποίας'}, 'voc': {''}, 'acc': {'οποία', 'οποίαν'}, 'nom': {'οποία'}},
                     'masc': {'gen': {'οποίου'}, 'voc': {''}, 'acc': {'οποίο', 'οποίον'}, 'nom': {'οποίος'}},
                     'neut': {'gen': {'οποίου'}, 'voc': {''}, 'acc': {'οποίο'}, 'nom': {'οποίο'}}},
@@ -23,14 +24,14 @@ class PronounTestAll(TestCase):
 
     def test_pron_o(self):
         self.assertDictEqual(
-            pronoun.create_all('ό'),
+            Pronoun('ό').all(),
             {'sg': {'neut': {'nom': {'ό'}, 'acc': {'ό'}}}}
 
         )
 
     def test_pron_ostis(self):
         self.assertDictEqual(
-            pronoun.create_all('όστις'),
+            Pronoun('όστις').all(),
             {'sg': {'masc': {'nom': {'όστις'}, 'gen': {'ούτινος', 'ότου'}, 'acc': {'όντινα'}},
                     'neut': {'nom': {'ότι'}, 'gen': {'ούτινος', 'ότου'}, 'acc': {'ότι'}},
                     'fem': {'nom': {'ήτις'}, 'gen': {'ήστινος'}, 'acc': {'ήντίνα'}}},
@@ -41,7 +42,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_pas(self):
         self.assertDictEqual(
-            pronoun.create_all('πας'),
+            Pronoun('πας').all(),
             {'pl': {'fem': {'acc': {'πάσες'},
                             'gen': {'πασών'},
                             'nom': {'πάσες'},
@@ -71,14 +72,14 @@ class PronounTestAll(TestCase):
 
     def test_pron_pouq(self):
         self.assertDictEqual(
-            pronoun.create_all('πού'),
+            Pronoun('πού').all(),
             {'nd': {'nd': {'nd': {'πού'}}}}
 
         )
 
     def test_pron_autos(self):
         self.assertDictEqual(
-            pronoun.create_all('αυτός'),
+            Pronoun('αυτός').all(),
             {
                 'sg':
                     {'masc': {'nom': {'αυτός'}, 'gen': {'αυτού'}, 'acc': {'αυτό', 'αυτόν'}},
@@ -92,7 +93,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_osper(self):
         self.assertDictEqual(
-            pronoun.create_all('όσπερ'),
+            Pronoun('όσπερ').all(),
             {'sg': {'neut': {'gen': {'ούπερ'}, 'acc': {'όπερ'}, 'nom': {'όπερ'}},
                     'fem': {'gen': {'ήσπερ'}, 'acc': {'ήνπερ'}, 'nom': {'ήπερ'}},
                     'masc': {'gen': {'ούπερ'}, 'acc': {'όνπερ'}, 'nom': {'όσπερ'}}},
@@ -103,7 +104,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_amfoteroi(self):
         self.assertDictEqual(
-            pronoun.create_all('αμφότεροι'),
+            Pronoun('αμφότεροι').all(),
             {'pl': {'fem': {'acc': {'αμφότερες'},
                             'gen': {'αμφοτέρων', 'αμφότερων'},
                             'nom': {'αμφότερες'},
@@ -121,21 +122,21 @@ class PronounTestAll(TestCase):
 
     def test_pron_ego(self):
         self.assertDictEqual(
-            pronoun.create_all('εγώ'),
+            Pronoun('εγώ').all(),
             {'sg': {'nd': {'gen': {'εμένα', 'εμού'}, 'acc': {'εμένα', 'μένα'}, 'nom': {'εγώ'}}},
              'pl': {'nd': {'gen': {'εμάς', 'ημών'}, 'acc': {'εμάς', 'μας', 'ημάς'}, 'nom': {'εμείς', 'ημείς'}}}}
         )
 
     def test_pron_ego_weak(self):
         self.assertDictEqual(
-            pronoun.create_all('εγώ', strong=False),
+            Pronoun('εγώ', strong=False).all(),
             {'sg': {'nd': {'acc': {'με'}, 'nom': {''}, 'gen': {'μου'}}},
              'pl': {'nd': {'acc': {'μας'}, 'nom': {''}, 'gen': {'μας'}}}}
         )
 
     def test_pron_opoiosdhpote(self):
         self.assertDictEqual(
-            pronoun.create_all('οποιοσδήποτε'),
+            Pronoun('οποιοσδήποτε').all(),
             {'pl': {'fem': {'acc': {'οποιεσδήποτε'},
                             'gen': {'οποιωνδήποτε'},
                             'nom': {'οποιεσδήποτε'},
@@ -164,7 +165,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_enas(self):
         self.assertDictEqual(
-            pronoun.create_all('ένας'),
+            Pronoun('ένας').all(),
             {'sg': {'fem': {'acc': {'μίαν', 'μιαν', 'μία', 'μια'},
                             'gen': {'μίας', 'μιας'},
                             'nom': {'μια', 'μία'}},
@@ -177,7 +178,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_kaneis(self):
         self.assertDictEqual(
-            pronoun.create_all('κανένας'),
+            Pronoun('κανένας').all(),
             {'sg': {'fem': {'acc': {'καμία', 'καμιάν', 'καμιά'},
                             'gen': {'καμιάς', 'καμίας'},
                             'nom': {'καμία', 'καμιά'}},
@@ -191,7 +192,7 @@ class PronounTestAll(TestCase):
     def test_pron_idios(self):
         self.maxDiff = None
         self.assertDictEqual(
-            pronoun.create_all('ίδιος'),
+            Pronoun('ίδιος').all(),
             {'pl': {'fem': {'acc': {'ίδιες'},
                             'gen': {'ίδιων', 'ιδίων'},
                             'nom': {'ίδιες'},
@@ -221,7 +222,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_eautos(self):
         self.assertDictEqual(
-            pronoun.create_all('εαυτός'),
+            Pronoun('εαυτός').all(),
             {'pl': {'masc': {'acc': {'εαυτούς'},
                              'gen': {'εαυτών'},
                              'nom': {'εαυτοί'},
@@ -235,7 +236,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_tis(self):
         self.assertDictEqual(
-            pronoun.create_all('τις'),
+            Pronoun('τις').all(),
             {'sg':
                  {'masc': {'acc': {'τίνα'}, 'gen': {'τίνος'}, 'nom': {'τις'}},
                   'fem': {'acc': {'τίνα'}, 'gen': {'τίνος'}, 'nom': {'τις'}},
@@ -248,14 +249,14 @@ class PronounTestAll(TestCase):
 
     def test_pron_katheti(self):
         self.assertDictEqual(
-            pronoun.create_all('καθετί'),
+            Pronoun('καθετί').all(),
             {'sg': {'neut': {'acc': {'καθετί'}, 'nom': {'καθετί'}}}}
 
         )
 
     def test_pron_pou(self):
         self.assertDictEqual(
-            pronoun.create_all('που'),
+            Pronoun('που').all(),
             {'pl': {'fem': {'acc': {'που'}, 'gen': {'που'}, 'nom': {'που'}, 'voc': {''}},
                     'masc': {'acc': {'που'}, 'gen': {'που'}, 'nom': {'που'}, 'voc': {''}},
                     'neut': {'acc': {'που'}, 'gen': {'που'}, 'nom': {'που'}, 'voc': {''}}},
@@ -267,7 +268,7 @@ class PronounTestAll(TestCase):
 
     def test_pron_pote(self):
         self.assertDictEqual(
-            pronoun.create_all('πότε'),
+            Pronoun('πότε').all(),
             {
                 'nd': {'nd': {'nd': {'πότε'}}}
 

@@ -1,13 +1,17 @@
 from unittest import TestCase, main
 
+from icecream import ic
+
 from modern_greek_inflexion import numerals
+from modern_greek_inflexion.numerals import Numeral
+from modern_greek_inflexion.resources.variables import NOUN
 
 
 class NumeralsNounTest(TestCase):
 
     def test_noun_xiliades(self):
         self.assertDictEqual(
-            numerals.create_all_noun_num('χιλιάδες'),
+            Numeral('χιλιάδες', pos=NOUN).all(),
             {'fem': {'sg': {'voc': {''}, 'acc': {''}, 'gen': {''}, 'nom': {''}},
                      'pl': {'voc': {'χιλιάδες'}, 'acc': {'χιλιάδες'}, 'gen': {'χιλιάδων'}, 'nom': {'χιλιάδες'}}}}
         )
@@ -17,7 +21,7 @@ class NumeralsAdjectiveTest(TestCase):
 
     def test_num_diakosia(self):
         self.assertDictEqual(
-            numerals.create_all_adj_num('διακόσια'),
+            Numeral('διακόσια').all(),
             {'adj': {'sg': {'fem': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'masc': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}},
                             'neut': {'gen': {''}, 'acc': {''}, 'voc': {''}, 'nom': {''}}}, 'pl': {
@@ -28,7 +32,7 @@ class NumeralsAdjectiveTest(TestCase):
 
     def test_num_deuteros(self):
         self.assertDictEqual(
-            numerals.create_all_adj_num('δεύτερος'),
+            Numeral('δεύτερος').all(),
             {'adj': {'sg': {'masc': {'nom': {'δεύτερος'}, 'acc': {'δεύτερο'}, 'gen': {'δεύτερου'}, 'voc': {'δεύτερε'}},
                             'fem': {'nom': {'δεύτερη'}, 'acc': {'δεύτερη'}, 'gen': {'δεύτερης'}, 'voc': {'δεύτερη'}},
                             'neut': {'nom': {'δεύτερο'}, 'acc': {'δεύτερο'}, 'gen': {'δεύτερου'}, 'voc': {'δεύτερο'}}},
@@ -41,7 +45,7 @@ class NumeralsAdjectiveTest(TestCase):
 
     def test_num_protos(self):
         self.assertDictEqual(
-            numerals.create_all_adj_num('πρώτος'),
+            Numeral('πρώτος').all(),
             {'adv': {'πρώτον', 'πρώτα'}, 'comp': {'sg': {
                 'neut': {'voc': {'πρωτύτερο'}, 'nom': {'πρωτύτερο'}, 'gen': {'πρωτύτερου'}, 'acc': {'πρωτύτερο'}},
                 'masc': {'voc': {'πρωτύτερε'}, 'nom': {'πρωτύτερος'}, 'gen': {'πρωτύτερου'}, 'acc': {'πρωτύτερο'}},
@@ -82,7 +86,7 @@ class NumeralsAdjectiveTest(TestCase):
 
     def test_num_dekatria(self):
         self.assertDictEqual(
-            numerals.create_all_adj_num('δεκατρία'),
+            Numeral('δεκατρία').all(),
             {'adj': {
                 'pl': {'masc': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
                        'fem': {'voc': {'δεκατρείς'}, 'acc': {'δεκατρείς'}, 'nom': {'δεκατρείς'}, 'gen': {'δεκατριών'}},
@@ -94,7 +98,7 @@ class NumeralsAdjectiveTest(TestCase):
 
     def test_num_oxto(self):
         self.assertDictEqual(
-            numerals.create_all_adj_num('οχτώ'),
+            Numeral('οχτώ').all(),
             {'adj': {'pl': {'masc': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}},
                             'fem': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}},
                             'neut': {'gen': {'οχτώ'}, 'nom': {'οχτώ'}, 'voc': {'οχτώ'}, 'acc': {'οχτώ'}}},
@@ -105,7 +109,7 @@ class NumeralsAdjectiveTest(TestCase):
 
     def test_num_enamisi(self):
         self.assertDictEqual(
-            numerals.create_all_adj_num('ενάμισι'),
+            Numeral('ενάμισι').all(),
             {'adj': {'sg': {'masc': {'gen': {'ενάμιση'}, 'nom': {'ενάμισης'}, 'acc': {'ενάμιση'}, 'voc': {'ενάμιση'}},
                             'neut': {'gen': {'ενάμισι'}, 'nom': {'ενάμισι'}, 'acc': {'ενάμισι'}, 'voc': {'ενάμισι'}},
                             'fem': {'gen': {'μιάμισης'}, 'nom': {'μιάμιση'}, 'acc': {'μιάμιση'}, 'voc': {'μιάμιση'}}},
@@ -114,14 +118,35 @@ class NumeralsAdjectiveTest(TestCase):
                             'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}}
         )
 
-    # def test_num_enamisis(self):
-    #     self.assertDictEqual(
-    #         numerals.create_all_adj_num('ενάμισης'),
-    #         {'adj': {'sg': {'masc': {'gen': {'ενάμιση'}, 'nom': {'ενάμισης'}, 'acc': {'ενάμιση'}, 'voc': {'ενάμιση'}},
-    #                         'neut': {'gen': {'ενάμισι'}, 'nom': {'ενάμισι'}, 'acc': {'ενάμισι'}, 'voc': {'ενάμισι'}},
-    #                         'fem': {'gen': {'μιάμισης'}, 'nom': {'μιάμιση'}, 'acc': {'μιάμιση'}, 'voc': {'μιάμιση'}}},
-    #                  'pl': {'masc': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
-    #                         'neut': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
-    #                         'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}}
-    #     )
+    def test_num_enamisis(self):
+        self.assertDictEqual(
+            Numeral('ενάμισι').all(),
+            {'adj': {'sg': {'masc': {'gen': {'ενάμιση'}, 'nom': {'ενάμισης'}, 'acc': {'ενάμιση'}, 'voc': {'ενάμιση'}},
+                            'neut': {'gen': {'ενάμισι'}, 'nom': {'ενάμισι'}, 'acc': {'ενάμισι'}, 'voc': {'ενάμισι'}},
+                            'fem': {'gen': {'μιάμισης'}, 'nom': {'μιάμιση'}, 'acc': {'μιάμιση'}, 'voc': {'μιάμιση'}}},
+                     'pl': {'masc': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
+                            'neut': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}},
+                            'fem': {'gen': {''}, 'nom': {''}, 'acc': {''}, 'voc': {''}}}}},
+        )
+
+    def test_num_treisimisi(self):
+        self.assertDictEqual(
+            Numeral('τρεισήμισι').all(),
+            {'adj': {'pl': {'fem': {'acc': {'τρεισήμισι'},
+                                    'gen': {'τρεισήμισι'},
+                                    'nom': {'τρεισήμισι'},
+                                    'voc': {'τρεισήμισι'}},
+                            'masc': {'acc': {'τρεισήμισι'},
+                                     'gen': {'τρεισήμισι'},
+                                     'nom': {'τρεισήμισι'},
+                                     'voc': {'τρεισήμισι'}},
+                            'neut': {'acc': {'τρεισήμισι'},
+                                     'gen': {'τρεισήμισι'},
+                                     'nom': {'τρεισήμισι'},
+                                     'voc': {'τρεισήμισι'}}},
+                     'sg': {'fem': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                            'masc': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}},
+                            'neut': {'acc': {''}, 'gen': {''}, 'nom': {''}, 'voc': {''}}}}}
+
+        )
 

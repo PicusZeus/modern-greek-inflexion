@@ -39,6 +39,12 @@ IMP = 'imp'
 CONJUNCTIVE = 'conjunctive'
 IND = 'ind'
 MODAL = 'modal'
+PRES_CONJUGATION = 'pres_conjugation'
+ARCH_ACT_PRES_PARTICIPLE = 'arch_act_pres_participle'
+ACTIVE_AORIST_PARTICIPLE = 'active_aorist_participle'
+PASSIVE_AORIST_PARTICIPLE = 'passive_aorist_participle'
+PASS_PRES_PARTICIPLE = 'pass_pres_participle'
+PASSIVE_PERFECT_PARTICIPLE = 'passive_perfect_participle'
 
 # accents
 ULTIMATE = 'ultimate'
@@ -55,6 +61,7 @@ IMPER = 'imper'
 
 # POS
 ADJ = 'adj'
+NOUN = 'noun'
 COMP = 'comp'
 COMP_ADV = 'comp_adv'
 ADVERB = 'adverb'
@@ -63,6 +70,8 @@ SUPERL = 'superl'
 SUPERL_ADV = 'superl_adv'
 COMPARATIVE = 'comparative'
 ADVERB_COMPARATIVE = 'adverb_comparative'
+
+
 # aspect
 
 PERF = 'perf'
@@ -176,3 +185,4 @@ ARCH_ACT_PRES_PARTICIPLE = 'arch_act_pres_participle'
 PASSIVE_PERFECT_PARTICIPLE = 'passive_perfect_participle'
 ACTIVE_AORIST_PARTICIPLE = 'active_aorist_participle'
 PASSIVE_AORIST_PARTICIPLE = 'passive_aorist_participle'
+PASS_PRES_PARTICIPLE = "pass_pres_participle"

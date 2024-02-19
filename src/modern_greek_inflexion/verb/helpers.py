@@ -7,7 +7,7 @@ from modern_greek_accentuation.resources import vowels, diphtongs
 from modern_greek_accentuation.syllabify import count_syllables
 from modern_greek_accentuation.accentuation import put_accent_on_syllable, DIAERESIS, put_accent_on_the_antepenultimate, \
     where_is_accent
-from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL
+from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL, PRES_CONJUGATION
 
 
 def dict_of_dicts_merge(x: dict | set | str, y: dict | set | str) -> dict | set:
@@ -41,7 +41,9 @@ def dict_of_dicts_merge(x: dict | set | str, y: dict | set | str) -> dict | set:
 def update_forms_with_prefix(verb_temp: dict, prefix: [str, str]) -> dict:
     new_dict = {}
     for key, item in verb_temp.items():
-        if isinstance(item, set):
+        if key == PRES_CONJUGATION:
+            new_dict[PRES_CONJUGATION] = verb_temp[PRES_CONJUGATION]
+        elif isinstance(item, set):
             new_set = set()
             for form in item:
                 if count_syllables(form) == 1 and not where_is_accent(form):

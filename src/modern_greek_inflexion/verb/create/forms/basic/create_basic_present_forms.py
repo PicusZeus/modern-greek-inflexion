@@ -27,11 +27,11 @@ def create_basic_present_forms(base_form: str, deponens: bool = False, not_depon
     root = ''
 
     if deponens:
-        active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
+        conjugation = recognize_passive_present_continuous_conjugation(base_form)
 
         pres_dep_forms = [base_form]
-        pres_conjugation = active_conjugation[CONJUGATION_IND]
-        root = active_conjugation[ROOT]
+        pres_conjugation = conjugation[CONJUGATION_IND]
+        root = conjugation[ROOT]
         f_p = None
         f_p_alt = None
         th_p = None

@@ -1,15 +1,17 @@
 from unittest import TestCase
 
 from modern_greek_inflexion import verb
+from modern_greek_inflexion.resources import PRESENT, ACTIVE, IND, PASSIVE
+from modern_greek_inflexion.verb import Verb
 from icecream import ic
 
 
 def present_act(v):
-    return verb.create_all_forms(v)['present']['active']['ind']
+    return verb.Verb(v).create_imperfect_forms()[PRESENT][ACTIVE][IND]
 
 
 def present_pass(v):
-    return verb.create_all_forms(v)['present']['passive']['ind']
+    return verb.Verb(v).create_imperfect_forms()[PRESENT][PASSIVE][IND]
 
 
 class VerbTestPresAct(TestCase):
@@ -36,6 +38,16 @@ class VerbTestPresAct(TestCase):
                     'ter': {'περνάει', 'περνά'}}},
         )
 
+    def test_present_verb_drw(self):
+        self.assertDictEqual(
+            present_act('δρω'),
+            {'sg': {'pri': {'δράω', 'δρω'}, 'sec': {'δρας'},
+                    'ter': {'δράει', 'δρα'}},
+             'pl': {'pri': {'δράμε', 'δρούμε'}, 'sec': {'δράτε'},
+                    'ter': {'δρούνε', 'δράνε', 'δραν', 'δρουν'}}}
+
+        )
+
     # CON2AK_ACT
     def test_verb_kathistw(self):
         self.assertDictEqual(
@@ -47,11 +59,22 @@ class VerbTestPresAct(TestCase):
             ,
         )
 
+    def test_verb_antikathistw(self):
+        self.assertDictEqual(
+            present_act('αντικαθιστώ'),
+            {'sg': {'pri': {'αντικαθιστώ'}, 'sec': {'αντικαθιστάς'},
+                    'ter': {'αντικαθιστά'}},
+             'pl': {'pri': {'αντικαθιστούμε', 'αντικαθιστάμε'}, 'sec': {'αντικαθιστάτε'},
+                    'ter': {'αντικαθιστούν'}}}
+
+        )
+
     def test_verb_anio(self):
         self.assertDictEqual(
             present_act('ανιώ'),
             {'sg': {'pri': {'ανιώ'}, 'sec': {'ανιάς'}, 'ter': {'ανιά'}},
-             'pl': {'pri': {'ανιούμε', 'ανιάμε'}, 'sec': {'ανιάτε'}, 'ter': {'ανιούν'}}}
+             'pl': {'pri': {'ανιούμε', 'ανιάμε'}, 'sec': {'ανιάτε'}, 'ter': {'ανιούν'}}},
+            # ic(verb.Verb('ανιώ').create_imperfect_forms())
 
         )
 

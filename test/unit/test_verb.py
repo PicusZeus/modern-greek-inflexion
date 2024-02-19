@@ -1,4 +1,7 @@
 from unittest import TestCase
+
+from icecream import ic
+
 from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
 from modern_greek_inflexion import verb
 
@@ -13,38 +16,26 @@ class VerbTestAll(TestCase):
 
     def test_verb_modal_pass_fainetai(self):
         self.assertDictEqual(
-            verb.create_all_forms('φαίνεται'),
+            verb.Verb('φαίνεται').all(),
             {'present': {'passive': {'ind': {'sg': {'ter': {'φαίνεται'}}}}},
              'conjunctive': {'passive': {'ind': {'sg': {'ter': {'φανεί'}}}}},
              'aorist': {'passive': {'ind': {'sg': {'ter': {'φάνηκε'}}}}},
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'φαινόταν'}}}}}},
+            ic(verb.Verb('φαίνεται').all())
         )
-
-
 
     def test_verb_modal_brexei(self):
         self.assertDictEqual(
-            verb.create_all_forms('βρέχει'),
+            verb.Verb('βρέχει').all(),
             {'present': {'active': {'ind': {'sg': {'ter': {'βρέχει'}}}}},
              'conjunctive': {'active': {'ind': {'sg': {'ter': {'βρέξει'}}}}},
              'aorist': {'active': {'ind': {'sg': {'ter': {'έβρεξε'}}}}},
              'paratatikos': {'active': {'ind': {'sg': {'ter': {'έβρεχε'}}}}}}
         )
 
-    def test_verb_antikathistw(self):
-        self.assertDictEqual(
-            verb.create_all_forms('αντικαθιστώ')['present']['active'],
-            {'ind': {'sg': {'pri': {'αντικαθιστώ'}, 'sec': {'αντικαθιστάς'},
-                            'ter': {'αντικαθιστά'}},
-                     'pl': {'pri': {'αντικαθιστούμε', 'αντικαθιστάμε'}, 'sec': {'αντικαθιστάτε'},
-                            'ter': {'αντικαθιστούν'}}},
-             'imp': {'sg': {'sec': {'αντικαθίστα'}}, 'pl': {'sec': {'αντικαθιστάτε'}}}},
-
-        )
-
     def test_verb_antipernw(self):
         self.assertDictEqual(
-            verb.create_all_forms('αντιπερνώ'),
+            verb.Verb('αντιπερνώ').all(),
             {'act_pres_participle': {'αντιπερνώντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'αντιπεράσαμε'},
                                                   'sec': {'αντιπεράσατε'},
@@ -122,19 +113,16 @@ class VerbTestAll(TestCase):
 
     def test_verb_modal_pass_melletai(self):
         self.assertDictEqual(
-            verb.create_all_forms('μέλλεται'),
+            verb.Verb('μέλλεται').all(),
             {'present': {'passive': {'ind': {'sg': {'ter': {'μέλλεται'}}}}},
              'aorist': {},
+             'conjunctive': {},
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'μελλόταν'}}}}}}
         )
 
-
-
-
     def test_verb_aksiw(self):
-        self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('αξιώ'),
+            verb.Verb('αξιώ').all(),
             {'act_pres_participle': {'αξιώντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'αξιώσαμε'},
                                                   'sec': {'αξιώσατε'},
@@ -190,30 +178,15 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_thewrw(self):
+    def test_verb_opsomai(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('θεωρώ')['paratatikos'],
-            {'active': {'ind': {'pl': {'pri': {'θεωρούσαμε'},
-                                       'sec': {'θεωρούσατε'},
-                                       'ter': {'θεωρούσαν', 'θεωρούσανε'}},
-                                'sg': {'pri': {'θεωρούσα'},
-                                       'sec': {'θεωρούσες'},
-                                       'ter': {'θεωρούσε'}}}},
-             'passive': {'ind': {'pl': {'pri': {'θεωρούμαστε', 'θεωρούμασταν'},
-                                        'sec': {'θεωρούσαστε', 'θεωρούσασταν'},
-                                        'ter': {'εθεωρούντο', 'θεωρούνταν', 'θεωρούντο'}},
-                                 'sg': {'pri': {'θεωρούμουν'},
-                                        'sec': {'θεωρούσουν'},
-                                        'ter': {'θεωρείτο', 'εθεωρείτο', 'θεωρούνταν'}}}}}
 
-        )
+            verb.Verb('όψομαι').all(),
+            {'conjunctive': {},
+             'aorist': {},
 
-    def test_verb_opsomai(self):
-        self.assertDictEqual(
-
-            verb.create_all_forms('όψομαι'),
-            {'present': {'passive': {'imp': {'pl': {'sec': {'όψεστε'}}, 'sg': {'sec': {'όψου'}}},
+             'present': {'passive': {'imp': {'pl': {'sec': {'όψεστε'}}, 'sg': {'sec': {'όψου'}}},
                                      'ind': {'pl': {'pri': {'οψόμεθα', 'οψόμαστε'},
                                                     'sec': {'όψεσθε', 'οψόσαστε', 'όψεστε'},
                                                     'ter': {'όψονται'}},
@@ -223,12 +196,10 @@ class VerbTestAll(TestCase):
 
         )
 
-
-
     def test_verb_erxomai(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('έρχομαι'),
+            verb.Verb('έρχομαι').all(),
             {'present':
                 {'passive':
                     {'ind': {
@@ -274,36 +245,10 @@ class VerbTestAll(TestCase):
                                     'acc': {'ερχόμενα'}}}}}
         )
 
-    def test_verb_tragoudo(self):
+    def test_verb_engrafw(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('τραγουδώ')['paratatikos'],
-            {'active': {'ind': {'pl': {'pri': {'τραγουδούσαμε', 'τραγουδάγαμε'},
-                                       'sec': {'τραγουδούσατε', 'τραγουδάγατε'},
-                                       'ter': {'τραγουδάγανε',
-                                               'τραγουδούσαν',
-                                               'τραγουδούσανε',
-                                               'τραγούδαγαν'}},
-                                'sg': {'pri': {'τραγούδαγα', 'τραγουδούσα'},
-                                       'sec': {'τραγούδαγες', 'τραγουδούσες'},
-                                       'ter': {'τραγουδούσε', 'τραγούδαγε'}}}},
-             'passive': {'ind': {'pl': {'pri': {'τραγουδιόμασταν', 'τραγουδιόμαστε'},
-                                        'sec': {'τραγουδιόσαστε', 'τραγουδιόσασταν'},
-                                        'ter': {'τραγουδιούνταν',
-                                                'τραγουδιόνταν',
-                                                'τραγουδιόντουσαν'}},
-                                 'sg': {'pri': {'τραγουδιόμουν', 'τραγουδιόμουνα'},
-                                        'sec': {'τραγουδιόσουνα', 'τραγουδιόσουν'},
-                                        'ter': {'τραγουδιόταν', 'τραγουδιότανε'}}}}}
-
-        )
-
-
-
-    def test_verb_engrafw(self):
-        # self.maxDiff = None
-        self.assertDictEqual(
-            verb.create_all_forms('εγγράφω'),
+            verb.Verb('εγγράφω').all(),
             {'act_pres_participle': {'εγγράφοντας'},
              'active_aorist_participle': {'pl': {'fem': {'acc': {'εγγράψασες'},
                                                          'gen': {'εγγραψασών'},
@@ -322,9 +267,12 @@ class VerbTestAll(TestCase):
                                                          'nom': {'εγγράψασα'},
                                                          'voc': {'εγγράψασα'}},
                                                  'masc': {'acc': {'εγγράψαντα'},
-                                                          'gen': {'εγγράψαντος', 'εγγράψαντα'},
-                                                          'nom': {'εγγράψας', 'εγγράψαντας'},
-                                                          'voc': {'εγγράψας', 'εγγράψαντα'}},
+                                                          'gen': {'εγγράψαντα',
+                                                                  'εγγράψαντος'},
+                                                          'nom': {'εγγράψαντας',
+                                                                  'εγγράψας'},
+                                                          'voc': {'εγγράψαντα',
+                                                                  'εγγράψας'}},
                                                  'neut': {'acc': {'εγγράψαν'},
                                                           'gen': {'εγγράψαντος'},
                                                           'nom': {'εγγράψαν'},
@@ -372,16 +320,19 @@ class VerbTestAll(TestCase):
                                                          'nom': {'εγγράφουσα'},
                                                          'voc': {'εγγράφουσα'}},
                                                  'masc': {'acc': {'εγγράφοντα'},
-                                                          'gen': {'εγγράφοντος'},
-                                                          'nom': {'εγγράφων'},
-                                                          'voc': {'εγγράφων'}},
+                                                          'gen': {
+                                                              'εγγράφοντος'},
+                                                          'nom': {
+                                                              'εγγράφων'},
+                                                          'voc': {
+                                                              'εγγράφων'}},
                                                  'neut': {'acc': {'εγγράφον'},
                                                           'gen': {'εγγράφοντος'},
                                                           'nom': {'εγγράφον'},
                                                           'voc': {'εγγράφον'}}}},
              'conjunctive': {'active': {'imp': {'pl': {'sec': {'εγγράψτε'}},
                                                 'sg': {'sec': {'έγγραψε'}}},
-                                        'ind': {'pl': {'pri': {'εγγράψουμε', 'εγγράψομε'},
+                                        'ind': {'pl': {'pri': {'εγγράψομε', 'εγγράψουμε'},
                                                        'sec': {'εγγράψετε'},
                                                        'ter': {'εγγράψουνε', 'εγγράψουν'}},
                                                 'sg': {'pri': {'εγγράψω'},
@@ -399,7 +350,7 @@ class VerbTestAll(TestCase):
                                                                 'εγγραφτούν',
                                                                 'εγγραφτούνε'}},
                                                  'sg': {'pri': {'εγγραφώ', 'εγγραφτώ'},
-                                                        'sec': {'εγγραφτείς', 'εγγραφείς'},
+                                                        'sec': {'εγγραφείς', 'εγγραφτείς'},
                                                         'ter': {'εγγραφεί',
                                                                 'εγγραφτεί'}}}}},
              'paratatikos': {'active': {'ind': {'pl': {'pri': {'εγγράφαμε'},
@@ -408,7 +359,7 @@ class VerbTestAll(TestCase):
                                                                'εγγράφανε',
                                                                'ενέγραφαν'}},
                                                 'sg': {'pri': {'έγγραφα', 'ενέγραφα'},
-                                                       'sec': {'ενέγραφες', 'έγγραφες'},
+                                                       'sec': {'έγγραφες', 'ενέγραφες'},
                                                        'ter': {'έγγραφε', 'ενέγραφε'}}}},
                              'passive': {'ind': {'pl': {'pri': {'εγγραφόμασταν',
                                                                 'εγγραφόμαστε'},
@@ -520,7 +471,7 @@ class VerbTestAll(TestCase):
                                                                     'εγγραμμένο'}}}},
              'present': {'active': {'imp': {'pl': {'sec': {'εγγράφετε'}},
                                             'sg': {'sec': {'έγγραφε'}}},
-                                    'ind': {'pl': {'pri': {'εγγράφουμε', 'εγγράφομε'},
+                                    'ind': {'pl': {'pri': {'εγγράφομε', 'εγγράφουμε'},
                                                    'sec': {'εγγράφετε'},
                                                    'ter': {'εγγράφουνε', 'εγγράφουν'}},
                                             'sg': {'pri': {'εγγράφω'},
@@ -529,17 +480,17 @@ class VerbTestAll(TestCase):
                          'passive': {'imp': {'pl': {'sec': {'εγγράφεστε'}},
                                              'sg': {'sec': {'εγγράφου'}}},
                                      'ind': {'pl': {'pri': {'εγγραφόμαστε'},
-                                                    'sec': {'εγγραφόσαστε', 'εγγράφεστε'},
+                                                    'sec': {'εγγράφεστε', 'εγγραφόσαστε'},
                                                     'ter': {'εγγράφονται'}},
                                              'sg': {'pri': {'εγγράφομαι'},
                                                     'sec': {'εγγράφεσαι'},
-                                                    'ter': {'εγγράφεται'}}}}}}
+                                                    'ter': {'εγγράφεται'}}}}}},
 
         )
 
     def test_verb_phgainw(self):
         self.assertDictEqual(
-            verb.create_all_forms('πηγαίνω'),
+            verb.Verb('πηγαίνω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'πηγαίνω'}, 'sec': {'πηγαίνεις'}, 'ter': {'πηγαίνει'}},
                                             'pl': {'pri': {'πηγαίνουμε', 'πηγαίνομε'}, 'sec': {'πηγαίνετε'},
                                                    'ter': {'πηγαίνουνε', 'πηγαίνουν'}}},
@@ -557,33 +508,28 @@ class VerbTestAll(TestCase):
 
     def test_verb_prokeitai(self):
         self.assertDictEqual(
-            verb.create_all_forms('πρόκειται'),
+            verb.Verb('πρόκειται').all(),
             {'present': {'passive': {'ind': {'sg': {'ter': {'πρόκειται'}}}}},
+             'conjunctive': {},
              'aorist': {},
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'επρόκειτο'}}}}}},
         )
 
     def test_verb_symbainei(self):
         self.assertDictEqual(
-            verb.create_all_forms('συμβαίνει'),
+            verb.Verb('συμβαίνει').all(),
             {'present': {'active': {'ind': {'sg': {'ter': {'συμβαίνει'}}}}},
              'conjunctive': {'active': {'ind': {'sg': {'ter': {'συμβεί'}}}}},
              'aorist': {'active': {'ind': {'sg': {'ter': {'συνέβη'}}}}},
              'paratatikos': {'active': {'ind': {'sg': {'ter': {'συνέβαινε'}}}}}}
         )
 
-    def test_verb_xairw_imper(self):
-        self.assertDictEqual(
-            verb.create_all_forms('χαίρω')['present']['active']['imp'],
-            {'sg': {'sec': {'χαίρε'}}, 'pl': {'sec': {'χαίρετε'}}}
-
-        )
 
 
     def test_verb_parkaro(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('παρκάρω'),
+            verb.Verb('παρκάρω').all(),
             {'act_pres_participle': {'παρκάροντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'παρκαρίσαμε', 'παρκάραμε'},
                                                   'sec': {'παρκαρίσατε', 'παρκάρατε'},
@@ -690,7 +636,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_apexw(self):
         self.assertDictEqual(
-            verb.create_all_forms('απέχω'),
+            verb.Verb('απέχω').all(),
             {'act_pres_participle': {'απέχοντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'απείχαμε'},
                                                   'sec': {'απείχατε'},
@@ -749,7 +695,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_kserw(self):
         self.assertDictEqual(
-            verb.create_all_forms('ξέρω'),
+            verb.Verb('ξέρω').all(),
             {'present':
                  {'active':
                       {'ind':
@@ -766,21 +712,12 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_verb_synistwmai(self):
-        self.maxDiff = None
-        self.assertDictEqual(
-            verb.create_all_forms('συνιστώμαι')['conjunctive']["passive"],
-            {'ind': {'sg': {'pri': {'συσταθώ'}, 'sec': {'συσταθείς'}, 'ter': {'συσταθεί'}},
-                     'pl': {'pri': {'συσταθούμε'}, 'sec': {'συσταθείτε'}, 'ter': {'συσταθούν', 'συσταθούνε'}}},
-             'imp': {'sg': {'sec': {''}}, 'pl': {'sec': {'συσταθείτε'}}}}
 
-        )
 
     def test_verb_pairnw(self):
-
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('παίρνω'),
+            verb.Verb('παίρνω').all(),
             {'present':
                  {'active': {'ind': {'sg': {'pri': {'παίρνω'}, 'sec': {'παίρνεις'}, 'ter': {'παίρνει'}},
                                      'pl': {'pri': {'παίρνουμε', 'παίρνομε'}, 'sec': {'παίρνετε'},
@@ -826,7 +763,7 @@ class VerbTestAll(TestCase):
     def test_verb_spaw(self):
         # self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('σπάω'),
+            verb.Verb('σπάω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'σπάω'}, 'sec': {'σπας'}, 'ter': {'σπάει'}},
                                             'pl': {'pri': {'σπάμε'}, 'sec': {'σπάτε'}, 'ter': {'σπαν', 'σπάνε'}}},
                                     'imp': {'sg': {'sec': {'σπάγε'}}, 'pl': {'sec': {'σπάγετε', 'σπάτε'}}}}},
@@ -859,44 +796,11 @@ class VerbTestAll(TestCase):
         )
 
 
-    def test_verb_paraballo_con(self):
-        self.assertDictEqual(
-            verb.create_all_forms('παραβάλλω')['conjunctive']['passive'],
-            {'ind': {'sg': {'pri': {'παραβληθώ'}, 'sec': {'παραβληθείς'}, 'ter': {'παραβληθεί'}},
-                     'pl': {'pri': {'παραβληθούμε'}, 'sec': {'παραβληθείτε'}, 'ter': {'παραβληθούνε', 'παραβληθούν'}}},
-             'imp': {'sg': {'sec': {'παραβλήσου'}}, 'pl': {'sec': {'παραβληθείτε'}}}}
 
-        )
-
-    def test_verb_symmetexo_aorist(self):
-        self.assertDictEqual(
-            verb.create_all_forms('συμμετέχω')['conjunctive'],
-            {'active': {'imp': {'pl': {'sec': {'συμμετέχετε', 'συμμετάσχετε'}},
-                                'sg': {'sec': {'συμμέτασχε', 'συμμέτεχε'}}},
-                        'ind': {'pl': {'pri': {'συμμετέχουμε', 'συμμετάσχουμε', 'συμμετέχομε', 'συμμετάσχομε'},
-                                       'sec': {'συμμετέχετε', 'συμμετάσχετε'},
-                                       'ter': {'συμμετάσχουν',
-                                               'συμμετάσχουνε',
-                                               'συμμετέχουν',
-                                               'συμμετέχουνε'}},
-                                'sg': {'pri': {'συμμετάσχω', 'συμμετέχω'},
-                                       'sec': {'συμμετάσχεις', 'συμμετέχεις'},
-                                       'ter': {'συμμετάσχει', 'συμμετέχει'}}}}}
-
-        )
-
-    def test_verb_sympitw_aor(self):
-        self.assertDictEqual(
-            verb.create_all_forms('συμπίπτω')['aorist'],
-            {'active': {'ind': {'sg': {'pri': {'συνέπεσα'}, 'sec': {'συνέπεσες'}, 'ter': {'συνέπεσε'}},
-                                'pl': {'pri': {'συμπέσαμε'}, 'sec': {'συμπέσατε'},
-                                       'ter': {'συνέπεσαν', 'συμπέσανε'}}}}},
-
-        )
 
     def test_verb_anameignuw(self):
         self.assertDictEqual(
-            verb.create_all_forms('αναμειγνύω'),
+            verb.Verb('αναμειγνύω').all(),
             {'act_pres_participle': {'αναμειγνύοντας'},
              'active_aorist_participle': {'pl': {'fem': {'acc': {'αναμείξασες'},
                                                          'gen': {'αναμειξασών'},
@@ -1091,17 +995,11 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_verb_antilambanomai_imp(self):
-        self.assertDictEqual(
-            verb.create_all_forms('αντιλαμβάνομαι')['conjunctive']['passive']['imp'],
-            {'sg': {'sec': {'αντιλήψου'}}, 'pl': {'sec': {'αντιληφθείτε'}}}
-
-        )
 
     def test_verb_teleiwnw(self):
         self.assertDictEqual(
 
-            verb.create_all_forms('τελειώνω'),
+            verb.Verb('τελειώνω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'τελειώνω'}, 'sec': {'τελειώνεις'}, 'ter': {'τελειώνει'}},
                                             'pl': {'pri': {'τελειώνουμε', 'τελειώνομε'}, 'sec': {'τελειώνετε'},
                                                    'ter': {'τελειώνουνε', 'τελειώνουν'}}},
@@ -1174,15 +1072,14 @@ class VerbTestAll(TestCase):
 
         )
 
-
     def test_verb_leo(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('λέω'),
+            verb.Verb('λέω').all(),
             {'act_pres_participle': {'λέγοντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'είπαμε'},
                                                   'sec': {'είπατε'},
-                                                  'ter': {'είπανε', 'είπαν'}},
+                                                  'ter': {'είπαν', 'είπανε'}},
                                            'sg': {'pri': {'είπα'},
                                                   'sec': {'είπες'},
                                                   'ter': {'είπε'}}}},
@@ -1230,37 +1127,37 @@ class VerbTestAll(TestCase):
                                                           'gen': {'λέγοντος'},
                                                           'nom': {'λέγον'},
                                                           'voc': {'λέγον'}}}},
-             'conjunctive': {'active': {'imp': {'pl': {'sec': {'πέστε', 'πείτε'}},
+             'conjunctive': {'active': {'imp': {'pl': {'sec': {'πείτε', 'πέστε'}},
                                                 'sg': {'sec': {'πες'}}},
                                         'ind': {'pl': {'pri': {'πούμε'},
                                                        'sec': {'πείτε'},
-                                                       'ter': {'πουν', 'πούνε'}},
+                                                       'ter': {'πούνε', 'πουν'}},
                                                 'sg': {'pri': {'πω'},
                                                        'sec': {'πεις'},
                                                        'ter': {'πει'}}}},
-                             'passive': {'imp': {'pl': {'sec': {'ειπωθείτε', 'λεχθείτε'}},
+                             'passive': {'imp': {'pl': {'sec': {'λεχθείτε', 'ειπωθείτε'}},
                                                  'sg': {'sec': {''}}},
                                          'ind': {'pl': {'pri': {'ειπωθούμε', 'λεχθούμε'},
-                                                        'sec': {'ειπωθείτε', 'λεχθείτε'},
+                                                        'sec': {'λεχθείτε', 'ειπωθείτε'},
                                                         'ter': {'ειπωθούν',
                                                                 'ειπωθούνε',
                                                                 'λεχθούν',
                                                                 'λεχθούνε'}},
                                                  'sg': {'pri': {'λεχθώ', 'ειπωθώ'},
-                                                        'sec': {'ειπωθείς', 'λεχθείς'},
-                                                        'ter': {'λεχθεί', 'ειπωθεί'}}}}},
+                                                        'sec': {'λεχθείς', 'ειπωθείς'},
+                                                        'ter': {'ειπωθεί', 'λεχθεί'}}}}},
              'paratatikos': {'active': {'ind': {'pl': {'pri': {'λέγαμε'},
                                                        'sec': {'λέγατε'},
-                                                       'ter': {'λέγανε', 'έλεγαν'}},
+                                                       'ter': {'έλεγαν', 'λέγανε'}},
                                                 'sg': {'pri': {'έλεγα'},
                                                        'sec': {'έλεγες'},
                                                        'ter': {'έλεγε'}}}},
                              'passive': {'ind': {'pl': {'pri': {'λεγόμαστε', 'λεγόμασταν'},
-                                                        'sec': {'λεγόσασταν', 'λεγόσαστε'},
+                                                        'sec': {'λεγόσαστε', 'λεγόσασταν'},
                                                         'ter': {'λεγόντουσαν', 'λέγονταν'}},
-                                                 'sg': {'pri': {'λεγόμουν', 'λεγόμουνα'},
+                                                 'sg': {'pri': {'λεγόμουνα', 'λεγόμουν'},
                                                         'sec': {'λεγόσουνα', 'λεγόσουν'},
-                                                        'ter': {'λεγόταν', 'λεγότανε'}}}}},
+                                                        'ter': {'λεγότανε', 'λεγόταν'}}}}},
              'pass_pres_participle': {'pl': {'fem': {'acc': {'λεγόμενες'},
                                                      'gen': {'λεγόμενων'},
                                                      'nom': {'λεγόμενες'},
@@ -1333,7 +1230,7 @@ class VerbTestAll(TestCase):
                                                             'gen': {'ειπωμένου'},
                                                             'nom': {'ειπωμένο'},
                                                             'voc': {'ειπωμένο'}}}},
-             'present': {'active': {'imp': {'pl': {'sec': {'λέγετε', 'λέτε'}},
+             'present': {'active': {'imp': {'pl': {'sec': {'λέτε', 'λέγετε'}},
                                             'sg': {'sec': {'λέγε'}}},
                                     'ind': {'pl': {'pri': {'λέμε'},
                                                    'sec': {'λέτε'},
@@ -1348,35 +1245,16 @@ class VerbTestAll(TestCase):
                                                     'ter': {'λέγονται'}},
                                              'sg': {'pri': {'λέγομαι'},
                                                     'sec': {'λέγεσαι'},
-                                                    'ter': {'λέγεται'}}}}}},
-            # ic(verb.create_all_forms('λέω'))
+                                                    'ter': {'λέγεται'}}}}}}
 
         )
 
-    def test_verb_synisto(self):
-        self.assertDictEqual(
-            verb.create_all_forms('συνιστώ')['aorist'],
-            {'active': {'ind': {'pl': {'pri': {'συστήσαμε'},
-                                       'sec': {'συστήσατε'},
-                                       'ter': {'συνέστησαν', 'συστήσανε', 'σύστησαν'}},
-                                'sg': {'pri': {'συνέστησα', 'σύστησα'},
-                                       'sec': {'σύστησες', 'συνέστησες'},
-                                       'ter': {'συνέστησε', 'σύστησε'}}}},
-             'passive': {'ind': {'pl': {'pri': {'συσταθήκαμε', 'συνεστάθημεν'},
-                                        'sec': {'συνεστάθητε', 'συσταθήκατε'},
-                                        'ter': {'συνεστάθησαν',
-                                                'συστάθηκαν',
-                                                'συσταθήκανε'}},
-                                 'sg': {'pri': {'συστάθηκα', 'συνεστάθην'},
-                                        'sec': {'συνεστάθης', 'συστάθηκες'},
-                                        'ter': {'συστάθηκε', 'συνεστάθη'}}}}}
 
-        )
 
     def test_verb_katebainw(self):
         # self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('κατεβαίνω'),
+            verb.Verb('κατεβαίνω').all(),
             {'present':
                  {'active': {'ind':
                                  {'sg': {'pri': {'κατεβαίνω'}, 'sec': {'κατεβαίνεις'}, 'ter': {'κατεβαίνει'}},
@@ -1398,22 +1276,11 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_verb_symbainw(self):
-        # self.maxDiff = None
-        self.assertDictEqual(
-            verb.create_all_forms('συμβαίνω')['aorist'],
-            {'active': {'ind': {'pl': {'pri': {'συνέβημεν'},
-                                       'sec': {'συνέβητε'},
-                                       'ter': {'συνέβησαν'}},
-                                'sg': {'pri': {'συνέβην'},
-                                       'sec': {'συνέβης'},
-                                       'ter': {'συνέβη'}}}}}
 
-        )
 
     def test_verb_pao(self):
         self.assertDictEqual(
-            verb.create_all_forms('πάω'),
+            verb.Verb('πάω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'πάω'}, 'sec': {'πας'}, 'ter': {'πάει'}},
                                             'pl': {'pri': {'πάμε'}, 'sec': {'πάτε'}, 'ter': {'παν', 'πάνε'}}},
                                     'imp': {'sg': {'sec': {'πήγαινε'}}, 'pl': {'sec': {'πηγαίνετε'}}}}},
@@ -1431,7 +1298,7 @@ class VerbTestAll(TestCase):
     def test_verb_paraeimai(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.create_all_forms('παραείμαι'),
+            verb.Verb('παραείμαι').all(),
             {'act_pres_participle': {'παραόντας'},
              'aorist': {},
              'conjunctive': {},
@@ -1454,40 +1321,11 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_embainw(self):
-        self.assertDictEqual(
-            verb.create_all_forms('εμβαίνω')['active_aorist_participle'],
-            {'pl': {'fem': {'acc': {'εμβάσες'},
-                            'gen': {'εμβασών'},
-                            'nom': {'εμβάσες'},
-                            'voc': {'εμβάσες'}},
-                    'masc': {'acc': {'εμβάντες'},
-                             'gen': {'εμβάντων'},
-                             'nom': {'εμβάντες'},
-                             'voc': {'εμβάντες'}},
-                    'neut': {'acc': {'εμβάντα'},
-                             'gen': {'εμβάντων'},
-                             'nom': {'εμβάντα'},
-                             'voc': {'εμβάντα'}}},
-             'sg': {'fem': {'acc': {'εμβάσα'},
-                            'gen': {'εμβάσας'},
-                            'nom': {'εμβάσα'},
-                            'voc': {'εμβάσα'}},
-                    'masc': {'acc': {'εμβάντα'},
-                             'gen': {'εμβάντος'},
-                             'nom': {'εμβάς'},
-                             'voc': {'εμβάς'}},
-                    'neut': {'acc': {'εμβάν'},
-                             'gen': {'εμβάντος'},
-                             'nom': {'εμβάν'},
-                             'voc': {'εμβάν'}}}},
 
-
-        )
 
     def test_verb_eimai(self):
         self.assertDictEqual(
-            verb.create_all_forms('είμαι'),
+            verb.Verb('είμαι').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'είμαι'}, 'sec': {'είσαι'}, 'ter': {'είναι'}},
                                             'pl': {'pri': {'είμαστε'}, 'sec': {'είστε', 'είσαστε'}, 'ter': {'είναι'}}},
                                     'imp': {'sg': {'ter': {'έστω'}}}}}, 'conjunctive': {}, 'aorist': {},
@@ -1506,21 +1344,11 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_aorist_verb_anago(self):
-        self.assertDictEqual(
-            verb.create_all_forms('ανάγω')['aorist'],
-            {'active': {'ind': {'sg': {'pri': {'ανήγαγα'}, 'sec': {'ανήγαγες'}, 'ter': {'ανήγαγε'}},
-                                'pl': {'pri': {'αναγάγαμε'}, 'sec': {'αναγάγατε'}, 'ter': {'ανήγαγαν', 'αναγάγανε'}}}},
-             'passive': {'ind': {
-                 'sg': {'pri': {'ανήχθην', 'ανάχθηκα'}, 'sec': {'ανήχθης', 'ανάχθηκες'}, 'ter': {'ανάχθηκε', 'ανήχθη'}},
-                 'pl': {'pri': {'ανήχθημεν', 'αναχθήκαμε'}, 'sec': {'αναχθήκατε', 'ανήχθητε'},
-                        'ter': {'ανήχθησαν', 'ανάχθηκαν', 'αναχθήκανε'}}}}}
 
-        )
 
     def test_paratatikos_pwlw(self):
         self.assertDictEqual(
-            verb.create_all_forms('πωλώ'),
+            verb.Verb('πωλώ').all(),
             {'act_pres_participle': {'πωλώντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'πωλήσαμε'},
                                                   'sec': {'πωλήσατε'},
@@ -1658,60 +1486,12 @@ class VerbTestAll(TestCase):
 
         )
 
-    def test_present_verb_drw(self):
-        self.assertDictEqual(
-            verb.create_all_forms('δρω')['present'],
-            {'active': {'ind': {'sg': {'pri': {'δράω', 'δρω'}, 'sec': {'δρας'},
-                                       'ter': {'δράει', 'δρα'}},
-                                'pl': {'pri': {'δράμε', 'δρούμε'}, 'sec': {'δράτε'},
-                                       'ter': {'δρούνε', 'δράνε', 'δραν', 'δρουν'}}},
-                        'imp': {'sg': {'sec': {'δρα'}}, 'pl': {'sec': {'δράτε'}}}}},
-
-        )
 
 
-
-    def test_eksartwmai_parat(self):
-        self.assertDictEqual(
-            verb.create_all_forms('εξαρτώμαι')['paratatikos'],
-            {'passive': {'ind': {'pl': {'pri': {'εξαρτιόμαστε', 'εξαρτιόμασταν'},
-                                        'sec': {'εξαρτιόσαστε', 'εξαρτιόσασταν'},
-                                        'ter': {'εξαρτιούνταν',
-                                                'εξαρτιόνταν',
-                                                'εξαρτιόντουσαν',
-                                                'εξαρτώντο'}},
-                                 'sg': {'pri': {'εξαρτιόμουνα', 'εξαρτιόμουν'},
-                                        'sec': {'εξαρτιόσουνα', 'εξαρτιόσουν'},
-                                        'ter': {'εξαρτιότανε', 'εξαρτάτο', 'εξαρτιόταν'}}}}}
-
-        )
-
-    def test_aorist_verb_eisago(self):
-        self.assertDictEqual(
-            verb.create_all_forms('εισάγω')['aorist'],
-            {'active': {'ind': {'sg': {'pri': {'εισήγαγα'}, 'sec': {'εισήγαγες'}, 'ter': {'εισήγαγε'}},
-                                'pl': {'pri': {'εισαγάγαμε'}, 'sec': {'εισαγάγατε'},
-                                       'ter': {'εισήγαγαν', 'εισαγάγανε'}}}}, 'passive': {'ind': {
-                'sg': {'pri': {'εισάχθηκα', 'εισήχθην'}, 'sec': {'εισάχθηκες', 'εισήχθης'},
-                       'ter': {'εισάχθηκε', 'εισήχθη'}},
-                'pl': {'pri': {'εισαχθήκαμε', 'εισήχθημεν'}, 'sec': {'εισήχθητε', 'εισαχθήκατε'},
-                       'ter': {'εισάχθηκαν', 'εισαχθήκανε', 'εισήχθησαν'}}}}}
-
-        )
-
-    def test_aorist_verb_ago(self):
-        self.assertDictEqual(
-            verb.create_all_forms('άγω')['aorist'],
-            {'active': {'ind': {'sg': {'pri': {'ήγαγα'}, 'sec': {'ήγαγες'}, 'ter': {'ήγαγε'}},
-                                'pl': {'pri': {'αγάγαμε'}, 'sec': {'αγάγατε'}, 'ter': {'ήγαγαν', 'αγάγανε'}}}},
-             'passive': {'ind': {'sg': {'pri': {'ήχθην', 'άχθηκα'}, 'sec': {'ήχθης', 'άχθηκες'}, 'ter': {'ήχθη', 'άχθηκε'}},
-                                 'pl': {'pri': {'ήχθημεν', 'αχθήκαμε'}, 'sec': {'ήχθητε', 'αχθήκατε'}, 'ter': {'ήχθησαν', 'άχθηκαν', 'αχθήκανε'}}}}}
-
-        )
 
     def test_verb_antitasso(self):
         self.assertDictEqual(
-            verb.create_all_forms('αντιτάσσω'),
+            verb.Verb('αντιτάσσω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'αντιτάσσω'}, 'sec': {'αντιτάσσεις'}, 'ter': {'αντιτάσσει'}},
                                             'pl': {'pri': {'αντιτάσσουμε', 'αντιτάσσομε'}, 'sec': {'αντιτάσσετε'},
                                                    'ter': {'αντιτάσσουν', 'αντιτάσσουνε'}}},

@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from icecream import ic
 
-from modern_greek_inflexion.adjective import Adj
+from modern_greek_inflexion.adjective import Adjective
 from modern_greek_inflexion._exceptions import NotInGreekException, NotLegalAdjectiveException
 
 # oraios = adjective.Adj('ωραίος')
@@ -17,10 +17,10 @@ class AdjectiveTests(TestCase):
     #     )
 
     def test_adj_not_in_greek(self):
-        self.assertRaises(NotInGreekException, Adj, 'kakos')
+        self.assertRaises(NotInGreekException, Adjective, 'kakos')
 
     def test_pammegethhs(self):
-        self.assertRaises(NotLegalAdjectiveException, Adj, 'ζούδιαρηδης')
+        self.assertRaises(NotLegalAdjectiveException, Adjective, 'ζούδιαρηδης')
 
 
 
@@ -28,7 +28,7 @@ class AdjectiveTests(TestCase):
         self.maxDiff = None
 
         self.assertDictEqual(
-            Adj('ωραίος').all(),
+            Adjective('ωραίος').all(),
             # Adj('ωραίος'),
             {'adj': {'pl': {'fem': {'gen': {'ωραίων'}, 'acc': {'ωραίες'}, 'voc': {'ωραίες'}, 'nom': {'ωραίες'}},
                             'masc': {'gen': {'ωραίων'}, 'acc': {'ωραίους'}, 'voc': {'ωραίοι'}, 'nom': {'ωραίοι'}},
@@ -70,7 +70,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_enkuos(self):
         self.assertDictEqual(
-            Adj('έγκυος').all(),
+            Adjective('έγκυος').all(),
             {'adj': {'pl': {'masc': {'gen': {'έγκυων'}, 'nom': {'έγκυοι'}, 'voc': {'έγκυοι'}, 'acc': {'έγκυους'}},
                             'neut': {'gen': {'έγκυων'}, 'nom': {'έγκυα'}, 'voc': {'έγκυα'}, 'acc': {'έγκυα'}},
                             'fem': {'gen': {'έγκυων'}, 'nom': {'έγκυοι', 'έγκυες'}, 'voc': {'έγκυοι', 'έγκυες'},
@@ -84,7 +84,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_bathiskiwtos(self):
         self.assertDictEqual(
-            Adj('βαθύσκιωτος').all(),
+            Adjective('βαθύσκιωτος').all(),
             {'adj': {'pl': {'fem': {'acc': {'βαθύσκιωτες'},
                                     'gen': {'βαθύσκιωτων'},
                                     'nom': {'βαθύσκιωτες'},
@@ -115,7 +115,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_klepsas(self):
         self.assertDictEqual(
-            Adj('κλέψας').all(),
+            Adjective('κλέψας').all(),
             {'adj': {'pl': {'fem': {'acc': {'κλέψασες'},
                                     'gen': {'κλεψασών'},
                                     'nom': {'κλέψασες'},
@@ -144,7 +144,7 @@ class AdjectiveTests(TestCase):
         )
     def test_adj_monopous(self):
         self.assertDictEqual(
-            Adj('μονόπους').all(),
+            Adjective('μονόπους').all(),
             {'adj': {'pl': {'fem': {'acc': {'μονόποδες'},
                                     'gen': {'μονοπόδων'},
                                     'nom': {'μονόποδες'},
@@ -174,7 +174,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_yperhliks(self):
         self.assertDictEqual(
-            Adj('υπερήλιξ').all(),
+            Adjective('υπερήλιξ').all(),
             {'adj': {'pl': {'neut': {'acc': {''}, 'nom': {''}, 'voc': {''}, 'gen': {''}},
                             'fem': {'acc': {'υπερήλικες'}, 'nom': {'υπερήλικες'}, 'voc': {'υπερήλικες'},
                                     'gen': {'υπερηλικών'}},
@@ -189,7 +189,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_ferelpis(self):
         self.assertDictEqual(
-            Adj('φέρελπις').all(),
+            Adjective('φέρελπις').all(),
             {'adj': {'pl': {'fem': {'acc': {'φερέλπιδες'},
                                     'gen': {'φερελπίδων', 'φερέλπιδων'},
                                     'nom': {'φερέλπιδες'},
@@ -219,7 +219,7 @@ class AdjectiveTests(TestCase):
 
     def test_asteroeis(self):
         self.assertDictEqual(
-            Adj('αστερόεις').all(),
+            Adjective('αστερόεις').all(),
             {'adj': {'pl': {'fem': {'acc': {'αστερόεσσες'},
                                     'gen': {'αστεροεσσών'},
                                     'nom': {'αστερόεσσες'},
@@ -249,7 +249,7 @@ class AdjectiveTests(TestCase):
 
     def test_afestws(self):
         self.assertDictEqual(
-            Adj('αφεστώς').all(),
+            Adjective('αφεστώς').all(),
             {'adj': {'pl': {'fem': {'acc': {'αφεστώσες'},
                                     'gen': {'αφεστώσων'},
                                     'nom': {'αφεστώσες'},
@@ -279,7 +279,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_sidirous(self):
         self.assertDictEqual(
-            Adj('σιδηρούς').all(),
+            Adjective('σιδηρούς').all(),
             {'adj':
                  {'sg':
                       {'masc': {'gen': {'σιδηρού'}, 'nom': {'σιδηρούς'}, 'acc': {'σιδηρούν', 'σιδηρού'}, 'voc': {'σιδηρούς'}},
@@ -293,13 +293,13 @@ class AdjectiveTests(TestCase):
 
     def test_adj_portokali(self):
         self.assertDictEqual(
-            Adj('πορτοκαλί').basic_forms,
+            Adjective('πορτοκαλί').basic_forms,
             {'adj': 'πορτοκαλί/πορτοκαλί/πορτοκαλί', 'comparative': '', 'adverb': 'πορτοκαλί', 'adverb_comparative': ''}
         )
 
     def test_adj_porfyroxrous(self):
         self.assertDictEqual(
-            Adj('πορφυρόχρους').all(),
+            Adjective('πορφυρόχρους').all(),
             {'adj': {'pl': {'masc': {'gen': {'πορφυροχρόων'}, 'voc': {'πορφυρόχροες'}, 'nom': {'πορφυρόχροες'},
                                      'acc': {'πορφυρόχροες'}},
                             'fem': {'gen': {'πορφυροχρόων'}, 'voc': {'πορφυρόχροες'}, 'nom': {'πορφυρόχροες'},
@@ -318,7 +318,7 @@ class AdjectiveTests(TestCase):
     def test_adj_melas(self):
         self.assertDictEqual(
 
-            Adj('μέλας').all(),
+            Adjective('μέλας').all(),
             {'adj': {'sg': {'fem': {'voc': {'μέλαινα'}, 'gen': {'μέλαινας'}, 'acc': {'μέλαινα'}, 'nom': {'μέλαινα'}},
                             'masc': {'voc': {'μέλαν'}, 'gen': {'μέλανος'}, 'acc': {'μέλανα'}, 'nom': {'μέλας'}},
                             'neut': {'voc': {'μέλαν'}, 'gen': {'μέλανος'}, 'acc': {'μέλαν'}, 'nom': {'μέλαν'}}},
@@ -329,7 +329,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_rodis(self):
         self.assertDictEqual(
-            Adj('ροδής').all(),
+            Adjective('ροδής').all(),
             {'adj': {'sg': {'fem': {'nom': {'ροδιά'}, 'voc': {'ροδιά'}, 'gen': {'ροδιάς'}, 'acc': {'ροδιά'}},
                             'masc': {'nom': {'ροδής'}, 'voc': {'ροδή'}, 'gen': {'ροδή'}, 'acc': {'ροδή'}},
                             'neut': {'nom': {'ροδί'}, 'voc': {'ροδί'}, 'gen': {'ροδιού'}, 'acc': {'ροδί'}}},
@@ -341,7 +341,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_akamatis(self):
         self.assertDictEqual(
-            Adj('ακαμάτης').all(),
+            Adjective('ακαμάτης').all(),
             {'adj': {'pl': {
                 'fem': {'gen': {''}, 'nom': {'ακαμάτισσες'}, 'voc': {'ακαμάτισσες'}, 'acc': {'ακαμάτισσες'}},
                 'neut': {'gen': {'ακαμάτικων'}, 'nom': {'ακαμάτικα'}, 'voc': {'ακαμάτικα'}, 'acc': {'ακαμάτικα'}},
@@ -356,7 +356,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_euelpis(self):
         self.assertDictEqual(
-            Adj('εύελπις').all(),
+            Adjective('εύελπις').all(),
             {'adj': {'pl': {'fem': {'acc': {'ευέλπιδες'},
                                     'gen': {'ευελπίδων', 'ευέλπιδων'},
                                     'nom': {'ευέλπιδες'},
@@ -385,7 +385,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_peripetiodhs(self):
         self.assertDictEqual(
-            Adj('περιπετειώδης').all(),
+            Adjective('περιπετειώδης').all(),
             {'adj': {'pl': {'fem': {'acc': {'περιπετειώδεις'},
                                     'gen': {'περιπετειωδών'},
                                     'nom': {'περιπετειώδεις'},
@@ -415,7 +415,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_argos(self):
         self.assertDictEqual(
-            Adj('αργός').all(),
+            Adjective('αργός').all(),
             {'adj': {'pl': {'fem': {'gen': {'αργών'}, 'nom': {'αργές'}, 'acc': {'αργές'}, 'voc': {'αργές'}},
                             'masc': {'gen': {'αργών'}, 'nom': {'αργοί'}, 'acc': {'αργούς'}, 'voc': {'αργοί'}},
                             'neut': {'gen': {'αργών'}, 'nom': {'αργά'}, 'acc': {'αργά'}, 'voc': {'αργά'}}},
@@ -434,7 +434,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_lhksas(self):
         self.assertDictEqual(
-            Adj('λήξας').all(),
+            Adjective('λήξας').all(),
             {'adj': {'pl': {'fem': {'acc': {'λήξασες'},
                                     'gen': {'ληξασών'},
                                     'nom': {'λήξασες'},
@@ -464,7 +464,7 @@ class AdjectiveTests(TestCase):
     def test_adj_kalos(self):
         self.maxDiff = None
         self.assertDictEqual(
-            Adj('καλός').all(),
+            Adjective('καλός').all(),
             {'adj': {'pl': {'neut': {'nom': {'καλά'}, 'voc': {'καλά'}, 'acc': {'καλά'}, 'gen': {'καλών'}},
                             'masc': {'nom': {'καλοί'}, 'voc': {'καλοί'}, 'acc': {'καλούς'}, 'gen': {'καλών'}},
                             'fem': {'nom': {'καλές'}, 'voc': {'καλές'}, 'acc': {'καλές'}, 'gen': {'καλών'}}},
@@ -507,7 +507,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_portokalis(self):
         self.assertDictEqual(
-            Adj('πορτοκαλής').all(),
+            Adjective('πορτοκαλής').all(),
             {'adj': {'sg': {
                 'neut': {'gen': {'πορτοκαλιού'}, 'voc': {'πορτοκαλί'}, 'nom': {'πορτοκαλί'}, 'acc': {'πορτοκαλί'}},
                 'masc': {'gen': {'πορτοκαλή'}, 'voc': {'πορτοκαλή'}, 'nom': {'πορτοκαλής'}, 'acc': {'πορτοκαλή'}},
@@ -522,7 +522,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_roz(self):
         self.assertDictEqual(
-            Adj('ροζ', aklito=True).all(),
+            Adjective('ροζ', aklito=True).all(),
             {'adj': {'sg': {'masc': {'nom': {'ροζ'}, 'voc': {'ροζ'}, 'acc': {'ροζ'}, 'gen': {'ροζ'}},
                             'neut': {'nom': {'ροζ'}, 'voc': {'ροζ'}, 'acc': {'ροζ'}, 'gen': {'ροζ'}},
                             'fem': {'nom': {'ροζ'}, 'voc': {'ροζ'}, 'acc': {'ροζ'}, 'gen': {'ροζ'}}},
@@ -533,7 +533,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_safis(self):
         self.assertDictEqual(
-            Adj('σαφής').all(),
+            Adjective('σαφής').all(),
             {'adj': {'pl': {'fem': {'acc': {'σαφείς'}, 'gen': {'σαφών'}, 'nom': {'σαφείς'}, 'voc': {'σαφείς'}},
                             'neut': {'acc': {'σαφή'}, 'gen': {'σαφών'}, 'nom': {'σαφή'}, 'voc': {'σαφή'}},
                             'masc': {'acc': {'σαφείς'}, 'gen': {'σαφών'}, 'nom': {'σαφείς'}, 'voc': {'σαφείς'}}},
@@ -570,7 +570,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_tempelis(self):
         self.assertDictEqual(
-            Adj('τεμπέλης').all(),
+            Adjective('τεμπέλης').all(),
             {'adj': {'pl': {
                 'masc': {'gen': {'τεμπέληδων'}, 'nom': {'τεμπέληδες'}, 'acc': {'τεμπέληδες'}, 'voc': {'τεμπέληδες'}},
                 'neut': {'gen': {'τεμπέλικων'}, 'nom': {'τεμπέλικα'}, 'acc': {'τεμπέλικα'}, 'voc': {'τεμπέλικα'}},
@@ -584,7 +584,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_baris(self):
         self.assertDictEqual(
-            Adj('βαρύς').all(),
+            Adjective('βαρύς').all(),
             {'adj': {
                 'sg': {'neut': {'voc': {'βαρύ'}, 'nom': {'βαρύ'}, 'acc': {'βαρύ'}, 'gen': {'βαρέος', 'βαριού', 'βαρύ'}},
                        'fem': {'voc': {'βαρεία', 'βαριά'}, 'nom': {'βαρεία', 'βαριά'},
@@ -616,7 +616,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_kakos(self):
         self.assertDictEqual(
-            Adj('κακός').all(),
+            Adjective('κακός').all(),
             {'adj': {'sg': {'masc': {'acc': {'κακό'}, 'gen': {'κακού'}, 'voc': {'κακέ'}, 'nom': {'κακός'}},
                             'fem': {'acc': {'κακή', 'κακιά'}, 'nom': {'κακή', 'κακιά'}, 'voc': {'κακή', 'κακιά'},
                                     'gen': {'κακής', 'κακιάς'}},
@@ -667,7 +667,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_pankosmios(self):
         self.assertDictEqual(
-            Adj('παγκόσμιος').all(),
+            Adjective('παγκόσμιος').all(),
             {'adj': {'pl': {'fem': {'acc': {'παγκόσμιες'},
                                     'gen': {'παγκόσμιων', 'παγκοσμίων'},
                                     'nom': {'παγκόσμιες'},
@@ -698,7 +698,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_plagios(self):
         self.assertDictEqual(
-            Adj('πλάγιος').all(),
+            Adjective('πλάγιος').all(),
             {'adj': {'pl': {'fem': {'acc': {'πλάγιες'},
                                     'gen': {'πλάγιων', 'πλαγίων'},
                                     'nom': {'πλάγιες'},
@@ -729,7 +729,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_fthoropoios(self):
         self.assertDictEqual(
-            Adj('φθοροποιός').all(),
+            Adjective('φθοροποιός').all(),
             {'adj': {'pl': {'fem': {'acc': {'φθοροποιές', 'φθοροποιούς'},
                                     'gen': {'φθοροποιών'},
                                     'nom': {'φθοροποιοί', 'φθοροποιές'},
@@ -760,7 +760,7 @@ class AdjectiveTests(TestCase):
 
     def test_adj_eidopoios(self):
         self.assertDictEqual(
-            Adj('ειδοποιός').all(),
+            Adjective('ειδοποιός').all(),
             {'adj': {'pl': {'fem': {'acc': {'ειδοποιούς'},
                                     'gen': {'ειδοποιών'},
                                     'nom': {'ειδοποιοί'},
@@ -792,7 +792,7 @@ class AdjectiveTests(TestCase):
     def test_adj_apatwr(self):
         # self.maxDiff = None
         self.assertDictEqual(
-            Adj('απάτωρ').all(),
+            Adjective('απάτωρ').all(),
             {'adj':
                  {'pl':
                       {'masc': {'gen': {'απατόρων'}, 'nom': {'απάτορες'}, 'voc': {'απάτορες'}, 'acc': {'απάτορες'}},
@@ -805,7 +805,7 @@ class AdjectiveTests(TestCase):
 
     def test_anakatosouras(self):
         self.assertDictEqual(
-            Adj('ανακατωσούρας').all(),
+            Adjective('ανακατωσούρας').all(),
             {'adj':
                  {'sg':
                       {'neut':
@@ -826,7 +826,7 @@ class AdjectiveTests(TestCase):
     def test_parwn(self):
         self.maxDiff = None
         self.assertDictEqual(
-            Adj('παρών').all(),
+            Adjective('παρών').all(),
             {'adj': {
                 'pl': {'masc': {'voc': {'παρόντες'}, 'nom': {'παρόντες'}, 'acc': {'παρόντες'}, 'gen': {'παρόντων'}},
                        'fem': {'voc': {'παρούσες'}, 'nom': {'παρούσες'}, 'acc': {'παρούσες'}, 'gen': {'παρουσών'}},
@@ -839,7 +839,7 @@ class AdjectiveTests(TestCase):
 
     def test_oksus(self):
         self.assertDictEqual(
-            Adj('οξύς').all(),
+            Adjective('οξύς').all(),
             {'adj': {'pl': {'fem': {'acc': {'οξείες', 'οξιές'},
                                     'gen': {'οξειών', 'οξιών'},
                                     'nom': {'οξείες', 'οξιές'},
@@ -920,7 +920,7 @@ class AdjectiveTests(TestCase):
 
     def test_upnaras(self):
         self.assertDictEqual(
-            Adj('υπναράς').all(),
+            Adjective('υπναράς').all(),
             {'adj': {'pl': {'fem': {'acc': {'υπναρούδες'},
                                     'gen': {'υπναρούδων'},
                                     'nom': {'υπναρούδες'},
@@ -950,7 +950,7 @@ class AdjectiveTests(TestCase):
         )
     def test_eteroxthwn(self):
         self.assertDictEqual(
-            Adj('ετερόχθων').all(),
+            Adjective('ετερόχθων').all(),
             {'adj':
                  {'sg':
                       {'fem':
@@ -970,7 +970,7 @@ class AdjectiveTests(TestCase):
 
     def test_prolalhsas(self):
         self.assertDictEqual(
-            Adj('προλαλήσαντας').all(),
+            Adjective('προλαλήσαντας').all(),
             {'adj': {'sg': {
                 'neut': {'acc': {'προλαλήσαν'}, 'nom': {'προλαλήσαν'}, 'gen': {'προλαλήσαντος'}, 'voc': {'προλαλήσαν'}},
                 'masc': {'acc': {'προλαλήσαντα'}, 'nom': {'προλαλήσαντας'}, 'gen': {'προλαλήσαντα'},
@@ -987,7 +987,7 @@ class AdjectiveTests(TestCase):
 
     def test_makros(self):
         self.assertDictEqual(
-            Adj('μακρός').all(),
+            Adjective('μακρός').all(),
             {'adj': {'sg': {'masc': {'acc': {'μακρό'}, 'nom': {'μακρός'}, 'gen': {'μακρού'}, 'voc': {'μακρέ'}},
                             'fem': {'acc': {'μακρά'}, 'nom': {'μακρά'}, 'gen': {'μακράς'}, 'voc': {'μακρά'}},
                             'neut': {'acc': {'μακρό'}, 'nom': {'μακρό'}, 'gen': {'μακρού'}, 'voc': {'μακρό'}}},
@@ -1023,7 +1023,7 @@ class AdjectiveTests(TestCase):
 
     def test_eunous(self):
         self.assertDictEqual(
-            Adj('εύνους').all(),
+            Adjective('εύνους').all(),
             {'adj':
                  {'pl':
                       {'masc': {'acc': {'εύνοες'}, 'nom': {'εύνοες'}, 'voc': {'εύνοες'}, 'gen': {'ευνόων'}},
@@ -1036,13 +1036,13 @@ class AdjectiveTests(TestCase):
 
     def test_grizos(self):
         self.assertDictEqual(
-            Adj('γκρίζος').basic_forms,
+            Adjective('γκρίζος').basic_forms,
             {'adj': 'γκρίζος/γκρίζα/γκρίζο', 'comparative': '', 'adverb': 'γκρίζα', 'adverb_comparative': ''},
         )
 
     def test_synanatrafeis(self):
         self.assertDictEqual(
-            Adj('συνανατραφείς').all(),
+            Adjective('συνανατραφείς').all(),
             {'adj': {'pl': {'fem': {'voc': {'συνανατραφείσες'}, 'nom': {'συνανατραφείσες'}, 'acc': {'συνανατραφείσες'},
                                     'gen': {'συνανατραφεισών'}},
                             'masc': {'voc': {'συνανατραφέντες'}, 'nom': {'συνανατραφέντες'}, 'acc': {'συνανατραφέντες'},
@@ -1059,7 +1059,7 @@ class AdjectiveTests(TestCase):
 
     def test_diattontas(self):
         self.assertDictEqual(
-            Adj('διάττοντας').all(),
+            Adjective('διάττοντας').all(),
             {'adj': {'sg': {
                 'masc': {'gen': {'διάττοντα'}, 'nom': {'διάττοντας'}, 'acc': {'διάττοντα'}, 'voc': {'διάττοντα'}},
                 'fem': {'gen': {'διάττουσας'}, 'nom': {'διάττουσα'}, 'acc': {'διάττουσα'}, 'voc': {'διάττουσα'}},

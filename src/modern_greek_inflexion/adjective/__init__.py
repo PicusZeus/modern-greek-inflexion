@@ -34,7 +34,7 @@ class Numbers:
 
 
 @dataclass
-class Adjective:
+class AdjectiveType:
     adj: Numbers
     comp: Numbers
     superl: Numbers
@@ -43,7 +43,7 @@ class Adjective:
     superl_adv: tuple[str]
 
 
-class Adj:
+class Adjective:
 
     def __init__(self, adj: str, aklito: bool = False, basic_forms: dict = None):
         self.adjective = adj

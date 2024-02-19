@@ -1,12 +1,13 @@
 from unittest import TestCase
 from modern_greek_inflexion import articles
+from modern_greek_inflexion.articles import Article
 
 
 class ArticleTests(TestCase):
 
     def test_o(self):
         self.assertDictEqual(
-            articles.create_all('ο'),
+            Article('ο').all(),
             {'sg': {'masc': {'nom': {'ο'}, 'acc': {'τον', 'το'}, 'gen': {'του'}},
                     'fem': {'nom': {'η'}, 'acc': {'την', 'τη'}, 'gen': {'της'}},
                     'neut': {'nom': {'το'}, 'acc': {'του'}, 'gen': {'το'}}},
@@ -17,7 +18,7 @@ class ArticleTests(TestCase):
 
     def test_enas(self):
         self.assertDictEqual(
-            articles.create_all('ένας'),
+            Article('ένας').all(),
             {'sg': {'masc': {'nom': {'ένας'}, 'acc': {'ένα', 'έναν'}, 'gen': {'ενός'}},
                     'fem': {'nom': {'μια', 'μία'}, 'acc': {'μίαν', 'μιαν', 'μια', 'μία'}, 'gen': {'μίας', 'μιας'}},
                     'neut': {'nom': {'ένα'}, 'acc': {'ένα'}, 'gen': {'ενός'}}}}

@@ -1,22 +1,23 @@
 from unittest import TestCase
 
 from modern_greek_inflexion import verb
+from modern_greek_inflexion.resources.variables import CONJUNCTIVE, ACTIVE, IMP, PASSIVE, PRESENT
 
 
 def imp_conj_act(v):
-    return verb.create_all_forms(v)['conjunctive']['active']['imp']
+    return verb.Verb(v).create_conjunctive()[ACTIVE][IMP]
 
 
 def imp_conj_pass(v):
-    return verb.create_all_forms(v)['conjunctive']['passive']['imp']
+    return verb.Verb(v).create_conjunctive()[PASSIVE][IMP]
 
 
 def imp_cont_act(v):
-    return verb.create_all_forms(v)['present']['active']['imp']
+    return verb.Verb(v).create_imperfect_forms()[PRESENT][ACTIVE][IMP]
 
 
 def imp_cont_pass(v):
-    return verb.create_all_forms(v)['present']['passive']['imp']
+    return verb.Verb(v).create_imperfect_forms()[PRESENT][PASSIVE][IMP]
 
 
 class VerbTestImperAct(TestCase):
@@ -26,6 +27,13 @@ class VerbTestImperAct(TestCase):
         self.assertDictEqual(
             imp_cont_act('πίνω'),
             {'pl': {'sec': {'πίνετε'}}, 'sg': {'sec': {'πίνε'}}}
+
+        )
+
+    def test_verb_xairw_imper(self):
+        self.assertDictEqual(
+            imp_cont_act('χαίρω'),
+            {'sg': {'sec': {'χαίρε'}}, 'pl': {'sec': {'χαίρετε'}}}
 
         )
 
@@ -107,6 +115,12 @@ class VerbTestImperPass(TestCase):
             imp_conj_pass('δέχομαι'),
             {'pl': {'sec': {'δεχθείτε', 'δεχτείτε'}}, 'sg': {'sec': {'δέξου'}}}
 
+        )
+
+    def test_verb_antilambanomai_imp(self):
+        self.assertDictEqual(
+            imp_conj_pass('αντιλαμβάνομαι'),
+            {'sg': {'sec': {'αντιλήψου'}}, 'pl': {'sec': {'αντιληφθείτε'}}}
         )
 
     def test_briskw(self):
