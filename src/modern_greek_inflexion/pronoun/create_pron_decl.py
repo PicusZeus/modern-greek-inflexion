@@ -4,6 +4,7 @@ from ..adjective import create_all_adj_forms
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from ..resources.pronouns import *
 from ..resources.resources import greek_corpus
+from ..resources.typing import adjective_forms_type
 from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
@@ -17,7 +18,7 @@ def remove_vocatives(forms):
     return forms
 
 
-def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
+def create_all_pron_forms(bas_forms: str, strong: bool = True) -> adjective_forms_type:
     """
 
     :param bas_forms: basic forms in all genders
@@ -204,7 +205,6 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> dict:
             forms, _ = create_all_adj_forms(bas_forms)
             forms = remove_vocatives(forms)
             return merging_all_dictionaries(forms)
-
 
         elif masc in ['κάτι', 'τι', 'ίντα', 'ήντα', 'είντα', ]:
             return {SG:

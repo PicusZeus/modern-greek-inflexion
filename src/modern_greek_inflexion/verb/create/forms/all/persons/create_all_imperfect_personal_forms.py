@@ -10,7 +10,9 @@ def create_all_imperfect_personal_forms(verb: str, voice: str) -> tuple[dict, st
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
-    :return: a two element tuple, first element is a dictionary {'voice': voice, 'sec_pos': secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary, 'forms_imp': all imper forms in a dictionary}, second is a string con_ind
+    :return: a two element tuple, first element is a dictionary {'voice': voice, 'sec_pos':
+    secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary,
+    'forms_imp': all imper forms in a dictionary}, second is a string con_ind
     """
     act_verbs = pass_verbs = None
 

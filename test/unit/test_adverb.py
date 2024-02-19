@@ -13,13 +13,13 @@ class AdverbTest(TestCase):
 
     def test_adv_pote(self):
         self.assertDictEqual(
-            adverb.create_all('ποτέ'),
+            adverb.Adverb('ποτέ').all(),
             {'adv': {'ποτέ'}}
         )
 
     def test_adv_ano(self):
         self.assertDictEqual(
-            adverb.create_all('άνω'),
+            adverb.Adverb('άνω').all(),
             {'adv': {'άνω'}, 'comp_adv': {'ανώτερα'}, 'superl_adv': {'ανώτατα'}, 'comp': {
                 'pl': {'neut': {'nom': {'ανώτερα'}, 'gen': {'ανώτερων'}, 'voc': {'ανώτερα'}, 'acc': {'ανώτερα'}},
                        'masc': {'nom': {'ανώτεροι'}, 'gen': {'ανώτερων'}, 'voc': {'ανώτεροι'}, 'acc': {'ανώτερους'}},

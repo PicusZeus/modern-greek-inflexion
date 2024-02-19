@@ -1,7 +1,3 @@
-from icecream import ic
-from typing import Any, Union
-
-# from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import vowels
 from ..resources.resources import greek_corpus
@@ -9,16 +5,6 @@ from ..resources.resources import greek_corpus
 from ..resources.variables import *
 
 from ..resources.noun import irregular_gen_sg, irregular_voc_sg, noun_grammar_lists
-
-
-def put_accent_on_unaccented_forms(forms: dict) -> dict:
-    # one syllable words
-    for number in forms.keys():
-        for case in forms[number].keys():
-            f = forms[number][case]
-            if not where_is_accent(f) and count_syllables(f) > 1:
-                forms[number][case] = put_accent(f, PENULTIMATE)
-    return forms
 
 
 def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
@@ -118,8 +104,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                     noun_all[gender][SG][ACC] = nom_sg[:-1] + ',' + nom_sg[:-1] + 'ν'
                 masc_voc = put_accent(nom_sg[:-2] + 'ε', accent, true_syllabification=False)
                 noun_all[gender][SG][VOC] = masc_voc
-                if nom_sg == 'Βάιος':
-                    ic(masc_voc, masc_voc in greek_corpus, proper_name)
+
                 if proper_name and count_syllables(nom_sg) < 3:
 
                     if accent != ULTIMATE:
@@ -127,11 +112,11 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         noun_all[gender][SG][VOC] = properN_masc_voc
                         # but this rule is not always used (Παύλο και Παύλε) and sometimes voc on e is still in usage
 
-
                         if masc_voc.lower() in greek_corpus:
                             noun_all[gender][SG][VOC] = properN_masc_voc + ',' + masc_voc
 
-                elif (nom_sg[-3] in ['ι'] and accent == ANTEPENULTIMATE) or nom_sg in noun_grammar_lists[VOCATIVE_MASC_SG_O]:
+                elif ((nom_sg[-3] in ['ι'] and accent == ANTEPENULTIMATE) or
+                      nom_sg in noun_grammar_lists[VOCATIVE_MASC_SG_O]):
                     # i need to get a proper list
                     if masc_voc in greek_corpus:
                         noun_all[gender][SG][VOC] = masc_voc + ',' + nom_sg[:-1]
@@ -173,7 +158,8 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
                             if sinizisi or acc_proparoksit in greek_corpus:
                                 acc_pl.append(acc_proparoksit)
-                                if acc_paroksit in greek_corpus or nom_sg in noun_grammar_lists[PAROKSITONA_GEN_PL_MOVING]:
+                                if acc_paroksit in greek_corpus or nom_sg in noun_grammar_lists[
+                                    PAROKSITONA_GEN_PL_MOVING]:
                                     acc_pl.append(acc_paroksit)
 
                             else:
@@ -335,7 +321,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         gen_pl.append(nom_pl[:-3] + 'εων')
                         if nom_sg in noun_grammar_lists[FEMININA_H_EIS]:
                             if nom_sg[:-1] + 'ις' in greek_corpus:
-                                noun_all[gender][SG][NOM] = nom_sg + ',' +  nom_sg[:-1] + 'ις'
+                                noun_all[gender][SG][NOM] = nom_sg + ',' + nom_sg[:-1] + 'ις'
                             if nom_sg[:-1] + 'ιν' in greek_corpus:
                                 noun_all[gender][SG][ACC] = nom_sg + ',' + nom_sg[:-1] + 'ιν'
 

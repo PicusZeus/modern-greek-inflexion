@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate, \
     put_accent_on_the_antepenultimate, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics, \
     put_accent, remove_diaer
 from modern_greek_accentuation.resources import vowels, PENULTIMATE, ANTEPENULTIMATE, ULTIMATE
 
-from .._typing import Gender
+from .helpers import capitalize_basic_forms
+from ..resources import greek_pattern
 from ..resources.noun import irregular_nouns, aklita_gender, plur_tant_neut, irregular_3rd_decl_roots
+from ..resources.typing import genderType
 from ..resources.variables import *
 from ..resources.resources import greek_corpus
 
@@ -15,16 +16,13 @@ from ..resources.noun import noun_grammar_lists, nouns_masc_fem
 
 from .._exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-import re
-
-greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 GENDERS = 'genders'
 
 
-def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender = None,
+def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: genderType = None,
                            proper_name: bool = False) -> dict[NOM_SG: str, GEN_SG: str, NOM_PL: str,
-                                                         GENDERS: Gender, PROPER_NAME: bool]:
+                                                              GENDERS: genderType, PROPER_NAME: bool]:
     """
     :param noun: The noun you want to inflect has to be in its basic form, that is in nominative singular, or if it's
      plural only, in plural
@@ -95,10 +93,13 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender
         if not gender:
             if noun in noun_grammar_lists[FEMININA_OS]:
                 noun_temp[GENDERS] = FEM
-        # the problem is that many long words on -os that are part of some kind of jargon and do not have any other form
-        # declined in the corpus, i will assume then that words above 4 syllables do exist, but only in singular, the
-        # same should be the case for neuter long words on -o
-        # also some proper names in greek_corpus are, as is proper, capitalized
+        """
+        the problem is that many long words on -os that are part of some kind of jargon and do not have any other form
+        declined in the corpus, i will assume then that words above 4 syllables do exist, but only in singular, the
+        same should be the case for neuter long words on -o
+        also some proper names in greek_corpus are, as is proper, capitalized
+        """
+
         if gen_form in greek_corpus or gender == MASC or number_of_syllables > 4:
             gens_sg.append(gen_form)
         if accent == ANTEPENULTIMATE and noun not in noun_grammar_lists[PROPAROKSITONA_GEN_PL]:
@@ -540,16 +541,7 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender
             noun_temp[NOM_PL] = plural_form
             noun_temp[GEN_SG] = gen_form
             noun_temp[GENDERS] = NEUT
-        # elif noun[-1] == 'α' and (gender == NEUT or (noun + 'τος' in greek_corpus and noun + 'τα' in greek_corpus)):
-        #     # gala, galatos
-        #
-        #     noun_temp[NOM_SG] = noun
-        #     noun_temp[NOM_PL] = put_accent_on_the_antepenultimate(noun + 'τα')
-        #     noun_temp[GEN_SG] = put_accent_on_the_antepenultimate(noun + 'τος')
-        #     noun_temp[GENDER] = NEUT
-        #     if 'γάλα' in noun:
-        #         noun_temp[NOM_PL] = noun + 'τα' + ',' + noun + 'κτα'
-        #         noun_temp[GEN_SG] = noun + 'τος' + ',' + noun + 'κτος'
+
 
         if (noun[-1] in ['α', 'ά'] and (
                 gender == NEUT_PL or (gen_a not in greek_corpus and plural_form_a not in greek_corpus
@@ -561,8 +553,11 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender
             noun_temp[GENDERS] = NEUT
 
         if noun in noun_grammar_lists[FEMININA_H_EIS] or noun[-2:] in ['ση', 'ξη', 'ψη']:
-            # it has to be if, because it can be earlier falsly recognized as a correct form on es, because of som aorists
-            # in sec person sg
+            """
+            it has to be if not elif, because it can be earlier falsly recognized as a correct form on es,
+            because of some aorist in sec person sg
+            """
+
             noun_temp[NOM_PL] = plural_form_b
             noun_temp[GEN_SG] = gen_a + ',' + put_accent_on_the_antepenultimate(noun[:-1] + 'εως',
                                                                                 true_syllabification=False)
@@ -676,9 +671,11 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender
             stems.append(noun[:-1] + 'χτ')
             stems.append(noun[:-1] + 'γ')
             if not gender:
-                """sometimes this guess won't work, and recreating the modern forms would be too expensive,
+                """
+                sometimes this guess won't work, and recreating the modern forms would be too expensive,
                 so it is advisable, as in so many other cases, to feed the program with all possible data 
-                (that is genders and aklito flag)"""
+                (that is genders and aklito flag)
+                """
                 gender = FEM
         elif noun.endswith('ωψ'):
             stems.append(noun[:-2] + 'οπ')
@@ -791,7 +788,6 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender
                 else:
                     noun_temp[NOM_PL] = third_declesion_thema + 'ες'
 
-        # elif noun.endswith('ων') and not aklito:
         # probably the best guess is still third declension
         elif noun.endswith('ις'):
             gen_form_ews = noun[:-2] + 'εως'
@@ -922,15 +918,9 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: Gender
                 noun_temp = new_res
                 break
 
-    # if capital:
-    #     noun_temp = capitalize_basic_forms(noun_temp)
     if only_sg:
         noun_temp[NOM_PL] = ''
     return noun_temp
 
 
-def capitalize_basic_forms(noun_temp: dict) -> dict:
-    for key in noun_temp:
-        if key != GENDERS:
-            noun_temp[key] = ','.join([f.capitalize() for f in noun_temp[key].split(',')])
-    return noun_temp
+

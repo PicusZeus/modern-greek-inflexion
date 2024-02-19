@@ -4,11 +4,12 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_penultimate
     put_accent_on_the_ultimate
 from ..adjective import create_all_adj_forms
 from ..resources.adj import adj_basic_template
+from ..resources.typing import adjective_forms_type
 from ..resources.variables import SG, PL, NOM, GEN, ACC, VOC, FEM, MASC, NEUT, ANTEPENULTIMATE, ULTIMATE
 from ..resources.resources import greek_corpus
 
 
-def create_all_num_adj_forms(num_base_forms: str, cardinal: bool = False) -> dict:
+def create_all_num_adj_forms(num_base_forms: str, cardinal: bool = False) -> adjective_forms_type:
     """
     :param cardinal: boolean
     :param num_base_forms: masc/fem/neut

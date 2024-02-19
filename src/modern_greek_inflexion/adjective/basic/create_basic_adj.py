@@ -1,4 +1,3 @@
-import dataclasses
 
 from modern_greek_accentuation.accentuation import is_accented, where_is_accent, put_accent, count_syllables, \
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
@@ -6,15 +5,15 @@ from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_inflexion._exceptions import NotLegalAdjectiveException
 from modern_greek_inflexion.resources.resources import greek_corpus
-from modern_greek_inflexion.resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT, ULTIMATE,
+from modern_greek_inflexion.resources.typing import adjective_basic_forms
+from modern_greek_inflexion.resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT,
+                                                        ULTIMATE,
                                                         ANTEPENULTIMATE, PENULTIMATE, ADJ_FEM_OS_ONLY, ADJ_FEM_OS_ALSO)
-from modern_greek_inflexion.resources.adj import irregular_comparatives, irregular_comparative_adverbs, adj_grammar_lists
+from modern_greek_inflexion.resources.adj import irregular_comparatives, irregular_comparative_adverbs, \
+    adj_grammar_lists
 
 
-
-
-
-def create_all_basic_forms(adj: str, aklito=False) -> dict:
+def create_all_basic_forms(adj: str, aklito=False) -> adjective_basic_forms:
     """
     :param aklito: if relevant, boolean
     :param adj: masc nom sg form (`ωραίος`)
@@ -116,7 +115,7 @@ def create_all_basic_forms(adj: str, aklito=False) -> dict:
 
         elif (adj in adj_grammar_lists[ADJ_FEM_OS_ONLY] or
               ((adj.endswith('ποιός') and fem + 'ς' not in greek_corpus) or adj.endswith('αγωγός') or
-                adj.endswith('ουργός'))):
+               adj.endswith('ουργός'))):
 
             fem = masc
 
@@ -162,7 +161,7 @@ def create_all_basic_forms(adj: str, aklito=False) -> dict:
 
         else:
             """
-            In cases where my corpus cannot help me, I will surmise that it's hs, a (or issa), iko
+            In cases where the corpus cannot help me, we will surmise that it's hs, a (or issa), iko
             """
             if accent == PENULTIMATE:
                 if adj.endswith('ώδης'):
@@ -191,7 +190,6 @@ def create_all_basic_forms(adj: str, aklito=False) -> dict:
         neuter = adj[:-1] + 'ν'
 
     elif adj[-2:] in ['υς', 'ύς']:
-        # my database is unfortunately not that great...
         stem = adj[:-2]
         masc = adj
         neuter = adj[:-1]

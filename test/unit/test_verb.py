@@ -9,10 +9,10 @@ from modern_greek_inflexion import verb
 class VerbTestAll(TestCase):
 
     def test_not_in_greek_exception(self):
-        self.assertRaises(NotInGreekException, verb.create_all_forms, 'gamao')
+        self.assertRaises(NotInGreekException, verb.Verb, 'gamao')
 
     def test_not_legal_verb_exception(self):
-        self.assertRaises(NotLegalVerbException, verb.create_all_forms, 'βλέπουμε')
+        self.assertRaises(NotLegalVerbException, verb.Verb, 'βλέπουμε')
 
     def test_verb_modal_pass_fainetai(self):
         self.assertDictEqual(

@@ -4,15 +4,15 @@ simply a list
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 from ..resources.article import definite_article, indefinite_article
-from ..resources.resources import SG, PL, FEM, MASC, NEUT, NOM, ACC, GEN
+from ..resources.typing import adjective_basic_forms
 
 
 class Article:
-    def __init__(self, article):
+    def __init__(self, article: str):
         article = convert_to_monotonic(article)
         self.article = article
 
-    def all(self):
+    def all(self) -> adjective_basic_forms:
         if self.article not in ['ο', 'ένας']:
             raise Exception("it's not a Greek article")
         """

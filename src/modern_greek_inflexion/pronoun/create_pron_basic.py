@@ -3,8 +3,7 @@ from __future__ import annotations
 from modern_greek_accentuation.accentuation import put_accent_on_the_ultimate, where_is_accent, put_accent, remove_all_diacritics
 from .. import adjective
 from .._exceptions import NotInGreekException
-import re
-greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
+from ..resources import greek_pattern
 
 
 def create_basic_forms(pron: str) -> str | None:

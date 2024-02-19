@@ -1,10 +1,11 @@
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 
 from ..adjective import create_all_basic_forms
+from ..resources import ADJ
 from ..resources.resources import greek_corpus, ADVERB
 
 
-def create_num_adj(numeral: str, cardinal: bool = False) -> dict:
+def create_num_adj(numeral: str, cardinal: bool = False) -> dict[ADJ: str, ADVERB: str]:
     """
     :param numeral: numeral
     :param cardinal: if it is a cardinal numeral
@@ -47,5 +48,5 @@ def create_num_adj(numeral: str, cardinal: bool = False) -> dict:
 
         else:
             masc = fem = neut = numeral
-        forms = {'adj': masc + '/' + fem + '/' + neut}
+        forms = {ADJ: masc + '/' + fem + '/' + neut}
     return forms

@@ -1,0 +1,1 @@
+from .create_basic_adj import create_all_basic_forms

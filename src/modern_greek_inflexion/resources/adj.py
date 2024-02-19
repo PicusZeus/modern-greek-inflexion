@@ -4,9 +4,7 @@ import os, pickle
 
 this_dir, this_filename = os.path.split(__file__)
 
-
 n_adj_grammar_lists = os.path.join(this_dir, 'adj_grammar_lists.pickle')
-
 
 adj_grammar_lists = pickle.load(open(n_adj_grammar_lists, 'rb'))
 
@@ -24,6 +22,8 @@ irregular_comparative_adverbs = {'κακό': 'χειρότερα,ήσσον,ήτ
                                  'καλό': 'καλύτερα,κάλλιον,κάλλιο/άριστα',
                                  'λίγο': 'λιγότερο/ελάχιστα', 'πολύ': 'περισσότερο/-'}
 
+adj_basic_template_alt = {SG: {MASC: {}, FEM: {}, NEUT: {}},
+                          PL: {MASC: {}, FEM: {}, NEUT: {}}}
 
 adj_basic_template = {SG: {
     MASC: {

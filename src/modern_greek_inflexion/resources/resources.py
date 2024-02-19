@@ -14,16 +14,11 @@ greek_corpus = pickle.load(open(el_GR_path, 'rb'))
 forms_with_alternatives = ('ακόμη', 'ακόμα', 'και', 'κι', 'τίποτα', 'τίποτε')
 dictionary_with_alt = {'ακόμη': 'ακόμα', 'και': 'κι', 'τίποτα': 'τίποτε'}
 
-irregular_adv = {
-    'νωρίς': {COMP_ADV: 'νωρίτερα/νωρίτατα'}, 'άνω': {COMP_ADV: 'ανώτερα/ανώτατα', COMP: 'ανώτερος/ανώτατος'},
-    'κάτω': {COMP_ADV: 'κατώτερα/κατώτατα', COMP: 'κατώτερος/κατώτατος'}}
+
 
 aklita_num_alternatives = {'εφτά': 'επτά', 'οχτώ': 'οκτώ', 'εννιά': 'εννέα', 'δεκαέξι': 'δεκάξι',
                            'δεκαοχτώ': 'δεκαοκτώ', 'δεκαεννιά': 'δεκαεννέα', 'δεκαεφτά': 'δεκαεπτά'}
 
-# these are not all the irregular verbs, but if you take into account compounds, most.
-
-greek_pattern = re.compile('[ά-ώ|α-ω]', re.IGNORECASE)
 
 """UNUSED"""
 

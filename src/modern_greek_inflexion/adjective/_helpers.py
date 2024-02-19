@@ -1,27 +1,13 @@
-from dataclasses import dataclass
+from modern_greek_accentuation._helpers import AccentType
 
 from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import PENULTIMATE
+from modern_greek_inflexion.resources.typing import adjective_forms_type
 
 
-@dataclass
-class BasicAdjective:
-    masc: str = ''
-    fem: str = ''
-    neut: str = ''
-
-
-@dataclass
-class AdjTemp:
-    adj: BasicAdjective
-    comparative: str
-    adverb: str
-    adverb_comparative: str
-
-
-def put_accent_in_all_forms(forms: dict, accent: str) -> dict:
+def put_accent_in_all_forms(forms: adjective_forms_type, accent: AccentType) -> dict:
     for num in forms.keys():
         for gender in forms[num].keys():
             for case, form in forms[num][gender].items():

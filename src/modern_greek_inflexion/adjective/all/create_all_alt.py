@@ -1,16 +1,22 @@
 from copy import deepcopy
 
 from modern_greek_accentuation.accentuation import put_accent, put_accent_on_the_penultimate, put_accent_on_the_ultimate
-
 from modern_greek_inflexion.adjective._helpers import put_accent_in_all_forms
-from modern_greek_inflexion.resources import SG, FEM, NOM, ACC, GEN, VOC, greek_corpus, NEUT, MASC, PL, ULTIMATE
+from modern_greek_inflexion.resources import greek_corpus
+from modern_greek_inflexion.resources.typing import adjective_forms_type
+from modern_greek_inflexion.resources.variables import SG, FEM, NOM, ACC, GEN, VOC, NEUT, MASC, PL, ULTIMATE
+from modern_greek_accentuation._helpers import AccentType
+from modern_greek_inflexion.resources.adj import adj_basic_template_alt
 
-alt_template = {SG: {MASC: {}, FEM: {}, NEUT: {}},
-                PL: {MASC: {}, FEM: {}, NEUT: {}}}
 
+def alternative_forms_r(fem: str, accent: AccentType) -> adjective_forms_type:
+    """
 
-def alternative_forms_r(fem: str, accent: str) -> dict:
-    alt_forms = deepcopy(alt_template)
+    :param fem: feminine nom sg
+    :param accent: accent type
+    :return:
+    """
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     if put_accent(fem[:-1] + 'ας', accent) in greek_corpus:
         alt_form = put_accent(fem[:-1] + 'α', accent)
@@ -22,9 +28,13 @@ def alternative_forms_r(fem: str, accent: str) -> dict:
     return alt_forms
 
 
-def alternative_forms_ios(adj: str) -> dict:
+def alternative_forms_ios(adj: str) -> adjective_forms_type:
+    """
+    :param adj:
+    :return:
+    """
     masc, fem, neut = adj.split('/')
-    alt_forms = deepcopy(alt_template)
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     masc_gen = put_accent_on_the_penultimate(neut + 'υ', true_syllabification=False)
     masc_gen_pl = put_accent_on_the_penultimate(neut[:-1] + 'ων', true_syllabification=False)
@@ -49,9 +59,9 @@ def alternative_forms_ios(adj: str) -> dict:
     return alt_forms
 
 
-def alternative_forms_us(adj: str) -> dict:
+def alternative_forms_us(adj: str) -> adjective_forms_type:
     # only for the us, ia, y type
-    alt_forms = deepcopy(alt_template)
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
 
@@ -100,8 +110,8 @@ def alternative_forms_us(adj: str) -> dict:
     return alt_forms
 
 
-def alternative_fem_os(fem_os: str, accent: str) -> dict:
-    alt_forms = deepcopy(alt_template)
+def alternative_fem_os(fem_os: str, accent: AccentType) -> adjective_forms_type:
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     alt_forms[SG][FEM][NOM] = fem_os
     alt_forms[SG][FEM][ACC] = fem_os[:-1]
@@ -116,9 +126,9 @@ def alternative_fem_os(fem_os: str, accent: str) -> dict:
     return put_accent_in_all_forms(alt_forms, accent)
 
 
-def alternative_forms_kxth(fem: str, accent: str) -> dict :
+def alternative_forms_kxth(fem: str, accent: AccentType) -> adjective_forms_type:
     # κ, χ, θ ia, or h
-    alt_forms = deepcopy(alt_template)
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     alt_form = fem[:-1] + 'ια'
 
@@ -134,15 +144,15 @@ def alternative_forms_kxth(fem: str, accent: str) -> dict :
     return alt_forms
 
 
-def alternative_forms_modern_3rd(adj):
-    alt_forms = deepcopy(alt_template)
+def alternative_forms_modern_3rd(adj: str) -> adjective_forms_type:
+    alt_forms = deepcopy(adj_basic_template_alt)
     masc, fem, neut = adj.split('/')
 
-    thema = neut + 'τ'
-    if thema + 'ας' in greek_corpus:
-        alt_forms[SG][MASC][NOM] = thema + 'ας'
-        alt_forms[SG][MASC][GEN] = thema + 'α'
-        alt_forms[SG][MASC][VOC] = thema + 'α'
+    stem = neut + 'τ'
+    if stem + 'ας' in greek_corpus:
+        alt_forms[SG][MASC][NOM] = stem + 'ας'
+        alt_forms[SG][MASC][GEN] = stem + 'α'
+        alt_forms[SG][MASC][VOC] = stem + 'α'
     if fem[:-1] + 'ης' in greek_corpus:
         alt_forms[SG][FEM][GEN] = fem[:-1] + 'ης'
     if fem + 'ν' in greek_corpus:
@@ -151,9 +161,9 @@ def alternative_forms_modern_3rd(adj):
     return alt_forms
 
 
-def alternative_forms_us2(adj: str) -> dict:
+def alternative_forms_us2(adj: str) -> adjective_forms_type:
     # only for the us, ia, y type
-    alt_forms = deepcopy(alt_template)
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
 
@@ -164,28 +174,28 @@ def alternative_forms_us2(adj: str) -> dict:
     return alt_forms
 
 
-def alternative_forms_wn(adj: str) -> dict:
+def alternative_forms_wn(adj: str) -> adjective_forms_type:
     # wn, ousa on
-    alt_forms = deepcopy(alt_template)
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
 
     if neut != '-':
-        thema = neut + 'τ'
-        alt_forms[SG][MASC][ACC] = thema + 'α'
-        alt_forms[SG][MASC][GEN] = thema + 'ος'
+        stem = neut + 'τ'
+        alt_forms[SG][MASC][ACC] = stem + 'α'
+        alt_forms[SG][MASC][GEN] = stem + 'ος'
         alt_forms[SG][NEUT][NOM] = neut
-        alt_forms[SG][NEUT][GEN] = thema + 'ος'
+        alt_forms[SG][NEUT][GEN] = stem + 'ος'
         alt_forms[SG][NEUT][ACC] = neut
         alt_forms[SG][NEUT][VOC] = neut
-        alt_forms[PL][MASC][NOM] = thema + 'ες'
-        alt_forms[PL][MASC][ACC] = thema + 'ες'
-        alt_forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
-        alt_forms[PL][MASC][VOC] = thema + 'ες'
-        alt_forms[PL][NEUT][NOM] = thema + 'α'
-        alt_forms[PL][NEUT][ACC] = thema + 'α'
-        alt_forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(thema + 'ων')
-        alt_forms[PL][NEUT][VOC] = thema + 'α'
+        alt_forms[PL][MASC][NOM] = stem + 'ες'
+        alt_forms[PL][MASC][ACC] = stem + 'ες'
+        alt_forms[PL][MASC][GEN] = put_accent_on_the_penultimate(stem + 'ων')
+        alt_forms[PL][MASC][VOC] = stem + 'ες'
+        alt_forms[PL][NEUT][NOM] = stem + 'α'
+        alt_forms[PL][NEUT][ACC] = stem + 'α'
+        alt_forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(stem + 'ων')
+        alt_forms[PL][NEUT][VOC] = stem + 'α'
     if masc != '-':
         alt_forms[SG][MASC][NOM] = masc
         alt_forms[SG][MASC][VOC] = masc
@@ -203,13 +213,13 @@ def alternative_forms_wn(adj: str) -> dict:
     return alt_forms
 
 
-def alternative_forms_tis(adj, thema):
-    alt_forms = deepcopy(alt_template)
+def alternative_forms_tis(adj: str, stem: str) -> adjective_forms_type:
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
     if neut + 'ν' in greek_corpus:
         alt_forms[SG][MASC][ACC] = neut + 'ν'
-    gen_pl = put_accent_on_the_penultimate(thema + 'ων')
+    gen_pl = put_accent_on_the_penultimate(stem + 'ων')
 
     alt_forms[PL][MASC][GEN] = gen_pl
     alt_forms[PL][FEM][GEN] = gen_pl
@@ -218,19 +228,19 @@ def alternative_forms_tis(adj, thema):
     return alt_forms
 
 
-def alternative_forms_onas(adj: str) -> dict:
-    alt_forms = deepcopy(alt_template)
+def alternative_forms_onas(adj: str) -> adjective_forms_type:
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
 
     if neut:
-        thema = neut
-        alt_forms[SG][MASC][ACC] = thema + 'α'
-        alt_forms[SG][MASC][GEN] = thema + 'ος'
-        alt_forms[PL][MASC][NOM] = thema + 'ες'
-        alt_forms[PL][MASC][ACC] = thema + 'ες'
-        alt_forms[PL][MASC][GEN] = put_accent_on_the_penultimate(thema + 'ων')
-        alt_forms[PL][MASC][VOC] = thema + 'ες'
+        stem = neut
+        alt_forms[SG][MASC][ACC] = stem + 'α'
+        alt_forms[SG][MASC][GEN] = stem + 'ος'
+        alt_forms[PL][MASC][NOM] = stem + 'ες'
+        alt_forms[PL][MASC][ACC] = stem + 'ες'
+        alt_forms[PL][MASC][GEN] = put_accent_on_the_penultimate(stem + 'ων')
+        alt_forms[PL][MASC][VOC] = stem + 'ες'
 
     if fem:
         alt_forms[SG][MASC][NOM] = fem
@@ -239,12 +249,12 @@ def alternative_forms_onas(adj: str) -> dict:
     return alt_forms
 
 
-def alternative_forms_ou(fem: str) -> dict:
+def alternative_forms_ou(fem: str) -> adjective_forms_type:
     """
     :param fem: its a feminine form with a ou ending
     :return:
     """
-    alt_forms = deepcopy(alt_template)
+    alt_forms = deepcopy(adj_basic_template_alt)
 
     alt_forms[SG][FEM][NOM] = fem
     alt_forms[SG][FEM][ACC] = fem
