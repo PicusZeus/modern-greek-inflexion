@@ -25,10 +25,10 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 
 def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_forms_type | None]:
     """
-    :param adj: expects masc, fem and neut forms divided with / ('ωραίος/ωραία/ωραίο). If feminine doesn't exist, it
-     should be replaced with dash '-'
+    :param adj: expects masc, fem and neut forms divided with slash / (eg 'ωραίος/ωραία/ωραίο).
+    If feminine doesn't exist, it should be replaced with dash '-'.
     :return: two element tuple, first is a dictionary with all primary forms (forms[number][gender][case], the second
-    one is a dictionary with alternative forms, if exists it has the same structure
+    one is a dictionary with alternative forms, if exists it has the same structure as the first dictionary
     """
     forms = deepcopy(adj_basic_template)
     fem_alt = None
@@ -85,8 +85,8 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
             alt_forms = alternative_forms_kxth(fem, accent)
         elif fem[-2] in ['ρ', 'ν'] or (fem[-2] in vowels and fem[-1] == 'η'):
             alt_forms = alternative_forms_r(fem, accent)
-        elif (fem[-2] == 'ι' and accent in [PENULTIMATE, ANTEPENULTIMATE]) or fem.endswith('μενη') or fem.endswith(
-                'στη'):
+        elif ((fem[-2] == 'ι' and accent in [PENULTIMATE, ANTEPENULTIMATE])
+              or fem.endswith('μενη') or fem.endswith('στη')):
             alt_forms = alternative_forms_ios(adj)
         return forms, alt_forms
 
@@ -190,7 +190,6 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         return forms, None
 
     elif (masc[-2:] in ['ύς', 'υς'] and where_is_accent(fem) == ULTIMATE) or masc == 'μέγας':
-        # add alternativeσ, bathys
 
         forms[SG][MASC][NOM] = masc
         forms[SG][MASC][ACC] = masc[:-1]
@@ -599,7 +598,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         return forms, None
 
     elif masc[-2:] == 'ις' and masc == fem and neut == '-':
-        # ancient 3rd declesion
+        # ancient 3rd declension
         stem = put_accent_on_the_penultimate(masc[:-1] + 'δ')
 
         forms[SG][MASC][NOM] = masc
@@ -624,7 +623,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         return forms, alt_forms
 
     elif masc[-1:] in ['ξ', 'ψ'] and masc == fem and neut == '-':
-        # ancient 3rd declesion
+        # ancient 3rd declension
         alt_forms = None
         stem = masc[:-1] + 'κ'
         if masc[-4:] == 'θριξ':

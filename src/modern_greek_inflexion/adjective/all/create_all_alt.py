@@ -14,7 +14,7 @@ def alternative_forms_r(fem: str, accent: AccentType) -> adjective_forms_type:
 
     :param fem: feminine nom sg
     :param accent: accent type
-    :return:
+    :return: dictionary {gender: number: case: {forms}}
     """
     alt_forms = deepcopy(adj_basic_template_alt)
 
@@ -30,8 +30,9 @@ def alternative_forms_r(fem: str, accent: AccentType) -> adjective_forms_type:
 
 def alternative_forms_ios(adj: str) -> adjective_forms_type:
     """
-    :param adj:
-    :return:
+    Alternatives for adjective that ends on 'ιος'
+    :param adj: adj: str "masc/fem/neut"
+    :return: dictionary {gender: number: case: {forms}}
     """
     masc, fem, neut = adj.split('/')
     alt_forms = deepcopy(adj_basic_template_alt)
@@ -60,7 +61,12 @@ def alternative_forms_ios(adj: str) -> adjective_forms_type:
 
 
 def alternative_forms_us(adj: str) -> adjective_forms_type:
-    # only for the us, ia, y type
+
+    """
+    Alternatives for the υς, ια, υ type
+    :param adj: str "masc/fem/neut"
+    :return: dictionary {gender: number: case: {forms}}
+    """
     alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
@@ -105,12 +111,35 @@ def alternative_forms_us(adj: str) -> adjective_forms_type:
 
     if masc.endswith('πολύς') or masc.endswith('μέγας'):
         alt_forms.pop(PL)
-    # else there will be blank places, remember to check if there is sth
-    # before inserting
+    return alt_forms
+
+
+def alternative_forms_us2(adj: str) -> adjective_forms_type:
+    """
+    Alternatives for the υς, ια, υ, only gen έος
+    :param adj: str "masc/fem/neut"
+    :return: dictionary {gender: number: case: {forms}}
+    """
+    #
+
+    alt_forms = deepcopy(adj_basic_template_alt)
+
+    masc, fem, neut = adj.split('/')
+
+    if masc:
+        alt_forms[SG][MASC][GEN] = masc[:-2] + 'έος'
+        alt_forms[SG][NEUT][GEN] = masc[:-2] + 'έος'
+
     return alt_forms
 
 
 def alternative_fem_os(fem_os: str, accent: AccentType) -> adjective_forms_type:
+    """
+    Alternative for feminine forms on -ος
+    :param fem_os: nom sg
+    :param accent: accent name
+    :return: dictionary {gender: number: case: {forms}}
+    """
     alt_forms = deepcopy(adj_basic_template_alt)
 
     alt_forms[SG][FEM][NOM] = fem_os
@@ -127,7 +156,13 @@ def alternative_fem_os(fem_os: str, accent: AccentType) -> adjective_forms_type:
 
 
 def alternative_forms_kxth(fem: str, accent: AccentType) -> adjective_forms_type:
-    # κ, χ, θ ia, or h
+
+    """
+    Alternatives feminine for adj with stem ending on κ, χ, θ (ια)
+    :param fem: singular nominative
+    :param accent:
+    :return: dictionary {gender: number: case: {forms}}
+    """
     alt_forms = deepcopy(adj_basic_template_alt)
 
     alt_form = fem[:-1] + 'ια'
@@ -145,6 +180,11 @@ def alternative_forms_kxth(fem: str, accent: AccentType) -> adjective_forms_type
 
 
 def alternative_forms_modern_3rd(adj: str) -> adjective_forms_type:
+    """
+    Alternatives for 3rd declension adjectives
+    :param adj: str "masc/fem/neut"
+    :return: dictionary {gender: number: case: {forms}}
+    """
     alt_forms = deepcopy(adj_basic_template_alt)
     masc, fem, neut = adj.split('/')
 
@@ -161,21 +201,13 @@ def alternative_forms_modern_3rd(adj: str) -> adjective_forms_type:
     return alt_forms
 
 
-def alternative_forms_us2(adj: str) -> adjective_forms_type:
-    # only for the us, ia, y type
-    alt_forms = deepcopy(adj_basic_template_alt)
-
-    masc, fem, neut = adj.split('/')
-
-    if masc:
-        alt_forms[SG][MASC][GEN] = masc[:-2] + 'έος'
-        alt_forms[SG][NEUT][GEN] = masc[:-2] + 'έος'
-
-    return alt_forms
-
-
 def alternative_forms_wn(adj: str) -> adjective_forms_type:
-    # wn, ousa on
+    """
+    Alternatives for adj/participles on ων, ουσα, ον
+    :param adj: str "masc/fem/neut"
+    :return: dictionary {gender: number: case: {forms}}
+    """
+    #
     alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
@@ -214,6 +246,12 @@ def alternative_forms_wn(adj: str) -> adjective_forms_type:
 
 
 def alternative_forms_tis(adj: str, stem: str) -> adjective_forms_type:
+    """
+    Alternative forms for adjectives on ις, ις, ι
+    :param adj: str "masc/fem/neut"
+    :param stem: stem visible in gen, and plural
+    :return: dictionary {gender: number: case: {forms}}
+    """
     alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
@@ -229,6 +267,11 @@ def alternative_forms_tis(adj: str, stem: str) -> adjective_forms_type:
 
 
 def alternative_forms_onas(adj: str) -> adjective_forms_type:
+    """
+    Alternatives for adj on ωνας
+    :param adj: str "masc/fem/neut"
+    :return: dictionary {gender: number: case: {forms}}
+    """
     alt_forms = deepcopy(adj_basic_template_alt)
 
     masc, fem, neut = adj.split('/')
@@ -251,8 +294,9 @@ def alternative_forms_onas(adj: str) -> adjective_forms_type:
 
 def alternative_forms_ou(fem: str) -> adjective_forms_type:
     """
-    :param fem: its a feminine form with a ou ending
-    :return:
+    Alternatives for feminine on ου
+    :param fem: nom sg
+    :return: dictionary {gender: number: case: {forms}}
     """
     alt_forms = deepcopy(adj_basic_template_alt)
 

@@ -16,9 +16,12 @@ class Adjective:
 
     def __init__(self, adj: str, aklito: bool = False, basic_forms: adjective_basic_forms = None):
         """
-        :param adj:
-        :param aklito:
-        :param basic_forms:
+        :param adj: Nominative singular masculine
+        :param aklito: Boolean, if you know it's indeclinable, set it to True
+        :param basic_forms: dict {ADJ: "masc/fem/neut",
+         COMPARATIVE: "parathetiko,alt_parathetiko/uperthetiko,alt_uperthetiko,
+         ADVERB: "adverb,alt_adverb",
+         ADVERB_COMPARATIVE: "adverb_parathetiko,alt_adverb_parathetiko/adverb_uperthetiko,alt_adverb_uperthetiko"}
         """
         self.adjective = adj
         adj = convert_to_monotonic(adj, one_syllable_rule=False)
@@ -32,6 +35,13 @@ class Adjective:
 
     @staticmethod
     def _adj(basic: str, adverb: str) -> tuple[adjective_forms_type, set[str]]:
+        """
+
+        :param basic: "masc/fem/neut"
+        :param adverb: "adverb,alt_adverb
+        :return: two element tuple, the first is a dictionary with all inflexion adjective forms with the following
+        structure:{SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, the second one is a set containing adverbs
+        """
         forms, alternative_forms = create_all_adj_forms(basic)
 
         if alternative_forms:
@@ -47,10 +57,20 @@ class Adjective:
         return adj, adv
 
     def positive_degree(self) -> dict[ADJ: adjective_forms_type, ADV: set[str]]:
+        """
+        Creates positive degree forms
+        :return: A dictionary of adjective forms in positive degree under the ADJ key, and adverbs in positive degree
+        under the ADV key
+        """
         adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])
         return {ADJ: adj, ADV: adv}
 
     def _comp_degree(self, bas_compars: str) -> tuple[adjective_forms_type, set[str]]:
+        """
+
+        :param bas_compars:
+        :return:
+        """
         all_compars = []
         all_adverbs = set()
 
@@ -65,6 +85,10 @@ class Adjective:
         return all_comp_forms, all_adverbs
 
     def comparative_degree(self) -> dict[COMP: adjective_forms_type, COMP_ADV: set[str]]:
+        """
+
+        :return:
+        """
         basic_compar = self.basic_forms[COMPARATIVE]
         if basic_compar:
             compars, superlatives = basic_compar.split('/')
@@ -74,6 +98,10 @@ class Adjective:
                 return {COMP: comparative_forms, COMP_ADV: set(advs_compar.split(','))}
 
     def superlative_degree(self) -> dict[SUPERL: adjective_forms_type, SUPERL_ADV: set[str]]:
+        """
+
+        :return:
+        """
         basic_compar = self.basic_forms[COMPARATIVE]
         if basic_compar:
             compars, superlatives = basic_compar.split('/')
@@ -85,8 +113,10 @@ class Adjective:
     def all(self) -> dict[ADJ: adjective_forms_type, ADV: set[str], COMP: adjective_forms_type, COMP_ADV: set[str],
                           SUPERL: adjective_forms_type, SUPERL_ADV: set[str]]:
         """
-
-        :return:
+        Create all forms from a basic adjective form
+        :return: Dictionary {ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...},
+        ADV: set(forms), COMP: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, COMP_ADV: set(forms),
+        SUPERL: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, SUPERL_ADV: set(forms)}
         """
         _all = {}
         adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])

@@ -13,17 +13,15 @@ from modern_greek_inflexion.resources.adj import irregular_comparatives, irregul
     adj_grammar_lists
 
 
-def create_all_basic_forms(adj: str, aklito=False) -> adjective_basic_forms:
+def create_all_basic_forms(adj: str, aklito: bool = False) -> adjective_basic_forms:
     """
     :param aklito: if relevant, boolean
     :param adj: masc nom sg form (`ωραίος`)
     :return: dictionary with keys:
-    ADJ: masc, fem, neut forms as a string divided with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
-    separated with a coma
-    COMPARATIVE: if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
-    form only in masc sing nom
-    ADVERB: adverb form, if alternatives, then separated with coma
-    ADVERB_COMPARATIVE: if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko
+         {ADJ: "masc/fem/neut",
+         COMPARATIVE: "parathetiko,alt_parathetiko/uperthetiko,alt_uperthetiko,
+         ADVERB: "adverb,alt_adverb",
+         ADVERB_COMPARATIVE: "adverb_parathetiko,alt_adverb_parathetiko/adverb_uperthetiko,alt_adverb_uperthetiko"}
     """
 
     if adj[-2:] == 'ον' and adj + 'τα' in greek_corpus:
