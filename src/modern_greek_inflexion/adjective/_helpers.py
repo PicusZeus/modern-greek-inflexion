@@ -4,10 +4,16 @@ from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import PENULTIMATE
-from modern_greek_inflexion.resources.typing import adjective_forms_type
+from modern_greek_inflexion.resources.typing import declension_forms_type
 
 
-def put_accent_in_all_forms(forms: adjective_forms_type, accent: AccentType) -> dict:
+def put_accent_on_all_forms(forms: declension_forms_type, accent: AccentType) -> dict:
+    """
+    Put stress on all adjective forms
+    :param forms: Dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}
+    :param accent: Accent name
+    :return: Dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}
+    """
     for num in forms.keys():
         for gender in forms[num].keys():
             for case, form in forms[num][gender].items():
@@ -16,6 +22,12 @@ def put_accent_in_all_forms(forms: adjective_forms_type, accent: AccentType) -> 
 
 
 def put_accent_on_unaccented_forms(forms: dict) -> dict:
+    """
+    Put stress on forms without accent, used for cases where basic forms are single syllables, and so inflected
+    two syllable forms needs an accent to be put on them.
+    :param forms: Dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}
+    :return: forms: Dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}
+    """
     if not forms:
         return forms
 

@@ -5,16 +5,39 @@ from .create_noun_decl import create_all_noun_forms
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
-from ..resources.typing import genderType
+from ..resources.typing import genderType, noun_basic_forms, declension_forms_type
 
 
 class Noun:
-    def __init__(self, noun: str, proper_name: bool = False, gender: genderType = None, aklito: bool | str = False):
+    """
+    This class creates noun forms
+    """
+    def __init__(self, noun: str,
+                 proper_name: bool = False,
+                 gender: genderType = None,
+                 aklito: bool | str = False,
+                 basic_forms: noun_basic_forms = None):
+        """
+
+        :param noun: A noun in nom sg, or, if it's plurale tantum, in nom pl
+        :param proper_name: If you know it's a proper name, set this flag to True ( it has influence mainly on masc vocative).
+        :param gender: If you know the gender of a noun you can add it, the acceptable values are:
+        MASC, MASC_PL, MASC_SG, FEM_SG, FEM, FEM_PL, NEUT_SG, NEUT, NEUT_PL, MASC_FEM
+        :param aklito: If you know that the noun is indeclinable, set it to True
+        :param basic_forms: If you already have basic forms of a noun, you can supply them in the form of a dictionary
+        with the following structure: {NOM_SG: str, GEN_SG: str, NOM_PL: str, GENDER: str, proper_name: bool}
+        """
         self.noun = convert_to_monotonic(noun, one_syllable_rule=False)
         self.proper_name = proper_name
-        self.basic_forms = create_all_basic_forms(noun, gender=gender, proper_name=proper_name, aklito=aklito)
+        if not basic_forms:
+            self.basic_forms = create_all_basic_forms(noun, gender=gender, proper_name=proper_name, aklito=aklito)
+        else:
+            self.basic_forms = basic_forms
 
-    def all(self):
+    def all(self) -> declension_forms_type:
+        """
+        :return: A dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}
+        """
 
         res = create_all_noun_forms(**self.basic_forms, proper_name=self.proper_name)
         return merging_all_dictionaries(res)

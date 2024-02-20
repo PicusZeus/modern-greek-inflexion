@@ -4,7 +4,7 @@ import os, pickle
 
 this_dir, this_filename = os.path.split(__file__)
 
-n_adj_grammar_lists = os.path.join(this_dir, 'adj_grammar_lists.pickle')
+n_adj_grammar_lists = os.path.join(this_dir, 'lists', 'adj_grammar_lists.pickle')
 
 adj_grammar_lists = pickle.load(open(n_adj_grammar_lists, 'rb'))
 

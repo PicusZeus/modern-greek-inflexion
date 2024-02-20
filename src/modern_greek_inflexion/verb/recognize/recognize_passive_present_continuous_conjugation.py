@@ -3,7 +3,7 @@ from __future__ import annotations
 from modern_greek_accentuation.resources import vowels
 
 from modern_greek_inflexion._exceptions import NotLegalVerbException
-from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.resources.verb import ancient_oomai
 

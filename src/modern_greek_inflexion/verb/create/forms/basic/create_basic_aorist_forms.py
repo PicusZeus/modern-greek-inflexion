@@ -19,6 +19,7 @@ def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, 
     :param alternative:
     :return: aorist_basic_forms - active_alt,active_alt/passive_alt,passive_alt'
     """
+
     aorist_basic_forms = ''
 
     if not_deponens or act_root:

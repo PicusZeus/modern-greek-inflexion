@@ -1,42 +1,46 @@
+from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import vowels
-from ..resources.resources import greek_corpus
+from ..resources import greek_corpus
+from ..resources.typing import declension_forms_type, genderBasicType
 
 from ..resources.variables import *
 
 from ..resources.noun import irregular_gen_sg, irregular_voc_sg, noun_grammar_lists
 
 
-def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
-                          proper_name: bool = False) -> dict:
+def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[genderBasicType],
+                          proper_name: bool = False) -> declension_forms_type:
     """
     :param nom_sg: nominative singular
     :param gen_sg: genitive singular
     :param nom_pl: nominative plural
-    :param genders: FEM or MASC or NEUT, if more than one, than separated with ','
+    :param genders: a list with gender variables (FEM, MASC, NEUT)
     :param proper_name: flag useful for creation of vocatives in proper names
-
+    :return: A dictionary {MASC: {SG: {NOM: str, ...}, ...}, ...}
     """
 
     accent = where_is_accent(nom_sg, true_syllabification=False)
     number_of_syllables = count_syllables(nom_sg)
-    fem_masc = ',' in genders
     multiple_plurals = ',' in nom_pl
     noun_all = {}
     neut_plural = False
-
+    irregular_nom_pl = None
+    if nom_sg == 'βεληνεκές':
+        ic(genders, nom_sg)
+    fem_masc = MASC in genders and FEM in genders
     if multiple_plurals:
         # irregular plural neut gender
         plurals = nom_pl.split(',')
         if (plurals[0][-2:] in ['οι', 'οί'] or not plurals[0]) and plurals[1][-1] in ['α', 'ά', 'ή', 'η']:
-            genders = genders + ',neut'
+            genders.append(NEUT)
             neut_plural = True
             nom_pl = plurals[0]
             irregular_nom_pl = plurals[1]
 
-    for gender in genders.split(','):
+    for gender in genders:
 
-        if neut_plural and gender == NEUT:
+        if neut_plural and gender == NEUT and irregular_nom_pl:
             # they lack gen pl
             noun_all[NEUT] = {}
             noun_all[NEUT][PL] = {}
@@ -55,7 +59,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                 gen_pl = 'χρόνω,χρόνων,χρονώ,χρονών'
                 noun_all[NEUT][PL][GEN] = gen_pl
 
-        elif gender == 'surname' and nom_sg[-1] != 'ς':
+        elif gender == SURNAME and nom_sg[-1] != 'ς':
 
             noun_all[gender] = {}
             noun_all[gender][SG] = {}
@@ -158,8 +162,8 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
                             if sinizisi or acc_proparoksit in greek_corpus:
                                 acc_pl.append(acc_proparoksit)
-                                if acc_paroksit in greek_corpus or nom_sg in noun_grammar_lists[
-                                    PAROKSITONA_GEN_PL_MOVING]:
+                                if (acc_paroksit in greek_corpus
+                                        or nom_sg in noun_grammar_lists[PAROKSITONA_GEN_PL_MOVING]):
                                     acc_pl.append(acc_paroksit)
 
                             else:
@@ -207,7 +211,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
 
                 elif nom_sg.endswith('ης') and parisyllabic and accent == PENULTIMATE:
                     noun_all[gender][PL][GEN] = put_accent(nom_sg[:-2] + 'ων', ULTIMATE)
-                    if ',' in genders:
+                    if fem_masc:
                         logia_gen = nom_sg[:-2] + 'ου'
                         if gender == FEM:
                             noun_all[gender][SG][GEN] = logia_gen
@@ -231,7 +235,6 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         acc_pl.append(n_pl)
                     elif n_pl.endswith('οι'):
                         acc_pl.append(n_pl[:-2] + 'ους')
-                        # g_pl.append(n_pl[:-2] + 'ων')
 
                     if parisyllabic and (nom_sg[-2:] in ['ης', 'ής', 'ας', 'άς']):
 
@@ -330,7 +333,6 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: str,
                         gen_pl.append(put_accent(n_pl[:-2] + 'ων', pl_accent, true_syllabification=False))
 
                 noun_all[gender][PL][GEN] = ','.join(gen_pl)
-
 
             elif nom_sg[-1:] == 'α' and gender == NEUT:
                 noun_all[gender][SG][ACC] = nom_sg

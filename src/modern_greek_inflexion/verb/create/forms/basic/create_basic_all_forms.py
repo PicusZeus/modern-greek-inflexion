@@ -1,4 +1,6 @@
-
+from modern_greek_inflexion.resources import greek_pattern
+from modern_greek_inflexion.resources.prefixes import prefixes_before_augment, prefixes_detachable, \
+    prefixes_detachable_weak
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_forms import create_basic_aorist_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_forms import create_basic_conjunctive_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
@@ -18,9 +20,8 @@ from modern_greek_accentuation.accentuation import remove_diaer, put_accent_on_t
     put_accent_on_the_antepenultimate, where_is_accent, put_accent_on_the_ultimate
 from modern_greek_accentuation.syllabify import count_syllables
 from modern_greek_accentuation.augmentify import deaugment_past_form
-from modern_greek_inflexion.resources.verb import prefixes_detachable, prefixes_detachable_weak, \
-    prefixes_before_augment, para_detachable_never, para_detachable_only
-from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources.verb import para_detachable_never, para_detachable_only
+from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, \
     CONJUNCTIVE, ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, \
@@ -29,7 +30,6 @@ from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreek
 
 import re
 
-greek_pattern = re.compile('[ά-ώ|α-ω]+', re.IGNORECASE)
 
 
 def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
@@ -87,9 +87,7 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
     a detachable verb
     """
 
-
     prefix = []
-
 
     """
         verbs that conditionally can be detached from their prefixes, mostly of logia descend

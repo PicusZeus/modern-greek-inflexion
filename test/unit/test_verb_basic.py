@@ -1,8 +1,5 @@
 from unittest import TestCase
 
-from icecream import ic
-
-# from icecream import ic
 
 from modern_greek_inflexion._exceptions import NotInGreekException
 from modern_greek_inflexion import verb
@@ -17,6 +14,45 @@ def basic_verb(v):
 
 class VerbTestBasic(TestCase):
 
+
+    def test_verb_ksanarxomai(self):
+        self.assertDictEqual(
+            basic_verb('ξανάρχομαι'),
+            {'aorist': {'active': {'ξανήρθα'}},
+             'conjunctive': {'active': {'ξαναρθώ'}},
+             'modal': False,
+             'paratatikos': {'passive': {'ξαναρχόμουν'}},
+             'pres_conjugation': 'con1_pass',
+             'present': {'passive': {'ξανάρχομαι'}}}
+
+        )
+    def test_verb_synepairnw(self):
+        self.assertDictEqual(
+            basic_verb('συνεπαίρνω'),
+            {'act_pres_participle': {'συνεπαίρνοντας'},
+             'aorist': {'active': {'συνεπήρα'}, 'passive': {'συνεπάρθηκα'}},
+             'conjunctive': {'active': {'συνεπάρω'}, 'passive': {'συνεπαρθώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'συνέπαιρνα'}, 'passive': {'συνεπαιρνόμουν'}},
+             'passive_perfect_participle': {'συνεπαρμένος'},
+             'pres_conjugation': 'con1_act',
+             'present': {'active': {'συνεπαίρνω'}, 'passive': {'συνεπαίρνομαι'}}}
+
+        )
+    def test_verb_arxw(self):
+        self.assertDictEqual(
+            basic_verb('άρχω'),
+            {'act_pres_participle': {'άρχοντας'},
+             'aorist': {'active': {'ήρξα'}},
+             'arch_act_pres_participle': {'άρχων/άρχουσα/άρχον'},
+             'conjunctive': {'active': {'άρξω'}},
+             'modal': False,
+             'paratatikos': {'active': {'ήρχα'}, 'passive': {'αρχόμουν'}},
+             'pass_pres_participle': {'αρχόμενος'},
+             'pres_conjugation': 'con1_act',
+             'present': {'active': {'άρχω'}, 'passive': {'άρχομαι'}}}
+
+        )
     def test_verb_anamenw(self):
         self.assertDictEqual(
             basic_verb('αναμένω'),

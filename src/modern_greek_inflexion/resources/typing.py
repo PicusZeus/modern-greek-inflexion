@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from modern_greek_inflexion.resources import NOM, GEN, ACC, VOC, FEM, MASC, NEUT, SG, PL, ADJ, COMP, SUPERL, \
-    COMPARATIVE, ADVERB, ADVERB_COMPARATIVE
+    COMPARATIVE, ADVERB, ADVERB_COMPARATIVE, NOM_SG, GEN_SG, NOM_PL, GENDERS, PROPER_NAME
 
 from enum import Enum
 from .resources import (ULTIMATE, ANTEPENULTIMATE, PENULTIMATE, MASC, MASC_PL,
@@ -27,6 +27,15 @@ class Gender(Enum):
 genderType = NewType("Genders", Gender)
 
 
+class GendersBasic(Enum):
+    MASC = MASC
+    FEM = FEM
+    NEUT = NEUT
+
+
+genderBasicType = NewType("GendersBasic", GendersBasic)
+
+
 class Numbers(Enum):
     PL = dict
     SG = dict
@@ -46,10 +55,11 @@ cases = dict[NOM: Union[str, tuple], VOC: Union[str, tuple], ACC: Union[str, tup
 
 numbers = dict[SG: cases, PL: cases]
 
-adjective_forms_type = dict[FEM: numbers, MASC: numbers, NEUT: numbers]
-
+declension_forms_type = dict[FEM: numbers, MASC: numbers, NEUT: numbers]
 
 adjective_basic_forms = dict[ADJ: str, COMPARATIVE: str, ADVERB: str, ADVERB_COMPARATIVE: str]
+
+noun_basic_forms = dict[NOM_SG: str, GEN_SG: str, NOM_PL: str, GENDERS: list[genderType], PROPER_NAME: bool]
 # adjective_type = dict[]
 
 # ADJ: masc, fem, neut

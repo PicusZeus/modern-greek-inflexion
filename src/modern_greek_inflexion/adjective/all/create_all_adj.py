@@ -9,10 +9,10 @@ from modern_greek_accentuation.resources import vowels
 from modern_greek_inflexion.adjective.all.create_all_alt import alternative_forms_r, alternative_forms_ios, \
     alternative_forms_us, alternative_fem_os, alternative_forms_kxth, alternative_forms_modern_3rd, \
     alternative_forms_onas, alternative_forms_tis, alternative_forms_wn, alternative_forms_us2, alternative_forms_ou
-from modern_greek_inflexion.adjective._helpers import put_accent_in_all_forms, put_accent_on_unaccented_forms
-from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.adjective._helpers import put_accent_on_all_forms, put_accent_on_unaccented_forms
+from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.adj import adj_basic_template
-from modern_greek_inflexion.resources.typing import adjective_forms_type
+from modern_greek_inflexion.resources.typing import declension_forms_type
 from modern_greek_inflexion.resources.variables import SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC, ANTEPENULTIMATE, \
     ULTIMATE, PENULTIMATE
 
@@ -23,7 +23,7 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 """
 
 
-def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_forms_type | None]:
+def create_all_adj_forms(adj: str) -> tuple[declension_forms_type, declension_forms_type | None]:
     """
     :param adj: expects masc, fem and neut forms divided with slash / (eg 'ωραίος/ωραία/ωραίο).
     If feminine doesn't exist, it should be replaced with dash '-'.
@@ -73,7 +73,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
         if accent == ULTIMATE:
-            forms = put_accent_in_all_forms(forms, ULTIMATE)
+            forms = put_accent_on_all_forms(forms, ULTIMATE)
 
         alt_forms = None
 
@@ -122,7 +122,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][NEUT][VOC] = neut[:-1] + 'α'
 
         if accent == ULTIMATE:
-            forms = put_accent_in_all_forms(forms, ULTIMATE)
+            forms = put_accent_on_all_forms(forms, ULTIMATE)
 
         return forms, None
 
@@ -221,7 +221,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[SG][NEUT][VOC] = neut
 
         if masc != 'μέγας':
-            forms = put_accent_in_all_forms(forms, ULTIMATE)
+            forms = put_accent_on_all_forms(forms, ULTIMATE)
 
         alt_forms = alternative_forms_us(adj)
 
@@ -400,7 +400,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][NEUT][VOC] = masc[:-2] + 'η'
 
         if where_is_accent(masc) == ULTIMATE:
-            forms = put_accent_in_all_forms(forms, accent)
+            forms = put_accent_on_all_forms(forms, accent)
 
         return forms, None
 
@@ -619,7 +619,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][FEM][GEN] = put_accent_on_the_ultimate(stem + 'ων')
         forms[PL][FEM][VOC] = stem + 'ες'
 
-        alt_forms = put_accent_in_all_forms(forms, ANTEPENULTIMATE)
+        alt_forms = put_accent_on_all_forms(forms, ANTEPENULTIMATE)
         return forms, alt_forms
 
     elif masc[-1:] in ['ξ', 'ψ'] and masc == fem and neut == '-':
@@ -653,7 +653,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][FEM][GEN] = put_accent_on_the_ultimate(stem + 'ων')
         forms[PL][FEM][VOC] = stem + 'ες'
         if accent == ANTEPENULTIMATE:
-            alt_forms = put_accent_in_all_forms(forms, accent)
+            alt_forms = put_accent_on_all_forms(forms, accent)
         return forms, alt_forms
 
     elif masc[-2:] == 'ας' and fem[-2:] == 'να' and neut[-2:] == 'αν':
@@ -724,7 +724,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][NEUT][GEN] = put_accent_on_the_penultimate(stem + 'ων')
         forms[PL][NEUT][VOC] = stem + 'α'
         if accent == ANTEPENULTIMATE:
-            forms = put_accent_in_all_forms(forms, accent)
+            forms = put_accent_on_all_forms(forms, accent)
 
         alternative_forms = alternative_forms_tis(adj, stem)
 
@@ -760,7 +760,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         forms[PL][NEUT][GEN] = stem + 'ων'
         forms[PL][NEUT][VOC] = stem + 'α'
 
-        forms = put_accent_in_all_forms(forms, PENULTIMATE)
+        forms = put_accent_on_all_forms(forms, PENULTIMATE)
 
         return forms, None
 
@@ -773,7 +773,7 @@ def create_all_adj_forms(adj: str) -> tuple[adjective_forms_type, adjective_form
         return forms, None
 
 
-def create_all_comparative_forms(comp_or_super: str) -> adjective_forms_type:
+def create_all_comparative_forms(comp_or_super: str) -> declension_forms_type:
     """
     :param comp_or_super: one form ending in os
     :return: all forms in a dict

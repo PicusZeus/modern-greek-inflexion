@@ -3,7 +3,7 @@ from __future__ import annotations
 from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.resources import prefixes_before_augment, prefixes_before_augment_on_vowel
 
-from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_active_roots
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.helpers import active_subjunctive_exists, active_subjunctive_sigmatic_exists

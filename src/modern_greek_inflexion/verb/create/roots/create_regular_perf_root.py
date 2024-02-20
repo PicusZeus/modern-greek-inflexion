@@ -10,7 +10,7 @@ def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str 
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
 
-    if verb.endswith('έρχομαι') or verb.endswith('γίνομαι') or verb.endswith('κάθομαι'):
+    if verb.endswith('έρχομαι') or verb.endswith('γίνομαι') or verb.endswith('κάθομαι') or verb.endswith('ξανάρχομαι'):
         voice = ACTIVE
 
     if voice == PASSIVE:

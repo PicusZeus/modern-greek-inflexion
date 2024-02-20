@@ -11,6 +11,12 @@ from modern_greek_inflexion.resources import greek_corpus, IMP, MODAL, PRES_CONJ
 
 
 def dict_of_dicts_merge(x: dict | set | str, y: dict | set | str) -> dict | set:
+    """
+
+    :param x:
+    :param y:
+    :return:
+    """
     z = {}
     if isinstance(x, set):
         if isinstance(y, set):

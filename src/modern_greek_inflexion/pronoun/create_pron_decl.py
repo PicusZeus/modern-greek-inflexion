@@ -3,12 +3,17 @@ from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 from ..adjective import create_all_adj_forms
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from ..resources.pronouns import *
-from ..resources.resources import greek_corpus
-from ..resources.typing import adjective_forms_type
+from ..resources import greek_corpus
+from ..resources.typing import declension_forms_type
 from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
 def remove_vocatives(forms):
+    """
+
+    :param forms:
+    :return:
+    """
     for number in forms:
         for gender in forms[number]:
             for case in forms[number][gender]:
@@ -18,7 +23,7 @@ def remove_vocatives(forms):
     return forms
 
 
-def create_all_pron_forms(bas_forms: str, strong: bool = True) -> adjective_forms_type:
+def create_all_pron_forms(bas_forms: str, strong: bool = True) -> declension_forms_type:
     """
 
     :param bas_forms: basic forms in all genders

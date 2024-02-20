@@ -1,12 +1,7 @@
 from unittest import TestCase
 
-from icecream import ic
-
-# from icecream import ic
-
-from modern_greek_inflexion import noun
 from modern_greek_inflexion.noun import Noun
-from modern_greek_inflexion.resources.resources import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM, greek_corpus
+from modern_greek_inflexion.resources.variables import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
 
 
 class NounTests(TestCase):

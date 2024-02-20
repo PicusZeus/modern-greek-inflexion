@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from icecream import ic
-
 from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
 from modern_greek_inflexion import verb
 
@@ -21,7 +19,6 @@ class VerbTestAll(TestCase):
              'conjunctive': {'passive': {'ind': {'sg': {'ter': {'φανεί'}}}}},
              'aorist': {'passive': {'ind': {'sg': {'ter': {'φάνηκε'}}}}},
              'paratatikos': {'passive': {'ind': {'sg': {'ter': {'φαινόταν'}}}}}},
-            ic(verb.Verb('φαίνεται').all())
         )
 
     def test_verb_modal_brexei(self):

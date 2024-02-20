@@ -4,13 +4,21 @@ from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import count_syllables
 
+from modern_greek_inflexion.resources.prefixes import prefixes_before_augment
 from modern_greek_inflexion.verb.helpers import aorist_exists
 from modern_greek_inflexion.resources import greek_corpus, PENULTIMATE
-from modern_greek_inflexion.resources.verb import irregular_active_aorists, prefixes_before_augment
+from modern_greek_inflexion.resources.verb import irregular_active_aorists
 
 
 def create_basic_aorist_active(pres_form: str, active_root: str,
                                modal: bool = False) -> set:
+    """
+
+    :param pres_form:
+    :param active_root:
+    :param modal:
+    :return:
+    """
     active_aor_forms = []
 
     if modal:

@@ -4,7 +4,7 @@ from modern_greek_accentuation.accentuation import is_accented, where_is_accent,
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 from modern_greek_inflexion._exceptions import NotLegalAdjectiveException
-from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.typing import adjective_basic_forms
 from modern_greek_inflexion.resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT,
                                                         ULTIMATE,

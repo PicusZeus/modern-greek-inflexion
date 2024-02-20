@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from icecream import ic
 from modern_greek_accentuation.accentuation import *
 
-from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import *
 
 

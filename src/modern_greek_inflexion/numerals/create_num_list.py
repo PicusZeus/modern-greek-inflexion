@@ -1,15 +1,15 @@
 from modern_greek_accentuation.accentuation import count_syllables, remove_all_diacritics
 
 from ..adjective import create_all_basic_forms
-from ..resources import ADJ
-from ..resources.resources import greek_corpus, ADVERB
+from ..resources.variables import ADJ, ADVERB
+from ..resources import greek_corpus
 
 
 def create_num_adj(numeral: str, cardinal: bool = False) -> dict[ADJ: str, ADVERB: str]:
     """
-    :param numeral: numeral
-    :param cardinal: if it is a cardinal numeral
-    :return: forms in all three genders, ready to be parsed through adjective engine
+    :param numeral: numeral in nom masc
+    :param cardinal: if it is a cardinal numeral set to True
+    :return: a dictionary with two keys, ADJ, under which you get three basic forms (as string "masc/fem/neut"), and ADV
     """
 
     if cardinal:

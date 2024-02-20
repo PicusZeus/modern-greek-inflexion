@@ -6,7 +6,7 @@ from .._exceptions import NotInGreekException
 from ..resources import greek_pattern
 
 
-def create_basic_forms(pron: str) -> str | None:
+def create_basic_forms(pron: str) -> str:
     """
     :param pron: pronoun in nom sg masc, if declination applies
     :return: as in adj masc/fem/neut
