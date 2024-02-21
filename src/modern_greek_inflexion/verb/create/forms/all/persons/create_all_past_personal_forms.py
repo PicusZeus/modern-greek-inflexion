@@ -3,7 +3,7 @@ from __future__ import annotations
 from modern_greek_inflexion.resources.typing import presentConjugationType, voiceType, aspectType, personal_forms_type
 from modern_greek_inflexion.verb.helpers import compound_alternative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
-from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_roots_from_past
+from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_stem_from_augmented_past
 from modern_greek_inflexion.verb.recognize import recognize_past_conjugation
 from modern_greek_inflexion.resources.variables import PASSIVE, SG, TER, EIMAI_PARATATIKOS, IND, \
     MODAL, PARAT2_ACT, ROOT, IMPERF, CONJUGATION_IND, ULTIMATE
@@ -44,7 +44,7 @@ def create_all_past_personal_forms(verb: set,
                 or where_is_accent(data[ROOT]) == ULTIMATE:
             simple_aor = False
         stem = data[ROOT]
-        deaugmented_stem = create_roots_from_past(v, lemma)
+        deaugmented_stem = create_stem_from_augmented_past(v, lemma)
 
         if deaugmented_stem:
             # sometimes augment stays if it wasn't accented

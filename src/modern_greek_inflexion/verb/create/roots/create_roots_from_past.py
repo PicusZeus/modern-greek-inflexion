@@ -1,27 +1,22 @@
-from __future__ import annotations
-
 from modern_greek_accentuation.augmentify import deaugment_stem, deaugment_prefixed_form
 
 
-def create_roots_from_past(verb: str, lemma: str) -> str | None:
+def create_stem_from_augmented_past(past_form: str, pres_form: str) -> str:
     """
-
-    :param verb:
-    :param lemma:
-    :return:
+    This function creates deaugmented stem
+    :param past_form: past 1st sg form
+    :param pres_form: present simple 1st sg form
+    :return: deaugmented stem
     """
     # argument only in 1st person
 
-    if verb[-1] in ['α']:
-        stem = verb[:-1]
+    if past_form[-1] in ['α']:
+        stem = past_form[:-1]
     else:
         return None
-    deaugmented_stem = deaugment_stem(stem, lemma)
+    deaugmented_stem = deaugment_stem(stem, pres_form)
     deaugmented_stem_prefixed = deaugment_prefixed_form(stem)
     if deaugmented_stem:
         return deaugmented_stem
     else:
-
         return deaugmented_stem_prefixed
-
-

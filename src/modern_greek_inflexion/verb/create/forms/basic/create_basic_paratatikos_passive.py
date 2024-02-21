@@ -10,12 +10,12 @@ from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.verb import irregular_passive_paratatikos
 
 
-def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> bool:
+def passive_paratatikos_exists(f_person: str, th_person: str = None) -> bool:
     """
-
-    :param f_person:
-    :param th_person:
-    :return:
+    This function checks if created paratatikos exists in the language corpus
+    :param f_person: 1st person sg
+    :param th_person: 3rd person sg
+    :return: True or False
     """
     if not th_person:
         th_person = f_person[:-4] + 'ταν'
@@ -39,16 +39,16 @@ def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> b
 def create_basic_paratatikos_passive(pres_form: str,
                                      root: str,
                                      pres_conjugation: presentConjugationType,
-                                     pres_pass_form: tuple,
-                                     modal: bool = False) -> str | None:
+                                     pres_pass_form: set[str],
+                                     modal: bool = False) -> str:
     """
-
-    :param pres_form:
-    :param root:
-    :param pres_conjugation:
-    :param pres_pass_form:
-    :param modal:
-    :return:
+    This function creates basic par
+    :param pres_form: 1st person sg present simple tense
+    :param root: present tense stem
+    :param pres_conjugation: present conjugation type
+    :param pres_pass_form: present passive forms in a set
+    :param modal: if modal set to True
+    :return: 1st person sg passive paratatikos form, if multiple forms, separated by coma
     """
     pass_par = []
     root = remove_all_diacritics(root)

@@ -10,18 +10,17 @@ def create_basic_aorist_forms(pres_form: str,
                               deponens: bool = False,
                               not_deponens: bool = True,
                               modal_act: bool = False,
-                              modal_med: bool = False) -> str:
+                              modal_pass: bool = False) -> str:
 
     """
-    :param pres_form:
-    :param act_root:
-    :param passive_root:
-    :param deponens:
-    :param not_deponens:
-    :param modal_act:
-    :param modal_med:
-    :param alternative:
-    :return: aorist_basic_forms - active_alt,active_alt/passive_alt,passive_alt'
+    :param pres_form: 1st person sg present simple active or if deponens passive
+    :param act_root: active perfect stem
+    :param passive_root: passive perfect stem
+    :param deponens: if deponens set to True
+    :param not_deponens: if not deponens set to True
+    :param modal_act: if modal active set to True
+    :param modal_pass: if modal passive set to True
+    :return: aorist_basic_forms, str "active_alt,active_alt/passive_alt,passive_alt"
     """
 
     aorist_basic_forms = ''
@@ -29,7 +28,7 @@ def create_basic_aorist_forms(pres_form: str,
     if not_deponens or act_root:
 
         if passive_root:
-            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med)
+            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_pass)
             passive_aor_forms = ','.join(passive_aor_forms)
         else:
             passive_aor_forms = ''
@@ -48,7 +47,7 @@ def create_basic_aorist_forms(pres_form: str,
     elif deponens:
 
         if passive_root:
-            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med)
+            passive_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_pass)
 
             passive_aor_forms = ','.join(passive_aor_forms)
 
@@ -64,10 +63,10 @@ def create_basic_aorist_forms(pres_form: str,
 
         aorist_basic_forms = active_aor_forms + '/'
 
-    elif modal_med:
+    elif modal_pass:
 
         if passive_root:
-            active_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_med)
+            active_aor_forms = create_basic_aorist_passive(pres_form, passive_root, modal_pass)
             active_aor_forms = ','.join(active_aor_forms)
         else:
             active_aor_forms = ''

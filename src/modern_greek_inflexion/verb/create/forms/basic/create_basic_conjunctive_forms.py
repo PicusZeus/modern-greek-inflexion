@@ -7,26 +7,25 @@ from modern_greek_inflexion.resources.verb import deponens_with_active_perf_form
 from modern_greek_inflexion.verb.create import create_regular_perf_root
 
 
-def create_basic_conjunctive_forms(pres_form,
+def create_basic_conjunctive_forms(pres_form: str,
                                    pres_conjugation: presentConjugationType,
-                                   root,
-                                   deponens=False,
-                                   not_deponens=True,
-                                   intransitive_active=False,
-                                   modal_act=False,
-                                   modal_med=False) -> tuple[str, str, str, str]:
+                                   root: str,
+                                   deponens: bool = False,
+                                   not_deponens: bool = True,
+                                   only_active: bool = False,
+                                   modal_act: bool = False,
+                                   modal_pass: bool = False) -> tuple[str, str, str, str]:
 
     """
-    :param pres_form:
-    :param pres_conjugation:
-    :param root:
-    :param deponens:
-    :param not_deponens:
-    :param intransitive_active:
-    :param modal_act:
-    :param modal_med:
-    :param alternative:
-    :return: conjunctive_basic_forms, perf_root, act_root, passive_root
+    :param pres_form: 1st person sg present simple
+    :param pres_conjugation: present conjugation type
+    :param root: present tense stem
+    :param deponens: if deponens set to True
+    :param not_deponens: if not deponens set to True
+    :param only_active: if a verb creates only active forms, set to True
+    :param modal_act: if modal active, set to True
+    :param modal_pass: if modal passive, set to True
+    :return: a four element tuple: conjunctive_basic_forms, perf_root, act_root, passive_root
     """
     conjunctive_basic_forms = ''
     perf_root = ''
@@ -38,7 +37,7 @@ def create_basic_conjunctive_forms(pres_form,
         act_root = create_regular_perf_root(pres_form, voice=ACTIVE,
                                             pres_conjugation=pres_conjugation, root=root)
 
-        if not intransitive_active:
+        if not only_active:
             passive_root = create_regular_perf_root(pres_form, voice=PASSIVE,
                                                     pres_conjugation=pres_conjugation, root=root)
 
@@ -54,7 +53,7 @@ def create_basic_conjunctive_forms(pres_form,
                 act_perf_forms.append(active_perf_form)
             active_perf_form = ','.join(act_perf_forms)
 
-        if not intransitive_active:
+        if not only_active:
 
             if passive_root:
 
@@ -132,7 +131,7 @@ def create_basic_conjunctive_forms(pres_form,
 
         conjunctive_basic_forms = active_perf_form + '/'
 
-    elif modal_med:
+    elif modal_pass:
         perf_root = None
         if pres_form[-4:] == 'εται':
             perf_root = create_regular_perf_root(root + 'ομαι', PASSIVE,

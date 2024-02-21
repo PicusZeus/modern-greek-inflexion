@@ -17,9 +17,9 @@ from modern_greek_inflexion.resources.verb import irregular_active_paratatikos
 
 def active_paratatikos_exists(f_p: str) -> bool:
     """
-
-    :param f_p:
-    :return:
+    Check if created active paratatikos form exists in the language corpus
+    :param f_p: 1st person sg form
+    :return: True or False
     """
     th_pl = f_p[:-1] + 'αν'
     sec_sg = f_p[:-1] + 'ες'
@@ -30,14 +30,14 @@ def active_paratatikos_exists(f_p: str) -> bool:
 def create_basic_paratatikos_active(pres_form: str,
                                     root: str,
                                     pres_conjugation: presentConjugationType,
-                                    modal: bool = False) -> str | None:
+                                    modal: bool = False) -> str:
     """
-
-    :param pres_form:
-    :param root:
-    :param pres_conjugation:
-    :param modal:
-    :return:
+    This function creates active basic paratatikos forms
+    :param pres_form: present 1st person sg form or 3rd sg if modal
+    :param root: present root
+    :param pres_conjugation: present conjugation type
+    :param modal: if a verb is modal set to True
+    :return: paratatikos forms, if multiple, separated by coma
     """
 
     act_par = []

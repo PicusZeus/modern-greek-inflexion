@@ -1,6 +1,7 @@
 from modern_greek_inflexion.resources import greek_pattern
 from modern_greek_inflexion.resources.prefixes import prefixes_before_augment, prefixes_detachable, \
     prefixes_detachable_weak
+from modern_greek_inflexion.resources.typing import basic_forms_type
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_forms import create_basic_aorist_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_conjunctive_forms import create_basic_conjunctive_forms
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_forms import create_basic_paratatikos_forms
@@ -29,20 +30,19 @@ from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, A
 from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
 
 
-def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
+def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_type:
     """
+    :param pres_form: 1st person sg present
     :param para: there is a problem with prefix para, which can mean different things and so a verb prefixed with it can mean
     either "too much", and "from above". In the first instance it is fully detachable and a verb is conjugated
     as if it was a root verb, in the second instance the perfective tense can be different and also augment is handled
     differently. So I will add a flag 'para', so that if false it can be conjugated as a simple verb, if true, as
     a detachable verb
-   :param pres_form: 1st person sg present
-
-   :return: a dictionary {PRESENT: '', CONJUNCTIVE: '', AORIST: '', PARATATIKOS: ''} and others, for times it
-   gives active and medio-passive (if exists) divided by '/'.
+   :return: a dictionary with keys PRESENT, CONJUNCTIVE, AORIST, PARATATIKOS, PASSIVE_PERFECT_PARTICIPLE and other types
+   of participles, MODAL (boolean) and PRES_CONJUGATION.
    Modals are given in 3rd person, alternative formse are separated by coma,
-   passive participles on menos are given only in masc separated by coma
-   if there are alternatives
+   passive participles on menos are given only in masc separated by coma,
+   other participles are given in basic forma (str "masc/fem/neut")
     """
     if not greek_pattern.match(pres_form):
         raise NotInGreekException
@@ -64,9 +64,9 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
     archaic_detachable = ['καίω', 'επενδύω', 'εκδύω', 'λύω', 'δεικνύω', 'ζευγνύω', 'νέμω', 'πέμπω', 'λάμπω', 'τρέπω',
                           'ελκύω', 'σβεννύω', 'πτύω', 'συμπηγνύω', 'ρρέω', 'ρέω', 'στέλλω', 'βάλλω', 'πλέκομαι',
                           'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'δίδω', 'στέλλομαι',
-                          'στέκομαι',
-                          'τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι', 'ίπταμαι', 'προσαρτώ',
-                          'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει', 'υφαίνω']
+                          'στέκομαι','τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι',
+                          'ίπταμαι', 'προσαρτώ', 'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει',
+                          'υφαίνω']
 
     """ 
     special case for common verbs with modern "para" prefix, which can be confused with ancient "para" and cause
@@ -98,7 +98,8 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
 
                 pres_form = without_prefix
 
-    if pres_form in para_detachable_only or (para and pres_form.startswith('παρα') and pres_form not in para_detachable_never):
+    if pres_form in para_detachable_only or (
+            para and pres_form.startswith('παρα') and pres_form not in para_detachable_never):
         prefix = ['παρα', 'παρα']
         pres_form = pres_form[4:]
 
@@ -139,7 +140,7 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
     # deponentia
     not_deponens = True
     deponens = False
-    intransitive_active = False
+    only_active = False
     modal_act = False
     modal_med = False
 
@@ -159,12 +160,16 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
 
     # presens
     has_passive = False
-    present_basic, pres_conjugation, root, intransitive_active = create_basic_present_forms(pres_form, deponens=deponens, not_deponens=not_deponens, intransitive_active=intransitive_active, modal_act=modal_act, modal_med=modal_med)
+    present_basic, pres_conjugation, root, only_active = create_basic_present_forms(pres_form, deponens=deponens,
+                                                                                    not_deponens=not_deponens,
+                                                                                    only_active=only_active,
+                                                                                    modal_act=modal_act,
+                                                                                    modal_pass=modal_med)
 
     verb_temp[PRES_CONJUGATION] = pres_conjugation
 
     if pres_form[:-1] in irregular_passive_roots:
-        intransitive_active = False
+        only_active = False
 
     pres_act = pres_pass = None
     try:
@@ -193,9 +198,9 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
                                        root,
                                        deponens=deponens,
                                        not_deponens=not_deponens,
-                                       intransitive_active=intransitive_active,
+                                       only_active=only_active,
                                        modal_act=modal_act,
-                                       modal_med=modal_med)
+                                       modal_pass=modal_med)
 
     if conjunctive_basic_forms:
 
@@ -212,9 +217,8 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
 
     # aorist
 
-
     aorist_basic_forms = create_basic_aorist_forms(pres_form, act_root, passive_root, deponens=deponens,
-                                                   not_deponens=not_deponens, modal_act=modal_act, modal_med=modal_med)
+                                                   not_deponens=not_deponens, modal_act=modal_act, modal_pass=modal_med)
 
     aorist_active = []
     if aorist_basic_forms:
@@ -315,7 +319,9 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
             # aorist
             aorist_active_cmp = verb_temp[AORIST][ACTIVE]
             alt_aorists = list(aorist_active_cmp)
-            alt_aorists.extend([put_accent_on_the_antepenultimate(prefix[0] + deaugment_past_form(f, pres_form)) for f in aorist_active])
+            alt_aorists.extend(
+                [put_accent_on_the_antepenultimate(prefix[0] + deaugment_past_form(f, pres_form)) for f in
+                 aorist_active])
             alt_aorists.extend([put_accent_on_the_antepenultimate(f) for f in alt_aorists])
 
             alt_aorist_active = [f for f in alt_aorists if f in greek_corpus]
@@ -327,7 +333,9 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
             # paratatikos
             paratatikos_active_cmp = verb_temp[PARATATIKOS][ACTIVE]
             alt_paratatikos = list(paratatikos_active_cmp)
-            alt_paratatikos.extend([put_accent_on_the_antepenultimate(prefix[0] + deaugment_past_form(f, pres_form)) for f in paratatikos_active])
+            alt_paratatikos.extend(
+                [put_accent_on_the_antepenultimate(prefix[0] + deaugment_past_form(f, pres_form)) for f in
+                 paratatikos_active])
 
             alt_paratatikos_active = [f for f in alt_paratatikos if f in greek_corpus]
             if alt_paratatikos_active:
@@ -359,4 +367,3 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
         del verb_temp[PARATATIKOS]
 
     return verb_temp
-

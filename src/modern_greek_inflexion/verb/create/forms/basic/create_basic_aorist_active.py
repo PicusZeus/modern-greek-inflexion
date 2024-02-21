@@ -15,11 +15,11 @@ def create_basic_aorist_active(pres_form: str,
                                active_root: str,
                                modal: bool = False) -> set:
     """
-
-    :param pres_form:
-    :param active_root:
-    :param modal:
-    :return:
+    This function creates basic aorist active forms
+    :param pres_form: 1st person sg present time
+    :param active_root: perfect active stem
+    :param modal: if modal, set to True
+    :return: set of created and checked forms
     """
     active_aor_forms = []
 

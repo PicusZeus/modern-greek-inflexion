@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources import greek_corpus
@@ -7,114 +5,117 @@ from modern_greek_inflexion.resources.typing import aspectType, voiceType, tense
 from modern_greek_inflexion.resources.variables import *
 
 
-def recognize_active_non_past_conjugation(verb: str,
+def recognize_active_non_past_conjugation(not_past_form: str,
                                           aspect: aspectType = IMPERF,
                                           tense: tenseType = FIN,
                                           voice: voiceType = ACTIVE) -> recognized_conjugation_type:
     """
-    can be used for aspects: 'continuous', 'simple', 'simple_passive'
-    verb is expected to be in 1st person sg, else it's assumed it's modal verb
-    :param verb:
-    :param aspect:
-    :param tense:
-    :param voice:
-    :return:
+    This function recognizes non past conjugation.
+    :param not_past_form: 1st person sg
+    :param aspect: IMPERF of PERF
+    :param tense: FIN or PAST
+    :param voice: ACTIVE or PASSIVE
+    :return: a dictionary with such a structure {ASPECT: aspect, VOICE: voice, TENSE: tense,
+            ROOT: root,
+            CONJUGATION_IND: conjugation_ind,
+            CONJUGATION_IMP: conjugation_imp,
+            CONJUGATION_PART: conjugation_part}
     """
 
-    verb = verb.strip()
+    not_past_form = not_past_form.strip()
     root = ''
     conjugation_ind = ''
     conjugation_imp = ''
     conjugation_part = ''
 
     # recognize conjugation
-    if (verb.endswith('έω') and (not verb.endswith('λέω') or verb.endswith('πλέω')) or
-            verb.endswith('παλαίω') or verb.endswith('πταίω') or verb.endswith('παίω')):
+    if (not_past_form.endswith('έω') and (not not_past_form.endswith('λέω') or not_past_form.endswith('πλέω')) or
+            not_past_form.endswith('παλαίω') or not_past_form.endswith('πταίω') or not_past_form.endswith('παίω')):
 
-        root = verb[:-1]
+        root = not_past_form[:-1]
         conjugation_ind = CON1_ACT
         conjugation_imp = IMPER_ACT_CONT_1
         conjugation_part = PRESENT_ACTIVE_PART_1
 
-    elif (verb.endswith('έω') or (
-            verb.endswith('άω') and (count_syllables(verb, true_syllabification=False) == 2 or aspect == PERF))
-          or verb.endswith('αίω') or verb.endswith('ακούω') or verb.endswith('ώω')):
-        root = verb[:-1]
+    elif (not_past_form.endswith('έω') or (
+            not_past_form.endswith('άω') and (count_syllables(not_past_form, true_syllabification=False) == 2 or aspect == PERF))
+          or not_past_form.endswith('αίω') or not_past_form.endswith('ακούω') or not_past_form.endswith('ώω')):
+        root = not_past_form[:-1]
         conjugation_ind = CON2C_ACT
         conjugation_imp = IMPER_ACT_CONT_2C
         conjugation_part = PRESENT_ACTIVE_PART_2C
 
-    elif verb[-2:] == 'άω':
-        root = verb[:-2]
+    elif not_past_form[-2:] == 'άω':
+        root = not_past_form[:-2]
         conjugation_ind = CON2A_ACT
         conjugation_imp = IMPER_ACT_CONT_2A
         conjugation_part = PRESENT_ACTIVE_PART_2
 
-    elif (verb[-1] == 'ώ') or (verb[-1:] == 'ω' and count_syllables(verb) == 1):
-        root = verb[:-1]
+    elif (not_past_form[-1] == 'ώ') or (not_past_form[-1:] == 'ω' and count_syllables(not_past_form) == 1):
+        root = not_past_form[:-1]
 
         conjugation_ind = CON2B_ACT
         conjugation_imp = IMPER_ACT_CONT_2B
         conjugation_part = PRESENT_ACTIVE_PART_2
 
-        if (put_accent_on_the_ultimate(verb[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus
-            and verb[:-1] + 'ά' in greek_corpus or (verb[:-1] + 'άς' in greek_corpus or
-                                                    verb[:-1] + 'άτε' in greek_corpus)) and aspect != PERF:
+        if (put_accent_on_the_ultimate(not_past_form[:-1] + 'είς', accent_one_syllable=False) not in greek_corpus
+            and not_past_form[:-1] + 'ά' in greek_corpus or (not_past_form[:-1] + 'άς' in greek_corpus or
+                                                             not_past_form[:-1] + 'άτε' in greek_corpus)) and aspect != PERF:
 
-            if verb[:-1] + 'άω' in greek_corpus or verb[:-1] + 'άει' in greek_corpus:
+            if not_past_form[:-1] + 'άω' in greek_corpus or not_past_form[:-1] + 'άει' in greek_corpus:
                 conjugation_ind = CON2A_ACT
                 conjugation_imp = IMPER_ACT_CONT_2A
 
-            elif (verb[:-1] + 'εί' not in greek_corpus and
-                  (verb[:-1] + 'άτε' in greek_corpus)):
+            elif (not_past_form[:-1] + 'εί' not in greek_corpus and
+                  (not_past_form[:-1] + 'άτε' in greek_corpus)):
                 conjugation_ind = CON2AK_ACT
                 conjugation_imp = IMPER_ACT_CONT_2A
-            elif aspect != PERF and verb[-2] == 'ι' and verb[-3] not in vowels:
+            elif aspect != PERF and not_past_form[-2] == 'ι' and not_past_form[-3] not in vowels:
                 conjugation_ind = CON2AK_ACT
                 conjugation_imp = IMPER_ACT_CONT_2A
-        elif aspect != PERF and verb[-2] == 'ι' and verb[-3] not in vowels:
+        elif aspect != PERF and not_past_form[-2] == 'ι' and not_past_form[-3] not in vowels:
             conjugation_ind = CON2AK_ACT
             conjugation_imp = IMPER_ACT_CONT_2A
 
         archaic_ow = ['πληρώ', 'κυρώ', 'αξιώ', 'βιώ', 'γομώ', 'ζηλώ']
-        if aspect != PERF and True in [verb.endswith(v) for v in archaic_ow]:
+        if aspect != PERF and True in [not_past_form.endswith(v) for v in archaic_ow]:
 
             conjugation_ind = CON2D_ACT
             conjugation_imp = IMPER_ACT_CONT_2D
             conjugation_part = PRESENT_ACTIVE_PART_2
 
-    elif verb.endswith('ω'):
+    elif not_past_form.endswith('ω'):
 
-        root = verb[:-1]
+        root = not_past_form[:-1]
         conjugation_ind = CON1_ACT
         conjugation_imp = IMPER_ACT_CONT_1
         conjugation_part = PRESENT_ACTIVE_PART_1
 
-    elif verb == 'είμαι':
+    elif not_past_form == 'είμαι':
         root = ''
         conjugation_ind = EIMAI
         conjugation_imp = IMPER_ACT_EIMAI
         conjugation_part = PRESENT_ACTIVE_PART_EIMAI
 
-    elif len(verb) > 5 and verb[-5:] == 'είμαι':
-        root = verb[:-5]
+    elif len(not_past_form) > 5 and not_past_form[-5:] == 'είμαι':
+        root = not_past_form[:-5]
         conjugation_ind = EIMAI
 
         conjugation_part = PRESENT_ACTIVE_PART_EIMAI
 
-    elif verb == '':
+    elif not_past_form == '':
         # sometimes there is no simple future form
         pass
 
-    elif verb[-2:] in ['ει', 'εί']:
-        root = verb[:-2]
+    elif not_past_form[-2:] in ['ει', 'εί']:
+        root = not_past_form[:-2]
         conjugation_ind = CON1_ACT_MODAL
-        if verb[-2:] == 'εί':
+        if not_past_form[-2:] == 'εί':
             conjugation_ind = CON2_ACT_MODAL
 
     else:
         # else it's assumed it's modal
-        return {ASPECT: aspect, TENSE: tense, VOICE: voice, ROOT: verb,
+        return {ASPECT: aspect, TENSE: tense, VOICE: voice, ROOT: not_past_form,
                 CONJUGATION_IND: MODAL, CONJUGATION_IMP: '', CONJUGATION_PART: ''}
 
     if aspect == PERF:
@@ -123,18 +124,18 @@ def recognize_active_non_past_conjugation(verb: str,
 
         conjugation_imp = IMPER_ACT_AOR_A
 
-        if count_syllables(verb) == 1:
+        if count_syllables(not_past_form) == 1:
             conjugation_imp = IMPER_ACT_AOR_C
-        elif conjugation_ind == CON2B_ACT or verb in ['κατέβω', 'ανέβω']:
+        elif conjugation_ind == CON2B_ACT or not_past_form in ['κατέβω', 'ανέβω']:
             conjugation_imp = IMPER_ACT_AOR_D
-        elif verb.endswith('βω'):
+        elif not_past_form.endswith('βω'):
             # compounds with bainw has either
             conjugation_imp = IMPER_ACT_CONT_1B
         elif root == '':
             # sometimes there is no simple future form
             pass
 
-        elif (root[-1] not in ['σ', 'ψ', 'ξ', 'ρ', 'λ'] or root in ['πέσ']) and verb != 'φάω':
+        elif (root[-1] not in ['σ', 'ψ', 'ξ', 'ρ', 'λ'] or root in ['πέσ']) and not_past_form != 'φάω':
             conjugation_imp = IMPER_ACT_AOR_B
             # anebainw
             if conjugation_ind == CON2B_ACT and put_accent_on_the_penultimate(root + 'α') in greek_corpus:

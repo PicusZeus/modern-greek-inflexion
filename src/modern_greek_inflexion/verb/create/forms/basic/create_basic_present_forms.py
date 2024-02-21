@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from modern_greek_accentuation.accentuation import put_accent_on_the_antepenultimate, put_accent_on_the_penultimate
 
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.verb.helpers import check_personal_forms
 from modern_greek_inflexion.resources import CONJUGATION_IND, ROOT, CON2A_PASS, CON2B_PASS, CON2AK_PASS, CON2A_ACT, \
     CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, CON1_ACT, greek_corpus
@@ -12,17 +13,18 @@ from modern_greek_inflexion.verb.recognize import recognize_passive_present_cont
 def create_basic_present_forms(base_form: str,
                                deponens: bool = False,
                                not_deponens: bool = True,
-                               intransitive_active: bool = False,
+                               only_active: bool = False,
                                modal_act: bool = False,
-                               modal_med: bool = False) -> tuple[str, str, str, bool]:
+                               modal_pass: bool = False) -> tuple[str, presentConjugationType, str, bool]:
     """
-    :param base_form:
-    :param deponens:
-    :param not_deponens:
-    :param intransitive_active:
-    :param modal_act:
-    :param modal_med:
-    :return: present_basic_forms: str, pres_conjugation: str, root: str, intransitive_active: bool
+    This function creates basic present forms
+    :param base_form: basic lemma
+    :param deponens: set to true if deponens
+    :param not_deponens: set to True if not deponens
+    :param only_active: if the verb creates only active forms, set to True
+    :param modal_act: if the verb is active modal, set to True
+    :param modal_pass: if the verb is passive modal, set to True
+    :return: present_basic_forms: str, pres_conjugation: str, root: str, only_active: bool
     """
 
     present_basic_forms = ''
@@ -166,7 +168,7 @@ def create_basic_present_forms(base_form: str,
             present_basic_forms = base_form + '/' + pres_pass_forms
         else:
             present_basic_forms = base_form
-            intransitive_active = True
+            only_active = True
 
     elif modal_act:
         active_conjugation = recognize_active_non_past_conjugation(base_form)
@@ -174,11 +176,11 @@ def create_basic_present_forms(base_form: str,
         root = active_conjugation[ROOT]
         present_basic_forms = base_form
 
-    elif modal_med:
+    elif modal_pass:
         active_conjugation = recognize_passive_present_continuous_conjugation(base_form)
         pres_conjugation = active_conjugation[CONJUGATION_IND]
         root = active_conjugation[ROOT]
         # modals and others
         present_basic_forms = base_form
 
-    return present_basic_forms, pres_conjugation, root, intransitive_active
+    return present_basic_forms, pres_conjugation, root, only_active

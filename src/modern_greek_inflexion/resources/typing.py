@@ -107,6 +107,19 @@ recognized_conjugation_type = dict[ASPECT: aspectType, VOICE: voiceType, TENSE: 
                                    ROOT: str, CONJUGATION_IND: str, CONJUGATION_IMP: str, CONJUGATION_PART: str]
 
 
+basic_forms_type = dict[ACT_PRES_PARTICIPLE: set[str],
+                        ACTIVE_AORIST_PARTICIPLE: set[str],
+                        AORIST: dict[ACTIVE: set[str],
+                                     PASSIVE: set[str]],
+                        ARCH_ACT_PRES_PARTICIPLE: set[str],
+                        CONJUNCTIVE: dict[ACTIVE: set[str], PASSIVE: set[str]],
+                        MODAL: bool,
+                        PRES_CONJUGATION: str,
+                        PARATATIKOS: dict[ACTIVE: set[str], PASSIVE: set[str]],
+                        PASSIVE_AORIST_PARTICIPLE: set[str],
+                        PASSIVE_PERFECT_PARTICIPLE: set[str],
+                        PRESENT: dict[ACTIVE: set[str], PASSIVE: set[str]]]
+
 personal_forms_type = dict[SG: dict[PRI: list[str], SEC: list[str], TER: list[str]],
                            PL: dict[PRI: list[str], SEC: list[str], TER: list[str]]]
 

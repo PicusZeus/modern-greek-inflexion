@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from icecream import ic
 
 from modern_greek_inflexion._exceptions import NotInGreekException
 from modern_greek_inflexion import verb
@@ -140,6 +141,21 @@ class VerbTestBasic(TestCase):
              'paratatikos': {'active': {'σβαρνούσα'}},
              'passive_perfect_participle': {'σβαρνισμένος'},
              'present': {'active': {'σβαρνώ'}}}
+
+        )
+
+    def test_verb_sbarnizw(self):
+        self.assertDictEqual(
+            basic_verb('σβαρνίζω'),
+            {'act_pres_participle': {'σβαρνίζοντας'},
+             'aorist': {'active': {'σβάρνισα'}, 'passive': {'σβαρνίσθηκα', 'σβαρνίστηκα'}},
+             'conjunctive': {'active': {'σβαρνίσω'}, 'passive': {'σβαρνισθώ', 'σβαρνιστώ'}},
+             'modal': False,
+             'paratatikos': {'active': {'σβάρνιζα'}, 'passive': {'σβαρνιζόμουν'}},
+             'passive_aorist_participle': {'σβαρνισθείς/σβαρνισθείσα/σβαρνισθέν'},
+             'passive_perfect_participle': {'σβαρνισμένος'},
+             'pres_conjugation': 'con1_act',
+             'present': {'active': {'σβαρνίζω'}, 'passive': {'σβαρνίζομαι'}}}
 
         )
 

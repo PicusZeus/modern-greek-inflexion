@@ -6,8 +6,8 @@ from modern_greek_inflexion.resources.verb import irregular_passive_aorists
 
 def passive_aorist_exists(f_s: str) -> bool:
     """
-
-    :param f_s:
+    This function checks if a passive aorist exists in the language corpus
+    :param f_s: first person sg
     :return: True or False
     """
     if f_s.endswith('ηκα'):
@@ -22,13 +22,13 @@ def passive_aorist_exists(f_s: str) -> bool:
 
 def create_basic_aorist_passive(pres_form: str,
                                 passive_root: str,
-                                modal: bool = False) -> set:
+                                modal: bool = False) -> set[str]:
     """
-
-    :param pres_form:
-    :param passive_root:
-    :param modal:
-    :return:
+    This function creates passive aorist basic form
+    :param pres_form: present 1st person sg form
+    :param passive_root: passive stem already created for subjunctive
+    :param modal: if verb is modal set to True
+    :return: a set with 1st person sg passive aorist forms (sometimes there are more than one)
     """
     passive_aor_forms = []
 

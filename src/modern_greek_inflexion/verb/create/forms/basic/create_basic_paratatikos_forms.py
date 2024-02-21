@@ -14,19 +14,20 @@ def create_basic_paratatikos_forms(pres_form: str,
                                    not_deponens: bool = True,
                                    modal_act: bool = False,
                                    modal_med: bool = False,
-                                   has_passive: tuple | bool = False,
-                                   ) -> str | None:
+                                   has_passive: set[str] = False,
+                                   ) -> str:
     """
-
-    :param pres_form:
-    :param root:
-    :param pres_conjugation:
-    :param deponens:
-    :param not_deponens:
-    :param modal_act:
-    :param modal_med:
-    :param has_passive:
-    :return:
+    This function creates basic paratatikos forms
+    :param pres_form: 1st person sg present simple
+    :param root: present tense verb stem
+    :param pres_conjugation: present tense conjugation type
+    :param deponens: If it's a deponens set to True
+    :param not_deponens: If it's not a deponens set to True
+    :param modal_act: If it's modal active verb set to True
+    :param modal_med: If it's modal passive verb set to True
+    :param has_passive: if a verb has a passive voice, set with basic present passive forms
+    :return: active and passive basic forms separated by a slash ('/'), if there are multiple forms
+    for a voice, then forms separated by a coma.
     """
     paratatikos_basic_forms = None
 

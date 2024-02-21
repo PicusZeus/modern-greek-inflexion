@@ -6,81 +6,80 @@ from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.variables import *
 
 
-def recognize_passive_past_continuous_conjugation(lemma: str,
-                                                  verb: str,
-                                                  pres_con: presentConjugationType) -> tuple:
+def recognize_passive_past_continuous_conjugation(pres_form: str,
+                                                  pass_paratatikos_form: str,
+                                                  pres_con: presentConjugationType) -> tuple[str, str]:
     """
 
-    :param lemma:
-    :param verb:
+    :param pres_form:
+    :param pass_paratatikos_form:
     :param pres_con:
-    :return:
+    :return: two element tuple, the first element is a passive paratatikos stem and the second one is passive paratatikos conjugation type
     """
-    verb = verb.strip()
+    pass_paratatikos_form = pass_paratatikos_form.strip()
     root = None
 
     if pres_con == CON2F_PASS:
         conjugation_ind = PARAT2F_PASS
-        root = verb[:-6]
-
+        root = pass_paratatikos_form[:-6]
 
     elif pres_con == CON2C_PASS:
-        root = verb[:-5]
+        root = pass_paratatikos_form[:-5]
         conjugation_ind = PARAT2C_PASS
 
-    elif len(verb) >= 7 and 'ιόμουν' in verb[-7:]:
-        if verb[-1] == 'ν':
-            root = verb[:-6]
+    elif len(pass_paratatikos_form) >= 7 and 'ιόμουν' in pass_paratatikos_form[-7:]:
+        if pass_paratatikos_form[-1] == 'ν':
+            root = pass_paratatikos_form[:-6]
         else:
             # if iomouna
-            root = verb[:-7]
+            root = pass_paratatikos_form[:-7]
         conjugation_ind = PARAT2A_PASS
 
-    elif verb.endswith('όμουν') and pres_con == CON2AK_PASS:
-        root = verb[:-5]
+    elif pass_paratatikos_form.endswith('όμουν') and pres_con == CON2AK_PASS:
+        root = pass_paratatikos_form[:-5]
         conjugation_ind = PARAT2AK_PASS
 
-    elif len(verb) >= 6 and 'όμουν' in verb[-6:]:
-        if verb[-5:] == 'όμουν':
-            root = verb[:-5]
+    elif len(pass_paratatikos_form) >= 6 and 'όμουν' in pass_paratatikos_form[-6:]:
+        if pass_paratatikos_form[-5:] == 'όμουν':
+            root = pass_paratatikos_form[:-5]
         else:
             # if omouna
-            root = verb[:-6]
+            root = pass_paratatikos_form[:-6]
         conjugation_ind = PARAT1_PASS
         # if koimamai
-        if lemma[-4:] == 'άμαι':
+        if pres_form[-4:] == 'άμαι':
             conjugation_ind = PARAT2C_PASS
-            root = verb[:-5]
-        elif lemma[-4:] == 'έμαι':
+            root = pass_paratatikos_form[:-5]
+        elif pres_form[-4:] == 'έμαι':
             conjugation_ind = PARAT2D_PASS
-            root = verb[:-5]
-    elif len(verb) >= 7 and 'ούμουν' in verb[-7:]:
-        if verb[-6:] == 'ούμουν':
-            root = verb[:-6]
+            root = pass_paratatikos_form[:-5]
+    elif len(pass_paratatikos_form) >= 7 and 'ούμουν' in pass_paratatikos_form[-7:]:
+        if pass_paratatikos_form[-6:] == 'ούμουν':
+            root = pass_paratatikos_form[:-6]
         else:
             # if ούmouna
-            root = verb[:-7]
+            root = pass_paratatikos_form[:-7]
         conjugation_ind = PARAT2B_PASS
 
-    elif len(verb) >= 5 and 'έμην' in verb[-4:]:
+    elif len(pass_paratatikos_form) >= 5 and 'έμην' in pass_paratatikos_form[-4:]:
 
-        if verb[-4:] == 'έμην':
-            root = verb[:-4]
+        if pass_paratatikos_form[-4:] == 'έμην':
+            root = pass_paratatikos_form[:-4]
 
         conjugation_ind = PARAT2D_PASS
-    elif len(verb) >= 5 and 'άμην' in verb[-4:]:
+    elif len(pass_paratatikos_form) >= 5 and 'άμην' in pass_paratatikos_form[-4:]:
 
-        if verb[-4:] == 'άμην':
-            root = verb[:-4]
+        if pass_paratatikos_form[-4:] == 'άμην':
+            root = pass_paratatikos_form[:-4]
 
         conjugation_ind = PARAT2E_PASS
 
-    elif 'ήμουν' in verb:
+    elif 'ήμουν' in pass_paratatikos_form:
         root = ''
         conjugation_ind = EIMAI_PARATATIKOS
 
     else:
-        return verb, MODAL
+        return pass_paratatikos_form, MODAL
 
     if root:
         return root, conjugation_ind
