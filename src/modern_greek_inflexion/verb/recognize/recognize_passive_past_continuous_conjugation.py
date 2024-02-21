@@ -62,12 +62,6 @@ def recognize_passive_past_continuous_conjugation(lemma: str,
             root = verb[:-7]
         conjugation_ind = PARAT2B_PASS
 
-    # elif len(verb) >= 6 and 'ούμην' in verb[-5:]:
-    #     if verb[-5:] == 'ούμην':
-    #         root = verb[:-5]
-    #
-    #     conjugation_ind = PARAT2B_PASS_LOGIA
-
     elif len(verb) >= 5 and 'έμην' in verb[-4:]:
 
         if verb[-4:] == 'έμην':

@@ -1,4 +1,3 @@
-
 from enum import Enum
 from .variables import *
 from typing import NewType, Union
@@ -71,6 +70,7 @@ class PresentConjugation(Enum):
 
 presentConjugationType = NewType("presentConjugationType", PresentConjugation)
 
+
 class Numbers(Enum):
     PL = dict
     SG = dict
@@ -86,6 +86,13 @@ class Adjective(Enum):
     GENDER = Genders
 
 
+class Tenses(Enum):
+    FIN = FIN
+    PAST = PAST
+
+
+tenseType = NewType("tenseType", Tenses)
+
 cases = dict[NOM: Union[str, tuple], VOC: Union[str, tuple], ACC: Union[str, tuple], GEN: Union[str, tuple]]
 
 numbers = dict[SG: cases, PL: cases]
@@ -95,6 +102,14 @@ declension_forms_type = dict[FEM: numbers, MASC: numbers, NEUT: numbers]
 adjective_basic_forms = dict[ADJ: str, COMPARATIVE: str, ADVERB: str, ADVERB_COMPARATIVE: str]
 
 noun_basic_forms = dict[NOM_SG: str, GEN_SG: str, NOM_PL: str, GENDERS: list[genderType], PROPER_NAME: bool]
+
+recognized_conjugation_type = dict[ASPECT: aspectType, VOICE: voiceType, TENSE: tenseType,
+                                   ROOT: str, CONJUGATION_IND: str, CONJUGATION_IMP: str, CONJUGATION_PART: str]
+
+
+personal_forms_type = dict[SG: dict[PRI: list[str], SEC: list[str], TER: list[str]],
+                           PL: dict[PRI: list[str], SEC: list[str], TER: list[str]]]
+
 # adjective_type = dict[]
 
 # ADJ: masc, fem, neut

@@ -54,10 +54,7 @@ INCORRECT_ACCENT = 'incorrect_accent'
 
 # var
 GENDERS = 'genders'
-CONJUGATION_IND = 'conjugation_ind'
-CONJUGATION_IMP = 'conjugation_imp'
-ROOT = 'root'
-IMPER = 'imper'
+
 
 # POS
 ADJ = 'adj'
@@ -179,5 +176,16 @@ WITHOUT_GEN_NEUT_I = 'without_gen_neut_i'
 ADJ_FEM_OS_ONLY = "adj_fem_os_only"
 ADJ_FEM_OS_ALSO = "adj_fem_os_also"
 
-ACT_PRES_PARTICIPLE = 'act_pres_participle'
 
+
+
+# verb inflexion keys:
+ASPECT = 'aspect'
+VOICE = 'voice'
+TENSE = 'tense'
+CONJUGATION_IND = 'conjugation_ind'
+CONJUGATION_IMP = 'conjugation_imp'
+ROOT = 'root'
+IMPER = 'imper'
+ACT_PRES_PARTICIPLE = 'act_pres_participle'
+CONJUGATION_PART = 'conjugation_part'

@@ -1,4 +1,4 @@
-from modern_greek_inflexion.resources.typing import voiceType
+from modern_greek_inflexion.resources.typing import voiceType, personal_forms_type
 from modern_greek_inflexion.verb.helpers import compound_alternative_forms
 from modern_greek_inflexion.resources import ACTIVE, PASSIVE, IND, ROOT, CONJUGATION_IND, CONJUGATION_IMP, \
     CON1_ACT_MODAL, SG, TER, MODAL
@@ -7,7 +7,7 @@ from modern_greek_inflexion.verb.recognize import recognize_active_non_past_conj
     recognize_passive_present_continuous_conjugation
 
 
-def create_all_imperfect_personal_forms(verb: str, voice: voiceType) -> tuple[dict, str]:
+def create_all_imperfect_personal_forms(verb: str, voice: voiceType) -> tuple[personal_forms_type, str]:
     """
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.

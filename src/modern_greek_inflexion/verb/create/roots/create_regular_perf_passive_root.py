@@ -14,6 +14,14 @@ def create_regular_perf_passive_root(verb: str,
                                      root: str = None) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated
+    """
+
+    :param verb:
+    :param act_perf_root:
+    :param pres_conjugation:
+    :param root:
+    :return:
+    """
     perf_root = None
     irregular = False
 

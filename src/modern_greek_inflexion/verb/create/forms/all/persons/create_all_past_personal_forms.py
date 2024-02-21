@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from modern_greek_inflexion.resources.typing import presentConjugationType, voiceType, aspectType
+from modern_greek_inflexion.resources.typing import presentConjugationType, voiceType, aspectType, personal_forms_type
 from modern_greek_inflexion.verb.helpers import compound_alternative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
 from modern_greek_inflexion.verb.create.roots.create_roots_from_past import create_roots_from_past
@@ -16,7 +16,7 @@ def create_all_past_personal_forms(verb: set,
                                    lemma: str,
                                    aspect: aspectType,
                                    voice: voiceType,
-                                   pres_con: presentConjugationType = None) -> dict:
+                                   pres_con: presentConjugationType = None) -> personal_forms_type:
     """
     :param pres_con:
     :param voice:

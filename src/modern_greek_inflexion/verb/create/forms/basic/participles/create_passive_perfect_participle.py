@@ -69,8 +69,6 @@ def create_passive_perfect_participle(pres_form: str,
 
             elif passive_root[-1] == 'θ' and not passive_root.endswith('σθ'):
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-1] + 'μενος'))
-                # if passive_root.endswith('αθ'):
-                #     passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root[:-2] + 'ημενος'))
 
             else:
                 passive_perfect_participles.append(put_accent_on_the_penultimate(passive_root + 'μένος'))

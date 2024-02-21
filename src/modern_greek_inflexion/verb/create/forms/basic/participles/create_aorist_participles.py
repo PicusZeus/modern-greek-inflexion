@@ -7,7 +7,7 @@ from modern_greek_inflexion.resources import greek_corpus
 
 def create_active_aorist_participle(pres_root: str, act_roots: str) -> str:
     """
-
+    This function creates basic forms for active aorist participle
     :param pres_root:
     :param act_roots:
     :return:
@@ -47,6 +47,11 @@ def create_active_aorist_participle(pres_root: str, act_roots: str) -> str:
 
 
 def create_passive_aorist_participle(passive_root: str) -> str | None:
+    """
+
+    :param passive_root:
+    :return:
+    """
     pass_aor_part = None
     if (passive_root + 'είσα' in greek_corpus or
             passive_root + 'έντες' in greek_corpus or

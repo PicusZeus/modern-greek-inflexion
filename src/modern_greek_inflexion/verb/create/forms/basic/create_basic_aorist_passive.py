@@ -8,7 +8,7 @@ def passive_aorist_exists(f_s: str) -> bool:
     """
 
     :param f_s:
-    :return:
+    :return: True or False
     """
     if f_s.endswith('ηκα'):
         th_s = f_s[:-1] + 'ε'

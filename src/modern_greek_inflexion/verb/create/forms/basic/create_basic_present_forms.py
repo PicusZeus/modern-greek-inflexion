@@ -181,5 +181,4 @@ def create_basic_present_forms(base_form: str,
         # modals and others
         present_basic_forms = base_form
 
-
     return present_basic_forms, pres_conjugation, root, intransitive_active

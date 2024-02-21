@@ -359,5 +359,4 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
         del verb_temp[PARATATIKOS]
 
     return verb_temp
-# create list of all verbs with their basic forms. Check them with existing forms and if they already exist,
-# leave them out
+

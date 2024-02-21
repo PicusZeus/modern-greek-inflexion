@@ -30,7 +30,6 @@ def create_basic_paratatikos_forms(pres_form: str,
     """
     paratatikos_basic_forms = None
 
-
     if not_deponens:
 
         pass_par = ''

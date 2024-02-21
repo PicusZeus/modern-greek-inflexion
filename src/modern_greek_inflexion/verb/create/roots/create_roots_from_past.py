@@ -12,7 +12,6 @@ def create_roots_from_past(verb: str, lemma: str) -> str | None:
     """
     # argument only in 1st person
 
-    res = None
     if verb[-1] in ['α']:
         stem = verb[:-1]
     else:

@@ -3,14 +3,14 @@ from __future__ import annotations
 from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources import greek_corpus
-from modern_greek_inflexion.resources.typing import aspectType, voiceType
+from modern_greek_inflexion.resources.typing import aspectType, voiceType, tenseType, recognized_conjugation_type
 from modern_greek_inflexion.resources.variables import *
 
 
 def recognize_active_non_past_conjugation(verb: str,
                                           aspect: aspectType = IMPERF,
-                                          tense: str = FIN,
-                                          voice: voiceType = ACTIVE) -> dict:
+                                          tense: tenseType = FIN,
+                                          voice: voiceType = ACTIVE) -> recognized_conjugation_type:
     """
     can be used for aspects: 'continuous', 'simple', 'simple_passive'
     verb is expected to be in 1st person sg, else it's assumed it's modal verb
@@ -114,8 +114,8 @@ def recognize_active_non_past_conjugation(verb: str,
 
     else:
         # else it's assumed it's modal
-        return {'aspect': aspect, 'tense': tense, 'voice': voice, ROOT: verb,
-                'conjugation_ind': MODAL, 'conjugation_imp': '', 'conjugation_part': ''}
+        return {ASPECT: aspect, TENSE: tense, VOICE: voice, ROOT: verb,
+                CONJUGATION_IND: MODAL, CONJUGATION_IMP: '', CONJUGATION_PART: ''}
 
     if aspect == PERF:
         # con_ind already recognized
@@ -145,8 +145,8 @@ def recognize_active_non_past_conjugation(verb: str,
         conjugation_part = ''
 
         conjugation_imp = IMPER_PASS_AOR_A
-    return {'aspect': aspect, 'voice': voice, 'tense': tense,
+    return {ASPECT: aspect, VOICE: voice, TENSE: tense,
             ROOT: root,
-            'conjugation_ind': conjugation_ind,
-            'conjugation_imp': conjugation_imp,
-            'conjugation_part': conjugation_part}
+            CONJUGATION_IND: conjugation_ind,
+            CONJUGATION_IMP: conjugation_imp,
+            CONJUGATION_PART: conjugation_part}

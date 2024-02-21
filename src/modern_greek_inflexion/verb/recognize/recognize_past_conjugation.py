@@ -2,14 +2,24 @@ from __future__ import annotations
 
 from modern_greek_inflexion.resources.variables import *
 from .recognize_passive_past_continuous_conjugation import recognize_passive_past_continuous_conjugation
-from ...resources.typing import aspectType, voiceType, presentConjugationType
+from ...resources.typing import aspectType, voiceType, presentConjugationType, recognized_conjugation_type
 
 
 def recognize_past_conjugation(verb: str,
                                lemma: str,
                                aspect: aspectType = IMPERF,
                                voice: voiceType = ACTIVE,
-                               pres_con: presentConjugationType = None) -> dict:
+                               pres_con: presentConjugationType = None) -> recognized_conjugation_type:
+    """
+    This function tries to recognize a type of inflection for a verb in past continuous (paratatikos) tense
+    :param verb: verb in 1st person sg passive in paratatikos
+    :param lemma: 1st person sg in present tense
+    :param aspect: should be 'imperf'
+    :param voice: 'active' or 'passive'
+    :param pres_con: Present conjugation type
+    :return: a dictionary with the following structure {ASPECT: aspect, VOICE: voice, TENSE: PAST, ROOT: root,
+            CONJUGATION_IND: conjugation_ind}
+    """
     verb = verb.strip()
     root = verb[:-1]
 
@@ -40,5 +50,5 @@ def recognize_past_conjugation(verb: str,
     if voice == PASSIVE and aspect == IMPERF:
         root, conjugation_ind = recognize_passive_past_continuous_conjugation(lemma, verb, pres_con)
 
-    return {'aspect': aspect, 'voice': voice, 'tense': PAST, ROOT: root,
-            'conjugation_ind': conjugation_ind}
+    return {ASPECT: aspect, VOICE: voice, TENSE: PAST, ROOT: root,
+            CONJUGATION_IND: conjugation_ind}

@@ -4,15 +4,17 @@ from modern_greek_accentuation.resources import vowels
 
 from modern_greek_inflexion._exceptions import NotLegalVerbException
 from modern_greek_inflexion.resources import greek_corpus
+from modern_greek_inflexion.resources.typing import recognized_conjugation_type
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.resources.verb import ancient_oomai
 
 
-def recognize_passive_present_continuous_conjugation(verb: str) -> dict:
+def recognize_passive_present_continuous_conjugation(verb: str) -> recognized_conjugation_type:
     """
-
-    :param verb:
-    :return:
+    This function recognizes present conjugation type
+    :param verb: 1st person sg present tense passive voice or, if modal, 3rd person sg.
+    :return: A dictionary with the following structure: {ASPECT: IMPERF, VOICE: PASSIVE, TENSE: FIN, ROOT: root,
+            CONJUGATION_IND: conjugation_ind, CONJUGATION_IMP: conjugation_imp, CONJUGATION_PART: conjugation_part}
     """
     verb = verb.strip()
 
@@ -94,9 +96,9 @@ def recognize_passive_present_continuous_conjugation(verb: str) -> dict:
         conjugation_part = ''
 
     else:
-        return {'aspect': IMPERF, 'voice': PASSIVE, 'tense': FIN, ROOT: verb,
-                'conjugation_ind': MODAL, 'conjugation_imp': '', 'conjugation_part': ''}
+        return {ASPECT: IMPERF, VOICE: PASSIVE, TENSE: FIN, ROOT: verb,
+                CONJUGATION_IND: MODAL, CONJUGATION_IMP: '', CONJUGATION_PART: ''}
 
-    return {'aspect': IMPERF, 'voice': PASSIVE, 'tense': FIN, ROOT: root,
-            'conjugation_ind': conjugation_ind, 'conjugation_imp': conjugation_imp,
-            'conjugation_part': conjugation_part}
+    return {ASPECT: IMPERF, VOICE: PASSIVE, TENSE: FIN, ROOT: root,
+            CONJUGATION_IND: conjugation_ind, CONJUGATION_IMP: conjugation_imp,
+            CONJUGATION_PART: conjugation_part}
