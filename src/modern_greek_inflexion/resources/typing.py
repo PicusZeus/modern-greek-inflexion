@@ -1,12 +1,6 @@
-from dataclasses import dataclass
-
-from modern_greek_inflexion.resources import NOM, GEN, ACC, VOC, FEM, MASC, NEUT, SG, PL, ADJ, COMP, SUPERL, \
-    COMPARATIVE, ADVERB, ADVERB_COMPARATIVE, NOM_SG, GEN_SG, NOM_PL, GENDERS, PROPER_NAME
 
 from enum import Enum
-from .resources import (ULTIMATE, ANTEPENULTIMATE, PENULTIMATE, MASC, MASC_PL,
-                        MASC_SG, FEM_SG, FEM, FEM_PL, NEUT_SG, NEUT, NEUT_PL,
-                        MASC_FEM)
+from .variables import *
 from typing import NewType, Union
 
 
@@ -35,6 +29,47 @@ class GendersBasic(Enum):
 
 genderBasicType = NewType("GendersBasic", GendersBasic)
 
+
+class Voice(Enum):
+    PASSIVE = PASSIVE
+    ACTIVE = ACTIVE
+
+
+voiceType = NewType("VoiceType", Voice)
+
+
+class Aspect(Enum):
+    PERF = PERF
+    IMPERF = IMPERF
+
+
+aspectType = NewType("aspectType", Aspect)
+
+
+class PresentConjugation(Enum):
+    EIMAI = EIMAI
+    CON2AB = CON2AB
+    CON1_ACT = CON1_ACT
+    CON1_PASS_ARCHAIC = CON1_PASS_ARCHAIC
+    CON2A_ACT = CON2A_ACT
+    CON2AK_ACT = CON2AK_ACT
+    CON2B_ACT = CON2B_ACT
+    CON2B_PASS_ARCHAIC = CON2B_PASS_ARCHAIC
+    CON2C_ACT = CON2C_ACT
+    CON2D_ACT = CON2D_ACT
+    CON1_ACT_MODAL = CON1_ACT_MODAL
+    CON2_ACT_MODAL = CON2_ACT_MODAL
+    CON1_PASS = CON1_PASS
+    CON2A_PASS = CON2A_PASS
+    CON2AK_PASS = CON2AK_PASS
+    CON2B_PASS = CON2B_PASS
+    CON2C_PASS = CON2C_PASS
+    CON2F_PASS = CON2F_PASS
+    CON2D_PASS = CON2D_PASS
+    CON2E_PASS = CON2E_PASS
+
+
+presentConjugationType = NewType("presentConjugationType", PresentConjugation)
 
 class Numbers(Enum):
     PL = dict

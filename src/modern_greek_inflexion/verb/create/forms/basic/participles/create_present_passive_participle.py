@@ -1,15 +1,30 @@
 from modern_greek_accentuation.accentuation import remove_all_diacritics, put_accent_on_the_antepenultimate
 
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.variables import CON1_PASS, CON1_ACT, CON2AK_ACT, CON2A_ACT, CON2AK_PASS, CON2A_PASS, \
     CON2C_ACT, CON2B_ACT, CON2B_PASS, CON2C_PASS, CON2D_ACT, CON2E_PASS, CON2D_PASS
 from modern_greek_inflexion.resources import greek_corpus
 
 
 def check_existence_in_corpus(participle: str) -> bool:
+    """
+
+    :param participle:
+    :return:
+    """
     return participle in greek_corpus or participle[:-1] in greek_corpus
 
 
-def create_present_passive_participle(_: str, root: str, pres_conjugation: str) -> str:
+def create_present_passive_participle(_: str,
+                                      root: str,
+                                      pres_conjugation: presentConjugationType) -> str:
+    """
+
+    :param _:
+    :param root:
+    :param pres_conjugation:
+    :return:
+    """
     pres_part_pass = []
     part_root = remove_all_diacritics(root)
 

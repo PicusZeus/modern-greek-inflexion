@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+from modern_greek_inflexion.resources.typing import voiceType
 from modern_greek_inflexion.verb.helpers import compound_alternative_forms
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms import create_all_pers_forms
 from modern_greek_inflexion.verb.recognize import recognize_active_non_past_conjugation
 
 
-def create_all_perf_non_past_personal_forms(verb: list, voice: str, active_root_for_imp: str | None = None) -> dict:
+def create_all_perf_non_past_personal_forms(verb: list,
+                                            voice: voiceType,
+                                            active_root_for_imp: str = None) -> dict:
     """
     :param voice:
     :param active_root_for_imp: an array of possible roots

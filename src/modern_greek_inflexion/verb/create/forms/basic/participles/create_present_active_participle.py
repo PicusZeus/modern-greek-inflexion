@@ -2,9 +2,19 @@ from __future__ import annotations
 
 from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2AK_ACT, CON2C_ACT, \
     EIMAI
+from modern_greek_inflexion.resources.typing import presentConjugationType
 
 
-def create_present_active_participle(_: str, root: str, pres_conjugation: str) -> str:
+def create_present_active_participle(_: str,
+                                     root: str,
+                                     pres_conjugation: presentConjugationType) -> str:
+    """
+
+    :param _:
+    :param root:
+    :param pres_conjugation:
+    :return:
+    """
     pres_part_act = ''
 
     if pres_conjugation == CON1_ACT:

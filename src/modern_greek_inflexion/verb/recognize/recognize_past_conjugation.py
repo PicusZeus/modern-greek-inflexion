@@ -2,10 +2,14 @@ from __future__ import annotations
 
 from modern_greek_inflexion.resources.variables import *
 from .recognize_passive_past_continuous_conjugation import recognize_passive_past_continuous_conjugation
+from ...resources.typing import aspectType, voiceType, presentConjugationType
 
 
-def recognize_past_conjugation(verb: str, lemma: str, aspect: str = IMPERF,
-                               voice: str = ACTIVE, pres_con: str = None) -> dict:
+def recognize_past_conjugation(verb: str,
+                               lemma: str,
+                               aspect: aspectType = IMPERF,
+                               voice: voiceType = ACTIVE,
+                               pres_con: presentConjugationType = None) -> dict:
     verb = verb.strip()
     root = verb[:-1]
 

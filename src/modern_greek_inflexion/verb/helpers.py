@@ -155,7 +155,7 @@ def active_subjunctive_sigmatic_exists(perf_root) -> bool:
 def compound_alternative_forms(forms: None | dict, sec_pos: str, forms_ind_or_con: dict,
                                forms_imp: dict | None) -> dict:
     """
-    compound all alternative forms into a set
+    compound all alternative forms into a single dictionary
     :return:
     """
 

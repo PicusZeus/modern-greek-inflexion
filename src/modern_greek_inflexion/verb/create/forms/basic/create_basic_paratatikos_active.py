@@ -7,6 +7,7 @@ from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import greek_corpus
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.variables import CON1_ACT, CON2A_ACT, CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
     EIMAI
 
@@ -15,14 +16,29 @@ from modern_greek_inflexion.resources.verb import irregular_active_paratatikos
 
 
 def active_paratatikos_exists(f_p: str) -> bool:
+    """
+
+    :param f_p:
+    :return:
+    """
     th_pl = f_p[:-1] + 'αν'
     sec_sg = f_p[:-1] + 'ες'
 
     return f_p in greek_corpus or th_pl in greek_corpus or sec_sg in greek_corpus
 
 
-def create_basic_paratatikos_active(pres_form: str, root: str, pres_conjugation: str,
+def create_basic_paratatikos_active(pres_form: str,
+                                    root: str,
+                                    pres_conjugation: presentConjugationType,
                                     modal: bool = False) -> str | None:
+    """
+
+    :param pres_form:
+    :param root:
+    :param pres_conjugation:
+    :param modal:
+    :return:
+    """
 
     act_par = []
     if pres_form in irregular_active_paratatikos:

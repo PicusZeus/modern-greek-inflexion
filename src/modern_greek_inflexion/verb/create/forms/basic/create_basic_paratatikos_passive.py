@@ -6,10 +6,17 @@ from modern_greek_accentuation.augmentify import add_augment
 
 from modern_greek_inflexion.resources import CON1_ACT, CON2A_ACT, CON2AK_ACT, CON2B_ACT, CON2D_ACT, CON2C_ACT, \
     greek_corpus, CON2E_PASS, CON2D_PASS, CON2B_PASS, CON2A_PASS, CON1_PASS, CON2C_PASS, CON2AK_PASS, CON2F_PASS
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.verb import irregular_passive_paratatikos
 
 
 def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> bool:
+    """
+
+    :param f_person:
+    :param th_person:
+    :return:
+    """
     if not th_person:
         th_person = f_person[:-4] + 'ταν'
         th_person_pl = put_accent_on_the_antepenultimate(f_person[:-4] + 'νταν')
@@ -29,8 +36,20 @@ def passive_paratatikos_exists(f_person: str | None, th_person: str = None) -> b
         return th_person in greek_corpus
 
 
-def create_basic_paratatikos_passive(pres_form: str, root: str, pres_conjugation: str, pres_pass_form: tuple,
+def create_basic_paratatikos_passive(pres_form: str,
+                                     root: str,
+                                     pres_conjugation: presentConjugationType,
+                                     pres_pass_form: tuple,
                                      modal: bool = False) -> str | None:
+    """
+
+    :param pres_form:
+    :param root:
+    :param pres_conjugation:
+    :param pres_pass_form:
+    :param modal:
+    :return:
+    """
     pass_par = []
     root = remove_all_diacritics(root)
 

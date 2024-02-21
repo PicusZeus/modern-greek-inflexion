@@ -139,7 +139,6 @@ PARAT2A_PASS = 'parat2a_pass'
 PARAT2A_PASS_ARCHAIC = 'parat2a_pass_archaic'
 PARAT2AK_PASS = 'parat2ak_pass'
 PARAT2B_PASS = 'parat2b_pass'
-# PARAT2B_PASS_LOGIA = 'parat2b_pass_logia'
 PARAT2C_PASS = 'parat2c_pass'
 PARAT2D_PASS = 'parat2d_pass'
 PARAT2E_PASS = 'parat2e_pass'
@@ -181,8 +180,4 @@ ADJ_FEM_OS_ONLY = "adj_fem_os_only"
 ADJ_FEM_OS_ALSO = "adj_fem_os_also"
 
 ACT_PRES_PARTICIPLE = 'act_pres_participle'
-ARCH_ACT_PRES_PARTICIPLE = 'arch_act_pres_participle'
-PASSIVE_PERFECT_PARTICIPLE = 'passive_perfect_participle'
-ACTIVE_AORIST_PARTICIPLE = 'active_aorist_participle'
-PASSIVE_AORIST_PARTICIPLE = 'passive_aorist_participle'
-PASS_PRES_PARTICIPLE = "pass_pres_participle"
+

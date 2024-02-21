@@ -8,11 +8,11 @@ from ..resources.typing import declension_forms_type
 from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
-def remove_vocatives(forms):
+def remove_vocatives(forms: declension_forms_type) -> declension_forms_type:
     """
-
-    :param forms:
-    :return:
+    Removes vocatives, if a pronoun doesn't actually create vocatives
+    :param forms: A dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}
+    :return: A dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}
     """
     for number in forms:
         for gender in forms[number]:
@@ -26,9 +26,9 @@ def remove_vocatives(forms):
 def create_all_pron_forms(bas_forms: str, strong: bool = True) -> declension_forms_type:
     """
 
-    :param bas_forms: basic forms in all genders
+    :param bas_forms: str "masc/fem/neut"
     :param strong: if false, creates week pronouns
-    :return: dict with all forms
+    :return: A dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}
     """
     # forms: dic FEM, MASC, neut', if not inflected forms is a string
 

@@ -4,6 +4,11 @@ from modern_greek_accentuation.syllabify import count_syllables
 
 
 def create_imp_pass(perf_pass_root: str) -> str:
+    """
+    For use with deponent verbs
+    :param perf_pass_root: perfect passive root
+    :return: passive imperative 2nd person singular
+    """
     # useful for deponentia
 
     if perf_pass_root[-2:] in ['φτ', 'φθ']:

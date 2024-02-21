@@ -2,13 +2,18 @@ from modern_greek_accentuation.accentuation import is_accented
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
 from modern_greek_inflexion.resources import greek_corpus, PASSIVE, CON1_ACT_MODAL, CON2_ACT_MODAL, ACTIVE
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.verb import deponens_with_active_perf_forms
 from modern_greek_inflexion.verb.create import create_regular_perf_root
 
 
-def create_basic_conjunctive_forms(pres_form, pres_conjugation,
-                                   root, deponens=False, not_deponens=True,
-                                   intransitive_active=False, modal_act=False,
+def create_basic_conjunctive_forms(pres_form,
+                                   pres_conjugation: presentConjugationType,
+                                   root,
+                                   deponens=False,
+                                   not_deponens=True,
+                                   intransitive_active=False,
+                                   modal_act=False,
                                    modal_med=False) -> tuple[str, str, str, str]:
 
     """

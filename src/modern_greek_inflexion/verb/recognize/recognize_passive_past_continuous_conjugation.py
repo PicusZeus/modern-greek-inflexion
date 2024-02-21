@@ -1,11 +1,21 @@
 from __future__ import annotations
 
 from modern_greek_inflexion._exceptions import NotLegalVerbException
+from modern_greek_inflexion.resources.typing import presentConjugationType
 
 from modern_greek_inflexion.resources.variables import *
 
 
-def recognize_passive_past_continuous_conjugation(lemma: str, verb: str, pres_con: str) -> tuple:
+def recognize_passive_past_continuous_conjugation(lemma: str,
+                                                  verb: str,
+                                                  pres_con: presentConjugationType) -> tuple:
+    """
+
+    :param lemma:
+    :param verb:
+    :param pres_con:
+    :return:
+    """
     verb = verb.strip()
     root = None
 

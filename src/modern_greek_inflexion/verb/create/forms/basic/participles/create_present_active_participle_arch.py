@@ -3,16 +3,31 @@ from modern_greek_accentuation.accentuation import (put_accent_on_the_ultimate,
                                                     remove_all_diacritics)
 from modern_greek_inflexion.resources import CON1_ACT, greek_corpus, CON2A_ACT, CON2B_ACT, CON2D_ACT, CON2AK_ACT, \
     CON2C_ACT, EIMAI
+from modern_greek_inflexion.resources.typing import presentConjugationType
 
 
 def check_participle_existence(neut_pl: str) -> bool:
+    """
+
+    :param neut_pl:
+    :return:
+    """
     masc_pl = neut_pl[:-1] + 'ες'
     gen_sg = neut_pl[:-1] + 'ος'
 
     return masc_pl in greek_corpus or neut_pl in greek_corpus or gen_sg in greek_corpus
 
 
-def create_present_active_participle_arch(_: str, root: str, pres_conjugation: str) -> str:
+def create_present_active_participle_arch(_: str,
+                                          root: str,
+                                          pres_conjugation: presentConjugationType) -> str:
+    """
+
+    :param _:
+    :param root:
+    :param pres_conjugation:
+    :return:
+    """
     arch_pres_part_act = ''
 
     if pres_conjugation == CON1_ACT:

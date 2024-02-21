@@ -3,13 +3,24 @@ from __future__ import annotations
 from modern_greek_accentuation.accentuation import *
 
 from modern_greek_inflexion.resources import greek_corpus
+from modern_greek_inflexion.resources.typing import aspectType, voiceType
 from modern_greek_inflexion.resources.variables import *
 
 
-def recognize_active_non_past_conjugation(verb: str, aspect: str = IMPERF, tense: str = FIN,
-                                          voice: str = ACTIVE) -> dict:
-    # can be used for aspects: 'continuous', 'simple', 'simple_passive'
-    # verb is expected to be in 1st person sg, else it's assumed it's modal verb
+def recognize_active_non_past_conjugation(verb: str,
+                                          aspect: aspectType = IMPERF,
+                                          tense: str = FIN,
+                                          voice: voiceType = ACTIVE) -> dict:
+    """
+    can be used for aspects: 'continuous', 'simple', 'simple_passive'
+    verb is expected to be in 1st person sg, else it's assumed it's modal verb
+    :param verb:
+    :param aspect:
+    :param tense:
+    :param voice:
+    :return:
+    """
+
     verb = verb.strip()
     root = ''
     conjugation_ind = ''

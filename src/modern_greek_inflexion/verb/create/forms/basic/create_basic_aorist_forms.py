@@ -4,8 +4,12 @@ from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_active i
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_passive import create_basic_aorist_passive
 
 
-def create_basic_aorist_forms(pres_form: str, act_root: str, passive_root: str, deponens: bool = False,
-                              not_deponens: bool = True, modal_act: bool = False,
+def create_basic_aorist_forms(pres_form: str,
+                              act_root: str,
+                              passive_root: str,
+                              deponens: bool = False,
+                              not_deponens: bool = True,
+                              modal_act: bool = False,
                               modal_med: bool = False) -> str:
 
     """

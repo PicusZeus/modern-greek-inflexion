@@ -9,8 +9,11 @@ from modern_greek_inflexion.verb.recognize import recognize_passive_present_cont
     recognize_active_non_past_conjugation
 
 
-def create_basic_present_forms(base_form: str, deponens: bool = False, not_deponens: bool = True,
-                               intransitive_active: bool = False, modal_act: bool = False,
+def create_basic_present_forms(base_form: str,
+                               deponens: bool = False,
+                               not_deponens: bool = True,
+                               intransitive_active: bool = False,
+                               modal_act: bool = False,
                                modal_med: bool = False) -> tuple[str, str, str, bool]:
     """
     :param base_form:

@@ -6,6 +6,12 @@ from modern_greek_inflexion.resources import greek_corpus
 
 
 def create_active_aorist_participle(pres_root: str, act_roots: str) -> str:
+    """
+
+    :param pres_root:
+    :param act_roots:
+    :return:
+    """
     result = []
     for act_root in act_roots.split(','):
         active_aorist_participles = None

@@ -1,14 +1,27 @@
 from __future__ import annotations
 
+from modern_greek_inflexion.resources.typing import voiceType, presentConjugationType
 from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE
 from modern_greek_inflexion.verb.create.roots.create_regular_perf_active_root import create_regular_perf_active_root
 from modern_greek_inflexion.verb.create.roots.create_regular_perf_passive_root import create_regular_perf_passive_root
 
 
-def create_regular_perf_root(verb: str, voice: str = ACTIVE, act_perf_root: str | None = None,
-                             pres_conjugation: str = None, root: str = None) -> str | None:
-    # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
-    # supplied aorist forms and so it is prone to errors that cannot be eliminated
+def create_regular_perf_root(verb: str,
+                             voice: voiceType = ACTIVE,
+                             act_perf_root: str = None,
+                             pres_conjugation: presentConjugationType = None,
+                             root: str = None) -> str | None:
+
+    """
+    create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
+    supplied aorist forms and so it is prone to errors that cannot be eliminated
+    :param verb:
+    :param voice:
+    :param act_perf_root:
+    :param pres_conjugation:
+    :param root:
+    :return:
+    """
 
     if verb.endswith('έρχομαι') or verb.endswith('γίνομαι') or verb.endswith('κάθομαι') or verb.endswith('ξανάρχομαι'):
         voice = ACTIVE

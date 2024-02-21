@@ -5,14 +5,25 @@ from modern_greek_accentuation.accentuation import put_accent_on_the_antepenulti
     put_accent_on_the_penultimate, put_accent
 from modern_greek_accentuation.augmentify import add_augment
 from modern_greek_accentuation.syllabify import count_syllables
-
+from modern_greek_accentuation._helpers import AccentType
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.resources.verb import conjugations, irregular_imperative_forms
 from modern_greek_inflexion.verb.create.forms.all.persons.create_imp_pass import create_imp_pass
 
 
-def add_alternative_endings(forms: dict, con_name: str, root: str, accent_name: str | None) -> dict:
+def add_alternative_endings(forms: dict,
+                            con_name: str,
+                            root: str,
+                            accent_name: AccentType) -> dict:
+    """
+
+    :param forms:
+    :param con_name:
+    :param root:
+    :param accent_name:
+    :return:
+    """
     endings = conjugations[con_name]
     for number in endings:
         for person in endings[number]:

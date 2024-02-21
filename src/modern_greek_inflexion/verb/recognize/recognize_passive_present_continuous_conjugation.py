@@ -9,6 +9,11 @@ from modern_greek_inflexion.resources.verb import ancient_oomai
 
 
 def recognize_passive_present_continuous_conjugation(verb: str) -> dict:
+    """
+
+    :param verb:
+    :return:
+    """
     verb = verb.strip()
 
     if verb != 'είμαι' and len(verb) < 6:

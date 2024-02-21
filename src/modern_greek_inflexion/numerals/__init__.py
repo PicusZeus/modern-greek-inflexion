@@ -6,7 +6,7 @@ from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from ..adjective import Adjective
 from ..noun import Noun
 from ..resources import greek_pattern
-from ..resources.resources import ADJ, ADV
+from ..resources.variables import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from .._exceptions import NotInGreekException
 from ..resources.typing import declension_forms_type

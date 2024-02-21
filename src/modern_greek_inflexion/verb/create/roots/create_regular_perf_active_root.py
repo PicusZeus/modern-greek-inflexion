@@ -4,15 +4,24 @@ from modern_greek_accentuation.accentuation import *
 from modern_greek_accentuation.resources import prefixes_before_augment, prefixes_before_augment_on_vowel
 
 from modern_greek_inflexion.resources import greek_corpus
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.verb import irregular_active_roots
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.helpers import active_subjunctive_exists, active_subjunctive_sigmatic_exists
 
 
-def create_regular_perf_active_root(verb: str, pres_conjugation: str = None,
+def create_regular_perf_active_root(verb: str,
+                                    pres_conjugation: presentConjugationType = None,
                                     root: str = None) -> str | None:
-    # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
-    # supplied aorist forms and so it is prone to errors that cannot be eliminated
+
+    """
+    create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
+    supplied aorist forms and so it is prone to errors that cannot be eliminated
+    :param verb:
+    :param pres_conjugation:
+    :param root:
+    :return:
+    """
     perf_root = None
     irregular = False
 

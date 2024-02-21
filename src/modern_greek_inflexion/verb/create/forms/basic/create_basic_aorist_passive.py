@@ -5,6 +5,11 @@ from modern_greek_inflexion.resources.verb import irregular_passive_aorists
 
 
 def passive_aorist_exists(f_s: str) -> bool:
+    """
+
+    :param f_s:
+    :return:
+    """
     if f_s.endswith('ηκα'):
         th_s = f_s[:-1] + 'ε'
         f_pl = put_accent_on_the_antepenultimate(f_s + 'με')
@@ -15,8 +20,16 @@ def passive_aorist_exists(f_s: str) -> bool:
         return f_s in greek_corpus or th_p in greek_corpus
 
 
-def create_basic_aorist_passive(pres_form: str, passive_root: str,
+def create_basic_aorist_passive(pres_form: str,
+                                passive_root: str,
                                 modal: bool = False) -> set:
+    """
+
+    :param pres_form:
+    :param passive_root:
+    :param modal:
+    :return:
+    """
     passive_aor_forms = []
 
     if pres_form in irregular_passive_aorists:

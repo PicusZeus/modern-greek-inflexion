@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from modern_greek_accentuation.accentuation import *
 
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import *
 from modern_greek_inflexion.verb.helpers import passive_subjunctive_exists
 
 
-def create_regular_perf_passive_root(verb: str, act_perf_root: str | None = None,
-                                     pres_conjugation: str = None,
+def create_regular_perf_passive_root(verb: str,
+                                     act_perf_root: str | None = None,
+                                     pres_conjugation: presentConjugationType = None,
                                      root: str = None) -> str | None:
     # create regular aorist roots from present root. For obvious reasons it's only useful for verbs you don't have
     # supplied aorist forms and so it is prone to errors that cannot be eliminated

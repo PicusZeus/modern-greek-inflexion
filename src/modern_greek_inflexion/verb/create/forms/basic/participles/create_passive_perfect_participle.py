@@ -7,7 +7,18 @@ from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.verb import irregular_passive_perfect_participles
 
 
-def create_passive_perfect_participle(pres_form: str, root: str, act_root: str, passive_root: str) -> str:
+def create_passive_perfect_participle(pres_form: str,
+                                      root: str,
+                                      act_root: str,
+                                      passive_root: str) -> str:
+    """
+
+    :param pres_form:
+    :param root:
+    :param act_root:
+    :param passive_root:
+    :return:
+    """
     passive_perfect_participles = []
 
     if pres_form in irregular_passive_perfect_participles:

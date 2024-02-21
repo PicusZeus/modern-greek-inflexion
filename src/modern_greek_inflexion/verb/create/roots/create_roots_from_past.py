@@ -4,6 +4,12 @@ from modern_greek_accentuation.augmentify import deaugment_stem, deaugment_prefi
 
 
 def create_roots_from_past(verb: str, lemma: str) -> str | None:
+    """
+
+    :param verb:
+    :param lemma:
+    :return:
+    """
     # argument only in 1st person
 
     res = None

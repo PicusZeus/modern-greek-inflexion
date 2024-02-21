@@ -28,9 +28,6 @@ from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, A
     PASSIVE_AORIST_PARTICIPLE, PASS_PRES_PARTICIPLE, PRES_CONJUGATION
 from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
 
-import re
-
-
 
 def create_all_basic_forms(pres_form: str, para: bool = False) -> dict:
     """

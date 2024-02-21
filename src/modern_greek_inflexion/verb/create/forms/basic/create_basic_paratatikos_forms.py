@@ -1,15 +1,33 @@
 from __future__ import annotations
 
+from modern_greek_inflexion.resources.typing import presentConjugationType
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_active import \
     create_basic_paratatikos_active
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_paratatikos_passive import \
     create_basic_paratatikos_passive
 
 
-def create_basic_paratatikos_forms(pres_form: str, root: str, pres_conjugation: str, deponens: bool = False,
-                                   not_deponens: bool = True, modal_act: bool = False,
-                                   modal_med: bool = False, has_passive: tuple | bool = False,
+def create_basic_paratatikos_forms(pres_form: str,
+                                   root: str,
+                                   pres_conjugation: presentConjugationType,
+                                   deponens: bool = False,
+                                   not_deponens: bool = True,
+                                   modal_act: bool = False,
+                                   modal_med: bool = False,
+                                   has_passive: tuple | bool = False,
                                    ) -> str | None:
+    """
+
+    :param pres_form:
+    :param root:
+    :param pres_conjugation:
+    :param deponens:
+    :param not_deponens:
+    :param modal_act:
+    :param modal_med:
+    :param has_passive:
+    :return:
+    """
     paratatikos_basic_forms = None
 
 

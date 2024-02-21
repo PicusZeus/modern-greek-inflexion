@@ -7,10 +7,7 @@ from modern_greek_inflexion.verb.helpers import merging_all_dictionaries, dict_o
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from modern_greek_inflexion import adjective
-from ..resources import PRES_CONJUGATION, ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, \
-    PASSIVE_AORIST_PARTICIPLE, PASS_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, PARATATIKOS, PRESENT
-from ..resources.resources import PRI, SEC, SG, PL, AORIST, ACTIVE, PASSIVE, IMP, CONJUNCTIVE, MODAL, IND, ADJ, PERF, \
-    IMPERF
+from ..resources.variables import *
 from modern_greek_inflexion.resources import greek_pattern
 from modern_greek_inflexion._exceptions import NotInGreekException
 
