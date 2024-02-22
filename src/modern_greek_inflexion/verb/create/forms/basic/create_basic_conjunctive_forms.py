@@ -17,6 +17,7 @@ def create_basic_conjunctive_forms(pres_form: str,
                                    modal_pass: bool = False) -> tuple[str, str, str, str]:
 
     """
+    This function creates conjunctive basic forms
     :param pres_form: 1st person sg present simple
     :param pres_conjugation: present conjugation type
     :param root: present tense stem

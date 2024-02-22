@@ -1,11 +1,8 @@
-from icecream import ic
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import vowels
 from ..resources import greek_corpus
 from ..resources.typing import declension_forms_type, genderBasicType
-
 from ..resources.variables import *
-
 from ..resources.noun import irregular_gen_sg, irregular_voc_sg, noun_grammar_lists
 
 
@@ -26,8 +23,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[g
     noun_all = {}
     neut_plural = False
     irregular_nom_pl = None
-    if nom_sg == 'βεληνεκές':
-        ic(genders, nom_sg)
+
     fem_masc = MASC in genders and FEM in genders
     if multiple_plurals:
         # irregular plural neut gender

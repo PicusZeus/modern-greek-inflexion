@@ -64,7 +64,7 @@ def update_forms_with_prefix(verb_temp: dict, prefix: [str, str]) -> dict:
                 if form[0] in vowels:
                     if prefix[1][-1] + form[0] in diphtongs:
                         vowel_with_diaeresis = unicodedata.normalize("NFC", form[0] + DIAERESIS)
-                        form = vowel_with_diaeresis + form[1:]
+                        form = '/'.join(vowel_with_diaeresis + f[1:] for f in form.split('/'))
 
                     new_form = '/'.join([prefix[1] + f for f in form.split('/')])
                 else:

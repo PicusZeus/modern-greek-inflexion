@@ -9,11 +9,11 @@ def create_present_active_participle(_: str,
                                      root: str,
                                      pres_conjugation: presentConjugationType) -> str:
     """
-
-    :param _:
-    :param root:
-    :param pres_conjugation:
-    :return:
+    Creates present active participles
+    :param _: ignored
+    :param root: present tense stem
+    :param pres_conjugation: present conjugation type
+    :return: present active participle as string
     """
     pres_part_act = ''
 

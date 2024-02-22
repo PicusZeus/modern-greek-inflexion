@@ -8,9 +8,9 @@ from modern_greek_inflexion.resources.typing import presentConjugationType
 
 def check_participle_existence(neut_pl: str) -> bool:
     """
-
+    This function checks if a participle exists in the language corpus
     :param neut_pl:
-    :return:
+    :return: False or True
     """
     masc_pl = neut_pl[:-1] + 'ες'
     gen_sg = neut_pl[:-1] + 'ος'
@@ -22,11 +22,11 @@ def create_present_active_participle_arch(_: str,
                                           root: str,
                                           pres_conjugation: presentConjugationType) -> str:
     """
-
+    Creates present active participles archaic type
     :param _:
-    :param root:
-    :param pres_conjugation:
-    :return:
+    :param root: present tense stem
+    :param pres_conjugation: present conjugation type
+    :return: Basic forms as string ("masc/fem/neut"), if multiple, separated by coma.
     """
     arch_pres_part_act = ''
 

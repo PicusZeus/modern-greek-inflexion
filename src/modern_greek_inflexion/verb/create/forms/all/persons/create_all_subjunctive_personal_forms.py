@@ -7,15 +7,17 @@ from modern_greek_inflexion.verb.create.forms.all.persons.create_all_pers_forms 
 from modern_greek_inflexion.verb.recognize import recognize_active_non_past_conjugation
 
 
-def create_all_perf_non_past_personal_forms(verb: list,
-                                            voice: voiceType,
-                                            active_root_for_imp: str = None) -> personal_forms_type:
+def create_all_subjunctive_personal_forms(verb: list,
+                                          voice: voiceType,
+                                          active_root_for_imp: str = None) -> dict:
     """
-    :param voice:
+    This function creates all perfect non past personal forms
+    :param voice: PASSIVE or ACTIVE
     :param active_root_for_imp: an array of possible roots
-    :param verb: an array of forms
-    :param deponens:
-    :return:
+    :param verb: an array of non past perfect basic forms
+    :param deponens: if deponens set to True
+    :return: A dictionary with potentially two keys, under the first one indicative or conjuctive forms,
+    under the second imperative forms, if applicable.
     """
 
     act_verb = pass_verb = None

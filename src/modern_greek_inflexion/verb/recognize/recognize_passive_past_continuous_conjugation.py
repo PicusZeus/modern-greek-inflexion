@@ -10,10 +10,10 @@ def recognize_passive_past_continuous_conjugation(pres_form: str,
                                                   pass_paratatikos_form: str,
                                                   pres_con: presentConjugationType) -> tuple[str, str]:
     """
-
-    :param pres_form:
-    :param pass_paratatikos_form:
-    :param pres_con:
+    This function recognizes passive paratatikos conjugation type
+    :param pres_form: 1st person sg present simple tense
+    :param pass_paratatikos_form: 1st person sg of passive paratatikos
+    :param pres_con: present tense conjugation type
     :return: two element tuple, the first element is a passive paratatikos stem and the second one is passive paratatikos conjugation type
     """
     pass_paratatikos_form = pass_paratatikos_form.strip()

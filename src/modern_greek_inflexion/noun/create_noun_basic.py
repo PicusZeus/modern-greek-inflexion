@@ -25,14 +25,14 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: gender
                            proper_name: bool = False) -> noun_basic_forms:
     """
     :param noun: The noun you want to inflect has to be in its basic form, that is in nominative singular, or if it's
-     plural only, in plural
+    plural only, in plural
     :param aklito: If you know that the noun you want to inflect is not declinable, set this flag to True, the default
-     value is False.
+    value is False.
     :param gender: If you know the nouns gender, set one. There are 10 possibilities, outside of standard 'fem', 'masc',
-     'neut', if you know it's only plural or singular, it can be 'fem_sg', 'fem_pl' itd. It is also possible to set
-     gender to 'masc_fem' if the noun happens to be of these two genders. These gender names can be imported as variables
-     from `modern_greek_inflexion.resources.variables`. The default value is None, that is the app will try to guess the
-     noun's gender.
+    'neut', if you know it's only plural or singular, it can be 'fem_sg', 'fem_pl' itd. It is also possible to set
+    gender to 'masc_fem' if the noun happens to be of these two genders. These gender names can be imported as variables
+    from `modern_greek_inflexion.resources.variables`. The default value is None, that is the app will try to guess the
+    noun's gender.
     :param proper_name: If you know that the noun is actually a proper name, set it to True. The flag by default is False.
     :return: dictionary with the following keys: NOM_SG, GEN_SG, NOM_PL, GENDERS, PROPER_NAME
     """

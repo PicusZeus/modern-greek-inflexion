@@ -8,9 +8,9 @@ from modern_greek_inflexion.resources import greek_corpus
 def create_active_aorist_participle(pres_root: str, act_roots: str) -> str:
     """
     This function creates basic forms for active aorist participle
-    :param pres_root:
-    :param act_roots:
-    :return:
+    :param pres_root: present tense stem, used to check only in case of βαίνω compounds
+    :param act_roots: perfect active stem
+    :return: Basic forms as string ("masc/fem/neut"), if multiple, separated by coma.
     """
     result = []
     for act_root in act_roots.split(','):
@@ -46,11 +46,11 @@ def create_active_aorist_participle(pres_root: str, act_roots: str) -> str:
     return ','.join(result)
 
 
-def create_passive_aorist_participle(passive_root: str) -> str | None:
+def create_passive_aorist_participle(passive_root: str) -> str:
     """
-
-    :param passive_root:
-    :return:
+    This function creates basic forms for passive aorist participle, if it is found in the language corpus
+    :param passive_root: passive perfect root
+    :return: Basic forms as string ("masc/fem/neut"), if multiple, separated by coma.
     """
     pass_aor_part = None
     if (passive_root + 'είσα' in greek_corpus or

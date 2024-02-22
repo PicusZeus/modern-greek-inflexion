@@ -59,8 +59,6 @@ def create_basic_aorist_active(pres_form: str,
                         active_aor_forms.extend(archaic_aor_forms)
                         # active_aor_forms.extend(pres_form[:-length_ir_verb] + irregular_active_aorists[ir_verb][:-2])
 
-        # if act_root and pres_form not in irregular_active_aorists and not alternative:
-
         for stem in active_root.split(','):
             active_aor_forms.extend(add_augment(put_accent_on_the_antepenultimate(stem + 'α')))
 

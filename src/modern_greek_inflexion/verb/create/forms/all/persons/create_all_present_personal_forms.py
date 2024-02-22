@@ -7,13 +7,14 @@ from modern_greek_inflexion.verb.recognize import recognize_active_non_past_conj
     recognize_passive_present_continuous_conjugation
 
 
-def create_all_imperfect_personal_forms(verb: str, voice: voiceType) -> tuple[personal_forms_type, str]:
+def create_all_present_personal_forms(verb: str, voice: voiceType) -> tuple[personal_forms_type, str]:
     """
+    This function create all personal forms for imperfect non past tenses
     :param verb: it needs to be an array or set of alternative forms, active or passive,
     :param voice: voice has to be active or passive.
     :return: a two element tuple, first element is a dictionary {PASSIVE: voice, 'sec_pos':
     secondary POS (here ind for indicative), 'forms_ind': all forms in a dictionary,
-    'forms_imp': all imper forms in a dictionary}, second is a string con_ind
+    'forms_imp': all imper forms in a dictionary}, second is a conjugation type
     """
     act_verbs = pass_verbs = None
 

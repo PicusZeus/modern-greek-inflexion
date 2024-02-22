@@ -32,17 +32,18 @@ from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreek
 
 def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_type:
     """
+    This function creates all basic verbal forms
     :param pres_form: 1st person sg present
     :param para: there is a problem with prefix para, which can mean different things and so a verb prefixed with it can mean
     either "too much", and "from above". In the first instance it is fully detachable and a verb is conjugated
     as if it was a root verb, in the second instance the perfective tense can be different and also augment is handled
     differently. So I will add a flag 'para', so that if false it can be conjugated as a simple verb, if true, as
     a detachable verb
-   :return: a dictionary with keys PRESENT, CONJUNCTIVE, AORIST, PARATATIKOS, PASSIVE_PERFECT_PARTICIPLE and other types
-   of participles, MODAL (boolean) and PRES_CONJUGATION.
-   Modals are given in 3rd person, alternative formse are separated by coma,
-   passive participles on menos are given only in masc separated by coma,
-   other participles are given in basic forma (str "masc/fem/neut")
+    :return: a dictionary with keys PRESENT, CONJUNCTIVE, AORIST, PARATATIKOS, PASSIVE_PERFECT_PARTICIPLE and other types
+    of participles, MODAL (boolean) and PRES_CONJUGATION.
+    Modals are given in 3rd person, alternative formse are separated by coma,
+    passive participles on menos are given only in masc separated by coma,
+    other participles are given in basic forma (str "masc/fem/neut")
     """
     if not greek_pattern.match(pres_form):
         raise NotInGreekException

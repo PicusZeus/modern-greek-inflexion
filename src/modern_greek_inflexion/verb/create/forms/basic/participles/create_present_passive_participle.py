@@ -6,24 +6,28 @@ from modern_greek_inflexion.resources.variables import CON1_PASS, CON1_ACT, CON2
 from modern_greek_inflexion.resources import greek_corpus
 
 
-def check_existence_in_corpus(participle: str) -> bool:
+def passive_present_participle_exists(participle: str) -> bool:
     """
-
-    :param participle:
-    :return:
-    """
-    return participle in greek_corpus or participle[:-1] in greek_corpus
+    This function checks if a participle exists in the language corpus
+    :param participle: nom sg masc
+    :return: False or True
+       """
+    masc = participle
+    neut = participle[:-1]
+    fem = participle[:-2] + 'η'
+    neut_pl = participle[:-2] + 'α'
+    return masc in greek_corpus or neut in greek_corpus or fem in greek_corpus or neut_pl in greek_corpus
 
 
 def create_present_passive_participle(_: str,
                                       root: str,
                                       pres_conjugation: presentConjugationType) -> str:
     """
-
+    Creates present passive participles
     :param _:
-    :param root:
-    :param pres_conjugation:
-    :return:
+    :param root: present tense stem
+    :param pres_conjugation: present tense conjugation type
+    :return: Basic forms as string ("masc/fem/neut"), if multiple, separated by coma.
     """
     pres_part_pass = []
     part_root = remove_all_diacritics(root)
@@ -49,6 +53,7 @@ def create_present_passive_participle(_: str,
     if part_root == 'χαιρ':
         pres_part_pass = ['χαρούμενος']
 
-    present_passive_participle = [part for part in pres_part_pass if check_existence_in_corpus(part)]
-    if present_passive_participle:
-        return ','.join(present_passive_participle)
+    present_passive_participle = [part for part in pres_part_pass if passive_present_participle_exists(part)]
+
+    return ','.join([f'{p}/{p[:-2]}η/{p[:-1]}' for p in present_passive_participle])
+

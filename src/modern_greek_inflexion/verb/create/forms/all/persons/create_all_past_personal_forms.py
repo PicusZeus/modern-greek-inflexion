@@ -12,19 +12,20 @@ from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
 
 
-def create_all_past_personal_forms(verb: set,
-                                   lemma: str,
+def create_all_past_personal_forms(past_basic_form: set[str],
+                                   pres_form: str,
                                    aspect: aspectType,
                                    voice: voiceType,
-                                   pres_con: presentConjugationType = None) -> personal_forms_type:
+                                   pres_con: presentConjugationType = None) -> dict:
     """
-    :param pres_con:
-    :param voice:
-    :param verb: aorist or paratatikos in a set (can be multiple alternative forms)
-    :param lemma: that is a present form, needed in order to correctly create augment
-    :param aspect:
-    :param deponens:
-    :return:
+    This function creates all personal forms for past tenses
+    :param past_basic_form: a set with one or more basic past forms (that is 1st person sg, or 3rd person if modal)
+    :param pres_form: 1st person sg present simple form
+    :param aspect: PERF or IMPERF
+    :param voice: PASSIVE or ACTIVE
+    :param pres_con: present conjugation type
+    :return: A dictionary with potentially two keys, under the first one indicative or conjuctive forms,
+    under the second imperative forms, if applicable.
     """
 
     sec_pos = IND
@@ -32,11 +33,11 @@ def create_all_past_personal_forms(verb: set,
 
     simple_aor = True
 
-    for v in verb:
+    for v in past_basic_form:
 
         v = v.strip()
 
-        data = recognize_past_conjugation(v, lemma, aspect=aspect, voice=voice, pres_con=pres_con)
+        data = recognize_past_conjugation(v, pres_form, aspect=aspect, voice=voice, pres_con=pres_con)
 
         conjugation = data[CONJUGATION_IND]
         if conjugation in [PARAT2_ACT, EIMAI_PARATATIKOS] \
@@ -44,7 +45,7 @@ def create_all_past_personal_forms(verb: set,
                 or where_is_accent(data[ROOT]) == ULTIMATE:
             simple_aor = False
         stem = data[ROOT]
-        deaugmented_stem = create_stem_from_augmented_past(v, lemma)
+        deaugmented_stem = create_stem_from_augmented_past(v, pres_form)
 
         if deaugmented_stem:
             # sometimes augment stays if it wasn't accented

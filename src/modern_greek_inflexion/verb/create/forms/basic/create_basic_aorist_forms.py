@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_active import create_basic_aorist_active
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_aorist_passive import create_basic_aorist_passive
 
@@ -13,6 +11,7 @@ def create_basic_aorist_forms(pres_form: str,
                               modal_pass: bool = False) -> str:
 
     """
+    This function creates basic aorist forms
     :param pres_form: 1st person sg present simple active or if deponens passive
     :param act_root: active perfect stem
     :param passive_root: passive perfect stem
