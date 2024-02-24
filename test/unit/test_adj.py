@@ -1,20 +1,11 @@
 from unittest import TestCase
 
-from icecream import ic
+from modern_greek_inflexion import Adjective
+from modern_greek_inflexion.exceptions import NotInGreekException, NotLegalAdjectiveException
 
-from modern_greek_inflexion.adjective import Adjective
-from modern_greek_inflexion._exceptions import NotInGreekException, NotLegalAdjectiveException
 
-# oraios = adjective.Adj('ωραίος')
-# kalos = adjective.Adj('καλός')
 class AdjectiveTests(TestCase):
 
-    # def test_classes(self):
-    #     self.assertDictEqual(
-    #         kalos.positive_degree(),
-    #         {},
-    #         ic(kalos.all())
-    #     )
 
     def test_adj_not_in_greek(self):
         self.assertRaises(NotInGreekException, Adjective, 'kakos')
@@ -22,14 +13,11 @@ class AdjectiveTests(TestCase):
     def test_pammegethhs(self):
         self.assertRaises(NotLegalAdjectiveException, Adjective, 'ζούδιαρηδης')
 
-
-
     def test_adj_oraios(self):
         self.maxDiff = None
 
         self.assertDictEqual(
             Adjective('ωραίος').all(),
-            # Adj('ωραίος'),
             {'adj': {'pl': {'fem': {'gen': {'ωραίων'}, 'acc': {'ωραίες'}, 'voc': {'ωραίες'}, 'nom': {'ωραίες'}},
                             'masc': {'gen': {'ωραίων'}, 'acc': {'ωραίους'}, 'voc': {'ωραίοι'}, 'nom': {'ωραίοι'}},
                             'neut': {'gen': {'ωραίων'}, 'acc': {'ωραία'}, 'voc': {'ωραία'}, 'nom': {'ωραία'}}},

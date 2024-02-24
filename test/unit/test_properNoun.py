@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from modern_greek_inflexion.resources.variables import MASC, SURNAME, FEM, FEM_SG
-from modern_greek_inflexion.noun import Noun
+from modern_greek_inflexion import Noun
 
 
 class ProperNounTests(TestCase):

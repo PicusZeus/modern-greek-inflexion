@@ -1,6 +1,6 @@
 from modern_greek_inflexion.adjective.basic.create_basic_adj import create_all_basic_forms
 from .all.create_all_adj import create_all_adj_forms
-from .._exceptions import NotInGreekException
+from ..exceptions import NotInGreekException
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 

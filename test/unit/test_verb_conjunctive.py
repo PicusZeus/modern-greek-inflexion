@@ -1,15 +1,15 @@
 from unittest import TestCase
 
-from modern_greek_inflexion import verb
+from modern_greek_inflexion import Verb
 from modern_greek_inflexion.resources import ACTIVE, IND, PASSIVE
 
 
 def conj_act(v):
-    return verb.Verb(v).create_conjunctive()[ACTIVE][IND]
+    return Verb(v).create_conjunctive()[ACTIVE][IND]
 
 
 def conj_pass(v):
-    return verb.Verb(v).create_conjunctive()[PASSIVE][IND]
+    return Verb(v).create_conjunctive()[PASSIVE][IND]
 
 
 class VerbTestConAct(TestCase):

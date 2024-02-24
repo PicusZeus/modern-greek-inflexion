@@ -6,7 +6,7 @@ from ..resources.typing import declension_forms_type
 
 class Article:
     """
-    This class creates articles, it is of course overkill, since it returns preexisting inflected forms, but added
+    This class creates article, it is of course overkill, since it returns preexisting inflected forms, but added
     for the sake of completion of the API
     """
     def __init__(self, article: str):

@@ -8,7 +8,7 @@ from ..noun import Noun
 from ..resources import greek_pattern
 from ..resources.variables import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from .._exceptions import NotInGreekException
+from ..exceptions import NotInGreekException
 from ..resources.typing import declension_forms_type
 
 cardinal_irregulars = ['δεύτερος', 'τρίτος', 'τέταρτος', 'πέμπτος', 'έκτος', 'έβδομος', 'όγδοος', 'ένατος', 'δέκατος']
@@ -16,7 +16,7 @@ cardinal_irregulars = ['δεύτερος', 'τρίτος', 'τέταρτος', '
 
 class Numeral:
     """
-    This class creates numerals
+    This class creates numeral
     """
     def __init__(self, numeral: str, pos: str = ADJ):
         """

@@ -355,7 +355,11 @@ The two flags can be used independently
 QUANTIFIERS
 ==================
 
->>> from modern_greek_inflexion import numerals
+>>> from modern_greek_inflexion import numeral
+
+Among quantifiers there are adjectival quantifiers ('ένας') and noun quantifiers ('δεκάδα'), and so this module has two
+function for those two groups, as logic that would be able to recognize to which group a quantifier belongs, though
+possible, does not really offer much advantage to anyone. If I am wrong, it can always be added.
 
 Among quantifiers there are adjectival quantifiers ('ένας') and noun quantifiers ('δεκάδα'), and so this module has two
 function for those two groups, as logic that would be able to recognize to which group a quantifier belongs, though

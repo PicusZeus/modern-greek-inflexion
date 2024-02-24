@@ -1,6 +1,5 @@
 from unittest import TestCase
-from modern_greek_inflexion import articles
-from modern_greek_inflexion.articles import Article
+from modern_greek_inflexion import Article
 
 
 class ArticleTests(TestCase):

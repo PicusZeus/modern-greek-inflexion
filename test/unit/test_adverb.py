@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from modern_greek_inflexion import adverb
-from modern_greek_inflexion.adverb import Adverb
+from modern_greek_inflexion import Adverb
 
 
 class AdverbTest(TestCase):
@@ -13,13 +12,13 @@ class AdverbTest(TestCase):
 
     def test_adv_pote(self):
         self.assertDictEqual(
-            adverb.Adverb('ποτέ').all(),
+            Adverb('ποτέ').all(),
             {'adv': {'ποτέ'}}
         )
 
     def test_adv_ano(self):
         self.assertDictEqual(
-            adverb.Adverb('άνω').all(),
+            Adverb('άνω').all(),
             {'adv': {'άνω'}, 'comp_adv': {'ανώτερα'}, 'superl_adv': {'ανώτατα'}, 'comp': {
                 'pl': {'neut': {'nom': {'ανώτερα'}, 'gen': {'ανώτερων'}, 'voc': {'ανώτερα'}, 'acc': {'ανώτερα'}},
                        'masc': {'nom': {'ανώτεροι'}, 'gen': {'ανώτερων'}, 'voc': {'ανώτεροι'}, 'acc': {'ανώτερους'}},

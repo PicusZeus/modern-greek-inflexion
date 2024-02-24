@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 project = 'Modern Greek Inflexion'
 copyright = '2024, Krzysztof Hilman'
 author = 'Krzysztof Hilman'
-release = '1.0.7'
+release = '2.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -24,7 +24,6 @@ extensions = ['sphinx.ext.autodoc',
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 
 # -- Options for HTML output -------------------------------------------------

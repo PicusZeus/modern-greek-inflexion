@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from modern_greek_inflexion.noun import Noun
+from modern_greek_inflexion import Noun
 from modern_greek_inflexion.resources.variables import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
 
 

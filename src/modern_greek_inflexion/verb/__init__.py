@@ -9,7 +9,7 @@ from modern_greek_accentuation.accentuation import convert_to_monotonic
 from modern_greek_inflexion import adjective
 from ..resources.variables import *
 from modern_greek_inflexion.resources import greek_pattern
-from modern_greek_inflexion._exceptions import NotInGreekException
+from modern_greek_inflexion.exceptions import NotInGreekException
 
 
 class Verb:

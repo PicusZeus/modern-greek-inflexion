@@ -1,17 +1,16 @@
 from unittest import TestCase
 
-from modern_greek_inflexion import verb
+from modern_greek_inflexion import Verb
 from modern_greek_inflexion.resources import PRESENT, ACTIVE, IND, PASSIVE
-from modern_greek_inflexion.verb import Verb
-from icecream import ic
+
 
 
 def present_act(v):
-    return verb.Verb(v).create_imperfect_forms()[PRESENT][ACTIVE][IND]
+    return Verb(v).create_imperfect_forms()[PRESENT][ACTIVE][IND]
 
 
 def present_pass(v):
-    return verb.Verb(v).create_imperfect_forms()[PRESENT][PASSIVE][IND]
+    return Verb(v).create_imperfect_forms()[PRESENT][PASSIVE][IND]
 
 
 class VerbTestPresAct(TestCase):

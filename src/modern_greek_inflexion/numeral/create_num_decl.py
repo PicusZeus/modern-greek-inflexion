@@ -24,7 +24,7 @@ def create_all_num_adj_forms(num_base_forms: str, cardinal: bool = False) -> dec
         forms = copy.deepcopy(adj_basic_template)
 
         if masc[-2:] in ['οι', 'οί'] and fem[-2:] in ['ες', 'ές'] and neut[-1] in ['α', 'ά']:
-            # exclusively for numerals, as there are for obvious reasons only in plural
+            # exclusively for numeral, as there are for obvious reasons only in plural
             accent = where_is_accent(masc, true_syllabification=False)
             acc_masc = masc[:-2] + 'ους'
             gen_pl = masc[:-2] + 'ων'

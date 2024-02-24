@@ -1,9 +1,6 @@
-from unittest import TestCase, main
+from unittest import TestCase
 
-from icecream import ic
-
-from modern_greek_inflexion import numerals
-from modern_greek_inflexion.numerals import Numeral
+from modern_greek_inflexion import Numeral
 from modern_greek_inflexion.resources.variables import NOUN
 
 

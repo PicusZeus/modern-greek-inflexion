@@ -1,20 +1,14 @@
 from unittest import TestCase
 
-from icecream import ic
-
-from modern_greek_inflexion._exceptions import NotInGreekException
-from modern_greek_inflexion import verb
+from modern_greek_inflexion.exceptions import NotInGreekException
+from modern_greek_inflexion import Verb
 
 
-# def print_verbs(verba):
-#     for v in verba:
-#         ic(basic_verb(v))
 def basic_verb(v):
-    return verb.Verb(v).basic_forms
+    return Verb(v).basic_forms
 
 
 class VerbTestBasic(TestCase):
-
 
     def test_verb_ksanarxomai(self):
         self.assertDictEqual(
@@ -27,6 +21,7 @@ class VerbTestBasic(TestCase):
              'present': {'passive': {'ξανάρχομαι'}}}
 
         )
+
     def test_verb_synepairnw(self):
         self.assertDictEqual(
             basic_verb('συνεπαίρνω'),
@@ -40,6 +35,7 @@ class VerbTestBasic(TestCase):
              'present': {'active': {'συνεπαίρνω'}, 'passive': {'συνεπαίρνομαι'}}}
 
         )
+
     def test_verb_arxw(self):
         self.assertDictEqual(
             basic_verb('άρχω'),
@@ -54,6 +50,7 @@ class VerbTestBasic(TestCase):
              'present': {'active': {'άρχω'}, 'passive': {'άρχομαι'}}}
 
         )
+
     def test_verb_anamenw(self):
         self.assertDictEqual(
             basic_verb('αναμένω'),
@@ -561,7 +558,7 @@ class VerbTestBasic(TestCase):
     def test_verb_parablepw_logio(self):
         self.maxDiff = False
         self.assertDictEqual(
-            verb.Verb('παραβλέπω', para=True).basic_forms,
+            Verb('παραβλέπω', para=True).basic_forms,
             {'act_pres_participle': {'παραβλέποντας'},
              'aorist': {'active': {'παραείδα'}, 'passive': {'παραειδώθηκα', 'παραϊδώθηκα'}},
              'arch_act_pres_participle': {'παραβλέπων/παραβλέπουσα/παραβλέπον'},
@@ -1202,7 +1199,7 @@ class VerbTestBasic(TestCase):
         self.assertDictEqual(
             basic_verb('δει'),
             {'present': {'active': {'δει'}}, 'conjunctive': {'active': {'δεήσει'}},
-             'paratatikos': {'active': {'έδει'}},'pres_conjugation': 'con1_act_modal',
+             'paratatikos': {'active': {'έδει'}}, 'pres_conjugation': 'con1_act_modal',
 
              'aorist': {'active': {'δέησε', 'εδέησε'}}, 'modal': True}
 
@@ -1406,7 +1403,7 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'είδα'}, 'passive': {'ειδώθηκα', 'ιδώθηκα'}},
              'paratatikos': {'active': {'έβλεπα'}, 'passive': {'βλεπόμουν'}},
              'pres_conjugation': 'con1_act',
-                'act_pres_participle': {'βλέποντας'},
+             'act_pres_participle': {'βλέποντας'},
              'arch_act_pres_participle': {'βλέπων/βλέπουσα/βλέπον'},
              'passive_perfect_participle': {'ιδωμένος/ιδωμένη/ιδωμένο'},
              'modal': False}
@@ -1679,7 +1676,7 @@ class VerbTestBasic(TestCase):
             basic_verb('βρίθω'),
             {'present': {'active': {'βρίθω'}},
              'pres_conjugation': 'con1_act',
-                'conjunctive': {}, 'aorist': {}, 'paratatikos': {'active': {'έβριθα'}},
+             'conjunctive': {}, 'aorist': {}, 'paratatikos': {'active': {'έβριθα'}},
              'act_pres_participle': {'βρίθοντας'}, 'arch_act_pres_participle': {'βρίθων/βρίθουσα/βρίθον'},
              'modal': False},
 
@@ -1690,7 +1687,7 @@ class VerbTestBasic(TestCase):
             basic_verb('ξέρω'),
             {'present': {'active': {'ξέρω'}},
              'pres_conjugation': 'con1_act',
-            'conjunctive': {}, 'aorist': {}, 'paratatikos': {'active': {'ήξερα'}},
+             'conjunctive': {}, 'aorist': {}, 'paratatikos': {'active': {'ήξερα'}},
              'act_pres_participle': {'ξέροντας'}, 'modal': False},
 
         )
@@ -1807,7 +1804,7 @@ class VerbTestBasic(TestCase):
 
     def test_verb_parakathomai(self):
         self.assertDictEqual(
-            verb.Verb('παρακάθομαι', para=True).basic_forms,
+            Verb('παρακάθομαι', para=True).basic_forms,
             {'aorist': {'active': {'παραέκατσα', 'παρακάθισα'}},
              'conjunctive': {'active': {'παρακάτσω', 'παρακαθίσω'}},
              'modal': False,
@@ -2004,7 +2001,6 @@ class VerbTestBasic(TestCase):
 
         )
 
-
     def test_verb_katasxw(self):
         self.assertDictEqual(
             basic_verb('κατάσχω'),
@@ -2123,8 +2119,8 @@ class VerbTestBasic(TestCase):
             basic_verb('καταλαβαίνω'),
             {'present': {'active': {'καταλαβαίνω'}, 'passive': {'καταλαβαίνομαι'}},
              'conjunctive': {'active': {'καταλάβω'}},
-              'pres_conjugation': 'con1_act',
-            'aorist': {'active': {'κατάλαβα'}},
+             'pres_conjugation': 'con1_act',
+             'aorist': {'active': {'κατάλαβα'}},
              'paratatikos': {'active': {'καταλάβαινα'}, 'passive': {'καταλαβαινόμουν'}},
              'act_pres_participle': {'καταλαβαίνοντας'}, 'modal': False},
 
@@ -2667,7 +2663,7 @@ class VerbTestBasic(TestCase):
              'aorist': {'active': {'έδωσα'}, 'passive': {'εδόθη', 'δόθηκα'}},
              'paratatikos': {'active': {'έδινα'}, 'passive': {'δινόμουν'}},
              'pres_conjugation': 'con1_act',
-                'act_pres_participle': {'δίνοντας'},
+             'act_pres_participle': {'δίνοντας'},
              'passive_perfect_participle': {'δοσμένος/δοσμένη/δοσμένο',
                                             'δεδομένος/δεδομένη/δεδομένο'},
              'passive_aorist_participle': {'δοθείς/δοθείσα/δοθέν'}, 'modal': False},

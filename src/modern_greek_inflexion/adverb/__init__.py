@@ -3,7 +3,7 @@ from ..adjective import Adjective
 from ..resources import greek_pattern
 from ..resources.adv import irregular_adv
 from modern_greek_inflexion.resources.variables import ADV, COMP_ADV, ADJ, COMP, SUPERL, SUPERL_ADV
-from .._exceptions import NotInGreekException
+from ..exceptions import NotInGreekException
 from ..resources.typing import declension_forms_type
 
 

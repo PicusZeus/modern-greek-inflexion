@@ -1,20 +1,20 @@
 from unittest import TestCase
 
-from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
-from modern_greek_inflexion import verb
+from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
+from modern_greek_inflexion import Verb
 
 
 class VerbTestAll(TestCase):
 
     def test_not_in_greek_exception(self):
-        self.assertRaises(NotInGreekException, verb.Verb, 'gamao')
+        self.assertRaises(NotInGreekException, Verb, 'gamao')
 
     def test_not_legal_verb_exception(self):
-        self.assertRaises(NotLegalVerbException, verb.Verb, 'βλέπουμε')
+        self.assertRaises(NotLegalVerbException, Verb, 'βλέπουμε')
 
     def test_verb_modal_pass_fainetai(self):
         self.assertDictEqual(
-            verb.Verb('φαίνεται').all(),
+            Verb('φαίνεται').all(),
             {'present': {'passive': {'ind': {'sg': {'ter': {'φαίνεται'}}}}},
              'conjunctive': {'passive': {'ind': {'sg': {'ter': {'φανεί'}}}}},
              'aorist': {'passive': {'ind': {'sg': {'ter': {'φάνηκε'}}}}},
@@ -23,7 +23,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_modal_brexei(self):
         self.assertDictEqual(
-            verb.Verb('βρέχει').all(),
+            Verb('βρέχει').all(),
             {'present': {'active': {'ind': {'sg': {'ter': {'βρέχει'}}}}},
              'conjunctive': {'active': {'ind': {'sg': {'ter': {'βρέξει'}}}}},
              'aorist': {'active': {'ind': {'sg': {'ter': {'έβρεξε'}}}}},
@@ -32,7 +32,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_antipernw(self):
         self.assertDictEqual(
-            verb.Verb('αντιπερνώ').all(),
+            Verb('αντιπερνώ').all(),
             {'act_pres_participle': {'αντιπερνώντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'αντιπεράσαμε'},
                                                   'sec': {'αντιπεράσατε'},
@@ -110,7 +110,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_modal_pass_melletai(self):
         self.assertDictEqual(
-            verb.Verb('μέλλεται').all(),
+            Verb('μέλλεται').all(),
             {'present': {'passive': {'ind': {'sg': {'ter': {'μέλλεται'}}}}},
              'aorist': {},
              'conjunctive': {},
@@ -119,7 +119,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_aksiw(self):
         self.assertDictEqual(
-            verb.Verb('αξιώ').all(),
+            Verb('αξιώ').all(),
             {'act_pres_participle': {'αξιώντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'αξιώσαμε'},
                                                   'sec': {'αξιώσατε'},
@@ -179,7 +179,7 @@ class VerbTestAll(TestCase):
         self.maxDiff = None
         self.assertDictEqual(
 
-            verb.Verb('όψομαι').all(),
+            Verb('όψομαι').all(),
             {'conjunctive': {},
              'aorist': {},
 
@@ -196,7 +196,7 @@ class VerbTestAll(TestCase):
     def test_verb_erxomai(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('έρχομαι').all(),
+            Verb('έρχομαι').all(),
             {'present':
                 {'passive':
                     {'ind': {
@@ -245,7 +245,7 @@ class VerbTestAll(TestCase):
     def test_verb_engrafw(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('εγγράφω').all(),
+            Verb('εγγράφω').all(),
             {'act_pres_participle': {'εγγράφοντας'},
              'active_aorist_participle': {'pl': {'fem': {'acc': {'εγγράψασες'},
                                                          'gen': {'εγγραψασών'},
@@ -487,7 +487,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_phgainw(self):
         self.assertDictEqual(
-            verb.Verb('πηγαίνω').all(),
+            Verb('πηγαίνω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'πηγαίνω'}, 'sec': {'πηγαίνεις'}, 'ter': {'πηγαίνει'}},
                                             'pl': {'pri': {'πηγαίνουμε', 'πηγαίνομε'}, 'sec': {'πηγαίνετε'},
                                                    'ter': {'πηγαίνουνε', 'πηγαίνουν'}}},
@@ -505,7 +505,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_prokeitai(self):
         self.assertDictEqual(
-            verb.Verb('πρόκειται').all(),
+            Verb('πρόκειται').all(),
             {'present': {'passive': {'ind': {'sg': {'ter': {'πρόκειται'}}}}},
              'conjunctive': {},
              'aorist': {},
@@ -514,7 +514,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_symbainei(self):
         self.assertDictEqual(
-            verb.Verb('συμβαίνει').all(),
+            Verb('συμβαίνει').all(),
             {'present': {'active': {'ind': {'sg': {'ter': {'συμβαίνει'}}}}},
              'conjunctive': {'active': {'ind': {'sg': {'ter': {'συμβεί'}}}}},
              'aorist': {'active': {'ind': {'sg': {'ter': {'συνέβη'}}}}},
@@ -526,7 +526,7 @@ class VerbTestAll(TestCase):
     def test_verb_parkaro(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('παρκάρω').all(),
+            Verb('παρκάρω').all(),
             {'act_pres_participle': {'παρκάροντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'παρκαρίσαμε', 'παρκάραμε'},
                                                   'sec': {'παρκαρίσατε', 'παρκάρατε'},
@@ -633,7 +633,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_apexw(self):
         self.assertDictEqual(
-            verb.Verb('απέχω').all(),
+            Verb('απέχω').all(),
             {'act_pres_participle': {'απέχοντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'απείχαμε'},
                                                   'sec': {'απείχατε'},
@@ -692,7 +692,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_kserw(self):
         self.assertDictEqual(
-            verb.Verb('ξέρω').all(),
+            Verb('ξέρω').all(),
             {'present':
                  {'active':
                       {'ind':
@@ -714,7 +714,7 @@ class VerbTestAll(TestCase):
     def test_verb_pairnw(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('παίρνω').all(),
+            Verb('παίρνω').all(),
             {'present':
                  {'active': {'ind': {'sg': {'pri': {'παίρνω'}, 'sec': {'παίρνεις'}, 'ter': {'παίρνει'}},
                                      'pl': {'pri': {'παίρνουμε', 'παίρνομε'}, 'sec': {'παίρνετε'},
@@ -760,7 +760,7 @@ class VerbTestAll(TestCase):
     def test_verb_spaw(self):
         # self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('σπάω').all(),
+            Verb('σπάω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'σπάω'}, 'sec': {'σπας'}, 'ter': {'σπάει'}},
                                             'pl': {'pri': {'σπάμε'}, 'sec': {'σπάτε'}, 'ter': {'σπαν', 'σπάνε'}}},
                                     'imp': {'sg': {'sec': {'σπάγε'}}, 'pl': {'sec': {'σπάγετε', 'σπάτε'}}}}},
@@ -797,7 +797,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_anameignuw(self):
         self.assertDictEqual(
-            verb.Verb('αναμειγνύω').all(),
+            Verb('αναμειγνύω').all(),
             {'act_pres_participle': {'αναμειγνύοντας'},
              'active_aorist_participle': {'pl': {'fem': {'acc': {'αναμείξασες'},
                                                          'gen': {'αναμειξασών'},
@@ -996,7 +996,7 @@ class VerbTestAll(TestCase):
     def test_verb_teleiwnw(self):
         self.assertDictEqual(
 
-            verb.Verb('τελειώνω').all(),
+            Verb('τελειώνω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'τελειώνω'}, 'sec': {'τελειώνεις'}, 'ter': {'τελειώνει'}},
                                             'pl': {'pri': {'τελειώνουμε', 'τελειώνομε'}, 'sec': {'τελειώνετε'},
                                                    'ter': {'τελειώνουνε', 'τελειώνουν'}}},
@@ -1072,7 +1072,7 @@ class VerbTestAll(TestCase):
     def test_verb_leo(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('λέω').all(),
+            Verb('λέω').all(),
             {'act_pres_participle': {'λέγοντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'είπαμε'},
                                                   'sec': {'είπατε'},
@@ -1251,7 +1251,7 @@ class VerbTestAll(TestCase):
     def test_verb_katebainw(self):
         # self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('κατεβαίνω').all(),
+            Verb('κατεβαίνω').all(),
             {'present':
                  {'active': {'ind':
                                  {'sg': {'pri': {'κατεβαίνω'}, 'sec': {'κατεβαίνεις'}, 'ter': {'κατεβαίνει'}},
@@ -1277,7 +1277,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_pao(self):
         self.assertDictEqual(
-            verb.Verb('πάω').all(),
+            Verb('πάω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'πάω'}, 'sec': {'πας'}, 'ter': {'πάει'}},
                                             'pl': {'pri': {'πάμε'}, 'sec': {'πάτε'}, 'ter': {'παν', 'πάνε'}}},
                                     'imp': {'sg': {'sec': {'πήγαινε'}}, 'pl': {'sec': {'πηγαίνετε'}}}}},
@@ -1295,7 +1295,7 @@ class VerbTestAll(TestCase):
     def test_verb_paraeimai(self):
         self.maxDiff = None
         self.assertDictEqual(
-            verb.Verb('παραείμαι').all(),
+            Verb('παραείμαι').all(),
             {'act_pres_participle': {'παραόντας'},
              'aorist': {},
              'conjunctive': {},
@@ -1322,7 +1322,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_eimai(self):
         self.assertDictEqual(
-            verb.Verb('είμαι').all(),
+            Verb('είμαι').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'είμαι'}, 'sec': {'είσαι'}, 'ter': {'είναι'}},
                                             'pl': {'pri': {'είμαστε'}, 'sec': {'είστε', 'είσαστε'}, 'ter': {'είναι'}}},
                                     'imp': {'sg': {'ter': {'έστω'}}}}}, 'conjunctive': {}, 'aorist': {},
@@ -1345,7 +1345,7 @@ class VerbTestAll(TestCase):
 
     def test_paratatikos_pwlw(self):
         self.assertDictEqual(
-            verb.Verb('πωλώ').all(),
+            Verb('πωλώ').all(),
             {'act_pres_participle': {'πωλώντας'},
              'aorist': {'active': {'ind': {'pl': {'pri': {'πωλήσαμε'},
                                                   'sec': {'πωλήσατε'},
@@ -1488,7 +1488,7 @@ class VerbTestAll(TestCase):
 
     def test_verb_antitasso(self):
         self.assertDictEqual(
-            verb.Verb('αντιτάσσω').all(),
+            Verb('αντιτάσσω').all(),
             {'present': {'active': {'ind': {'sg': {'pri': {'αντιτάσσω'}, 'sec': {'αντιτάσσεις'}, 'ter': {'αντιτάσσει'}},
                                             'pl': {'pri': {'αντιτάσσουμε', 'αντιτάσσομε'}, 'sec': {'αντιτάσσετε'},
                                                    'ter': {'αντιτάσσουν', 'αντιτάσσουνε'}}},

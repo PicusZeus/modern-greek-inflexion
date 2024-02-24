@@ -1,12 +1,6 @@
 from unittest import TestCase
 
-# from icecream import ic
-
-from modern_greek_inflexion import pronoun
-from modern_greek_inflexion.pronoun import Pronoun
-
-
-# from modern_greek_inflexion.resources.resources import greek_corpus
+from modern_greek_inflexion import Pronoun
 
 
 class PronounTestAll(TestCase):

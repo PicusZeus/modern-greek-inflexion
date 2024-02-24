@@ -36,7 +36,6 @@ def create_all_present_personal_forms(verb: str, voice: voiceType) -> tuple[pers
             voice = ACTIVE
             sec_pos = IND
             v = v.strip()
-            # to be safe, sometimes list, especially if created manually, can have some white spaces
             con = recognize_active_non_past_conjugation(v, voice=voice)
 
             root = con[ROOT]

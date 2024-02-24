@@ -3,7 +3,7 @@ from modern_greek_accentuation.accentuation import is_accented, where_is_accent,
     put_accent_on_the_antepenultimate, put_accent_on_the_penultimate, remove_all_diacritics, put_accent_on_the_ultimate
 from modern_greek_accentuation.resources import vowels
 from modern_greek_accentuation.syllabify import modern_greek_syllabify
-from modern_greek_inflexion._exceptions import NotLegalAdjectiveException
+from modern_greek_inflexion.exceptions import NotLegalAdjectiveException
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.typing import adjective_basic_forms
 from modern_greek_inflexion.resources.variables import (ADJ, ADVERB, ADVERB_COMPARATIVE, COMPARATIVE, INCORRECT_ACCENT,

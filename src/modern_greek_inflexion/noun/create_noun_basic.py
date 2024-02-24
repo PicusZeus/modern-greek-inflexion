@@ -15,7 +15,7 @@ from ..resources import greek_corpus
 
 from ..resources.noun import noun_grammar_lists, nouns_masc_fem
 
-from .._exceptions import NotInGreekException
+from ..exceptions import NotInGreekException
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 GENDERS = 'genders'

@@ -1,17 +1,15 @@
 from unittest import TestCase
 
-from icecream import ic
-
-from modern_greek_inflexion import verb
+from modern_greek_inflexion import Verb
 from modern_greek_inflexion.resources import PARATATIKOS, ACTIVE, IND, PASSIVE
 
 
 def parat_act(v):
-    return verb.Verb(v).create_imperfect_forms()[PARATATIKOS][ACTIVE][IND]
+    return Verb(v).create_imperfect_forms()[PARATATIKOS][ACTIVE][IND]
 
 
 def parat_pass(v):
-    return verb.Verb(v).create_imperfect_forms()[PARATATIKOS][PASSIVE][IND]
+    return Verb(v).create_imperfect_forms()[PARATATIKOS][PASSIVE][IND]
 
 
 class VerbTestParatAct(TestCase):

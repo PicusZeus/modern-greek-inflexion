@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from modern_greek_accentuation.resources import vowels
 
-from modern_greek_inflexion._exceptions import NotLegalVerbException
+from modern_greek_inflexion.exceptions import NotLegalVerbException
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.typing import recognized_conjugation_type
 from modern_greek_inflexion.resources.variables import *

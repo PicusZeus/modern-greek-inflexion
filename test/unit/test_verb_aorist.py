@@ -1,16 +1,15 @@
 from unittest import TestCase
 
-from modern_greek_inflexion import verb
+from modern_greek_inflexion import Verb
 from modern_greek_inflexion.resources import ACTIVE, IND, PASSIVE
 
 
 def aorist_act(v):
-    # return verb.create_all_forms(v)['aorist']['active']['ind']
-    return verb.Verb(v).create_aorist()[ACTIVE][IND]
+    return Verb(v).create_aorist()[ACTIVE][IND]
 
 
 def aorist_pass(v):
-    return verb.Verb(v).create_aorist()[PASSIVE][IND]
+    return Verb(v).create_aorist()[PASSIVE][IND]
 
 
 class VerbTestAorAct(TestCase):

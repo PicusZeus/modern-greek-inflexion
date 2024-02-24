@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from modern_greek_inflexion._exceptions import NotLegalVerbException
+from modern_greek_inflexion.exceptions import NotLegalVerbException
 from modern_greek_inflexion.resources.typing import presentConjugationType
 
 from modern_greek_inflexion.resources.variables import *

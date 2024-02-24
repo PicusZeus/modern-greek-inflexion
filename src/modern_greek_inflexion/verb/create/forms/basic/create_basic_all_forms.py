@@ -27,7 +27,7 @@ from modern_greek_inflexion.resources.verb import irregular_passive_roots
 from modern_greek_inflexion.resources.variables import ACTIVE, PASSIVE, MODAL, AORIST, PRESENT, PARATATIKOS, \
     CONJUNCTIVE, ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, \
     PASSIVE_AORIST_PARTICIPLE, PASS_PRES_PARTICIPLE, PRES_CONJUGATION
-from modern_greek_inflexion._exceptions import NotLegalVerbException, NotInGreekException
+from modern_greek_inflexion.exceptions import NotLegalVerbException, NotInGreekException
 
 
 def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_type:
