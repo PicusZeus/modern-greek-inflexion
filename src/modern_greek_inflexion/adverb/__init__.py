@@ -10,22 +10,25 @@ from ..resources.typing import declension_forms_type
 class Adverb:
     """
     This class can be used to create adverb forms
+
+    :param adverb: an adverb form
+    :type adverb: str
+
     """
 
     def __init__(self, adverb: str):
-        """
-        :param adverb: an adverb form
-        """
+
         if not greek_pattern.match(adverb):
             raise NotInGreekException
         self.adverb = adverb
 
-    def all(self) -> dict[ADV: set[str], COMP_ADV: set[str], SUPERL_ADV: set[str], SUPERL: declension_forms_type,
-                          COMP: declension_forms_type]:
+    def all(self) -> {ADV: set[str], COMP_ADV: set[str], SUPERL_ADV: set[str], SUPERL: declension_forms_type,
+                      COMP: declension_forms_type}:
         """
-        Checks if an adverb belongs to irregular ones that creates comparative and superlative degree
-        :return: A dictionary always with an ADV key, and if it's an adverb that creates comparative or/and
-        superlative degree, there are also additional forms under COMP_ADV, SUPERL_ADV, COMP, SUPERL keys.
+        If an adverb is creates comparative and superlative degree, or even if it creates adjectival forms in comparative and superlative degree, they will be found in the resulting dictionary.
+
+        :return: A dictionary always with an ADV key, and if it's an adverb that creates comparative or/and superlative degree, there are also additional forms under COMP_ADV, SUPERL_ADV, COMP, SUPERL keys.
+        :rtype: dict
         """
         if self.adverb in irregular_adv:
             result = {ADV: {self.adverb}}

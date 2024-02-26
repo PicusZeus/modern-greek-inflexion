@@ -11,19 +11,18 @@ from modern_greek_inflexion.resources import greek_pattern
 
 class Adjective:
     """
-    This class can be used to create adjective forms, all or only in certain degree, you can do it by instantiating
-    the class with a single basic form (nom sg masc) or with basic forms.
+    This class can be used to create adjective forms, all or only in certain degree, you can do it by instantiating the class with a single basic form (nom sg masc), you can also add already prepared basic forms.
+
+    :param adj: A single form nominative singular masculine.
+    :type adj: str
+    :param aklito: If you know the noun is indeclinable, set it to True
+    :type aklito: bool, optional
+    :param basic_forms: a dictionary with the following shape ``{ADJ: "masc/fem/neut", COMPARATIVE: "parathetiko,alt_parathetiko/uperthetiko,alt_uperthetiko, ADVERB: "adverb,alt_adverb", ADVERB_COMPARATIVE: "adverb_parathetiko,alt_adverb_parathetiko/adverb_uperthetiko,alt_adverb_uperthetiko"}``
+    :type basic_forms: dict, optional
     """
 
-    def __init__(self, adj: str, aklito: bool = False, basic_forms: adjective_basic_forms = None):
-        """
-        :param adj: Nominative singular masculine
-        :param aklito: Boolean, if you know it's indeclinable, set it to True
-        :param basic_forms: dict {ADJ: "masc/fem/neut",
-         COMPARATIVE: "parathetiko,alt_parathetiko/uperthetiko,alt_uperthetiko,
-         ADVERB: "adverb,alt_adverb",
-         ADVERB_COMPARATIVE: "adverb_parathetiko,alt_adverb_parathetiko/adverb_uperthetiko,alt_adverb_uperthetiko"}
-        """
+    def __init__(self, adj: str, aklito: bool = False, basic_forms: dict = None):
+
         self.adjective = adj
         adj = convert_to_monotonic(adj, one_syllable_rule=False)
 
@@ -37,7 +36,6 @@ class Adjective:
     @staticmethod
     def _adj(basic: str, adverb: str) -> tuple[declension_forms_type, set[str]]:
         """
-
         :param basic: "masc/fem/neut"
         :param adverb: "adverb,alt_adverb
         :return: two element tuple, the first is a dictionary with all inflexion adjective forms with the following
@@ -57,11 +55,12 @@ class Adjective:
 
         return adj, adv
 
-    def positive_degree(self) -> dict[ADJ: declension_forms_type, ADV: set[str]]:
+    def positive_degree(self) -> {ADJ: declension_forms_type, ADV: set[str]}:
         """
         Creates positive degree forms
-        :return: A dictionary of adjective forms in positive degree under the ADJ key, and adverbs in positive degree
-        under the ADV key
+
+        :return: A dictionary of adjective forms in positive degree with the following shape: ``{ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, ADV: set(forms)}``
+        :rtype: dict
         """
         adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])
         return {ADJ: adj, ADV: adv}
@@ -69,6 +68,7 @@ class Adjective:
     def _comp_degree(self, bas_compars: str) -> tuple[declension_forms_type, set[str]]:
         """
         Creates comparative degree forms
+
         :param bas_compars: adj: masc nom sg form (`ωραιότερος`)
         :return: two element tuple, the first is a dictionary with all inflexion adjective forms with the following
         structure:{SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, the second one is a set containing adverbs
@@ -86,11 +86,12 @@ class Adjective:
 
         return all_comp_forms, all_adverbs
 
-    def comparative_degree(self) -> dict[COMP: declension_forms_type, COMP_ADV: set[str]]:
+    def comparative_degree(self) -> {COMP: declension_forms_type, COMP_ADV: set[str]}:
         """
         Creates comparative degree forms
-        :return: A dictionary of adjective forms in the comparative degree under the ADJ key, and adverbs in the
-        comparative degree under the ADV key
+
+        :return: A dictionary of adjective forms in the comparative degree with the following shape: ``COMP: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, COMP_ADV: set(forms)``
+        :rtype: dict
         """
         basic_compar = self.basic_forms[COMPARATIVE]
         if basic_compar:
@@ -100,11 +101,12 @@ class Adjective:
                 comparative_forms, comparative_adv = self._comp_degree(compars)
                 return {COMP: comparative_forms, COMP_ADV: set(advs_compar.split(','))}
 
-    def superlative_degree(self) -> dict[SUPERL: declension_forms_type, SUPERL_ADV: set[str]]:
+    def superlative_degree(self) -> {SUPERL: declension_forms_type, SUPERL_ADV: set[str]}:
         """
-        Creates superlative degree forms
-        :return: A dictionary of adjective forms in the superlative degree under the ADJ key, and adverbs
-        in the superlative degree under the ADV key
+        Create superlative degree forms
+
+        :return: A dictionary of adjective forms in the superlative degree with the following shape ``SUPERL: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, SUPERL_ADV: set(forms)}``
+        :rtype: dict
         """
         basic_compar = self.basic_forms[COMPARATIVE]
         if basic_compar:
@@ -114,13 +116,13 @@ class Adjective:
                 comparative_forms, comparative_adv = self._comp_degree(superlatives)
                 return {SUPERL: comparative_forms, SUPERL_ADV: set(advs_superlative.split(','))}
 
-    def all(self) -> dict[ADJ: declension_forms_type, ADV: set[str], COMP: declension_forms_type, COMP_ADV: set[str],
-                     SUPERL: declension_forms_type, SUPERL_ADV: set[str]]:
+    def all(self) -> {ADJ: declension_forms_type, ADV: set[str], COMP: declension_forms_type, COMP_ADV: set[str],
+                      SUPERL: declension_forms_type, SUPERL_ADV: set[str]}:
         """
         Create all forms from a basic adjective form
-        :return: Dictionary {ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...},
-        ADV: set(forms), COMP: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, COMP_ADV: set(forms),
-        SUPERL: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, SUPERL_ADV: set(forms)}
+
+        :return: a dictionary with the following shape ``{ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, ADV: set(forms), COMP: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, COMP_ADV: set(forms), SUPERL: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, SUPERL_ADV: set(forms)}``
+        :rtype: dict
         """
         _all = {}
         adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])

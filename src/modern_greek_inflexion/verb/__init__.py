@@ -6,7 +6,8 @@ from modern_greek_inflexion.verb.helpers import merging_all_dictionaries, dict_o
 
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from modern_greek_inflexion import adjective
+from ..resources.typing import basic_forms_type, voice_forms_imp_type, voice_forms_type, participles_type, \
+    declension_forms_type
 from ..resources.variables import *
 from modern_greek_inflexion.resources import greek_pattern
 from modern_greek_inflexion.exceptions import NotInGreekException
@@ -14,16 +15,18 @@ from modern_greek_inflexion.exceptions import NotInGreekException
 
 class Verb:
     """
+    This class can be used to generate all or certain groups of inflected verbal forms
 
+    :param verb: It has to be a lemma like form, that is the first person singular of present tense, or, if it's a modal verb, the third person singular.
+    :type verb: str
+    :param para: there is a problem with prefix 'παρα', which can mean two very different things and so a verb prefixed with it, which can also influence the inflected forms a given verb generates. Generally speaking when 'παρα' has a rough meaning of "too much", or "in very high frequency" a verb with such prefix tends to be fully detachable (that is the prefix does not influence inflexion". But if 'παρα' derives its meaning from the ancient preposition πάρα, that rougly meansy "from above" or "from some distance" a verb can behave differently in regards of the augment and perfect forms (vide παραβλέπω - overlook and παραβλέπω - meet someone/ see sth too often). As the program is unable to predict which verb to conjugate, you can tell it by setting this flag to True, if the prefix para is detachable (that is its meaning is roughly "too much"). It defaults to False.
+    :type para: bool, optional
+    :param basic_forms: If you have already generated basic verb forms, you can supply them. These have to be of the following shape: ``{ACT_PRES_PARTICIPLE: set[str], ACTIVE_AORIST_PARTICIPLE: set[str], AORIST: dict[ACTIVE: set[str],  PASSIVE: set[str]], ARCH_ACT_PRES_PARTICIPLE: set[str], CONJUNCTIVE: dict[ACTIVE: set[str], PASSIVE: set[str]], PRES_CONJUGATION: str, PARATATIKOS: dict[ACTIVE: set[str], PASSIVE: set[str]], PASSIVE_AORIST_PARTICIPLE: set[str], PASSIVE_PERFECT_PARTICIPLE: set[str], PRESENT: dict[ACTIVE: set[str], PASSIVE: set[str]]}``
+    :type basic_forms: dict, optional
     """
 
-    def __init__(self, verb: str, para: bool = False, basic_forms: dict = None):
-        """
+    def __init__(self, verb: str, para: bool = False, basic_forms: basic_forms_type = None):
 
-        :param verb:
-        :param para:
-        :param basic_forms:
-        """
         if not greek_pattern.match(verb):
             raise NotInGreekException
         verb = convert_to_monotonic(verb, one_syllable_rule=False)
@@ -37,10 +40,12 @@ class Verb:
             raise Exception(f"verb {self.verb} is incorrect, probably doesnt exist in the corpus")
         self.modal = self.basic_forms[MODAL]
 
-    def create_imperfect_forms(self):
+    def create_imperfect_forms(self) -> {PRESENT: voice_forms_imp_type, PARATATIKOS: voice_forms_type}:
         """
+        This method can be used to create imperfect tenses, that is present tense and paratatiko inflected forms.
 
-        :return:
+        :return: A dictionary of the following shape ``{PRESENT: ACTIVE: {IND: personal_forms_type, IMP: personal_forms_type}, PASSIVE: {IND: personal_forms_type, IMP: personal_forms_type}, PARATATIKOS: ACTIVE: {IND: personal_forms_type}, PASSIVE: {IND: personal_forms_type}}``
+        :rtype: dict
         """
         result = {}
         active_pres_con_ind = passive_pres_con_ind = None
@@ -84,10 +89,12 @@ class Verb:
 
         return result
 
-    def create_conjunctive(self):
+    def create_conjunctive(self) -> voice_forms_imp_type:
         """
+        This method can be used to generate subjunctive forms and simple imperative
 
-        :return:
+        :return: A dictionary of the following shape ``{ACTIVE: {IND: personal_forms_type, IMP: personal_forms_type}, PASSIVE: {IND: personal_forms_type, IMP: personal_forms_type}``
+        :rtype: dict
         """
 
         # CONJUNCTIVE
@@ -116,10 +123,12 @@ class Verb:
         else:
             return {}
 
-    def create_aorist(self):
+    def create_aorist(self) -> voice_forms_type:
         """
+        This method can be used to generate aorist forms.
 
-        :return:
+        :return: A dictionary with the following shape: ``{ACTIVE: {IND: personal_forms_type}, PASSIVE: {IND: personal_forms_type}``
+        :rtype: dict
         """
         if AORIST in self.basic_forms:
             aorist_basic_forms = self.basic_forms[AORIST]
@@ -142,10 +151,12 @@ class Verb:
         else:
             return {}
 
-    def create_participles(self):
+    def create_participles(self) -> participles_type:
         """
+        this method creates all participle types (if a given verb actually does create them)
 
-        :return:
+        :return: A dictionary with the following keys ``ACT_PRES_PARTICIPLE, ARCH_ACT_PRES_PARTICIPLE, PASSIVE_PERFECT_PARTICIPLE, PASS_PRES_PARTICIPLE, ACTIVE_AORIST_PARTICIPLE, PASSIVE_AORIST_PARTICIPLE``. The present active participle is adverbial, so under this key you will find only a single form, the rest participles create adjectival forms, and so they are of the following shape ``{SG: {MASC: {NOM: set(forms), ...}, ...}, ...}``.
+        :rtype: dict
         """
         participles = {}
         if ACT_PRES_PARTICIPLE in self.basic_forms:
@@ -167,10 +178,12 @@ class Verb:
                 participles[participle_type] = merging_all_dictionaries(*participles_of_type)
         return participles
 
-    def all(self):
+    def all(self) -> {PRESENT: voice_forms_imp_type, CONJUNCTIVE: voice_forms_imp_type, PARATATIKOS: voice_forms_type, AORIST: voice_forms_type, ARCH_ACT_PRES_PARTICIPLE: declension_forms_type, PASSIVE_PERFECT_PARTICIPLE: declension_forms_type, PASS_PRES_PARTICIPLE: declension_forms_type, ACTIVE_AORIST_PARTICIPLE: declension_forms_type, PASSIVE_AORIST_PARTICIPLE: declension_forms_type, ACT_PRES_PARTICIPLE: set[str]}:
         """
+        This method will create all inflected forms
 
-        :return:
+        :return: A dictionary with personal forms and with participles
+        :rtype: dict
         """
         result = self.create_imperfect_forms()
         conjunctive = self.create_conjunctive()

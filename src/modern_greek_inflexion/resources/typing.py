@@ -1,6 +1,6 @@
 from enum import Enum
 from .variables import *
-from typing import NewType, Union
+from typing import NewType, Union, Any
 
 
 class Gender(Enum):
@@ -93,35 +93,41 @@ class Tenses(Enum):
 
 tenseType = NewType("tenseType", Tenses)
 
-cases = dict[NOM: Union[str, tuple], VOC: Union[str, tuple], ACC: Union[str, tuple], GEN: Union[str, tuple]]
+cases = {NOM: set[str], VOC: set[str], ACC: set[str], GEN: set[str]}
 
-numbers = dict[SG: cases, PL: cases]
+numbers = {SG: cases, PL: cases}
 
-declension_forms_type = dict[FEM: numbers, MASC: numbers, NEUT: numbers]
+declension_forms_type = {FEM: numbers, MASC: numbers, NEUT: numbers}
 
-adjective_basic_forms = dict[ADJ: str, COMPARATIVE: str, ADVERB: str, ADVERB_COMPARATIVE: str]
+adjective_basic_forms = {ADJ: str, COMPARATIVE: str, ADVERB: str, ADVERB_COMPARATIVE: str}
 
-noun_basic_forms = dict[NOM_SG: str, GEN_SG: str, NOM_PL: str, GENDERS: list[genderType], PROPER_NAME: bool]
+noun_basic_forms = {NOM_SG: str, GEN_SG: str, NOM_PL: str, GENDERS: list[genderType], PROPER_NAME: bool}
 
-recognized_conjugation_type = dict[ASPECT: aspectType, VOICE: voiceType, TENSE: tenseType,
-                                   ROOT: str, CONJUGATION_IND: str, CONJUGATION_IMP: str, CONJUGATION_PART: str]
+recognized_conjugation_type = {ASPECT: aspectType, VOICE: voiceType, TENSE: tenseType,
+                               ROOT: str, CONJUGATION_IND: str, CONJUGATION_IMP: str, CONJUGATION_PART: str}
+
+basic_forms_type = {ACT_PRES_PARTICIPLE: set[str],
+                    ACTIVE_AORIST_PARTICIPLE: set[str],
+                    AORIST: {ACTIVE: set[str],
+                            PASSIVE: set[str]},
+                    ARCH_ACT_PRES_PARTICIPLE: set[str],
+                    CONJUNCTIVE: {ACTIVE: set[str], PASSIVE: set[str]},
+                    MODAL: bool,
+                    PRES_CONJUGATION: str,
+                    PARATATIKOS: {ACTIVE: set[str], PASSIVE: set[str]},
+                    PASSIVE_AORIST_PARTICIPLE: set[str],
+                    PASSIVE_PERFECT_PARTICIPLE: set[str],
+                    PRESENT: {ACTIVE: set[str], PASSIVE: set[str]}}
+
+personal_forms_type = {SG: {PRI: set[str], SEC: set[str], TER: set[str]},
+                       PL: {PRI: set[str], SEC: set[str], TER: set[str]}}
+
+voice_forms_imp_type = {ACTIVE: {IND: personal_forms_type, IMP: personal_forms_type}, PASSIVE: {IND: personal_forms_type, IMP: personal_forms_type}}
+voice_forms_type = {ACTIVE: {IND: personal_forms_type}, PASSIVE: {IND: personal_forms_type}}
+
+participles_type = {ARCH_ACT_PRES_PARTICIPLE: declension_forms_type, PASSIVE_PERFECT_PARTICIPLE: declension_forms_type, PASS_PRES_PARTICIPLE: declension_forms_type, ACTIVE_AORIST_PARTICIPLE: declension_forms_type, PASSIVE_AORIST_PARTICIPLE: declension_forms_type, ACT_PRES_PARTICIPLE: set[str]}
 
 
-basic_forms_type = dict[ACT_PRES_PARTICIPLE: set[str],
-                        ACTIVE_AORIST_PARTICIPLE: set[str],
-                        AORIST: dict[ACTIVE: set[str],
-                                     PASSIVE: set[str]],
-                        ARCH_ACT_PRES_PARTICIPLE: set[str],
-                        CONJUNCTIVE: dict[ACTIVE: set[str], PASSIVE: set[str]],
-                        MODAL: bool,
-                        PRES_CONJUGATION: str,
-                        PARATATIKOS: dict[ACTIVE: set[str], PASSIVE: set[str]],
-                        PASSIVE_AORIST_PARTICIPLE: set[str],
-                        PASSIVE_PERFECT_PARTICIPLE: set[str],
-                        PRESENT: dict[ACTIVE: set[str], PASSIVE: set[str]]]
-
-personal_forms_type = dict[SG: dict[PRI: list[str], SEC: list[str], TER: list[str]],
-                           PL: dict[PRI: list[str], SEC: list[str], TER: list[str]]]
 
 # adjective_type = dict[]
 

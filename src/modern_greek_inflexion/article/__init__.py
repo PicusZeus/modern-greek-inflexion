@@ -6,20 +6,23 @@ from ..resources.typing import declension_forms_type
 
 class Article:
     """
-    This class creates article, it is of course overkill, since it returns preexisting inflected forms, but added
-    for the sake of completion of the API
+    This class creates article, it is an overkill, since it returns already created inflected forms, but added
+    for the sake of completion of the API. Instantiate it with one of the articles (has to be nominative singular masculine)
+
+    :param article: ο or ένας
+    :type article: str
     """
     def __init__(self, article: str):
-        """
-        :param article: ο or ένας
-        """
+
         article = convert_to_monotonic(article)
         self.article = article
 
     def all(self) -> declension_forms_type:
         """
-        It returns existing dictionary with inflected article
-        :return: A dictionary {ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}, ...},
+        It returns a dictionary with inflected article forms
+
+        :return: A dictionary of the folloing shape ``{SG: {MASC: {NOM: set(forms), ...}, ...}, ...}``
+        :rtype: dict
         """
         if self.article not in ['ο', 'ένας']:
             raise Exception("it's not a Greek article")

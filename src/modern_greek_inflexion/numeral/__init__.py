@@ -6,35 +6,37 @@ from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from ..adjective import Adjective
 from ..noun import Noun
 from ..resources import greek_pattern
+from ..resources.numerals import cardinal_irregulars
 from ..resources.variables import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..exceptions import NotInGreekException
 from ..resources.typing import declension_forms_type
 
-cardinal_irregulars = ['δεύτερος', 'τρίτος', 'τέταρτος', 'πέμπτος', 'έκτος', 'έβδομος', 'όγδοος', 'ένατος', 'δέκατος']
-
 
 class Numeral:
     """
-    This class creates numeral
+    This class can be used to create inflected forms of numerals. Most numerals behave like adjectives, but there are also ones, that can be viewed as nouns, because of that you should supply this info during instantiation, but you can also hope that it will be correctly guessed by algorithm.
+
+    :param numeral: nominative singular or plural
+    :type numeral: str
+    :param pos: if you know it is a noun numeral, set it to 'noun', otherwise set 'adj' or leave it out.
+    :type pos: str, optional
     """
     def __init__(self, numeral: str, pos: str = ADJ):
-        """
 
-        :param numeral: str, nom singular or plural
-        :param pos: Either ADJ or NOUN
-        """
         numeral = convert_to_monotonic(numeral, one_syllable_rule=False)
         if not greek_pattern.match(numeral):
             raise NotInGreekException
         self.numeral = numeral
         self.pos = pos
 
-    def all(self) -> dict[ADJ: declension_forms_type] | declension_forms_type:
+    def all(self) -> {ADJ: declension_forms_type, ADV: set[str], COMP: declension_forms_type, COMP_ADV: set[str],
+                      SUPERL: declension_forms_type, SUPERL_ADV: set[str]} | declension_forms_type:
         """
-        Numerals can be divided into adjective types or noun types
-        :return: If numeral is of noun type it returns a dictionary {SG: {MASC: {NOM: set(forms), ...}, ...},
-        if numeral is of adjective type it returns a dictionary {ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}}
+        This method will create all the inflected forms.
+
+        :return: If numeral is of noun type it returns a dictionary of the following shape ``{SG: {MASC: {NOM: set(forms), ...}, ...}``, but if the numeral is of adjective type it returns a dictionary of this shape ''{ADJ: {SG: {MASC: {NOM: set(forms), ...}, ...}}''
+        "rtype: dict
         """
         if self.pos == ADJ:
             if self.numeral[-2:] in ['ος', 'ός']:

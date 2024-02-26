@@ -25,8 +25,7 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 
 def create_all_adj_forms(adj: str) -> tuple[declension_forms_type, declension_forms_type | None]:
     """
-    :param adj: expects masc, fem and neut forms divided with slash / (eg 'ωραίος/ωραία/ωραίο).
-    If feminine doesn't exist, it should be replaced with dash '-'.
+    :param adj: expects masc, fem and neut forms divided with slash / (eg 'ωραίος/ωραία/ωραίο). If feminine doesn't exist, it should be replaced with dash '-'.
     :return: two element tuple, first is a dictionary with all primary forms (forms[number][gender][case], the second
     one is a dictionary with alternative forms, if exists it has the same structure as the first dictionary
     """
