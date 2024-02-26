@@ -2,6 +2,8 @@
 ![Downloads](https://img.shields.io/pypi/dm/modern-greek-inflexion)
 ![python version](https://img.shields.io/pypi/pyversions/modern-greek-inflexion)
 ![GitHub License](https://img.shields.io/github/license/picuszeus/modern-greek-inflexion)
+[![Documentation Status](https://readthedocs.org/projects/modern-greek-inflexion/badge/?version=latest)](https://modern-greek-inflexion.readthedocs.io/en/latest/?badge=latest)
+
 # Modern-greek-inflexion
 
 Python 3 library for creating inflected forms for Modern Greek words (verbs, adjectives, nouns etc.).
@@ -18,6 +20,8 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install modern-
 pip install modern-greek-inflexion
 ```
 
+## Usage
+You can read the docs [here](https://github.com/PicusZeus/modern-greek-inflexion.git)
 
 ## Unittests
 run 
@@ -30,7 +34,7 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
- * 2.0.0 Major code refactoring with changes that break previous API. Code is quicker by about 25%, better structured, new docs.
+ * 2.0.0 Major code refactoring with changes that break previous API. Code is quicker by about 25%, better readability, new docs, before migrating, read usage docs.
  * 1.0.6 Minor fixes and dependency update
  * 1.0.5 A bug, that caused problems in aorist formation for compound verbs from βαίνω fixed.
  * 1.0.4 Added logic for multiple root formation in verbs on -άρω (σοκάρω, σοκαρίζω, σοκαρίσω), now the app will try to create also imperfect forms with a root on 'ιζ'. The Experiment with extending the core language check corpus failed miserably, as all the corpora I tried (even these from the EU) are unfortunately full of typos and orthographic errors, which, when used, introduced into the app huge problems. Next time I will try to use some NLTK magic and frequency lists to try them again.
