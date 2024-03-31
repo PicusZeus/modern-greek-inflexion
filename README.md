@@ -21,7 +21,7 @@ pip install modern-greek-inflexion
 ```
 
 ## Usage
-You can read the docs [here](https://github.com/PicusZeus/modern-greek-inflexion.git)
+You can read the docs [here](https://modern-greek-inflexion.readthedocs.io/en/latest/)
 
 ## Unittests
 run 
