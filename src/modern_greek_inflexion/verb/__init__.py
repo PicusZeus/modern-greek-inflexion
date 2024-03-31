@@ -7,7 +7,7 @@ from modern_greek_inflexion.verb.helpers import merging_all_dictionaries, dict_o
 from modern_greek_inflexion.verb.create.forms.basic.create_basic_all_forms import create_all_basic_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..resources.typing import basic_forms_type, voice_forms_imp_type, voice_forms_type, participles_type, \
-    declension_forms_type
+    genders_declensions_type
 from ..resources.variables import *
 from modern_greek_inflexion.resources import greek_pattern
 from modern_greek_inflexion.exceptions import NotInGreekException
@@ -178,7 +178,7 @@ class Verb:
                 participles[participle_type] = merging_all_dictionaries(*participles_of_type)
         return participles
 
-    def all(self) -> {PRESENT: voice_forms_imp_type, CONJUNCTIVE: voice_forms_imp_type, PARATATIKOS: voice_forms_type, AORIST: voice_forms_type, ARCH_ACT_PRES_PARTICIPLE: declension_forms_type, PASSIVE_PERFECT_PARTICIPLE: declension_forms_type, PASS_PRES_PARTICIPLE: declension_forms_type, ACTIVE_AORIST_PARTICIPLE: declension_forms_type, PASSIVE_AORIST_PARTICIPLE: declension_forms_type, ACT_PRES_PARTICIPLE: set[str]}:
+    def all(self) -> {PRESENT: voice_forms_imp_type, CONJUNCTIVE: voice_forms_imp_type, PARATATIKOS: voice_forms_type, AORIST: voice_forms_type, ARCH_ACT_PRES_PARTICIPLE: genders_declensions_type, PASSIVE_PERFECT_PARTICIPLE: genders_declensions_type, PASS_PRES_PARTICIPLE: genders_declensions_type, ACTIVE_AORIST_PARTICIPLE: genders_declensions_type, PASSIVE_AORIST_PARTICIPLE: genders_declensions_type, ACT_PRES_PARTICIPLE: set[str]}:
         """
         This method will create all inflected forms
 

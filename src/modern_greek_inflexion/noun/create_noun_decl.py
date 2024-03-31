@@ -1,13 +1,13 @@
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent, count_syllables, remove_all_diacritics
 from modern_greek_accentuation.resources import vowels
 from ..resources import greek_corpus
-from ..resources.typing import declension_forms_type, genderBasicType
+from ..resources.typing import genders_declensions_type, genderBasicType
 from ..resources.variables import *
 from ..resources.noun import irregular_gen_sg, irregular_voc_sg, noun_grammar_lists
 
 
 def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[genderBasicType],
-                          proper_name: bool = False) -> declension_forms_type:
+                          proper_name: bool = False) -> genders_declensions_type:
     """
     :param nom_sg: nominative singular
     :param gen_sg: genitive singular

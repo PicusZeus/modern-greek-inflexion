@@ -4,7 +4,7 @@ from .create_noun_basic import create_all_basic_forms
 from .create_noun_decl import create_all_noun_forms
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
-from ..resources.typing import genderType, noun_basic_forms, declension_forms_type
+from ..resources.typing import genderType, noun_basic_forms, genders_declensions_type
 
 
 class Noun:
@@ -36,7 +36,7 @@ class Noun:
         else:
             self.basic_forms = basic_forms
 
-    def all(self) -> declension_forms_type:
+    def all(self) -> genders_declensions_type:
 
         """
         Create all the inflected forms as a dictionary

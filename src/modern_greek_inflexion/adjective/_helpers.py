@@ -4,10 +4,10 @@ from modern_greek_accentuation.accentuation import put_accent, where_is_accent
 from modern_greek_accentuation.syllabify import count_syllables
 
 from modern_greek_inflexion.resources import PENULTIMATE
-from modern_greek_inflexion.resources.typing import declension_forms_type
+from modern_greek_inflexion.resources.typing import genders_declensions_type
 
 
-def put_accent_on_all_forms(forms: declension_forms_type, accent: AccentType) -> dict:
+def put_accent_on_all_forms(forms: genders_declensions_type, accent: AccentType) -> dict:
     """
     Put stress on all adjective forms
     :param forms: Dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}, ...}

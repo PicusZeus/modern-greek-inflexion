@@ -3,13 +3,13 @@ from copy import deepcopy
 from modern_greek_accentuation.accentuation import put_accent, put_accent_on_the_penultimate, put_accent_on_the_ultimate
 from modern_greek_inflexion.adjective._helpers import put_accent_on_all_forms
 from modern_greek_inflexion.resources import greek_corpus
-from modern_greek_inflexion.resources.typing import declension_forms_type
+from modern_greek_inflexion.resources.typing import genders_declensions_type, adj_declension_degree_type
 from modern_greek_inflexion.resources.variables import SG, FEM, NOM, ACC, GEN, VOC, NEUT, MASC, PL, ULTIMATE
 from modern_greek_accentuation._helpers import AccentType
 from modern_greek_inflexion.resources.adj import adj_basic_template_alt
 
 
-def alternative_forms_r(fem: str, accent: AccentType) -> declension_forms_type:
+def alternative_forms_r(fem: str, accent: AccentType) -> adj_declension_degree_type:
     """
 
     :param fem: feminine nom sg
@@ -28,7 +28,7 @@ def alternative_forms_r(fem: str, accent: AccentType) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_ios(adj: str) -> declension_forms_type:
+def alternative_forms_ios(adj: str) -> adj_declension_degree_type:
     """
     Alternatives for adjective that ends on 'ιος'
     :param adj: adj: str "masc/fem/neut"
@@ -60,7 +60,7 @@ def alternative_forms_ios(adj: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_us(adj: str) -> declension_forms_type:
+def alternative_forms_us(adj: str) -> adj_declension_degree_type:
 
     """
     Alternatives for the υς, ια, υ type
@@ -114,7 +114,7 @@ def alternative_forms_us(adj: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_us2(adj: str) -> declension_forms_type:
+def alternative_forms_us2(adj: str) -> adj_declension_degree_type:
     """
     Alternatives for the υς, ια, υ, only gen έος
     :param adj: str "masc/fem/neut"
@@ -133,9 +133,10 @@ def alternative_forms_us2(adj: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_fem_os(fem_os: str, accent: AccentType) -> declension_forms_type:
+def alternative_fem_os(fem_os: str, accent: AccentType) -> adj_declension_degree_type:
     """
     Alternative for feminine forms on -ος
+
     :param fem_os: nom sg
     :param accent: accent name
     :return: dictionary {gender: number: case: {forms}}
@@ -155,10 +156,11 @@ def alternative_fem_os(fem_os: str, accent: AccentType) -> declension_forms_type
     return put_accent_on_all_forms(alt_forms, accent)
 
 
-def alternative_forms_kxth(fem: str, accent: AccentType) -> declension_forms_type:
+def alternative_forms_kxth(fem: str, accent: AccentType) -> adj_declension_degree_type:
 
     """
     Alternatives feminine for adj with stem ending on κ, χ, θ (ια)
+
     :param fem: singular nominative
     :param accent:
     :return: dictionary {gender: number: case: {forms}}
@@ -179,9 +181,10 @@ def alternative_forms_kxth(fem: str, accent: AccentType) -> declension_forms_typ
     return alt_forms
 
 
-def alternative_forms_modern_3rd(adj: str) -> declension_forms_type:
+def alternative_forms_modern_3rd(adj: str) -> adj_declension_degree_type:
     """
     Alternatives for 3rd declension adjectives
+
     :param adj: str "masc/fem/neut"
     :return: dictionary {gender: number: case: {forms}}
     """
@@ -201,7 +204,7 @@ def alternative_forms_modern_3rd(adj: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_wn(adj: str) -> declension_forms_type:
+def alternative_forms_wn(adj: str) -> adj_declension_degree_type:
     """
     Alternatives for adj/participles on ων, ουσα, ον
     :param adj: str "masc/fem/neut"
@@ -245,7 +248,7 @@ def alternative_forms_wn(adj: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_tis(adj: str, stem: str) -> declension_forms_type:
+def alternative_forms_tis(adj: str, stem: str) -> adj_declension_degree_type:
     """
     Alternative forms for adjectives on ις, ις, ι
     :param adj: str "masc/fem/neut"
@@ -266,7 +269,7 @@ def alternative_forms_tis(adj: str, stem: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_onas(adj: str) -> declension_forms_type:
+def alternative_forms_onas(adj: str) -> adj_declension_degree_type:
     """
     Alternatives for adj on ωνας
     :param adj: str "masc/fem/neut"
@@ -292,7 +295,7 @@ def alternative_forms_onas(adj: str) -> declension_forms_type:
     return alt_forms
 
 
-def alternative_forms_ou(fem: str) -> declension_forms_type:
+def alternative_forms_ou(fem: str) -> adj_declension_degree_type:
     """
     Alternatives for feminine on ου
     :param fem: nom sg

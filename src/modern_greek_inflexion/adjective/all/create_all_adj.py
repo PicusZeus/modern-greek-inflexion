@@ -12,7 +12,7 @@ from modern_greek_inflexion.adjective.all.create_all_alt import alternative_form
 from modern_greek_inflexion.adjective._helpers import put_accent_on_all_forms, put_accent_on_unaccented_forms
 from modern_greek_inflexion.resources import greek_corpus
 from modern_greek_inflexion.resources.adj import adj_basic_template
-from modern_greek_inflexion.resources.typing import declension_forms_type
+from modern_greek_inflexion.resources.typing import genders_declensions_type, adj_declension_degree_type
 from modern_greek_inflexion.resources.variables import SG, PL, FEM, MASC, NEUT, NOM, GEN, ACC, VOC, ANTEPENULTIMATE, \
     ULTIMATE, PENULTIMATE
 
@@ -23,7 +23,7 @@ adj = {'adj': 'ωμός/ωμή/ωμό', 'comparative': 'ωμότερος/ωμό�
 """
 
 
-def create_all_adj_forms(adj: str) -> tuple[declension_forms_type, declension_forms_type | None]:
+def create_all_adj_forms(adj: str) -> tuple[adj_declension_degree_type, adj_declension_degree_type | None]:
     """
     :param adj: expects masc, fem and neut forms divided with slash / (eg 'ωραίος/ωραία/ωραίο). If feminine doesn't exist, it should be replaced with dash '-'.
     :return: two element tuple, first is a dictionary with all primary forms (forms[number][gender][case], the second
@@ -772,7 +772,7 @@ def create_all_adj_forms(adj: str) -> tuple[declension_forms_type, declension_fo
         return forms, None
 
 
-def create_all_comparative_forms(comp_or_super: str) -> declension_forms_type:
+def create_all_comparative_forms(comp_or_super: str) -> genders_declensions_type:
     """
     :param comp_or_super: one form ending in os
     :return: all forms in a dict

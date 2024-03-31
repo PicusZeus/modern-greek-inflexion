@@ -4,7 +4,7 @@ from ..resources import greek_pattern
 from ..resources.adv import irregular_adv
 from modern_greek_inflexion.resources.variables import ADV, COMP_ADV, ADJ, COMP, SUPERL, SUPERL_ADV
 from ..exceptions import NotInGreekException
-from ..resources.typing import declension_forms_type
+from ..resources.typing import genders_declensions_type, adj_declension_degree_type
 
 
 class Adverb:
@@ -22,8 +22,8 @@ class Adverb:
             raise NotInGreekException
         self.adverb = adverb
 
-    def all(self) -> {ADV: set[str], COMP_ADV: set[str], SUPERL_ADV: set[str], SUPERL: declension_forms_type,
-                      COMP: declension_forms_type}:
+    def all(self) -> {ADV: set[str], COMP_ADV: set[str], SUPERL_ADV: set[str], SUPERL: adj_declension_degree_type,
+                      COMP: adj_declension_degree_type}:
         """
         If an adverb is creates comparative and superlative degree, or even if it creates adjectival forms in comparative and superlative degree, they will be found in the resulting dictionary.
 

@@ -4,7 +4,7 @@ from ..exceptions import NotInGreekException
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
-from ..resources.typing import adjective_basic_forms, declension_forms_type
+from ..resources.typing import adj_basic_forms_type, genders_declensions_type, adj_declension_degree_type
 from ..resources.variables import ADJ, ADVERB, COMP, COMP_ADV, ADV, COMPARATIVE, ADVERB_COMPARATIVE, SUPERL, SUPERL_ADV
 from modern_greek_inflexion.resources import greek_pattern
 
@@ -21,7 +21,7 @@ class Adjective:
     :type basic_forms: dict, optional
     """
 
-    def __init__(self, adj: str, aklito: bool = False, basic_forms: dict = None):
+    def __init__(self, adj: str, aklito: bool = False, basic_forms: adj_basic_forms_type = None):
 
         self.adjective = adj
         adj = convert_to_monotonic(adj, one_syllable_rule=False)
@@ -34,10 +34,10 @@ class Adjective:
             self.basic_forms = create_all_basic_forms(adj, aklito)
 
     @staticmethod
-    def _adj(basic: str, adverb: str) -> tuple[declension_forms_type, set[str]]:
+    def _adj(basic: str, adverb: str) -> tuple[adj_declension_degree_type, set[str]]:
         """
         :param basic: "masc/fem/neut"
-        :param adverb: "adverb,alt_adverb
+        :param adverb: set adverb, alt_adverb
         :return: two element tuple, the first is a dictionary with all inflexion adjective forms with the following
         structure:{SG: {MASC: {NOM: set(forms), ...}, ...}, ...}, the second one is a set containing adverbs
         """
@@ -55,7 +55,7 @@ class Adjective:
 
         return adj, adv
 
-    def positive_degree(self) -> {ADJ: declension_forms_type, ADV: set[str]}:
+    def positive_degree(self) -> {ADJ: adj_declension_degree_type, ADV: set[str]}:
         """
         Creates positive degree forms
 
@@ -65,7 +65,7 @@ class Adjective:
         adj, adv = self._adj(self.basic_forms[ADJ], self.basic_forms[ADVERB])
         return {ADJ: adj, ADV: adv}
 
-    def _comp_degree(self, bas_compars: str) -> tuple[declension_forms_type, set[str]]:
+    def _comp_degree(self, bas_compars: str) -> tuple[adj_declension_degree_type, set[str]]:
         """
         Creates comparative degree forms
 
@@ -86,7 +86,7 @@ class Adjective:
 
         return all_comp_forms, all_adverbs
 
-    def comparative_degree(self) -> {COMP: declension_forms_type, COMP_ADV: set[str]}:
+    def comparative_degree(self) -> {COMP: adj_declension_degree_type, COMP_ADV: set[str]}:
         """
         Creates comparative degree forms
 
@@ -101,7 +101,8 @@ class Adjective:
                 comparative_forms, comparative_adv = self._comp_degree(compars)
                 return {COMP: comparative_forms, COMP_ADV: set(advs_compar.split(','))}
 
-    def superlative_degree(self) -> {SUPERL: declension_forms_type, SUPERL_ADV: set[str]}:
+    def superlative_degree(self) -> {SUPERL: adj_declension_degree_type, SUPERL_ADV: set[str]}:
+
         """
         Create superlative degree forms
 
@@ -116,8 +117,8 @@ class Adjective:
                 comparative_forms, comparative_adv = self._comp_degree(superlatives)
                 return {SUPERL: comparative_forms, SUPERL_ADV: set(advs_superlative.split(','))}
 
-    def all(self) -> {ADJ: declension_forms_type, ADV: set[str], COMP: declension_forms_type, COMP_ADV: set[str],
-                      SUPERL: declension_forms_type, SUPERL_ADV: set[str]}:
+    def all(self) -> {ADJ: adj_declension_degree_type, ADV: set[str], COMP: adj_declension_degree_type, COMP_ADV: set[str],
+                      SUPERL: adj_declension_degree_type, SUPERL_ADV: set[str]}:
         """
         Create all forms from a basic adjective form
 

@@ -1,7 +1,7 @@
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
 from ..resources.article import definite_article, indefinite_article
-from ..resources.typing import declension_forms_type
+from ..resources.typing import genders_declensions_type, adj_declension_degree_type
 
 
 class Article:
@@ -17,7 +17,7 @@ class Article:
         article = convert_to_monotonic(article)
         self.article = article
 
-    def all(self) -> declension_forms_type:
+    def all(self) -> adj_declension_degree_type:
         """
         It returns a dictionary with inflected article forms
 

@@ -4,11 +4,11 @@ from ..adjective import create_all_adj_forms
 from modern_greek_inflexion.verb.helpers import merging_all_dictionaries
 from ..resources.pronouns import *
 from ..resources import greek_corpus
-from ..resources.typing import declension_forms_type
+from ..resources.typing import genders_declensions_type
 from ..resources.variables import MASC, FEM, NEUT, SG, PL, ACC, NOM, GEN, VOC, ND
 
 
-def remove_vocatives(forms: declension_forms_type) -> declension_forms_type:
+def remove_vocatives(forms: genders_declensions_type) -> genders_declensions_type:
     """
     Removes vocatives, if a pronoun doesn't actually create vocatives
     :param forms: A dictionary {SG: {MASC: {NOM: set(forms), ...}, ...}
@@ -23,7 +23,7 @@ def remove_vocatives(forms: declension_forms_type) -> declension_forms_type:
     return forms
 
 
-def create_all_pron_forms(bas_forms: str, strong: bool = True) -> declension_forms_type:
+def create_all_pron_forms(bas_forms: str, strong: bool = True) -> genders_declensions_type:
     """
 
     :param bas_forms: str "masc/fem/neut"

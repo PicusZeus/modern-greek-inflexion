@@ -91,15 +91,24 @@ class Tenses(Enum):
     PAST = PAST
 
 
+cases_type = {NOM: set[str], VOC: set[str], ACC: set[str], GEN: set[str]}
+
+# adjective, pronouns itp
+
+genders_adj_type = {MASC: cases_type, FEM: cases_type, NEUT: cases_type}
+
+adj_declension_degree_type = {SG: genders_adj_type, PL: genders_adj_type}
+
+adj_basic_forms_type = {ADJ: str, COMPARATIVE: str, ADVERB: str, ADVERB_COMPARATIVE: str}
+
+
 tenseType = NewType("tenseType", Tenses)
 
 cases = {NOM: set[str], VOC: set[str], ACC: set[str], GEN: set[str]}
 
 numbers = {SG: cases, PL: cases}
 
-declension_forms_type = {FEM: numbers, MASC: numbers, NEUT: numbers}
-
-adjective_basic_forms = {ADJ: str, COMPARATIVE: str, ADVERB: str, ADVERB_COMPARATIVE: str}
+genders_declensions_type = {FEM: numbers, MASC: numbers, NEUT: numbers}
 
 noun_basic_forms = {NOM_SG: str, GEN_SG: str, NOM_PL: str, GENDERS: list[genderType], PROPER_NAME: bool}
 
@@ -125,27 +134,7 @@ personal_forms_type = {SG: {PRI: set[str], SEC: set[str], TER: set[str]},
 voice_forms_imp_type = {ACTIVE: {IND: personal_forms_type, IMP: personal_forms_type}, PASSIVE: {IND: personal_forms_type, IMP: personal_forms_type}}
 voice_forms_type = {ACTIVE: {IND: personal_forms_type}, PASSIVE: {IND: personal_forms_type}}
 
-participles_type = {ARCH_ACT_PRES_PARTICIPLE: declension_forms_type, PASSIVE_PERFECT_PARTICIPLE: declension_forms_type, PASS_PRES_PARTICIPLE: declension_forms_type, ACTIVE_AORIST_PARTICIPLE: declension_forms_type, PASSIVE_AORIST_PARTICIPLE: declension_forms_type, ACT_PRES_PARTICIPLE: set[str]}
+participles_type = {ARCH_ACT_PRES_PARTICIPLE: genders_declensions_type, PASSIVE_PERFECT_PARTICIPLE: genders_declensions_type, PASS_PRES_PARTICIPLE: genders_declensions_type, ACTIVE_AORIST_PARTICIPLE: genders_declensions_type, PASSIVE_AORIST_PARTICIPLE: genders_declensions_type, ACT_PRES_PARTICIPLE: set[str]}
 
 
 
-# adjective_type = dict[]
-
-# ADJ: masc, fem, neut
-# forms as a
-# string
-# divided
-# with / ('ωραίος/ωραία/ωραίο') if alternatives, they are added and
-# separated
-# with a coma
-# COMPARATIVE:
-# if exists in form parathetiko + ',' + alt_parathetiko + '/' + uperthetiko + ',' + alt_uperthetiko with
-# form
-# only in masc
-# sing
-# nom
-# ADVERB: adverb
-# form,
-# if alternatives, then separated with coma
-# ADVERB_COMPARATIVE:
-# if exists, adverb_parathetiko + ',' + alt_adverb_parathetiko + '/' + adverb_uperthetiko + ',' + alt_adverb_uperthetiko

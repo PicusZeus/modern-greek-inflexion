@@ -10,7 +10,7 @@ from ..resources.numerals import cardinal_irregulars
 from ..resources.variables import ADJ, ADV
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 from ..exceptions import NotInGreekException
-from ..resources.typing import declension_forms_type
+from ..resources.typing import genders_declensions_type
 
 
 class Numeral:
@@ -30,8 +30,8 @@ class Numeral:
         self.numeral = numeral
         self.pos = pos
 
-    def all(self) -> {ADJ: declension_forms_type, ADV: set[str], COMP: declension_forms_type, COMP_ADV: set[str],
-                      SUPERL: declension_forms_type, SUPERL_ADV: set[str]} | declension_forms_type:
+    def all(self) -> {ADJ: genders_declensions_type, ADV: set[str], COMP: genders_declensions_type, COMP_ADV: set[str],
+                      SUPERL: genders_declensions_type, SUPERL_ADV: set[str]} | genders_declensions_type:
         """
         This method will create all the inflected forms.
 

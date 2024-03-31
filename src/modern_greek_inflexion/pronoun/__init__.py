@@ -2,7 +2,7 @@ from .create_pron_basic import create_basic_forms
 from .create_pron_decl import create_all_pron_forms
 from modern_greek_accentuation.accentuation import convert_to_monotonic
 
-from ..resources.typing import declension_forms_type
+from ..resources.typing import genders_declensions_type
 
 
 class Pronoun:
@@ -20,7 +20,7 @@ class Pronoun:
         self.pronoun = pronoun
         self.strong = strong
 
-    def all(self) -> declension_forms_type:
+    def all(self) -> genders_declensions_type:
         """
         This method should be used to generate all the inflected forms
 
