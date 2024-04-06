@@ -240,12 +240,12 @@ def create_all_pron_forms(bas_forms: str, strong: bool = True) -> genders_declen
         elif masc == 'αλλήλων':
             forms = {PL: {
                 MASC: {
-                    GEN: 'αλλήλων',
-                    ACC: 'αλλήλους'
+                    GEN: {'αλλήλων'},
+                    ACC: {'αλλήλους'}
                 },
                 FEM: {
-                    GEN: 'αλλήλων',
-                    ACC: 'αλλήλες'
+                    GEN: {'αλλήλων'},
+                    ACC: {'αλλήλες'}
                 },
             }}
             return forms

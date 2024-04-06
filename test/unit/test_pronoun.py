@@ -71,6 +71,12 @@ class PronounTestAll(TestCase):
 
         )
 
+    def test_allhlwn(self):
+        self.assertDictEqual(
+            Pronoun('αλλήλων').all(),
+            {'pl': {'masc': {'gen': {'αλλήλων'}, 'acc': {'αλλήλους'}}, 'fem': {'gen': {'αλλήλων'}, 'acc': {'αλλήλες'}}}},
+        )
+
     def test_pron_autos(self):
         self.assertDictEqual(
             Pronoun('αυτός').all(),

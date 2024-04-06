@@ -34,6 +34,7 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
+ * 2.0.1 Fixed inconsistencies in the format of the output (in pronouns, where in some cases forms were given as string and not as set of strings)
  * 2.0.0 Major code refactoring with changes that break previous API. Code is quicker by about 25%, better readability, new docs, before migrating, read usage docs.
  * 1.0.6 Minor fixes and dependency update
  * 1.0.5 A bug, that caused problems in aorist formation for compound verbs from βαίνω fixed.

@@ -16,7 +16,7 @@ class Pronoun:
     """
     def __init__(self, pronoun: str, strong: bool = True):
 
-        pron = convert_to_monotonic(pronoun, one_syllable_rule=False)
+        pronoun = convert_to_monotonic(pronoun, one_syllable_rule=False)
         self.pronoun = pronoun
         self.strong = strong
 
@@ -28,4 +28,6 @@ class Pronoun:
         :rtype: dict
         """
         bas_form = create_basic_forms(self.pronoun)
+
         return create_all_pron_forms(bas_form, strong=self.strong)
+
