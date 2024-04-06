@@ -110,6 +110,13 @@ class VerbTestImperPass(TestCase):
             {'pl': {'sec': {'σκέφτεστε'}}, 'sg': {'sec': {'σκέφτου'}}}
         )
 
+    def test_zestainomai(self):
+        self.assertDictEqual(
+            imp_conj_pass('ζεσταίνω'),
+            {'pl': {'sec': {'ζεσταθείτε'}}, 'sg': {'sec': {'ζεστάσου'}}}
+
+        )
+
     def test_dexomai(self):
         self.assertDictEqual(
             imp_conj_pass('δέχομαι'),

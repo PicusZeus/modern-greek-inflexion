@@ -540,6 +540,16 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_paratygxanw(self):
+        self.assertDictEqual(
+            basic_verb('παρατυγχάνω'),
+            {'pres_conjugation': 'con1_act', 'present': {'active': {'παρατυγχάνω'}},
+             'conjunctive': {'active': {'παρατύχω'}}, 'aorist': {'active': {'παράτυχα'}},
+             'paratatikos': {'active': {'παρατύγχανα'}}, 'act_pres_participle': {'παρατυγχάνοντας'}, 'modal': False},
+
+            print(basic_verb('ζεσταίνω'))
+        )
+
     def test_verb_parablepw_dimotiko(self):
         self.assertDictEqual(
             basic_verb('παραβλέπω'),

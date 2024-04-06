@@ -56,17 +56,17 @@ def create_regular_perf_active_root(pres_form: str,
 
         if root[-3:] == 'αίν':
             perf_root = root[:-3] + 'ήσ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = root[:-3] + 'άσ'
-                if not active_subjunctive_sigmatic_exists(perf_root):
+                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                     perf_root = root[:-3] + 'άν'
                     if not active_subjunctive_exists(perf_root):
                         perf_root = root[:-3] + 'ύν'
                         if not active_subjunctive_exists(perf_root):
                             perf_root = root[:-3] + 'άξ'
-                            if not active_subjunctive_sigmatic_exists(perf_root):
+                            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                                 perf_root = root[:-3] + 'έσ'
-                                if not active_subjunctive_sigmatic_exists(perf_root):
+                                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                                     perf_root = ""
                                     if pres_form in ['χραίνω', 'πααίνω', 'κραίνω', 'πτωχαίνω', 'γλαφυραίνω', 'ξανταίνω',
                                                 'αναξαίνω', 'χλιαραίνω', 'ανταίνω']:
@@ -74,28 +74,28 @@ def create_regular_perf_active_root(pres_form: str,
                                         perf_root = ''
         elif root.endswith('άν'):
             perf_root = root[:-1] + 'σ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = root[:-2] + 'ήσ'
-                if not active_subjunctive_sigmatic_exists(perf_root):
+                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                     perf_root = root[:-1] + 'ξ'
-                    if not active_subjunctive_sigmatic_exists(perf_root):
+                    if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                         perf_root = root
 
         elif root.endswith('ών'):
             perf_root = root[:-1] + 'σ'
         elif root.endswith('ίν'):
             perf_root = root[:-1] + 'σ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
         elif root.endswith('έν'):
             perf_root = root[:-1] + 'σ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = root[:-2] + 'ήσ'
-                if not active_subjunctive_sigmatic_exists(perf_root):
+                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                     perf_root = ''
         elif root.endswith('ν') and root[-2] in vowels:
             perf_root = root[:-1] + 'σ'
-            if not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] == 'ύν':
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form) and root[-2:] == 'ύν':
                 perf_root = root
 
         elif root.endswith('έλν'):
@@ -125,29 +125,29 @@ def create_regular_perf_active_root(pres_form: str,
 
         elif root[-2:] in ['σσ', 'ττ', 'χν', 'γγ']:
             perf_root = root[:-2] + 'ξ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
         elif root[-2:] in ['φτ', 'πτ']:
             perf_root = root[:-2] + 'ψ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
         elif root[-1] in ['θ', 'δ', 'τ']:
             perf_root = root[:-1] + 'σ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
 
         elif root[-1] == 'ζ':
             perf_root = root[:-1] + 'ξ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = root[:-1] + 'σ'
                 if ((not root.endswith('ίζ') or not root.endswith('άζ')) and
-                        not active_subjunctive_sigmatic_exists(perf_root)):
+                        not active_subjunctive_sigmatic_exists(perf_root, pres_form)):
                     # if not check_perf_active_subjunctive_in_corpus(perf_root):
                     perf_root = ''
 
         elif root.endswith('σκ'):
             perf_root = root[:-2] + 'ξ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
 
         elif root[-1] in ['κ', 'χ', 'γ']:
@@ -155,19 +155,19 @@ def create_regular_perf_active_root(pres_form: str,
                 perf_root = root[:-2] + 'αγάγ'
             else:
                 perf_root = root[:-1] + 'ξ'
-                if not active_subjunctive_sigmatic_exists(perf_root):
+                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                     perf_root = ''
 
         elif root[-1] in ['β', 'π', 'φ']:
             perf_root = root[:-1] + 'ψ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
         elif root[-2:] in ['εύ', 'αύ']:
             perf_root = root[:-2] + put_accent_on_syllable(root[-2]) + 'ψ'
             # alternative stem on eus
             alternative_root = root + 'σ'
-            if active_subjunctive_sigmatic_exists(alternative_root):
-                if active_subjunctive_sigmatic_exists(perf_root):
+            if active_subjunctive_sigmatic_exists(alternative_root, pres_form):
+                if active_subjunctive_sigmatic_exists(perf_root, pres_form):
                     perf_root = ','.join([perf_root, alternative_root])
                     multiple_stems = True
                 else:
@@ -175,7 +175,7 @@ def create_regular_perf_active_root(pres_form: str,
 
         elif root[-1] in ['ύ', 'ί', 'έ']:
             perf_root = root + 'σ'
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = ''
 
         elif root.endswith('έλλ'):
@@ -240,35 +240,35 @@ def create_regular_perf_active_root(pres_form: str,
         if root[-2:] in ['χν', 'ρν', 'λν']:
             perf_root = root[:-1] + 'ήσ'
 
-        if active_subjunctive_sigmatic_exists(perf_root) and active_subjunctive_sigmatic_exists(root + 'ήξ'):
+        if active_subjunctive_sigmatic_exists(perf_root, pres_form) and active_subjunctive_sigmatic_exists(root + 'ήξ', pres_form):
             alternative_root = root + 'ήξ'
             perf_root = perf_root + ',' + alternative_root
 
-        elif not active_subjunctive_sigmatic_exists(perf_root):
+        elif not active_subjunctive_sigmatic_exists(perf_root, pres_form):
             perf_root = root + 'άσ'
             if root[-2:] in ['χν', 'ρν', 'λν']:
                 perf_root = root[:-1] + 'άσ'
 
-            if not active_subjunctive_sigmatic_exists(perf_root):
+            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                 perf_root = root + 'έσ'
-                if not active_subjunctive_sigmatic_exists(perf_root):
+                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                     perf_root = root + 'άξ'
-                    if active_subjunctive_sigmatic_exists(perf_root) and active_subjunctive_sigmatic_exists(
-                            root + 'ήξ'):
+                    if active_subjunctive_sigmatic_exists(perf_root, pres_form) and active_subjunctive_sigmatic_exists(
+                            root + 'ήξ', pres_form):
                         perf_root = perf_root + ',' + root + 'ήξ'
-                    elif not active_subjunctive_sigmatic_exists(perf_root):
+                    elif not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                         perf_root = root + 'έξ'
-                        if not active_subjunctive_sigmatic_exists(perf_root):
+                        if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                             perf_root = root + 'ήξ'
-                            if not active_subjunctive_sigmatic_exists(perf_root):
+                            if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                                 perf_root = root + 'ίσ'
-                                if not active_subjunctive_sigmatic_exists(perf_root) and root[-2:] in ['χν', 'ρν',
+                                if not active_subjunctive_sigmatic_exists(perf_root, pres_form) and root[-2:] in ['χν', 'ρν',
                                                                                                        'λν']:
                                     perf_root = root[:-1] + 'ίσ'
 
-                                if not active_subjunctive_sigmatic_exists(perf_root):
+                                if not active_subjunctive_sigmatic_exists(perf_root, pres_form):
                                     perf_root = root + 'ήσ'
-                                    if not active_subjunctive_sigmatic_exists(perf_root) and not pres_form.endswith('άω'):
+                                    if not active_subjunctive_sigmatic_exists(perf_root, pres_form) and not pres_form.endswith('άω'):
                                         perf_root = ''
         # special case for compounds with ποιω that are not in my db for some reasons
 

@@ -165,7 +165,7 @@ def active_subjunctive_exists(perf_root: str) -> bool:
     return first_person in greek_corpus or third_person in greek_corpus
 
 
-def active_subjunctive_sigmatic_exists(perf_root) -> bool:
+def active_subjunctive_sigmatic_exists(perf_root, pres_form) -> bool:
     """
     Helping function for checking if a supposed active root actually exists in the language corpus applicable only
     for sigmatic stems
@@ -176,7 +176,10 @@ def active_subjunctive_sigmatic_exists(perf_root) -> bool:
         perf_root = perf_root[2:]
     first_person = perf_root + 'ω'
     third_person = perf_root + 'ει'
-    imperative = perf_root + 'ου'
+    if pres_form.endswith('μαι'):
+        imperative = perf_root + 'ου'
+    else:
+        imperative = first_person
     return first_person in greek_corpus or third_person in greek_corpus or imperative in greek_corpus
 
 
