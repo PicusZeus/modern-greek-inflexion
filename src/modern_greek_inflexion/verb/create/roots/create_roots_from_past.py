@@ -14,8 +14,14 @@ def create_stem_from_augmented_past(past_form: str, pres_form: str) -> str:
         stem = past_form[:-1]
     else:
         return None
+
     deaugmented_stem = deaugment_stem(stem, pres_form)
-    deaugmented_stem_prefixed = deaugment_prefixed_form(stem)
+    if stem.startswith('παρα'):
+        deaugmented_stem_prefixed = deaugment_stem(stem[4:], pres_form[4:])
+        if deaugmented_stem_prefixed:
+            deaugmented_stem_prefixed = 'παρα' + deaugmented_stem_prefixed
+    else:
+        deaugmented_stem_prefixed = deaugment_prefixed_form(stem)
     if deaugmented_stem:
         return deaugmented_stem
     else:

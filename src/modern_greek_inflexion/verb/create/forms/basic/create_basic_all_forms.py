@@ -262,20 +262,20 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_ty
 
     present_participle_active_archaic = create_present_active_participle_arch(pres_form, root, pres_conjugation)
 
-    if present_participle_active_archaic and not modal:
+    if present_participle_active_archaic and not modal and not para:
         verb_temp[ARCH_ACT_PRES_PARTICIPLE] = set(present_participle_active_archaic.split(','))
 
     # pres part pass
 
     present_participle_passive = create_present_passive_participle(pres_form, root, pres_conjugation)
 
-    if present_participle_passive and not modal:
+    if present_participle_passive and not modal and not para:
         verb_temp[PASS_PRES_PARTICIPLE] = set(present_participle_passive.split(','))
 
     # passive_perfect_participles
 
     if (PASSIVE_PERFECT_PARTICIPLE in verb_temp and
-            verb_temp[PASSIVE_PERFECT_PARTICIPLE][-2:] in ['άς', 'άν'] and not modal):
+            verb_temp[PASSIVE_PERFECT_PARTICIPLE][-2:] in ['άς', 'άν'] and not modal and not para):
         # correcting improper categorization of part on an
 
         verb_temp[ACTIVE_AORIST_PARTICIPLE] = {act_root + 'άς/' + act_root + 'άσα/' + act_root + 'άν'}
@@ -283,19 +283,19 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_ty
 
     passive_perfect_participles = create_passive_perfect_participle(pres_form, root, act_root, passive_root)
 
-    if passive_perfect_participles and not modal:
+    if passive_perfect_participles and not modal and not para:
         verb_temp[PASSIVE_PERFECT_PARTICIPLE] = set(passive_perfect_participles.split(','))
 
     # active aorist participle
 
-    if act_root and not modal:
+    if act_root and not modal and not para:
 
         active_aorist_participle = create_active_aorist_participle(root, act_root)
         if active_aorist_participle:
             verb_temp[ACTIVE_AORIST_PARTICIPLE] = set(active_aorist_participle.split(','))
 
     # passive aorist participle
-    if passive_root and not modal:
+    if passive_root and not modal and not para:
 
         participles = set()
         for p_root in passive_root.split(','):

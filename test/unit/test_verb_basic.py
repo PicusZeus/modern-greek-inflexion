@@ -578,12 +578,10 @@ class VerbTestBasic(TestCase):
             Verb('παραβλέπω', para=True).basic_forms,
             {'act_pres_participle': {'παραβλέποντας'},
              'aorist': {'active': {'παραείδα'}, 'passive': {'παραειδώθηκα', 'παραϊδώθηκα'}},
-             'arch_act_pres_participle': {'παραβλέπων/παραβλέπουσα/παραβλέπον'},
              'conjunctive': {'active': {'παραδώ'}, 'passive': {'παραϊδωθώ'}},
              'modal': False,
              'pres_conjugation': 'con1_act',
              'paratatikos': {'active': {'παραέβλεπα', 'παράβλεπα'}, 'passive': {'παραβλεπόμουν'}},
-             'passive_perfect_participle': {'παραϊδωμένος/παραϊδωμένη/παραϊδωμένο'},
              'present': {'active': {'παραβλέπω'}, 'passive': {'παραβλέπομαι'}}},
 
         )
@@ -1826,10 +1824,7 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'παρακάτσω', 'παρακαθίσω'}},
              'modal': False,
              'pres_conjugation': 'con1_pass',
-
              'paratatikos': {'passive': {'παρακαθόμουν'}},
-             'pass_pres_participle': {'παρακαθούμενος/παρακαθούμενη/παρακαθούμενο'},
-             'passive_perfect_participle': {'παρακαθισμένος/παρακαθισμένη/παρακαθισμένο'},
              'present': {'passive': {'παρακάθομαι'}}}
         )
 
