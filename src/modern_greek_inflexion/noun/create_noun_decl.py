@@ -330,7 +330,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[g
 
                 noun_all[gender][PL][GEN] = ','.join(gen_pl)
 
-            elif nom_sg[-1:] == 'α' and gender == NEUT:
+            elif nom_sg[-1:] == 'α' and gender == NEUT and nom_sg != nom_pl:
                 noun_all[gender][SG][ACC] = nom_sg
                 gen_pl = ''
                 if nom_pl:

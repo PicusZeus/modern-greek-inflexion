@@ -22,6 +22,14 @@ class VerbTestBasic(TestCase):
 
         )
 
+    def test_verb_emyomai(self):
+        self.assertDictEqual(
+            basic_verb('εμπυούμαι'),
+            {'pres_conjugation': 'con2b_pass', 'present': {'passive': {'εμπυούμαι'}},
+             'paratatikos': {'passive': {'εμπυούμουν'}}, 'modal': False}
+
+        )
+
     def test_verb_synepairnw(self):
         self.assertDictEqual(
             basic_verb('συνεπαίρνω'),
@@ -547,7 +555,6 @@ class VerbTestBasic(TestCase):
              'conjunctive': {'active': {'παρατύχω'}}, 'aorist': {'active': {'παράτυχα'}},
              'paratatikos': {'active': {'παρατύγχανα'}}, 'act_pres_participle': {'παρατυγχάνοντας'}, 'modal': False},
 
-            print(basic_verb('ζεσταίνω'))
         )
 
     def test_verb_parablepw_dimotiko(self):

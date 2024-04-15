@@ -23,9 +23,17 @@ class NounTests(TestCase):
                      'pl': {'nom': {'γυναίκες'}, 'gen': {'γυναικών'}, 'voc': {'γυναίκες'}, 'acc': {'γυναίκες'}}}},
         )
 
+    def test_noun_deka(self):
+        self.assertDictEqual(
+            Noun('δέκα', gender=NEUT, aklito='aklito').all(),
+            {'neut': {'pl': {'nom': {'δέκα'}, 'voc': {'δέκα'}, 'gen': {'δέκα'}, 'acc': {'δέκα'}},
+                      'sg': {'nom': {'δέκα'}, 'voc': {'δέκα'}, 'gen': {'δέκα'}, 'acc': {'δέκα'}}}}
+
+        )
+
     def test_noun_rhgas(self):
         self.assertDictEqual(
-            Noun('ρήγας', gender='masc').all(),
+            Noun('ρήγας', gender=MASC).all(),
             {'masc':
                  {'sg': {'nom': {'ρήγας'}, 'gen': {'ρήγα'}, 'voc': {'ρήγα'}, 'acc': {'ρήγα'}},
                   'pl': {'nom': {'ρηγάδες'}, 'gen': {'ρηγάδων'}, 'voc': {'ρηγάδες'}, 'acc': {'ρηγάδες'}}}})
