@@ -7,13 +7,14 @@ from ..resources.noun import irregular_gen_sg, irregular_voc_sg, noun_grammar_li
 
 
 def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[genderBasicType],
-                          proper_name: bool = False) -> genders_declensions_type:
+                          proper_name: bool = False, aklito=False) -> genders_declensions_type:
     """
     :param nom_sg: nominative singular
     :param gen_sg: genitive singular
     :param nom_pl: nominative plural
     :param genders: a list with gender variables (FEM, MASC, NEUT)
     :param proper_name: flag useful for creation of vocatives in proper names
+    :param aklito: noun is indeclinable
     :return: A dictionary {MASC: {SG: {NOM: str, ...}, ...}, ...}
     """
 
@@ -330,7 +331,7 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[g
 
                 noun_all[gender][PL][GEN] = ','.join(gen_pl)
 
-            elif nom_sg[-1:] == 'α' and gender == NEUT and nom_sg != nom_pl:
+            elif nom_sg[-1:] == 'α' and gender == NEUT and nom_sg != nom_pl and not aklito:
                 noun_all[gender][SG][ACC] = nom_sg
                 gen_pl = ''
                 if nom_pl:
@@ -532,6 +533,9 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[g
                     noun_all[gender][SG][ACC] = nom_sg
                     gen_pl = put_accent(nom_pl[:-1] + 'ων', PENULTIMATE)
                     noun_all[gender][PL][GEN] = gen_pl
+
+            elif aklito and nom_pl:
+                noun_all[gender][PL][GEN] = nom_pl
 
             elif not nom_sg and (nom_pl[-2:] in ['ες', 'οι', 'ές', 'οί', 'αι', 'αί'] or
                                  nom_pl[-1:] in ['α', 'η', 'ά', 'ή'] or

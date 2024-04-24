@@ -40,7 +40,7 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: gender
     noun = convert_to_monotonic(noun, one_syllable_rule=False)
     if not greek_pattern.match(noun):
         raise NotInGreekException
-    noun_temp = {NOM_SG: noun, GEN_SG: '', NOM_PL: '', GENDERS: []}
+    noun_temp = {NOM_SG: noun, GEN_SG: '', NOM_PL: '', GENDERS: [], "aklito": aklito}
 
     if not gender:
         if noun in nouns_masc_fem:

@@ -45,6 +45,14 @@ class NounTests(TestCase):
                       'sg': {'voc': {'μπούσι'}, 'acc': {'μπούσι'}, 'gen': {''}, 'nom': {'μπούσι'}}}}
         )
 
+    def test_noun_tha(self):
+        self.assertDictEqual(
+            Noun('θα', gender=NEUT_PL, aklito=True).all(),
+            {'neut': {'sg': {'gen': {''}, 'acc': {''}, 'nom': {''}, 'voc': {''}},
+                      'pl': {'acc': {'θα'}, 'gen': {'θα'}, 'nom': {'θα'}, 'voc': {'θα'}}}}
+
+        )
+
     def test_noun_gialakias(self):
         self.assertDictEqual(
             Noun('γυαλάκιας').all(),
