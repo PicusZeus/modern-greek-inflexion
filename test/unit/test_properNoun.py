@@ -12,6 +12,20 @@ class ProperNounTests(TestCase):
                       'sg': {'gen': {'Νίκου'}, 'nom': {'Νίκος'}, 'acc': {'Νίκο'}, 'voc': {'Νίκο'}}}},
         )
 
+    def test_Καλανδίων(self):
+        self.assertDictEqual(
+            Noun('Καλανδίων', gender=MASC, proper_name=True).all(),
+            {'masc': {'pl': {'acc': {'Καλανδίωνες'},
+                             'gen': {'Καλανδιώνων'},
+                             'nom': {'Καλανδίωνες'},
+                             'voc': {'Καλανδίωνες'}},
+                      'sg': {'acc': {'Καλανδίωνα'},
+                             'gen': {'Καλανδίωνος'},
+                             'nom': {'Καλανδίων'},
+                             'voc': {'Καλανδίων'}}}}
+
+        )
+
     def test_Kekrops(self):
         self.assertDictEqual(
             Noun('Κέκρωψ', proper_name=True, gender=MASC).all(),
@@ -47,7 +61,9 @@ class ProperNounTests(TestCase):
                              )
 
     def test_Gnwmwn(self):
+        self.maxDiff = None
         self.assertDictEqual(
+
             Noun('Γνώμων', proper_name=True).all(),
             {'masc': {'pl': {'acc': {'Γνώμονες'},
                              'gen': {'Γνωμόνων'},
@@ -56,8 +72,7 @@ class ProperNounTests(TestCase):
                       'sg': {'acc': {'Γνώμονα'},
                              'gen': {'Γνώμονος'},
                              'nom': {'Γνώμων'},
-                             'voc': {'Γνώμων'}}}}
-
+                             'voc': {'Γνώμων'}}}},
         )
 
     def test_Ταώς(self):

@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from modern_greek_accentuation.accentuation import where_is_accent, put_accent_on_the_penultimate, \
     put_accent_on_the_antepenultimate, put_accent_on_the_ultimate, count_syllables, remove_all_diacritics, \
     put_accent, remove_diaer
@@ -817,6 +816,11 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: gender
                 noun_temp[NOM_PL] = plural_form
                 noun_temp[GEN_SG] = gen_form
 
+        elif gender == MASC and noun.lower() == noun and noun[-2:] in ['ών', 'ων']:
+            "especially for names, which can be lacking from greek corpus"
+            noun_temp[NOM_PL] = noun + 'ες'
+            noun_temp[GEN_SG] = noun + 'ος'
+
         else:
 
             noun_temp[GENDERS] = [NEUT]
@@ -921,7 +925,7 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: gender
                 res = create_all_basic_forms(noun[pr_l:])
                 new_res = {}
                 for key in res.keys():
-                    if key != GENDERS:
+                    if key not in [GENDERS, 'aklito']:
                         new_res[key] = prefix + res[key]
                 new_res[GENDERS] = res[GENDERS]
                 noun_temp = new_res
