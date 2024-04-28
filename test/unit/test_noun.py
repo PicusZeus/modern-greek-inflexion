@@ -10,9 +10,9 @@ class NounTests(TestCase):
         self.assertDictEqual(
             Noun('κάλως', gender=MASC).all(),
             {'masc': {'sg': {'nom': {'κάλως'},
-                             'acc': {'κάλω'},
+                             'acc': {'κάλων'},
                              'gen': {'κάλω'}, 'voc': {'κάλως'}},
-                      'pl': {'nom': {'κάλως'}, 'acc': {'κάλως'}, 'voc': {'κάλως'}, 'gen': {'κάλων'}}}},
+                      'pl': {'nom': {'κάλω'}, 'acc': {'κάλως'}, 'voc': {'κάλω'}, 'gen': {'κάλων'}}}},
         )
 
     def test_noun_gynaika(self):
@@ -507,8 +507,7 @@ class NounTests(TestCase):
                       'sg': {'acc': {'υπεζωκότα'},
                              'gen': {'υπεζωκότος'},
                              'nom': {'υπεζωκώς'},
-                             'voc': {'υπεζωκώς'}}}}
-
+                             'voc': {'υπεζωκώς'}}}},
         )
 
     def test_noun_therapeuon(self):

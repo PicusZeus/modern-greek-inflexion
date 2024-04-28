@@ -31,7 +31,6 @@ irregular_nouns = {'σέβας': {NOM_SG: 'σέβας', NOM_PL: 'σέβη', GEN_
                    'γη': {NOM_SG: 'γη', NOM_PL: 'γαίες', GEN_SG: 'γης', GENDERS: [FEM]},
                    'αλλάς': {NOM_SG: 'αλλάς', NOM_PL: 'αλλάντες', GEN_SG: 'αλλάντος', GENDERS: [MASC]},
                    'χρως': {NOM_SG: 'χρως', NOM_PL: '', GEN_SG: 'χρωτός,χρωός', GENDERS: [MASC]},
-                   'κάλως': {NOM_SG: 'κάλως', NOM_PL: 'κάλως', GEN_SG: 'κάλω', GENDERS: [MASC]},
                    'μάνα': {NOM_SG: 'μάνα', NOM_PL: 'μάνες,μανάδες', GEN_SG: 'μάνας', GENDERS: [FEM]},
                    'πλάνης': {NOM_SG: 'πλάνης', NOM_PL: 'πλάνητες', GEN_SG: 'πλάνητος', GENDERS: [MASC, FEM]},
                    'άστυ': {NOM_SG: 'άστυ', NOM_PL: 'άστη', GEN_SG: 'άστεως', GENDERS: [NEUT]},

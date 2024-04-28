@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from modern_greek_inflexion.resources.variables import MASC, SURNAME, FEM, FEM_SG
+from modern_greek_inflexion.resources.variables import MASC, SURNAME, FEM, FEM_SG, MASC_SG
 from modern_greek_inflexion import Noun
 
 
@@ -58,6 +58,16 @@ class ProperNounTests(TestCase):
                              'nom': {'Γνώμων'},
                              'voc': {'Γνώμων'}}}}
 
+        )
+
+    def test_Ταώς(self):
+        self.assertDictEqual(
+            Noun('Ταώς', proper_name=True, gender=MASC_SG).all(),
+            {'masc': {'pl': {'acc': {''}, 'nom': {''}, 'voc': {''}},
+                      'sg': {'acc': {'Ταών'},
+                             'gen': {'Ταώ'},
+                             'nom': {'Ταώς'},
+                             'voc': {'Ταώς'}}}}
         )
 
     def test_Yios(self):

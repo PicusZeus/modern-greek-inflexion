@@ -431,11 +431,16 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[g
                 noun_all[gender][SG][VOC] = nom_sg[:-1]
                 noun_all[gender][PL][GEN] = gen_sg[:-1] + 'ν'
 
-            elif nom_sg[-2:] == 'ως' and gen_sg[-1] == 'ω':
-
-                noun_all[gender][SG][ACC] = gen_sg
+            elif nom_sg[-2:] in ['ως', 'ώς'] and gen_sg[-1] in ['ω', 'ώ']:
+                if nom_sg in ["Άθως", "άλως", "Κέως", "Κώς", "λαγώς", "Μίνως", "Τέως"]:
+                    noun_all[gender][SG][ACC] = gen_sg
+                else:
+                    noun_all[gender][SG][ACC] = gen_sg + 'ν'
                 noun_all[gender][SG][VOC] = nom_sg
-                noun_all[gender][PL][GEN] = gen_sg + 'ν'
+                if nom_pl:
+                    noun_all[gender][PL][GEN] = gen_sg + 'ν'
+                    noun_all[gender][PL][ACC] = nom_sg
+
 
             elif nom_sg == nom_pl:
                 # aklita

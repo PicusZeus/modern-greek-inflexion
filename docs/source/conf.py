@@ -13,7 +13,7 @@ sys.path.insert(-1,'../../src')
 project = 'Modern Greek Inflexion'
 copyright = '2024, Krzysztof Hilman'
 author = 'Krzysztof Hilman'
-release = '2.0.4'
+release = '2.0.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

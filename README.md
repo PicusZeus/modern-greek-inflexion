@@ -34,6 +34,7 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
+ * 2.0.5 Improvements in handling of archaic attic declension on -ως
  * 2.0.4 Fixed bug that caused incorrect creation of gen pl for some indeclinable nouns.
  * 2.0.3 Fixed issue with augmentation of dimotic verbs prefixed with 'para'. Also forcibly removed katharevousan types from such verbs. Fixed issue with indeclinable nouns ending on 'a', for which previously erroneously gen pl with ων ending was being created.
  * 2.0.2 Fixed issue, when sigmatic aorist stem is created when it exists only for passive imperative (ζέστανα but ζεστάσου).

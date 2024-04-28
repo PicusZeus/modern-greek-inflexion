@@ -23,6 +23,7 @@ GENDERS = 'genders'
 
 def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: genderType = None,
                            proper_name: bool = False) -> noun_basic_forms:
+
     """
     :param noun: The noun you want to inflect has to be in its basic form, that is in nominative singular, or if it's
     plural only, in plural
@@ -655,6 +656,9 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: gender
 
     elif noun.endswith('ώς') and gender == FEM:
         noun_temp[GEN_SG] = noun[:-2] + 'ούς'
+    elif noun[-2:] in ['ώς', 'ως'] and gender in [MASC, MASC_SG] and noun[:-2] + 'ότας' not in greek_corpus:
+        noun_temp[GEN_SG] = noun[:-1]
+        noun_temp[NOM_PL] = noun[:-1]
 
     elif noun[-1] in ['ξ', 'ψ', 'τ', 'ρ', 'β', 'ν', 'δ', 'ε', 'έ', 'ζ', 'κ', 'λ', 'μ', 'ς'] and not aklito:
 
@@ -704,7 +708,7 @@ def create_all_basic_forms(noun: str, aklito: bool | str = False, gender: gender
 
         elif noun.endswith('ώς'):
             if not gender:
-                gender = [NEUT]
+                gender = NEUT
             # ουσιαστικοποιημένες αρχαίες μετοχές
             stems.append(noun[:-1] + 'τ')
             stems.append(noun[:-2] + 'ότ')
