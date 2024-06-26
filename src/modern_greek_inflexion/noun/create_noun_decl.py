@@ -189,7 +189,8 @@ def create_all_noun_forms(nom_sg: str, gen_sg: str, nom_pl: str, genders: list[g
                             noun_all[gender][SG][GEN] = logia_gen
                         else:
                             noun_all[gender][SG][GEN] = ','.join([gen_sg, logia_gen])
-                    elif logia_gen in greek_corpus:
+                    elif logia_gen in greek_corpus and nom_sg[:-2] + 'οι' not in greek_corpus:
+                        # laika on as, that are built from common nouns on -os should not get logia gen
                         noun_all[gender][SG][GEN] = ','.join([gen_sg, logia_gen])
                     else:
                         noun_all[gender][SG][GEN] = gen_sg

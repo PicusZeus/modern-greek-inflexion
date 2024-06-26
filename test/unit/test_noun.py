@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from icecream import ic
+
 from modern_greek_inflexion import Noun
 from modern_greek_inflexion.resources.variables import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
 
@@ -496,6 +498,23 @@ class NounTests(TestCase):
                             'voc': {'πείνα'}}}}
 
         )
+
+
+    def test_noun_anthropas(self):
+        # laika should not get a gen on os
+        self.assertDictEqual(
+            Noun("άνθρωπας", gender=MASC).all(),
+            {'masc': {'pl': {'acc': {'άνθρωπες'},
+                             'gen': {'ανθρώπων'},
+                             'nom': {'άνθρωπες'},
+                             'voc': {'άνθρωπες'}},
+                      'sg': {'acc': {'άνθρωπα'},
+                             'gen': {'άνθρωπα'},
+                             'nom': {'άνθρωπας'},
+                             'voc': {'άνθρωπα'}}}}
+
+        )
+
 
     def test_noun_upezwkws(self):
         self.assertDictEqual(
