@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from icecream import ic
-
 from modern_greek_inflexion import Noun
 from modern_greek_inflexion.resources.variables import MASC, NEUT, FEM, FEM_SG, NEUT_SG, NEUT_PL, MASC_FEM
 
