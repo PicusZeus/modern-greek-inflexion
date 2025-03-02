@@ -630,13 +630,18 @@ class VerbTestBasic(TestCase):
              'present': {'active': {'καταλαβαίνω'}, 'passive': {'καταλαβαίνομαι'}}}
 
         )
+    def test_verb_yparxw(self):
+        self.assertDictEqual(basic_verb('υπάρχω'),
+                             {'pres_conjugation': 'con1_act', 'present': {'active': {'υπάρχω'}}, 'conjunctive': {'active': {'υπάρξω'}}, 'aorist': {'active': {'υπήρξα'}}, 'paratatikos': {'active': {'υπήρχα'}}, 'act_pres_participle': {'υπάρχοντας'}, 'arch_act_pres_participle': {'υπάρχων/υπάρχουσα/υπάρχον'}, 'modal': False}
+
+                             ),
 
     def test_verb_synyparxw(self):
         self.maxDiff = None
         self.assertDictEqual(
             basic_verb('συνυπάρχω'),
             {'act_pres_participle': {'συνυπάρχοντας'},
-             'aorist': {'active': {'συνύπαρξα'}},
+             'aorist': {'active': {'συνυπήρξα'}},
              'arch_act_pres_participle': {'συνυπάρχων/συνυπάρχουσα/συνυπάρχον'},
              'conjunctive': {'active': {'συνυπάρξω'}},
              'modal': False,

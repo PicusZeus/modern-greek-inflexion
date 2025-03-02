@@ -67,7 +67,7 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_ty
                           'μέλπω', 'βαίνω', 'τέμνω', 'σπέρνω', 'σπείρω', 'αίρω', 'δίδομαι', 'δίδω', 'στέλλομαι',
                           'στέκομαι','τρέπομαι', 'αίρομαι', 'καθιστώ', 'καθίσταμαι', 'υφίσταμαι', 'κρέμαμαι',
                           'ίπταμαι', 'προσαρτώ', 'βιώ', 'επιμελούμαι', 'απολογούμαι', 'πυροδοτούμαι', 'επείγει',
-                          'υφαίνω']
+                          'υφαίνω', 'υπάρχω']
 
     """ 
     special case for common verbs with modern "para" prefix, which can be confused with ancient "para" and cause
@@ -93,7 +93,9 @@ def create_all_basic_forms(pres_form: str, para: bool = False) -> basic_forms_ty
 
     for pref in prefixes_before_augment:
         if pres_form.startswith(pref):
+
             without_prefix = remove_diaer(pres_form.replace(pref, ''))
+
             if without_prefix in archaic_detachable:
                 prefix = [pref, prefixes_before_augment[pref]]
 

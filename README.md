@@ -34,6 +34,7 @@ Please make sure to update tests as appropriate.
 
 
 ## Change Log
+ * 2.0.8 Added stems allowing for free prefixing "uparx".
  * 2.0.7 Laika forms of nouns on -as constructed from nouns on -os will not display logia gen on -os
  * 2.0.6 Wider support for proper names on -ων, now it is assumed that if these are masculine, their declension is ων, ωνος, ωνα
  * 2.0.5 Improvements in handling of archaic attic declension on -ως
