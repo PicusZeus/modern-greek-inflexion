@@ -14,8 +14,8 @@ definite_article = {
         },
         NEUT: {
             NOM: {'το'},
-            ACC: {'του'},
-            GEN: {'το'}
+            ACC: {'το'},
+            GEN: {'του'}
         }
     },
     PL: {
